@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Mykonos">
+
+
+
+
+
+<title>Hola,openEuler!（openEuler安装图形界面） | Silence to hear.</title>
+
+
+
+    <link rel="icon" href="/ico.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Mykonos-x&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Mykonos-x&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Hola,openEuler!（openEuler安装图形界面）</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Mykonos</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">June 29, 2021&nbsp;&nbsp;22:41:00</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="什么是openEuler"><a href="#什么是openEuler" class="headerlink" title="什么是openEuler"></a>什么是openEuler</h1><p>openEuler是一个开源免费的Linux发行版系统，通过开放的社区形式与全球的开发者共同构建一个开放、多元和架构包容的软件生态体系，openEuler同时是一个创新的系统，倡导客户在系统上提出创新想法、开拓新思路、实践新方案。</p>
+<h1 id="下载镜像"><a href="#下载镜像" class="headerlink" title="下载镜像"></a>下载镜像</h1><p><a target="_blank" rel="noopener" href="https://openeuler.org/zh/download/">https://openeuler.org/zh/download/</a><br>这里我下载的是openEuler 20.03 LTS SP1<br><img src="https://pic.imgdb.cn/item/60db27935132923bf8463f95.png"><br>里的openEuler-20.03-LTS-SP1-x86_64-dvd.iso</p>
+<h1 id="新建虚拟机"><a href="#新建虚拟机" class="headerlink" title="新建虚拟机"></a>新建虚拟机</h1><p>VMware新建虚拟机，选择openEuler镜像<br>我比较懒所以用的典型类型的配置<br>客户机操作系统：Linux<br>版本：其他Linux 5.x及更高版本内核64位<br>新建好虚拟机后就可以安装了</p>
+<p>#安装<br>STEP1——选择中文<br><img src="https://pic.imgdb.cn/item/60db28225132923bf84b2c81.png"><br>STEP2——有三个地方需要设置<br><img src="https://pic.imgdb.cn/item/60db27d95132923bf848a0aa.png"><br>1.安装位置<br>2.网络和主机名<br>3.Root密码<br>然后点击开始安装就好了<br><img src="https://img-blog.csdnimg.cn/2020112807082398.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpdW1pYW9jbg==,size_16,color_FFFFFF,t_70#pic_center"></p>
+<blockquote>
+<p>然而还没有结束</p>
+</blockquote>
+<p>openEuler是默认的文本界面，没有图形界面</p>
+<blockquote>
+<p>多少还是有点不习惯的</p>
+</blockquote>
+<p>于是乎</p>
+<h1 id="安装图形界面"><a href="#安装图形界面" class="headerlink" title="安装图形界面"></a>安装图形界面</h1><p>(这里不仅总结了安装图形界面的过程以及过程中遇到的麻烦问题和解决方法)</p>
+<h2 id="1-检查网络连接"><a href="#1-检查网络连接" class="headerlink" title="1.检查网络连接"></a>1.检查网络连接<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping www.baidu.com</span><br></pre></td></tr></table></figure></h2><blockquote>
+<p>如果出现<kbd>name or service not know</kbd>则进行以下步骤<br>1.添加DNS服务器<br><code>vi /etc/resolv.conf</code><br>进入编辑模式，增加如下两行内容，分别是首选DNS服务器和备选DNS服务器。（可以自己选择DNS服务器，包括谷歌的8.8.8.8或者腾讯的119.29.29.29都是可以的）<BR><code>nameserver 114.114.114.114</code><br><code>nameserver 114.114.114.115</code><BR>保存退出，再ping一次，如果还是报错，继续执行下一步<br>2.修改如下配置文件(文件名不同的客户端可能会不一样)<br><code>vi /etc/sysconfig/network-scprits/ifcfg-enp0s3</code><br>将ONBOOT&#x3D;no改成ONBOOT&#x3D;yes保存退出，重启网络<br><code>service network restart</code></p>
+</blockquote>
+<hr>
+<p>2.增加软件源<br><code>sudo vi /etc/yum.repos.d/openEuler_x86_64.repo</code><br>编辑软件源文件，最后加上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[base]</span><br><span class="line">name=base</span><br><span class="line">baseurl=https://repo.openeuler.org/openEuler-20.03-LTS/OS/x86_64/</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br></pre></td></tr></table></figure>
+
+<p>然后退出vi，输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+
+<h2 id="显示Metadata-cache-created就说明成功了，否则就检查下网络连接3-安装GNOME桌面依次输入"><a href="#显示Metadata-cache-created就说明成功了，否则就检查下网络连接3-安装GNOME桌面依次输入" class="headerlink" title="显示Metadata cache created就说明成功了，否则就检查下网络连接3.安装GNOME桌面依次输入"></a>显示Metadata cache created就说明成功了，否则就检查下网络连接<br>3.安装GNOME桌面<br>依次输入<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install gnome-shell gdm gnome-session gnome-terminal -y</span><br><span class="line">systemctl enable gdm.service                  //设置gdm自启</span><br><span class="line">systemctl set-default graphical.target        //修改启动级别为图形化</span><br></pre></td></tr></table></figure></h2><blockquote>
+<p>这里如果遇到<kbd>/etc/rc.d/rc/local is not marked executable,skipping</kbd><br>则确保rc.local是可执行的<br><code>sudo chmod +x /etc/rc.local</code><br>然后启动它<br><code>sudo systemctl enable rc-local.service</code><br>通过下面的命令重新启动系统或者手动启动脚本<br><code>sudo systemctl start  rc-local.service</code><br>接着就会看到<br><code>$ sudo systemctl status rc-local.service● rc-local.service - /etc/rc.local Compatibility Loaded: loaded (/lib/systemd/system/rc-local.service; static; vendor preset: enabled)  Drop-In: /lib/systemd/system/rc-local.service.d     └─debian.conf Active: active (running) since Mon 2018-04-02 10:39:44 -03; 1s ago Process: 2044 ExecStart=/etc/rc.local start (code=exited, status=0/SUCCESS) Main PID: 2049 (svscanboot) Tasks: 3 Memory: 556.0K CPU: 10ms CGroup: /system.slice/rc-local.service</code><br>问题解决</p>
+</blockquote>
+<hr>
+<p>4.接下来替换启动文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://zycxzx.obs.cn-east-3.myhuaweicloud.com/Xsession</span><br><span class="line">mv Xsession /etc/gdm/</span><br><span class="line">chmod -R 777 /etc/gdm/Xsession               //这个操作的原因是openEuler源里的gdm文件Xsession有问题，从网上下一个替换即可，否则图形化无法正常登录</span><br></pre></td></tr></table></figure>
+<p>最后reboot即可<br><img src="https://pic.imgdb.cn/item/60db28915132923bf84f10ff.png"><br><img src="https://pic.imgdb.cn/item/60db29055132923bf85337fe.png"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Mykonos</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://mykonos-x.github.io/2021/06/29/Hola-openEuler-%EF%BC%88openEuler%E5%AE%89%E8%A3%85%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%EF%BC%89/">http://mykonos-x.github.io/2021/06/29/Hola-openEuler-%EF%BC%88openEuler%E5%AE%89%E8%A3%85%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%EF%BC%89/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span><strong>You can go further</strong>.</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/solutions/"># solutions</a>
+                    
+                        <a href="/tags/openEuler/"># openEuler</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/12/19/For-Final-Exam-java-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%80%BB%E7%BB%93/">(For Final Exam)java 期末复习总结</a>
+            
+            
+            <a class="next" rel="next" href="/2021/06/29/REVERSE%E5%85%A5%E9%97%A8/">REVERSE入门</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Mykonos | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

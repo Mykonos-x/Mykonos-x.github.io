@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Mykonos">
+
+
+
+
+
+<title>ROPgadget安装及报错解决 | Silence to hear.</title>
+
+
+
+    <link rel="icon" href="/ico.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Mykonos-x&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Mykonos-x&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">ROPgadget安装及报错解决</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Mykonos</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">February 6, 2022&nbsp;&nbsp;1:33:00</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-capstone</span><br><span class="line"> </span><br><span class="line">git clone https://github.com/JonathanSalwan/ROPgadget.git</span><br><span class="line"> </span><br><span class="line">cd ROPgadget</span><br><span class="line"> </span><br><span class="line">sudo python setup.py install</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">m1sceden4@DESKTOP-H37I3CV:~/ROPgadget$ ROPgadget</span><br></pre></td></tr></table></figure>
+
+<h2 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h2><p>运行之后可能会发现报错</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;/usr/local/bin/ROPgadget&quot;, line 4, in &lt;module&gt;</span><br><span class="line">    __import__(&#x27;pkg_resources&#x27;).run_script(&#x27;ROPGadget==6.6&#x27;, &#x27;ROPgadget&#x27;)</span><br><span class="line">  File &quot;/usr/lib/python3/dist-packages/pkg_resources/__init__.py&quot;, line 658, in run_script</span><br><span class="line">    self.require(requires)[0].run_script(script_name, ns)</span><br><span class="line">  File &quot;/usr/lib/python3/dist-packages/pkg_resources/__init__.py&quot;, line 1429, in run_script</span><br><span class="line">    .format(**locals()),</span><br><span class="line">pkg_resources.ResolutionError: Script &#x27;scripts/ROPgadget&#x27; not found in metadata at &#x27;/usr/local/lib/python3.6/dist-packages/ROPGadget-6.6.dist-info&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp -r scripts /usr/local/lib/python3.6/dist-packages/ROPGadget-6.6.dist-info</span><br></pre></td></tr></table></figure>
+
+<p>这里不要复制 , 将你之前报错中显示的路径复制到上面的路径中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">m1sceden4@DESKTOP-H37I3CV:~/ROPgadget$ ROPgadget --help</span><br><span class="line">usage: ROPgadget [-h] [-v] [-c] [--binary &lt;binary&gt;] [--opcode &lt;opcodes&gt;]</span><br><span class="line">                 [--string &lt;string&gt;] [--memstr &lt;string&gt;] [--depth &lt;nbyte&gt;]</span><br><span class="line">                 [--only &lt;key&gt;] [--filter &lt;key&gt;] [--range &lt;start-end&gt;]</span><br><span class="line">                 [--badbytes &lt;byte&gt;] [--rawArch &lt;arch&gt;] [--rawMode &lt;mode&gt;]</span><br><span class="line">                 [--rawEndian &lt;endian&gt;] [--re &lt;re&gt;] [--offset &lt;hexaddr&gt;]</span><br><span class="line">                 [--ropchain] [--thumb] [--console] [--norop] [--nojop]</span><br><span class="line">                 [--callPreceded] [--nosys] [--multibr] [--all] [--noinstr]</span><br><span class="line">                 [--dump] [--silent] [--align ALIGN] [--mipsrop &lt;rtype&gt;]</span><br><span class="line"></span><br><span class="line">description:</span><br><span class="line">  ROPgadget lets you search your gadgets on a binary. It supports several</span><br><span class="line">  file formats and architectures and uses the Capstone disassembler for</span><br><span class="line">  the search engine.</span><br><span class="line"></span><br><span class="line">formats supported:</span><br><span class="line">  - ELF</span><br><span class="line">  - PE</span><br><span class="line">  - Mach-O</span><br><span class="line">  - Raw</span><br><span class="line"></span><br><span class="line">architectures supported:</span><br><span class="line">  - x86</span><br><span class="line">  - x86-64</span><br><span class="line">  - ARM</span><br><span class="line">  - ARM64</span><br><span class="line">  - MIPS</span><br><span class="line">  - PowerPC</span><br><span class="line">  - Sparc</span><br><span class="line"></span><br><span class="line">optional arguments:</span><br><span class="line">  -h, --help            show this help message and exit</span><br><span class="line">  -v, --version         Display the ROPgadget&#x27;s version</span><br><span class="line">  -c, --checkUpdate     Checks if a new version is available</span><br><span class="line">  --binary &lt;binary&gt;     Specify a binary filename to analyze</span><br><span class="line">  --opcode &lt;opcodes&gt;    Search opcode in executable segment</span><br><span class="line">  --string &lt;string&gt;     Search string in readable segment</span><br><span class="line">  --memstr &lt;string&gt;     Search each byte in all readable segment</span><br><span class="line">  --depth &lt;nbyte&gt;       Depth for search engine (default 10)</span><br><span class="line">  --only &lt;key&gt;          Only show specific instructions</span><br><span class="line">  --filter &lt;key&gt;        Suppress specific mnemonics</span><br><span class="line">  --range &lt;start-end&gt;   Search between two addresses (0x...-0x...)</span><br><span class="line">  --badbytes &lt;byte&gt;     Rejects specific bytes in the gadget&#x27;s address</span><br><span class="line">  --rawArch &lt;arch&gt;      Specify an arch for a raw file</span><br><span class="line">  --rawMode &lt;mode&gt;      Specify a mode for a raw file</span><br><span class="line">  --rawEndian &lt;endian&gt;  Specify an endianness for a raw file</span><br><span class="line">  --re &lt;re&gt;             Regular expression</span><br><span class="line">  --offset &lt;hexaddr&gt;    Specify an offset for gadget addresses</span><br><span class="line">  --ropchain            Enable the ROP chain generation</span><br><span class="line">  --thumb               Use the thumb mode for the search engine (ARM only)</span><br><span class="line">  --console             Use an interactive console for search engine</span><br><span class="line">  --norop               Disable ROP search engine</span><br><span class="line">  --nojop               Disable JOP search engine</span><br><span class="line">  --callPreceded        Only show gadgets which are call-preceded</span><br><span class="line">  --nosys               Disable SYS search engine</span><br><span class="line">  --multibr             Enable multiple branch gadgets</span><br><span class="line">  --all                 Disables the removal of duplicate gadgets</span><br><span class="line">  --noinstr             Disable the gadget instructions console printing</span><br><span class="line">  --dump                Outputs the gadget bytes</span><br><span class="line">  --silent              Disables printing of gadgets during analysis</span><br><span class="line">  --align ALIGN         Align gadgets addresses (in bytes)</span><br><span class="line">  --mipsrop &lt;rtype&gt;     MIPS useful gadgets finder</span><br><span class="line">                        stackfinder|system|tails|lia0|registers</span><br><span class="line"></span><br><span class="line">examples:</span><br><span class="line">  ROPgadget.py --binary ./test-suite-binaries/elf-Linux-x86</span><br><span class="line">  ROPgadget.py --binary ./test-suite-binaries/elf-Linux-x86 --ropchain</span><br><span class="line">  ROPgadget.py --binary ./test-suite-binaries/elf-Linux-x86 --depth 3</span><br><span class="line">  ROPgadget.py --binary ./test-suite-binaries/elf-Linux-x86 --string &quot;main&quot;</span><br><span class="line">  ROPgadget.py --binary ./test-suite-binaries/elf-Linux-x86 --string &quot;m..n&quot;</span><br><span class="line">  ROPgadget.py --binary ./test-suite-binaries/elf-Linux-x86 --opcode c9c3</span><br><span class="line">  ROPgadget.py --binary ./test-suite-binaries/elf-Linux-x86 --only &quot;mov|ret&quot;</span><br><span class="line">  ROPgadget.py --binary ./test-suite-binaries/elf-Linux-x86 --only &quot;mov|pop|xor|ret&quot;</span><br><span class="line">  ROPgadget.py --binary ./test-suite-binaries/elf-Linux-x86 --filter &quot;xchg|add|sub|cmov.*&quot;</span><br><span class="line">  ROPgadget.py --binary ./test-suite-binaries/elf-Linux-x86 --norop --nosys</span><br><span class="line">  ROPgadget.py --binary ./test-suite-binaries/elf-Linux-x86 --range 0x08041000-0x08042000</span><br><span class="line">  ROPgadget.py --binary ./test-suite-binaries/elf-Linux-x86 --string main --range 0x080c9aaa-0x080c9aba</span><br><span class="line">  ROPgadget.py --binary ./test-suite-binaries/elf-Linux-x86 --memstr &quot;/bin/sh&quot;</span><br><span class="line">  ROPgadget.py --binary ./test-suite-binaries/elf-Linux-x86 --console</span><br><span class="line">  ROPgadget.py --binary ./test-suite-binaries/elf-Linux-x86 --badbytes &quot;00|01-1f|7f|42&quot;</span><br><span class="line">  ROPgadget.py --binary ./test-suite-binaries/Linux_lib64.so --offset 0xdeadbeef00000000</span><br><span class="line">  ROPgadget.py --binary ./test-suite-binaries/elf-ARMv7-ls --depth 5</span><br><span class="line">  ROPgadget.py --binary ./test-suite-binaries/elf-ARM64-bash --depth 5</span><br><span class="line">  ROPgadget.py --binary ./test-suite-binaries/raw-x86.raw --rawArch=x86 --rawMode=32</span><br></pre></td></tr></table></figure>
+
+<p>问题解决</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Mykonos</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://mykonos-x.github.io/2022/02/06/ROPgadget%E5%AE%89%E8%A3%85%E5%8F%8A%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/">http://mykonos-x.github.io/2022/02/06/ROPgadget%E5%AE%89%E8%A3%85%E5%8F%8A%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span><strong>You can go further</strong>.</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/pwn/"># pwn</a>
+                    
+                        <a href="/tags/solutions/"># solutions</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/02/28/Environment-variable-path-rewrite-script-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fpath%E9%87%8D%E5%86%99%E8%84%9A%E6%9C%AC/">Environment variable path rewrite script(环境变量path重写脚本)</a>
+            
+            
+            <a class="next" rel="next" href="/2022/02/06/%E5%85%B3%E4%BA%8Epython%E5%87%BA%E7%8E%B0-RequestsDependencyWarning-%E5%BC%82%E5%B8%B8/">关于python出现'RequestsDependencyWarning'异常</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Mykonos | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

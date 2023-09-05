@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Mykonos">
+
+
+
+
+
+<title>Kernel environment construction(Kernel环境搭建) | Silence to hear.</title>
+
+
+
+    <link rel="icon" href="/ico.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Mykonos-x&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Mykonos-x&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Kernel environment construction(Kernel环境搭建)</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Mykonos</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">May 2, 2022&nbsp;&nbsp;23:48:00</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>##前置<br>遇到了很多问题,这里做一个记录,部分步骤没有截图<br>I have encountered a lot of problems, here is a record, some steps have no screenshots</p>
+<h3 id="qemu"><a href="#qemu" class="headerlink" title="qemu"></a>qemu</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install qemu</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><pre><code class="shell">qemu-&lt;两下tab&gt; 
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  会弹出qemu可以模拟的所有平台(All platforms that QEMU can be simulated will pop up) 	</span><br><span class="line"></span><br><span class="line">### busybox</span><br><span class="line"></span><br><span class="line">官网:https://busybox.net/</span><br><span class="line"></span><br><span class="line">![](https://pic.imgdb.cn/item/626ff5bc239250f7c5fd10f5.jpg)</span><br><span class="line"></span><br><span class="line">进入busybox目录</span><br><span class="line">Enter the busybox directory</span><br><span class="line">```shell</span><br><span class="line">make menuconfig</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p>Q : HOSTCC  scripts&#x2F;basic&#x2F;fixdep<br>    &#x2F;bin&#x2F;sh: 1: gcc: not found<br>    scripts&#x2F;Makefile.host:90: recipe for target ‘scripts&#x2F;basic&#x2F;fixdep’ failed	<br>    make[1]: *** [scripts&#x2F;basic&#x2F;fixdep] Error 127<br>    Makefile:532: recipe for target ‘scripts_basic’ failed<br>    make: *** [scripts_basic] Error 2</p>
+<p>A : 此报错是因为缺少gcc(This error is due to the lack of GCC)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install gcc</span><br></pre></td></tr></table></figure>
+
+<p>Q : $ make ARCH&#x3D;arm CROSS_COMPILE&#x3D;arm-linux-gnueabihf- menuconfig<br>    HOSTCC  scripts&#x2F;kconfig&#x2F;mconf.o<br>    <command-line>:0:12: fatal error: curses.h: 没有那个文件或目录<br>    compilation terminated.<br>    scripts&#x2F;Makefile.host:108: recipe for target ‘scripts&#x2F;kconfig&#x2F;mconf.o’ failed<br>    make[1]: *** [scripts&#x2F;kconfig&#x2F;mconf.o] Error 1<br>    Makefile:541: recipe for target ‘menuconfig’ failed<br>    make: *** [menuconfig] Error 2</p>
+<p>A : 这是因为ubuntu缺少ncurses devel套件,安装即可(This is because Ubuntu lacks NCURSES Devel kit, just install it)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libncurses5-dev</span><br></pre></td></tr></table></figure>
+
+
+</blockquote>
+<p>接着会进入settings<br>Then you will enter settings</p>
+<ul>
+<li>勾选<code>Build static binary(no shared libs)</code>,因为动态链接需要额外的动态链接库,这样会使得系统文件变得很大(Check the &#96;Build Static binary (no shared libs), because the dynamic link requires an additional dynamic link library, which will make the system file a large)</li>
+<li>安装目录<code>(Destination path for &quot;make install&quot;(NEW))</code>我设置的是<code>./rootfs</code>(Install the directory <code>(Destination Path for&quot; Make Install &quot;(New)</code> <code>./ROOTFS</code>)</li>
+<li>保存退出(Save and exit)</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make -j4</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make install </span><br></pre></td></tr></table></figure>
+
+<p>接着就会在busybox中看到生成的<code>rootfs</code>文件夹<br>Then you will see the generated <code>rootfs</code> folder</p>
+<p>到这里做基本的内核pwn题基本的环境已经够了<br>It’s enough to do the basic environment of the core PWN question here.</p>
+<h3 id="运行boot-sh-Could-not-access-KVM-Kernel-module"><a href="#运行boot-sh-Could-not-access-KVM-Kernel-module" class="headerlink" title="运行boot.sh:Could not access KVM Kernel module"></a>运行boot.sh:Could not access KVM Kernel module</h3><p><img src="https://pic.imgdb.cn/item/626ff9f4239250f7c5086f3e.jpg"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-system-x86_64 -initrd rootfs.cpio -kernel bzImage -append <span class="string">&#x27;console=ttyS0 root=/dev/ram oops=panic panic=1&#x27;</span> -enable-kvm -monitor /dev/null -m 64M --nographic  -smp cores=1,threads=1 -cpu kvm64,+smep</span><br></pre></td></tr></table></figure>
+
+<p>因为虚拟机缺少kvm,在run boot.sh的时候可以先将boot.sh的source_code里的<code>-enable-kvm</code>去掉,boot.sh就可以运行了<br>Because the virtual machine lacks KVM, when run boot.sh, you can first remove the source_code of boot.sh first.</p>
+<p><img src="https://pic.imgdb.cn/item/626ffad2239250f7c50ab050.jpg"></p>
+<h3 id="重新打包系统文件-Re-pack-the-system-file"><a href="#重新打包系统文件-Re-pack-the-system-file" class="headerlink" title="重新打包系统文件(Re -pack the system file)"></a>重新打包系统文件(Re -pack the system file)</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . | cpio -o -H newc &gt; ../rootfs.cpio</span><br></pre></td></tr></table></figure>
+
+<p>当然也可以写个<code>pack.sh</code><br>Of course you can also write a <code>Pack.sh</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line"></span><br><span class="line">cp -r rootfs rootfs_tmp</span><br><span class="line">cp -r etc rootfs_tmp/</span><br><span class="line">cp init rootfs_tmp/</span><br><span class="line">cp babydriver.ko rootfs_tmp/</span><br><span class="line"></span><br><span class="line">gcc -g -static exp.c -o exp</span><br><span class="line">cp exp rootfs_tmp/</span><br><span class="line"></span><br><span class="line">chmod +x rootfs_tmp/init</span><br><span class="line">chmod g-w -R rootfs_tmp/</span><br><span class="line">chmod o-w -R rootfs_tmp/</span><br><span class="line">sudo chown -R root rootfs_tmp/</span><br><span class="line">sudo chgrp -R root rootfs_tmp/</span><br><span class="line">sudo chmod u+s rootfs_tmp/bin/busybox</span><br><span class="line"></span><br><span class="line">cd rootfs_tmp</span><br><span class="line">find . | cpio -o -H newc &gt; ../rootfs.cpio</span><br><span class="line">cd ..</span><br><span class="line"></span><br><span class="line">sudo rm -rf rootfs_tmp</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Mykonos</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://mykonos-x.github.io/2022/05/02/Kernel-environment-construction-Kernel%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">http://mykonos-x.github.io/2022/05/02/Kernel-environment-construction-Kernel%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span><strong>You can go further</strong>.</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/pwn/"># pwn</a>
+                    
+                        <a href="/tags/kernel/"># kernel</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/05/07/Heap-Exploitation/">Heap Exploitation</a>
+            
+            
+            <a class="next" rel="next" href="/2022/03/02/About-the-problem-of-wrong-screen-ratio-of-mobile-phone-virtual-machine-in-Android-Studio-%E5%85%B3%E4%BA%8EAndroid-Studio%E4%B8%AD%E6%89%8B%E6%9C%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B1%8F%E5%B9%95%E6%AF%94%E4%BE%8B%E4%B8%8D%E5%AF%B9%E7%9A%84%E9%97%AE%E9%A2%98/">About the problem of wrong screen ratio of mobile phone virtual machine in Android Studio(关于Android Studio中手机虚拟机屏幕比例不对的问题)</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Mykonos | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

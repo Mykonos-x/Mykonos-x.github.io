@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Mykonos">
+
+
+
+
+
+<title>DASCTFxGFCTF2022 RSA | Silence to hear.</title>
+
+
+
+    <link rel="icon" href="/ico.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Mykonos-x&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Mykonos-x&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">DASCTFxGFCTF2022 RSA</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Mykonos</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">September 6, 2023&nbsp;&nbsp;0:59:19</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h3 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">encrypt1</span>(<span class="params">n</span>):</span><br><span class="line">    n1 = <span class="built_in">hex</span>(n&gt;&gt;<span class="number">200</span>).encode()</span><br><span class="line">    n2 = <span class="built_in">str</span>(<span class="built_in">hex</span>(n))[<span class="number">20</span>:].encode()</span><br><span class="line">    <span class="keyword">return</span> n1,n2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">encrypt2</span>(<span class="params">m , n_1</span>):</span><br><span class="line">    c_1 = <span class="built_in">pow</span>(m,e_1,n_1)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;c_1 = &#x27;</span>+<span class="built_in">str</span>(c_1))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">encrypt3</span>(<span class="params">m , n_2</span>):</span><br><span class="line">    c_2 = <span class="built_in">pow</span>( m , e_2 , n_2)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;c_2 = &#x27;</span>+<span class="built_in">str</span>(c_2))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">encrypt4</span>(<span class="params">m</span>):</span><br><span class="line">    k = getPrime(<span class="number">512</span>)</span><br><span class="line">    m = m % k</span><br><span class="line">    c_3 = <span class="built_in">pow</span>(m, e_2, n_3)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;c_3 = &#x27;</span> + <span class="built_in">str</span>(c_3))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;m = &#x27;</span> + <span class="built_in">str</span>(m))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;k = &#x27;</span> + <span class="built_in">str</span>(k))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">m1,m2 = encrypt1(flag)</span><br><span class="line">m1 = bytes_to_long(m1)</span><br><span class="line">m2 = bytes_to_long(m2)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;n_2 = &#x27;</span> + <span class="built_in">str</span>(n_2))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;n_3 = &#x27;</span> + <span class="built_in">str</span>(n_3))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;e_1 = &#x27;</span> + <span class="built_in">str</span>(e_1))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;e_2 = &#x27;</span> + <span class="built_in">str</span>(e_2))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">encrypt2(m1,n_1)</span><br><span class="line">encrypt3(n_1,n_2)</span><br><span class="line">encrypt4(m2)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>有四个encrypt函数，先看看这四个函数分别干了什么</p>
+<ul>
+<li>encrypt1:这里n1将参数取高200比特位再转为16进制，n2将取参数16进制的后20位，这里可能刚开始不知道函数干了个什么事情，可以自己找数据运行一下，可以猜测这个函数其实就是将flag分成了两半</li>
+<li>encrypt2:$c_1 \equiv m ^ {e_1} \mod n_1$</li>
+<li>encrypt3:$c_2 \equiv m ^ {e_2} \mod n_2$</li>
+<li>encrypt4:首先生成了一个512bit的素数，然后m对k取余，然后$c_3 \equiv m ^ {e_2} \mod n_3$</li>
+</ul>
+<p>第二步，看一看数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">n_2 = 675835056744450121024004008337170937331109883435712066354955474563267257037603081555653829598886559337325172694278764741403348512872239277008719548968016702852609803016353158454788807563316656327979897318887566108985783153878668451688372252234938716250621575338314779485058267785731636967957494369458211599823364746908763588582489400785865427060804408606617016267936273888743392372620816053927031794575978032607311497491069242347165424963308662091557862342478844612402720375931726316909635118113432836702120449010</span><br><span class="line">n_3 = 91294511667572917673898699346231897684542006136956966126836916292947639514392684487940336406038086150289315439796780158189004157494824987037667065310517044311794725172075653186677331434123198117797575528982908532086038107428540586044471407073066169603930082133459486076777574046803264038780927350142555712567</span><br><span class="line">e_1 = 65537</span><br><span class="line">e_2 = 3</span><br><span class="line">c_1 = 47029848959680138397125259006172340325269302342762903311733700258745280761154948381409328053449580957972265859283407071931484707002138926840483316880087281153554181290481533</span><br><span class="line">c_2 = 332431</span><br><span class="line">c_3 = 11951299411967534922967467740790967733301092706094553308467975774492025797106594440070380723007894861454249455013202734019215071856834943490096156048504952328784989777263664832098681831398770963056616417301705739505187754236801407014715780468333977293887519001724078504320344074325196167699818117367329779609</span><br><span class="line">m = 9530454742891231590945778054072843874837824815724564463369259282490619049557772650832818763768769359762168560563265763313176741847581931364</span><br><span class="line">k = 8139616873420730499092246564709331937498029453340099806219977060224838957080870950877930756958455278369862703151353509623205172658012437573652818022676431</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以看到e_2&#x3D;3，并且给了m，k</p>
+<p>由e_2&#x3D;3，可以联想到小明文攻击</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">encrypt3(n_1,n_2)</span><br></pre></td></tr></table></figure>
+
+<p>可以发现encryt3正是可以利用小明文攻击，得到n_1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(<span class="built_in">range</span>(<span class="number">200000000</span>)):</span><br><span class="line">    <span class="keyword">if</span> gmpy2.iroot(n_2 * i + c_2 , e_2)[<span class="number">1</span>]:</span><br><span class="line">        n_1 =  gmpy2.iroot(n_2 * i + c_2 , e_2)[<span class="number">0</span>]</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;\nn_1=<span class="subst">&#123;n_1&#125;</span>\n&quot;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+
+<p>拿到n_1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n_1=70406706457855863712635967741447303613971473150228480705119773604469794649140239446237334040048504811343327173817296308781190911727763110615393368497803655390445303946160971</span><br></pre></td></tr></table></figure>
+
+<p>根据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">encrypt2(m1,n_1)</span><br></pre></td></tr></table></figure>
+
+<p>现在拿到了n_1，就可以去尝试求m1了，也就是flag的前半段</p>
+<p>n_1可以通过分解得到三个因子，那么就可以求得</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">n_1 = <span class="number">70406706457855863712635967741447303613971473150228480705119773604469794649140239446237334040048504811343327173817296308781190911727763110615393368497803655390445303946160971</span></span><br><span class="line">p_1 = <span class="number">2224243981</span></span><br><span class="line">q_1 = <span class="number">2732337821</span></span><br><span class="line">r_1 = <span class="number">11585031296201346891716939633970482508158508580350404805965250133832632323150440185890235814142601827544669601048550999405490149435265122374459158586377571</span></span><br><span class="line">phi_n_1 = (p_1 - <span class="number">1</span>) * (q_1 - <span class="number">1</span>) * (r_1 - <span class="number">1</span>)</span><br><span class="line">d_1 = gmpy2.invert(e_1, phi_n_1)</span><br><span class="line">m1 = <span class="built_in">pow</span>(c_1 , d_1 , n_1)</span><br><span class="line"><span class="built_in">print</span>(libnum.n2s(m1))</span><br><span class="line">flag1 = libnum.n2s(<span class="built_in">int</span>(libnum.n2s(m1) , <span class="number">16</span>))</span><br><span class="line"><span class="comment">#0x666c61677b3230366538353964</span></span><br></pre></td></tr></table></figure>
+
+<p>得到一串十六进制数<code>0x666c61677b3230366538353964</code> ，即<code>flag&#123;206e859d</code></p>
+<p>剩下encrypt4，由于</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">m = m % k</span><br></pre></td></tr></table></figure>
+
+<p>m,k题目已知，假设$m &#x3D; m2 + T \cdot k$，由</p>
+<p>$c &#x3D; m ^ {e_2} \mod n_3$</p>
+<p>即$c &#x3D; (m2 + T \cdot k) ^ {e_2} \mod n_3$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#sage</span></span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">m = <span class="number">9530454742891231590945778054072843874837824815724564463369259282490619049557772650832818763768769359762168560563265763313176741847581931364</span></span><br><span class="line">k = <span class="number">8139616873420730499092246564709331937498029453340099806219977060224838957080870950877930756958455278369862703151353509623205172658012437573652818022676431</span></span><br><span class="line">c_3 = <span class="number">11951299411967534922967467740790967733301092706094553308467975774492025797106594440070380723007894861454249455013202734019215071856834943490096156048504952328784989777263664832098681831398770963056616417301705739505187754236801407014715780468333977293887519001724078504320344074325196167699818117367329779609</span></span><br><span class="line">n_3 = <span class="number">91294511667572917673898699346231897684542006136956966126836916292947639514392684487940336406038086150289315439796780158189004157494824987037667065310517044311794725172075653186677331434123198117797575528982908532086038107428540586044471407073066169603930082133459486076777574046803264038780927350142555712567</span></span><br><span class="line">e = <span class="number">3</span></span><br><span class="line">R.&lt;x&gt; = PolynomialRing(Zmod(n_3))</span><br><span class="line">g = (m + k * x) ** e - c_3</span><br><span class="line">g = g.monic()</span><br><span class="line">r = g.small_roots()[<span class="number">0</span>]</span><br><span class="line">flag = k * r + m</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(flag)))</span><br></pre></td></tr></table></figure>
+
+<p>得到一串十六进制<code>383539643865383534633466363030636231323735376262663966357d</code>，发现和前半段flag的十六进制有重叠，故最后得到flag<code>flag&#123;206e859d8e854c4f600cb12757bbf9f5&#125;</code></p>
+<p>又水一篇wp XD</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Mykonos</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://mykonos-x.github.io/2023/09/06/DASCTFxGFCTF2022-RSA/">http://mykonos-x.github.io/2023/09/06/DASCTFxGFCTF2022-RSA/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span><strong>You can go further</strong>.</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/write-up/"># write-up</a>
+                    
+                        <a href="/tags/crypto/"># crypto</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2023/09/06/babyRSA-GWCTF-2019/">babyRSA GWCTF 2019</a>
+            
+            
+            <a class="next" rel="next" href="/2023/09/03/hello-world/">Hello World</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Mykonos | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
