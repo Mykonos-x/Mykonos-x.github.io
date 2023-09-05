@@ -13,7 +13,7 @@
 
 
 
-<title>Hello World | Silence to hear.</title>
+<title>babyRSA GWCTF 2019 | Silence to hear.</title>
 
 
 
@@ -233,7 +233,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Hello World</h1>
+            <h1 class="post-title">babyRSA GWCTF 2019</h1>
             
                 <div class="post-meta">
                     
@@ -242,7 +242,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">September 3, 2023&nbsp;&nbsp;16:40:44</a>
+                        Date: <a href="#">August 30, 2022&nbsp;&nbsp;1:49:00</a>
                         </span>
                     
                     
@@ -251,19 +251,49 @@
         </header>
 
         <div class="post-content">
-            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+            <h3 id="Involved-Knowledge"><a href="#Involved-Knowledge" class="headerlink" title="Involved Knowledge"></a>Involved Knowledge</h3><ul>
+<li>RSA</li>
+<li>Adjacent Element</li>
+</ul>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><h4 id="encrypt-py"><a href="#encrypt-py" class="headerlink" title="encrypt.py"></a>encrypt.py</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> sympy</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">flag = <span class="string">&#x27;GWHT&#123;******&#125;&#x27;</span></span><br><span class="line">secret = <span class="string">&#x27;******&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">assert</span>(<span class="built_in">len</span>(flag) == <span class="number">38</span>)</span><br><span class="line"></span><br><span class="line">half = <span class="built_in">len</span>(flag) / <span class="number">2</span></span><br><span class="line"></span><br><span class="line">flag1 = flag[:half]</span><br><span class="line">flag2 = flag[half:]</span><br><span class="line"></span><br><span class="line">secret_num = getPrime(<span class="number">1024</span>) * bytes_to_long(secret)</span><br><span class="line"></span><br><span class="line">p = sympy.nextprime(secret_num)</span><br><span class="line">q = sympy.nextprime(p)</span><br><span class="line"></span><br><span class="line">N = p * q</span><br><span class="line"></span><br><span class="line">e = <span class="number">0x10001</span></span><br><span class="line"></span><br><span class="line">F1 = bytes_to_long(flag1)</span><br><span class="line">F2 = bytes_to_long(flag2)</span><br><span class="line"></span><br><span class="line">c1 = F1 + F2</span><br><span class="line">c2 = <span class="built_in">pow</span>(F1, <span class="number">3</span>) + <span class="built_in">pow</span>(F2, <span class="number">3</span>)</span><br><span class="line"><span class="keyword">assert</span>(c2 &lt; N)</span><br><span class="line"></span><br><span class="line">m1 = <span class="built_in">pow</span>(c1, e, N)</span><br><span class="line">m2 = <span class="built_in">pow</span>(c2, e, N)</span><br><span class="line"></span><br><span class="line">output = <span class="built_in">open</span>(<span class="string">&#x27;secret&#x27;</span>, <span class="string">&#x27;w&#x27;</span>)</span><br><span class="line">output.write(<span class="string">&#x27;N=&#x27;</span> + <span class="built_in">str</span>(N) + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">output.write(<span class="string">&#x27;m1=&#x27;</span> + <span class="built_in">str</span>(m1) + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">output.write(<span class="string">&#x27;m2=&#x27;</span> + <span class="built_in">str</span>(m2) + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">output.close()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h4 id="secret"><a href="#secret" class="headerlink" title="secret"></a>secret</h4><p>N &#x3D; 6365851495945747469090301601826908662229092…</p>
+<p>m1 &#x3D; 900099743414522432169869380283712…</p>
+<p>m2 &#x3D; 487443985757405173426628188375657117604235507…</p>
+<h3 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">half = <span class="built_in">len</span>(flag) / <span class="number">2</span></span><br><span class="line"></span><br><span class="line">flag1 = flag[:half]</span><br><span class="line">flag2 = flag[half:]</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>这里将flag分为了长度相等的两半，每段长度为19</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">secret_num = getPrime(<span class="number">1024</span>) * bytes_to_long(secret)</span><br><span class="line"></span><br><span class="line">p = sympy.nextprime(secret_num)</span><br><span class="line">q = sympy.nextprime(p)</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>通过这部分我们可以得到p和q相邻，因为q是p的下一个质数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">F1 = bytes_to_long(flag1)</span><br><span class="line">F2 = bytes_to_long(flag2)</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>将两部分flag转成数值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">c1 = F1 + F2</span><br><span class="line">c2 = <span class="built_in">pow</span>(F1, <span class="number">3</span>) + <span class="built_in">pow</span>(F2, <span class="number">3</span>)</span><br><span class="line"><span class="keyword">assert</span>(c2 &lt; N)</span><br></pre></td></tr></table></figure>
+
+<p>c1为F1与F2的和</p>
+<p>c2为F1与F2的立方和</p>
+<p>并且保证c2&lt;N</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">m1 = <span class="built_in">pow</span>(c1, e, N)</span><br><span class="line">m2 = <span class="built_in">pow</span>(c2, e, N)</span><br></pre></td></tr></table></figure>
+
+<p>$c1^e ≡ m1 (mod N)$</p>
+<p>$c2^e ≡ m2 (mod N)$</p>
+<p>也就是我们得到的m1与m2</p>
+<p>以上就是题目加密的一个思路，涵盖的知识点是RSA，且p与q相邻</p>
+<p>我们逆着题目加密的过程进行解密</p>
+<ul>
+<li>首先通过m1 , m2得到c1 , c2</li>
+</ul>
+<p>$m1^d ≡ c1 (mod N)$</p>
+<p>$m2^d ≡ c2(mod N)$</p>
+<p>即<code>pow(m1 , d , N)</code> <code>pow(m2 , d , N)</code></p>
+<p>接着我们可以通过z3来对F1F2进行求解</p>
+<p>$F1 + F2 &#x3D; c1$</p>
+<p>$F_1^3 + F_2^3 &#x3D; c2$</p>
+<p>得到F1F2后，就相当于得到flag的两部分了</p>
+<blockquote>
+<p>GWHT{f709e0e2cfe7e530ca8972959a1033b2}</p>
+</blockquote>
 
         </div>
 
@@ -278,7 +308,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="http://mykonos-x.github.io/2023/09/03/hello-world/">http://mykonos-x.github.io/2023/09/03/hello-world/</a></span>
+                        <span><a href="http://mykonos-x.github.io/2022/08/30/babyRSA-GWCTF-2019/">http://mykonos-x.github.io/2022/08/30/babyRSA-GWCTF-2019/</a></span>
                     </p>
                 
                 
@@ -301,6 +331,14 @@
                 <span>Tag(s):</span>
                 <span class="tag">
                     
+                    
+                        <a href="/tags/write-up/"># write-up</a>
+                    
+                        <a href="/tags/crypto/"># crypto</a>
+                    
+                        <a href="/tags/rsa/"># rsa</a>
+                    
+                        
                 </span>
             </div>
             <div>
@@ -311,10 +349,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2023/09/06/DASCTFxGFCTF2022-RSA/">DASCTFxGFCTF2022 RSA</a>
+                <a class="prev" rel="prev" href="/2022/08/30/OneSecretTwoEncryption-ACTF2018/">OneSecretTwoEncryption ACTF2018</a>
             
             
-            <a class="next" rel="next" href="/2022/12/19/For-Final-Exam-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/">(For Final Exam)计算机组成原理期末复习</a>
+            <a class="next" rel="next" href="/2022/08/29/jarvisoj-level3-x64/">jarvisoj_level3_x64</a>
             
         </section>
 
