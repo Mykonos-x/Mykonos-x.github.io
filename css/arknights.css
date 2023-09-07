@@ -651,7 +651,7 @@ h6 {
 :root[theme-mode=dark] {
   --cursor-data: var(--dark-cursor);
   --body-background: var(--dark-background);
-  --theme-highlight: #2bf;
+  --theme-highlight: #d3d3d3;
   --theme-subcolor: #fe2;
   --theme-stress: #c0392b;
   --theme-bar-color-0: #fe2;
