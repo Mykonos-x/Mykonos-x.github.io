@@ -1,342 +1,248 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <meta name="author" content="Mykonos">
-
-
-
-
-
-<title>Configure SDK environment variables for Android Studio development(配置SDK环境变量) | Silence to hear.</title>
-
-
-
-    <link rel="icon" href="/ico.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
-    
-    <link rel="stylesheet" href="/css/style.css">
-    
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
-
-    
-    
-        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-    "HTML-CSS": {
-        preferredFont: "TeX",
-        availableFonts: ["STIX","TeX"],
-        linebreaks: { automatic:true },
-        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
-    },
-    tex2jax: {
-        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
-        processEscapes: true,
-        ignoreClass: "tex2jax_ignore|dno",
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-        equationNumbers: { autoNumber: "AMS" },
-        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
-        Macros: { href: "{}" }
-    },
-    messageStyle: "none"
-    });
-</script>
-<!-- 给MathJax元素添加has-jax class -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-<!-- 通过连接CDN加载MathJax的js代码 -->
-<script type="text/javascript" async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-
-
-    
-
-
-<meta name="generator" content="Hexo 6.3.0"></head>
-
-<body>
-    <script>
-        // this function is used to check current theme before page loaded.
-        (() => {
-            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
-            const isDark = currentTheme === 'dark';
-            const pagebody = document.getElementsByTagName('body')[0]
-            if (isDark) {
-                pagebody.classList.add('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
-            } else {
-                pagebody.classList.remove('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Light"
-            }
-        })();
-    </script>
-
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">Mykonos-x&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
-
-    
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">Mykonos-x&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-            </div>
-        </div>
-    </nav>
-
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-            <div class="main">
-                <div class="container">
-    
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
-</div>
-
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6; // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
-
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function() {
-            tocbot.refresh(obj_merge(tocbot_default_config, {
-                hasInnerContainers: true
-            }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function() {
-        tocbot.init(obj_merge(tocbot_default_config, {
-            collapseDepth: 1
-        }));
-    });
-
-    function expand_toc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, {
-            collapseDepth: expanded ? 1 : DEPTH_MAX
-        }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">Configure SDK environment variables for Android Studio development(配置SDK环境变量)</h1>
-            
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">Mykonos</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">March 2, 2022&nbsp;&nbsp;19:28:00</a>
-                        </span>
-                    
-                    
-                </div>
-            
-        </header>
-
-        <div class="post-content">
-            <h2 id="System-environment-variable-settings"><a href="#System-environment-variable-settings" class="headerlink" title="System environment variable settings"></a>System environment variable settings</h2><h3 id="Step-1-Add-ANDROID-HOME"><a href="#Step-1-Add-ANDROID-HOME" class="headerlink" title="Step 1 Add ANDROID_HOME"></a>Step 1 Add ANDROID_HOME</h3><ul>
+<!DOCTYPE html><html lang="en" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Configure SDK environment variables for Android Studio development(配置SDK环境变量) | Silence to hear.</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><script>var config = {"root":"/","search":{"preload":false,"activeHolder":"键入以继续","blurHolder":"数据检索","noResult":"无 $0 相关数据"},"code":{"codeInfo":"$0 - $1 行","copy":"code.copy","copyFinish":"code.copyFinish","expand":"code.expand"}}</script><script src="//unpkg.com/mermaid@9.2.2/dist/mermaid.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.1/MathJax.js"></script><script>MathJax.Hub.Config({
+ menuSettings: {
+   zoom: "None"
+ },
+ showMathMenu: false,
+ jax: ["input/TeX","output/CommonHTML"],
+ extensions: ["tex2jax.js"],
+ TeX: {
+   extensions: ["AMSmath.js","AMSsymbols.js"],
+   equationNumbers: {
+     autoNumber: "AMS"
+   }
+ },
+ tex2jax: {
+   inlineMath: [["\\(", "\\)"]],
+   displayMath: [["\\[", "\\]"]]
+ }
+});</script><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><link rel="stylesheet" href="/css/arknights.css"><script>if (window.localStorage.getItem('theme-mode') === 'light')
+ document.documentElement.setAttribute('theme-mode', 'light')
+if (window.localStorage.getItem('theme-mode') === 'dark')
+ document.documentElement.setAttribute('theme-mode', 'dark')</script><style>@font-face {
+ font-family: Bender;
+ src: local('Bender'), url("/font/Bender.ttf"), url("/font/Bender.otf");
+}
+@font-face {
+ font-family: BenderLight;
+ src: local('BenderLight'), url("/font/BenderLight.ttf");
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><style>:root {
+  --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
+  --light-background: url('/img/bk.jpg');
+}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>Configure SDK environment variables for Android Studio development(配置SDK环境变量)</h1><div id="post-info"><span>文章发布时间: <div class="control"><time datetime="2022-03-02T11:28:00.000Z" id="date"> 2022-03-02</time></div></span></div></div><hr><div id="post-content"><h2 id="System-environment-variable-settings"><a href="#System-environment-variable-settings" class="headerlink" title="System environment variable settings"></a>System environment variable settings</h2><h3 id="Step-1-Add-ANDROID-HOME"><a href="#Step-1-Add-ANDROID-HOME" class="headerlink" title="Step 1 Add ANDROID_HOME"></a>Step 1 Add ANDROID_HOME</h3><ul>
 <li>系统变量(S)$\rightarrow$<code>新建</code>  system variable$\rightarrow$<code>NEW</code></li>
 <li>添加变量名(add variable name)：<code>ANDROID_HOME</code></li>
 <li>添加变量值(add variable value)：<code>你所安装的SDK路径</code>，常规安装则在<code>C:\Users\(Your username)\AppData\Local\Android\SDK</code>  Normally installed in<code>C:\Users\(Your username)\AppData\Local\Android\SDK</code></li>
 </ul>
 <p><img src="https://pic.imgdb.cn/item/621f4f205baa1a80abf08a88.jpg"></p>
-<h3 id="Step-2-Add-to-Path"><a href="#Step-2-Add-to-Path" class="headerlink" title="Step 2 Add to Path"></a>Step 2 Add to Path</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ANDROID_HOME%\tools;%ANDROID_HOME%\platform-tools</span><br></pre></td></tr></table></figure>
-
+<h3 id="Step-2-Add-to-Path"><a href="#Step-2-Add-to-Path" class="headerlink" title="Step 2 Add to Path"></a>Step 2 Add to Path</h3><pre><code>ANDROID_HOME%\tools;%ANDROID_HOME%\platform-tools
+</code></pre>
 <p>确认之后cmd输入<code>abd</code>和<code>android</code>查看环境是否配置成功</p>
 <p>After confirmation, enter <code>abd</code> and <code>android</code> in cmd to check whether the environment is configured successfully</p>
 <p>将会看到</p>
 <p>will see</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">abd</span></span><br><span class="line">Android Debug Bridge version 1.0.41</span><br><span class="line">Version 33.0.0-8141338</span><br><span class="line">Installed as C:\Users\M1sceden4\AppData\Local\Android\Sdk\platform-tools\adb.exe</span><br><span class="line"></span><br><span class="line">global options:</span><br><span class="line"> -a                       listen on all network interfaces, not just localhost</span><br><span class="line"> -d                       use USB device (error if multiple devices connected)</span><br><span class="line"> -e                       use TCP/IP device (error if multiple TCP/IP devices available)</span><br><span class="line"> -s SERIAL                use device with given serial (overrides $ANDROID_SERIAL)</span><br><span class="line"> -t ID                    use device with given transport id</span><br><span class="line"> -H                       name of adb server host [default=localhost]</span><br><span class="line"> -P                       port of adb server [default=5037]</span><br><span class="line"> -L SOCKET                listen on given socket for adb server [default=tcp:localhost:5037]</span><br><span class="line"> --one-device SERIAL|USB  only allowed with &#x27;start-server&#x27; or &#x27;server nodaemon&#x27;, server will only connect to one USB device, specified by a serial number or USB device address.</span><br><span class="line"></span><br><span class="line">general commands:</span><br><span class="line"> devices [-l]             list connected devices (-l for long output)</span><br><span class="line"> help                     show this help message</span><br><span class="line"> version                  show version num</span><br><span class="line"></span><br><span class="line">networking:</span><br><span class="line"> connect HOST[:PORT]      connect to a device via TCP/IP [default port=5555]</span><br><span class="line"> disconnect [HOST[:PORT]]</span><br><span class="line">     disconnect from given TCP/IP device [default port=5555], or all</span><br><span class="line"> pair HOST[:PORT] [PAIRING CODE]</span><br><span class="line">     pair with a device for secure TCP/IP communication</span><br><span class="line"> forward --list           list all forward socket connections</span><br><span class="line"> forward [--no-rebind] LOCAL REMOTE</span><br><span class="line">     forward socket connection using:</span><br><span class="line">       tcp:&lt;port&gt; (&lt;local&gt; may be &quot;tcp:0&quot; to pick any open port)</span><br><span class="line">       localabstract:&lt;unix domain socket name&gt;</span><br><span class="line">       localreserved:&lt;unix domain socket name&gt;</span><br><span class="line">       localfilesystem:&lt;unix domain socket name&gt;</span><br><span class="line">       jdwp:&lt;process pid&gt; (remote only)</span><br><span class="line">       vsock:&lt;CID&gt;:&lt;port&gt; (remote only)</span><br><span class="line">       acceptfd:&lt;fd&gt; (listen only)</span><br><span class="line"> forward --remove LOCAL   remove specific forward socket connection</span><br><span class="line"> forward --remove-all     remove all forward socket connections</span><br><span class="line"> ppp TTY [PARAMETER...]   run PPP over USB</span><br><span class="line"> reverse --list           list all reverse socket connections from device</span><br><span class="line"> reverse [--no-rebind] REMOTE LOCAL</span><br><span class="line">     reverse socket connection using:</span><br><span class="line">       tcp:&lt;port&gt; (&lt;remote&gt; may be &quot;tcp:0&quot; to pick any open port)</span><br><span class="line">       localabstract:&lt;unix domain socket name&gt;</span><br><span class="line">       localreserved:&lt;unix domain socket name&gt;</span><br><span class="line">       localfilesystem:&lt;unix domain socket name&gt;</span><br><span class="line"> reverse --remove REMOTE  remove specific reverse socket connection</span><br><span class="line"> reverse --remove-all     remove all reverse socket connections from device</span><br><span class="line"> mdns check               check if mdns discovery is available</span><br><span class="line"> mdns services            list all discovered services</span><br><span class="line"></span><br><span class="line">file transfer:</span><br><span class="line"> push [--sync] [-z ALGORITHM] [-Z] LOCAL... REMOTE</span><br><span class="line">     copy local files/directories to device</span><br><span class="line">     --sync: only push files that are newer on the host than the device</span><br><span class="line">     -n: dry run: push files to device without storing to the filesystem</span><br><span class="line">     -z: enable compression with a specified algorithm (any, none, brotli)</span><br><span class="line">     -Z: disable compression</span><br><span class="line"> pull [-a] [-z ALGORITHM] [-Z] REMOTE... LOCAL</span><br><span class="line">     copy files/dirs from device</span><br><span class="line">     -a: preserve file timestamp and mode</span><br><span class="line">     -z: enable compression with a specified algorithm (any, none, brotli)</span><br><span class="line">     -Z: disable compression</span><br><span class="line"> sync [-l] [-z ALGORITHM] [-Z] [all|data|odm|oem|product|system|system_ext|vendor]</span><br><span class="line">     sync a local build from $ANDROID_PRODUCT_OUT to the device (default all)</span><br><span class="line">     -n: dry run: push files to device without storing to the filesystem</span><br><span class="line">     -l: list files that would be copied, but don&#x27;t copy them</span><br><span class="line">     -z: enable compression with a specified algorithm (any, none, brotli)</span><br><span class="line">     -Z: disable compression</span><br><span class="line"></span><br><span class="line">shell:</span><br><span class="line"> shell [-e ESCAPE] [-n] [-Tt] [-x] [COMMAND...]</span><br><span class="line">     run remote shell command (interactive shell if no command given)</span><br><span class="line">     -e: choose escape character, or &quot;none&quot;; default &#x27;~&#x27;</span><br><span class="line">     -n: don&#x27;t read from stdin</span><br><span class="line">     -T: disable pty allocation</span><br><span class="line">     -t: allocate a pty if on a tty (-tt: force pty allocation)</span><br><span class="line">     -x: disable remote exit codes and stdout/stderr separation</span><br><span class="line"> emu COMMAND              run emulator console command</span><br><span class="line"></span><br><span class="line">app installation (see also `adb shell cmd package help`):</span><br><span class="line"> install [-lrtsdg] [--instant] PACKAGE</span><br><span class="line">     push a single package to the device and install it</span><br><span class="line"> install-multiple [-lrtsdpg] [--instant] PACKAGE...</span><br><span class="line">     push multiple APKs to the device for a single package and install them</span><br><span class="line"> install-multi-package [-lrtsdpg] [--instant] PACKAGE...</span><br><span class="line">     push one or more packages to the device and install them atomically</span><br><span class="line">     -r: replace existing application</span><br><span class="line">     -t: allow test packages</span><br><span class="line">     -d: allow version code downgrade (debuggable packages only)</span><br><span class="line">     -p: partial application install (install-multiple only)</span><br><span class="line">     -g: grant all runtime permissions</span><br><span class="line">     --abi ABI: override platform&#x27;s default ABI</span><br><span class="line">     --instant: cause the app to be installed as an ephemeral install app</span><br><span class="line">     --no-streaming: always push APK to device and invoke Package Manager as separate steps</span><br><span class="line">     --streaming: force streaming APK directly into Package Manager</span><br><span class="line">     --fastdeploy: use fast deploy</span><br><span class="line">     --no-fastdeploy: prevent use of fast deploy</span><br><span class="line">     --force-agent: force update of deployment agent when using fast deploy</span><br><span class="line">     --date-check-agent: update deployment agent when local version is newer and using fast deploy</span><br><span class="line">     --version-check-agent: update deployment agent when local version has different version code and using fast deploy</span><br><span class="line">     (See also `adb shell pm help` for more options.)</span><br><span class="line"> uninstall [-k] PACKAGE</span><br><span class="line">     remove this app package from the device</span><br><span class="line">     &#x27;-k&#x27;: keep the data and cache directories</span><br><span class="line"></span><br><span class="line">debugging:</span><br><span class="line"> bugreport [PATH]</span><br><span class="line">     write bugreport to given PATH [default=bugreport.zip];</span><br><span class="line">     if PATH is a directory, the bug report is saved in that directory.</span><br><span class="line">     devices that don&#x27;t support zipped bug reports output to stdout.</span><br><span class="line"> jdwp                     list pids of processes hosting a JDWP transport</span><br><span class="line"> logcat                   show device log (logcat --help for more)</span><br><span class="line"></span><br><span class="line">security:</span><br><span class="line"> disable-verity           disable dm-verity checking on userdebug builds</span><br><span class="line"> enable-verity            re-enable dm-verity checking on userdebug builds</span><br><span class="line"> keygen FILE</span><br><span class="line">     generate adb public/private key; private key stored in FILE,</span><br><span class="line"></span><br><span class="line">scripting:</span><br><span class="line"> wait-for[-TRANSPORT]-STATE...</span><br><span class="line">     wait for device to be in a given state</span><br><span class="line">     STATE: device, recovery, rescue, sideload, bootloader, or disconnect</span><br><span class="line">     TRANSPORT: usb, local, or any [default=any]</span><br><span class="line"> get-state                print offline | bootloader | device</span><br><span class="line"> get-serialno             print &lt;serial-number&gt;</span><br><span class="line"> get-devpath              print &lt;device-path&gt;</span><br><span class="line"> remount [-R]</span><br><span class="line">      remount partitions read-write. if a reboot is required, -R will</span><br><span class="line">      will automatically reboot the device.</span><br><span class="line"> reboot [bootloader|recovery|sideload|sideload-auto-reboot]</span><br><span class="line">     reboot the device; defaults to booting system image but</span><br><span class="line">     supports bootloader and recovery too. sideload reboots</span><br><span class="line">     into recovery and automatically starts sideload mode,</span><br><span class="line">     sideload-auto-reboot is the same but reboots after sideloading.</span><br><span class="line"> sideload OTAPACKAGE      sideload the given full OTA package</span><br><span class="line"> root                     restart adbd with root permissions</span><br><span class="line"> unroot                   restart adbd without root permissions</span><br><span class="line"> usb                      restart adbd listening on USB</span><br><span class="line"> tcpip PORT               restart adbd listening on TCP on PORT</span><br><span class="line"></span><br><span class="line">internal debugging:</span><br><span class="line"> start-server             ensure that there is a server running</span><br><span class="line"> kill-server              kill the server if it is running</span><br><span class="line"> reconnect                kick connection from host side to force reconnect</span><br><span class="line"> reconnect device         kick connection from device side to force reconnect</span><br><span class="line"> reconnect offline        reset offline/unauthorized devices to force reconnect</span><br><span class="line"></span><br><span class="line">usb:</span><br><span class="line"> attach                   attach a detached USB device</span><br><span class="line"> detach                   detach from a USB device to allow use by other processes</span><br><span class="line">environment variables:</span><br><span class="line"><span class="meta prompt_"> $</span><span class="language-bash">ADB_TRACE</span></span><br><span class="line">     comma-separated list of debug info to log:</span><br><span class="line">     all,adb,sockets,packets,rwx,usb,sync,sysdeps,transport,jdwp</span><br><span class="line"><span class="meta prompt_"> $</span><span class="language-bash">ADB_VENDOR_KEYS         colon-separated list of keys (files or directories)</span></span><br><span class="line"><span class="meta prompt_"> $</span><span class="language-bash">ANDROID_SERIAL          serial number to connect to (see -s)</span></span><br><span class="line"><span class="meta prompt_"> $</span><span class="language-bash">ANDROID_LOG_TAGS        tags to be used by logcat (see logcat --<span class="built_in">help</span>)</span></span><br><span class="line"><span class="meta prompt_"> $</span><span class="language-bash">ADB_LOCAL_TRANSPORT_MAX_PORT max emulator scan port (default 5585, 16 emus)</span></span><br><span class="line"><span class="meta prompt_"> $</span><span class="language-bash">ADB_MDNS_AUTO_CONNECT   comma-separated list of mdns services to allow auto-connect (default adb-tls-connect)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code class="shell">#abd
+Android Debug Bridge version 1.0.41
+Version 33.0.0-8141338
+Installed as C:\Users\M1sceden4\AppData\Local\Android\Sdk\platform-tools\adb.exe
 
+global options:
+ -a                       listen on all network interfaces, not just localhost
+ -d                       use USB device (error if multiple devices connected)
+ -e                       use TCP/IP device (error if multiple TCP/IP devices available)
+ -s SERIAL                use device with given serial (overrides $ANDROID_SERIAL)
+ -t ID                    use device with given transport id
+ -H                       name of adb server host [default=localhost]
+ -P                       port of adb server [default=5037]
+ -L SOCKET                listen on given socket for adb server [default=tcp:localhost:5037]
+ --one-device SERIAL|USB  only allowed with &#39;start-server&#39; or &#39;server nodaemon&#39;, server will only connect to one USB device, specified by a serial number or USB device address.
 
+general commands:
+ devices [-l]             list connected devices (-l for long output)
+ help                     show this help message
+ version                  show version num
 
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">android</span></span><br><span class="line">**************************************************************************</span><br><span class="line">The &quot;android&quot; command is deprecated.</span><br><span class="line">For manual SDK, AVD, and project management, please use Android Studio.</span><br><span class="line">For command-line tools, use tools\bin\sdkmanager.bat</span><br><span class="line">and tools\bin\avdmanager.bat</span><br><span class="line">**************************************************************************</span><br><span class="line"></span><br><span class="line">Invalid or unsupported command &quot;&quot;</span><br><span class="line"></span><br><span class="line">Supported commands are:</span><br><span class="line">android list target</span><br><span class="line">android list avd</span><br><span class="line">android list device</span><br><span class="line">android create avd</span><br><span class="line">android move avd</span><br><span class="line">android delete avd</span><br><span class="line">android list sdk</span><br><span class="line">android update sdk</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+networking:
+ connect HOST[:PORT]      connect to a device via TCP/IP [default port=5555]
+ disconnect [HOST[:PORT]]
+     disconnect from given TCP/IP device [default port=5555], or all
+ pair HOST[:PORT] [PAIRING CODE]
+     pair with a device for secure TCP/IP communication
+ forward --list           list all forward socket connections
+ forward [--no-rebind] LOCAL REMOTE
+     forward socket connection using:
+       tcp:&lt;port&gt; (&lt;local&gt; may be &quot;tcp:0&quot; to pick any open port)
+       localabstract:&lt;unix domain socket name&gt;
+       localreserved:&lt;unix domain socket name&gt;
+       localfilesystem:&lt;unix domain socket name&gt;
+       jdwp:&lt;process pid&gt; (remote only)
+       vsock:&lt;CID&gt;:&lt;port&gt; (remote only)
+       acceptfd:&lt;fd&gt; (listen only)
+ forward --remove LOCAL   remove specific forward socket connection
+ forward --remove-all     remove all forward socket connections
+ ppp TTY [PARAMETER...]   run PPP over USB
+ reverse --list           list all reverse socket connections from device
+ reverse [--no-rebind] REMOTE LOCAL
+     reverse socket connection using:
+       tcp:&lt;port&gt; (&lt;remote&gt; may be &quot;tcp:0&quot; to pick any open port)
+       localabstract:&lt;unix domain socket name&gt;
+       localreserved:&lt;unix domain socket name&gt;
+       localfilesystem:&lt;unix domain socket name&gt;
+ reverse --remove REMOTE  remove specific reverse socket connection
+ reverse --remove-all     remove all reverse socket connections from device
+ mdns check               check if mdns discovery is available
+ mdns services            list all discovered services
 
+file transfer:
+ push [--sync] [-z ALGORITHM] [-Z] LOCAL... REMOTE
+     copy local files/directories to device
+     --sync: only push files that are newer on the host than the device
+     -n: dry run: push files to device without storing to the filesystem
+     -z: enable compression with a specified algorithm (any, none, brotli)
+     -Z: disable compression
+ pull [-a] [-z ALGORITHM] [-Z] REMOTE... LOCAL
+     copy files/dirs from device
+     -a: preserve file timestamp and mode
+     -z: enable compression with a specified algorithm (any, none, brotli)
+     -Z: disable compression
+ sync [-l] [-z ALGORITHM] [-Z] [all|data|odm|oem|product|system|system_ext|vendor]
+     sync a local build from $ANDROID_PRODUCT_OUT to the device (default all)
+     -n: dry run: push files to device without storing to the filesystem
+     -l: list files that would be copied, but don&#39;t copy them
+     -z: enable compression with a specified algorithm (any, none, brotli)
+     -Z: disable compression
+
+shell:
+ shell [-e ESCAPE] [-n] [-Tt] [-x] [COMMAND...]
+     run remote shell command (interactive shell if no command given)
+     -e: choose escape character, or &quot;none&quot;; default &#39;~&#39;
+     -n: don&#39;t read from stdin
+     -T: disable pty allocation
+     -t: allocate a pty if on a tty (-tt: force pty allocation)
+     -x: disable remote exit codes and stdout/stderr separation
+ emu COMMAND              run emulator console command
+
+app installation (see also `adb shell cmd package help`):
+ install [-lrtsdg] [--instant] PACKAGE
+     push a single package to the device and install it
+ install-multiple [-lrtsdpg] [--instant] PACKAGE...
+     push multiple APKs to the device for a single package and install them
+ install-multi-package [-lrtsdpg] [--instant] PACKAGE...
+     push one or more packages to the device and install them atomically
+     -r: replace existing application
+     -t: allow test packages
+     -d: allow version code downgrade (debuggable packages only)
+     -p: partial application install (install-multiple only)
+     -g: grant all runtime permissions
+     --abi ABI: override platform&#39;s default ABI
+     --instant: cause the app to be installed as an ephemeral install app
+     --no-streaming: always push APK to device and invoke Package Manager as separate steps
+     --streaming: force streaming APK directly into Package Manager
+     --fastdeploy: use fast deploy
+     --no-fastdeploy: prevent use of fast deploy
+     --force-agent: force update of deployment agent when using fast deploy
+     --date-check-agent: update deployment agent when local version is newer and using fast deploy
+     --version-check-agent: update deployment agent when local version has different version code and using fast deploy
+     (See also `adb shell pm help` for more options.)
+ uninstall [-k] PACKAGE
+     remove this app package from the device
+     &#39;-k&#39;: keep the data and cache directories
+
+debugging:
+ bugreport [PATH]
+     write bugreport to given PATH [default=bugreport.zip];
+     if PATH is a directory, the bug report is saved in that directory.
+     devices that don&#39;t support zipped bug reports output to stdout.
+ jdwp                     list pids of processes hosting a JDWP transport
+ logcat                   show device log (logcat --help for more)
+
+security:
+ disable-verity           disable dm-verity checking on userdebug builds
+ enable-verity            re-enable dm-verity checking on userdebug builds
+ keygen FILE
+     generate adb public/private key; private key stored in FILE,
+
+scripting:
+ wait-for[-TRANSPORT]-STATE...
+     wait for device to be in a given state
+     STATE: device, recovery, rescue, sideload, bootloader, or disconnect
+     TRANSPORT: usb, local, or any [default=any]
+ get-state                print offline | bootloader | device
+ get-serialno             print &lt;serial-number&gt;
+ get-devpath              print &lt;device-path&gt;
+ remount [-R]
+      remount partitions read-write. if a reboot is required, -R will
+      will automatically reboot the device.
+ reboot [bootloader|recovery|sideload|sideload-auto-reboot]
+     reboot the device; defaults to booting system image but
+     supports bootloader and recovery too. sideload reboots
+     into recovery and automatically starts sideload mode,
+     sideload-auto-reboot is the same but reboots after sideloading.
+ sideload OTAPACKAGE      sideload the given full OTA package
+ root                     restart adbd with root permissions
+ unroot                   restart adbd without root permissions
+ usb                      restart adbd listening on USB
+ tcpip PORT               restart adbd listening on TCP on PORT
+
+internal debugging:
+ start-server             ensure that there is a server running
+ kill-server              kill the server if it is running
+ reconnect                kick connection from host side to force reconnect
+ reconnect device         kick connection from device side to force reconnect
+ reconnect offline        reset offline/unauthorized devices to force reconnect
+
+usb:
+ attach                   attach a detached USB device
+ detach                   detach from a USB device to allow use by other processes
+environment variables:
+ $ADB_TRACE
+     comma-separated list of debug info to log:
+     all,adb,sockets,packets,rwx,usb,sync,sysdeps,transport,jdwp
+ $ADB_VENDOR_KEYS         colon-separated list of keys (files or directories)
+ $ANDROID_SERIAL          serial number to connect to (see -s)
+ $ANDROID_LOG_TAGS        tags to be used by logcat (see logcat --help)
+ $ADB_LOCAL_TRANSPORT_MAX_PORT max emulator scan port (default 5585, 16 emus)
+ $ADB_MDNS_AUTO_CONNECT   comma-separated list of mdns services to allow auto-connect (default adb-tls-connect)
+</code></pre>
+<pre><code class="shell">#android
+**************************************************************************
+The &quot;android&quot; command is deprecated.
+For manual SDK, AVD, and project management, please use Android Studio.
+For command-line tools, use tools\bin\sdkmanager.bat
+and tools\bin\avdmanager.bat
+**************************************************************************
+
+Invalid or unsupported command &quot;&quot;
+
+Supported commands are:
+android list target
+android list avd
+android list device
+android create avd
+android move avd
+android delete avd
+android list sdk
+android update sdk
+</code></pre>
 <p>配置完成</p>
 <p>Configuration complete</p>
-
-        </div>
-
-        
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>Mykonos</span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>Permalink:</span>
-                        <span><a href="http://mykonos-x.github.io/2022/03/02/Configure-SDK-environment-variables-for-Android-Studio-development-%E9%85%8D%E7%BD%AESDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/">http://mykonos-x.github.io/2022/03/02/Configure-SDK-environment-variables-for-Android-Studio-development-%E9%85%8D%E7%BD%AESDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/</a></span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>License:</span>
-                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
-                    </p>
-                
-                
-                     <p class="copyright-item">
-                         <span>Slogan:</span>
-                         <span><strong>You can go further</strong>.</span>
-                     </p>
-                
-
-            </section>
-        
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
-                    
-                    
-                        <a href="/tags/android-development/"># android development</a>
-                    
-                        
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2022/03/02/About-the-problem-of-wrong-screen-ratio-of-mobile-phone-virtual-machine-in-Android-Studio-%E5%85%B3%E4%BA%8EAndroid-Studio%E4%B8%AD%E6%89%8B%E6%9C%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B1%8F%E5%B9%95%E6%AF%94%E4%BE%8B%E4%B8%8D%E5%AF%B9%E7%9A%84%E9%97%AE%E9%A2%98/">About the problem of wrong screen ratio of mobile phone virtual machine in Android Studio(关于Android Studio中手机虚拟机屏幕比例不对的问题)</a>
-            
-            
-            <a class="next" rel="next" href="/2022/02/28/Environment-variable-path-rewrite-script-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fpath%E9%87%8D%E5%86%99%E8%84%9A%E6%9C%AC/">Environment variable path rewrite script(环境变量path重写脚本)</a>
-            
-        </section>
-
-
-    </article>
-</div>
-
-            </div>
-            <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© Mykonos | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
-    </div>
-</footer>
-
-    </div>
-</body>
-
-</html>
+<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/2022/03/02/About-the-problem-of-wrong-screen-ratio-of-mobile-phone-virtual-machine-in-Android-Studio-%E5%85%B3%E4%BA%8EAndroid-Studio%E4%B8%AD%E6%89%8B%E6%9C%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B1%8F%E5%B9%95%E6%AF%94%E4%BE%8B%E4%B8%8D%E5%AF%B9%E7%9A%84%E9%97%AE%E9%A2%98/">← 下一篇 About the problem of wrong screen ratio of mobile phone virtual machine in Android Studio(关于Android Studio中手机虚拟机屏幕比例不对的问题)</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2022/02/28/Environment-variable-path-rewrite-script-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fpath%E9%87%8D%E5%86%99%E8%84%9A%E6%9C%AC/">Environment variable path rewrite script(环境变量path重写脚本) 上一篇 →</a></div></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/">Mykonos</a></h1><div id="description"><p></p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/Mykonos-x"><i class="fab fa-github" alt="Github"></i></a><a class="social" href="g0dzirrazhou@gmail.com"><i class="fa fa-envelope" alt="E-Mail"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#System-environment-variable-settings"><span class="toc-number">1.</span> <span class="toc-text">System environment variable settings</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-1-Add-ANDROID-HOME"><span class="toc-number">1.1.</span> <span class="toc-text">Step 1 Add ANDROID_HOME</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-2-Add-to-Path"><span class="toc-number">1.2.</span> <span class="toc-text">Step 2 Add to Path</span></a></li></ol></li></ol></div></div><footer><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> 使用主题 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> 主题作者 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/search.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script></body></html>

@@ -1,345 +1,246 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <meta name="author" content="Mykonos">
-
-
-
-
-
-<title>长城杯2022 known_phi | Silence to hear.</title>
-
-
-
-    <link rel="icon" href="/ico.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
-    
-    <link rel="stylesheet" href="/css/style.css">
-    
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
-
-    
-    
-        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-    "HTML-CSS": {
-        preferredFont: "TeX",
-        availableFonts: ["STIX","TeX"],
-        linebreaks: { automatic:true },
-        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
-    },
-    tex2jax: {
-        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
-        processEscapes: true,
-        ignoreClass: "tex2jax_ignore|dno",
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-        equationNumbers: { autoNumber: "AMS" },
-        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
-        Macros: { href: "{}" }
-    },
-    messageStyle: "none"
-    });
-</script>
-<!-- 给MathJax元素添加has-jax class -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-<!-- 通过连接CDN加载MathJax的js代码 -->
-<script type="text/javascript" async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-
-
-    
-
-
-<meta name="generator" content="Hexo 6.3.0"></head>
-
-<body>
-    <script>
-        // this function is used to check current theme before page loaded.
-        (() => {
-            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
-            const isDark = currentTheme === 'dark';
-            const pagebody = document.getElementsByTagName('body')[0]
-            if (isDark) {
-                pagebody.classList.add('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
-            } else {
-                pagebody.classList.remove('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Light"
-            }
-        })();
-    </script>
-
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">Mykonos-x&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
-
-    
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">Mykonos-x&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-            </div>
-        </div>
-    </nav>
-
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-            <div class="main">
-                <div class="container">
-    
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
-</div>
-
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6; // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
-
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function() {
-            tocbot.refresh(obj_merge(tocbot_default_config, {
-                hasInnerContainers: true
-            }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function() {
-        tocbot.init(obj_merge(tocbot_default_config, {
-            collapseDepth: 1
-        }));
-    });
-
-    function expand_toc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, {
-            collapseDepth: expanded ? 1 : DEPTH_MAX
-        }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">长城杯2022 known_phi</h1>
-            
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">Mykonos</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">August 28, 2022&nbsp;&nbsp;0:35:00</a>
-                        </span>
-                    
-                    
-                </div>
-            
-        </header>
-
-        <div class="post-content">
-            <h3 id="Involved-Knowledge"><a href="#Involved-Knowledge" class="headerlink" title="Involved Knowledge"></a>Involved Knowledge</h3><ul>
+<!DOCTYPE html><html lang="en" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>长城杯2022 known_phi | Silence to hear.</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><script>var config = {"root":"/","search":{"preload":false,"activeHolder":"键入以继续","blurHolder":"数据检索","noResult":"无 $0 相关数据"},"code":{"codeInfo":"$0 - $1 行","copy":"code.copy","copyFinish":"code.copyFinish","expand":"code.expand"}}</script><script src="//unpkg.com/mermaid@9.2.2/dist/mermaid.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.1/MathJax.js"></script><script>MathJax.Hub.Config({
+ menuSettings: {
+   zoom: "None"
+ },
+ showMathMenu: false,
+ jax: ["input/TeX","output/CommonHTML"],
+ extensions: ["tex2jax.js"],
+ TeX: {
+   extensions: ["AMSmath.js","AMSsymbols.js"],
+   equationNumbers: {
+     autoNumber: "AMS"
+   }
+ },
+ tex2jax: {
+   inlineMath: [["\\(", "\\)"]],
+   displayMath: [["\\[", "\\]"]]
+ }
+});</script><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><link rel="stylesheet" href="/css/arknights.css"><script>if (window.localStorage.getItem('theme-mode') === 'light')
+ document.documentElement.setAttribute('theme-mode', 'light')
+if (window.localStorage.getItem('theme-mode') === 'dark')
+ document.documentElement.setAttribute('theme-mode', 'dark')</script><style>@font-face {
+ font-family: Bender;
+ src: local('Bender'), url("/font/Bender.ttf"), url("/font/Bender.otf");
+}
+@font-face {
+ font-family: BenderLight;
+ src: local('BenderLight'), url("/font/BenderLight.ttf");
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><style>:root {
+  --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
+  --light-background: url('/img/bk.jpg');
+}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>长城杯2022 known_phi</h1><div id="post-info"><span>文章发布时间: <div class="control"><time datetime="2022-08-27T16:35:00.000Z" id="date"> 2022-08-28</time></div></span></div></div><hr><div id="post-content"><h3 id="Involved-Knowledge"><a href="#Involved-Knowledge" class="headerlink" title="Involved Knowledge"></a>Involved Knowledge</h3><ul>
 <li><p>已知phi,n 分解n</p>
 </li>
 <li><p>DSA K共享攻击</p>
 </li>
 </ul>
-<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> getPrime, bytes_to_long, inverse, long_to_bytes</span><br><span class="line"><span class="keyword">from</span> Crypto.PublicKey <span class="keyword">import</span> DSA</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">gen</span>(<span class="params">a</span>):</span><br><span class="line">    p = getPrime(a) </span><br><span class="line">    q = getPrime(a)</span><br><span class="line">    r = getPrime(a)</span><br><span class="line">    x = getPrime(a)</span><br><span class="line">    n = p*q*r*x</span><br><span class="line">    phi = (p-<span class="number">1</span>)*(q-<span class="number">1</span>)*(r-<span class="number">1</span>)*(x-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> n, phi, [p, q, r, x]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sign</span>(<span class="params">m, k, x, p, q, g</span>):</span><br><span class="line">    hm = bytes_to_long(sha256(m).digest())</span><br><span class="line">    r = <span class="built_in">pow</span>(g, k, p) % q</span><br><span class="line">    s = (hm + x*r) * inverse(k, q) % q</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> r,s</span><br><span class="line"></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">a = <span class="number">256</span></span><br><span class="line">x = bytes_to_long(flag)</span><br><span class="line"><span class="comment"># print(x)</span></span><br><span class="line"></span><br><span class="line">n, phi, n_factors = gen(a)</span><br><span class="line">n_factors = <span class="built_in">sorted</span>(n_factors)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;n = <span class="subst">&#123;n&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;phi = <span class="subst">&#123;phi&#125;</span>&#x27;</span>)</span><br><span class="line">m1 = long_to_bytes(n_factors[<span class="number">0</span>] + n_factors[<span class="number">3</span>]) <span class="comment">#p x</span></span><br><span class="line">m2 = long_to_bytes(n_factors[<span class="number">1</span>] + n_factors[<span class="number">2</span>]) <span class="comment">#q r</span></span><br><span class="line"><span class="comment"># print(f&#x27;m1 = &#123;m1&#125;&#x27;)</span></span><br><span class="line"><span class="comment"># print(f&#x27;m2 = &#123;m2&#125;&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># DSA 共享K攻击</span></span><br><span class="line">key = DSA.generate(<span class="built_in">int</span>(<span class="number">2048</span>)) <span class="comment">#签名</span></span><br><span class="line">q = key.q</span><br><span class="line">p = key.p</span><br><span class="line">g = key.g</span><br><span class="line"><span class="keyword">assert</span> q &gt; x </span><br><span class="line">k = random.randint(<span class="number">1</span>, q-<span class="number">1</span>)      <span class="comment">#1&lt;k&lt;q-1</span></span><br><span class="line">r1, s1 = sign(m1, k, x, p, q, g)</span><br><span class="line">r2, s2 = sign(m2, k, x, p, q, g)</span><br><span class="line"><span class="comment"># print(f&#x27;k = &#123;k&#125;&#x27;)</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;q = <span class="subst">&#123;q&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="comment"># print(f&#x27;s1 = &#123;s1&#125;&#x27;)</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;r1 = <span class="subst">&#123;r1&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;s1 = <span class="subst">&#123;s1&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;r2 = <span class="subst">&#123;r2&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;s2 = <span class="subst">&#123;s2&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">n = 104228256293611313959676852310116852553951496121352860038971098657350022997841589403091722735802150153734050783858816709247647536393314564077002364012463220999962114186339228164032217361145009468516448617173972835797623658266515762201804936729547278758839604969469770650218191574897316410254695420895895051693</span></span><br><span class="line"><span class="string">phi = 104228256293611313959676852310116852553951496121352860038971098657350022997837434645707418205268240995284026522165519145773852565112344453740579163420312890001524537570675468046604347184376661743552799809753709321949095844960227307733389258381950812717245522599433727311919405966404418872873961877021696812800</span></span><br><span class="line"><span class="string">q = 24513014442114004234202354110477737650785387286781126308169912007819</span></span><br><span class="line"><span class="string">s1 = 764450933738974696530033347966845551587903750431946039815672438603</span></span><br><span class="line"><span class="string">r1 = 8881880595434882344509893789458546908449907797285477983407324325035</span></span><br><span class="line"><span class="string">s1 = 764450933738974696530033347966845551587903750431946039815672438603</span></span><br><span class="line"><span class="string">r2 = 8881880595434882344509893789458546908449907797285477983407324325035</span></span><br><span class="line"><span class="string">s2 = 22099482232399385060035569388467035727015978742301259782677969649659</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><pre><code class="python">from Crypto.Util.number import getPrime, bytes_to_long, inverse, long_to_bytes
+from Crypto.PublicKey import DSA
+from hashlib import sha256
+import random
+from secret import flag
 
+def gen(a):
+    p = getPrime(a) 
+    q = getPrime(a)
+    r = getPrime(a)
+    x = getPrime(a)
+    n = p*q*r*x
+    phi = (p-1)*(q-1)*(r-1)*(x-1)
+
+    return n, phi, [p, q, r, x]
+
+def sign(m, k, x, p, q, g):
+    hm = bytes_to_long(sha256(m).digest())
+    r = pow(g, k, p) % q
+    s = (hm + x*r) * inverse(k, q) % q
+
+    return r,s
+
+e = 65537
+a = 256
+x = bytes_to_long(flag)
+# print(x)
+
+n, phi, n_factors = gen(a)
+n_factors = sorted(n_factors)
+print(f&#39;n = &#123;n&#125;&#39;)
+print(f&#39;phi = &#123;phi&#125;&#39;)
+m1 = long_to_bytes(n_factors[0] + n_factors[3]) #p x
+m2 = long_to_bytes(n_factors[1] + n_factors[2]) #q r
+# print(f&#39;m1 = &#123;m1&#125;&#39;)
+# print(f&#39;m2 = &#123;m2&#125;&#39;)
+
+# DSA 共享K攻击
+key = DSA.generate(int(2048)) #签名
+q = key.q
+p = key.p
+g = key.g
+assert q &gt; x 
+k = random.randint(1, q-1)      #1&lt;k&lt;q-1
+r1, s1 = sign(m1, k, x, p, q, g)
+r2, s2 = sign(m2, k, x, p, q, g)
+# print(f&#39;k = &#123;k&#125;&#39;)
+print(f&#39;q = &#123;q&#125;&#39;)
+# print(f&#39;s1 = &#123;s1&#125;&#39;)
+print(f&#39;r1 = &#123;r1&#125;&#39;)
+print(f&#39;s1 = &#123;s1&#125;&#39;)
+print(f&#39;r2 = &#123;r2&#125;&#39;)
+print(f&#39;s2 = &#123;s2&#125;&#39;)
+
+&#39;&#39;&#39;
+n = 104228256293611313959676852310116852553951496121352860038971098657350022997841589403091722735802150153734050783858816709247647536393314564077002364012463220999962114186339228164032217361145009468516448617173972835797623658266515762201804936729547278758839604969469770650218191574897316410254695420895895051693
+phi = 104228256293611313959676852310116852553951496121352860038971098657350022997837434645707418205268240995284026522165519145773852565112344453740579163420312890001524537570675468046604347184376661743552799809753709321949095844960227307733389258381950812717245522599433727311919405966404418872873961877021696812800
+q = 24513014442114004234202354110477737650785387286781126308169912007819
+s1 = 764450933738974696530033347966845551587903750431946039815672438603
+r1 = 8881880595434882344509893789458546908449907797285477983407324325035
+s1 = 764450933738974696530033347966845551587903750431946039815672438603
+r2 = 8881880595434882344509893789458546908449907797285477983407324325035
+s2 = 22099482232399385060035569388467035727015978742301259782677969649659
+&#39;&#39;&#39;
+</code></pre>
 <h4 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h4><p>已知phi , n 将n分解，脚本如下</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">factorize_multi_prime</span>(<span class="params">N, phi</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Recovers the prime factors from a modulus if Euler&#x27;s totient is known.</span></span><br><span class="line"><span class="string">    This method works for a modulus consisting of any number of primes, but is considerably be slower than factorize.</span></span><br><span class="line"><span class="string">    More information: Hinek M. J., Low M. K., Teske E., &quot;On Some Attacks on Multi-prime RSA&quot; (Section 3)</span></span><br><span class="line"><span class="string">    :param N: the modulus</span></span><br><span class="line"><span class="string">    :param phi: Euler&#x27;s totient, the order of the multiplicative group modulo N</span></span><br><span class="line"><span class="string">    :return: a tuple containing the prime factors</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    prime_factors = <span class="built_in">set</span>()</span><br><span class="line">    factors = [N]</span><br><span class="line">    <span class="keyword">while</span> <span class="built_in">len</span>(factors) &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="comment"># Element to factorize.</span></span><br><span class="line">        N = factors[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">        w = randrange(<span class="number">2</span>, N - <span class="number">1</span>)</span><br><span class="line">        i = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> phi % (<span class="number">2</span> ** i) == <span class="number">0</span>:</span><br><span class="line">            sqrt_1 = <span class="built_in">pow</span>(w, phi // (<span class="number">2</span> ** i), N)</span><br><span class="line">            <span class="keyword">if</span> sqrt_1 &gt; <span class="number">1</span> <span class="keyword">and</span> sqrt_1 != N - <span class="number">1</span>:</span><br><span class="line">                <span class="comment"># We can remove the element to factorize now, because we have a factorization.</span></span><br><span class="line">                factors = factors[<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line">                p = gcd(N, sqrt_1 + <span class="number">1</span>)</span><br><span class="line">                q = N // p</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> isPrime(p):</span><br><span class="line">                    prime_factors.add(p)</span><br><span class="line">                <span class="keyword">elif</span> p &gt; <span class="number">1</span>:</span><br><span class="line">                    factors.append(p)</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> isPrime(q):</span><br><span class="line">                    prime_factors.add(q)</span><br><span class="line">                <span class="keyword">elif</span> q &gt; <span class="number">1</span>:</span><br><span class="line">                    factors.append(q)</span><br><span class="line"></span><br><span class="line">                <span class="comment"># Continue in the outer loop</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">tuple</span>(prime_factors)</span><br></pre></td></tr></table></figure>
+<pre><code class="python">def factorize_multi_prime(N, phi):
+    &quot;&quot;&quot;
+    Recovers the prime factors from a modulus if Euler&#39;s totient is known.
+    This method works for a modulus consisting of any number of primes, but is considerably be slower than factorize.
+    More information: Hinek M. J., Low M. K., Teske E., &quot;On Some Attacks on Multi-prime RSA&quot; (Section 3)
+    :param N: the modulus
+    :param phi: Euler&#39;s totient, the order of the multiplicative group modulo N
+    :return: a tuple containing the prime factors
+    &quot;&quot;&quot;
+    prime_factors = set()
+    factors = [N]
+    while len(factors) &gt; 0:
+        # Element to factorize.
+        N = factors[0]
 
+        w = randrange(2, N - 1)
+        i = 1
+        while phi % (2 ** i) == 0:
+            sqrt_1 = pow(w, phi // (2 ** i), N)
+            if sqrt_1 &gt; 1 and sqrt_1 != N - 1:
+                # We can remove the element to factorize now, because we have a factorization.
+                factors = factors[1:]
+
+                p = gcd(N, sqrt_1 + 1)
+                q = N // p
+
+                if isPrime(p):
+                    prime_factors.add(p)
+                elif p &gt; 1:
+                    factors.append(p)
+
+                if isPrime(q):
+                    prime_factors.add(q)
+                elif q &gt; 1:
+                    factors.append(q)
+
+                # Continue in the outer loop
+                break
+
+            i += 1
+
+    return tuple(prime_factors)
+</code></pre>
 <p>接着是DSA的K共享攻击</p>
 <p>我们具体的一个求解步骤</p>
 <p><img src="https://pic.imgdb.cn/item/630a472316f2c2beb1d8e79c.jpg"></p>
 <p><img src="https://pic.imgdb.cn/item/630a473e16f2c2beb1d8f9bb.jpg"></p>
 <p>具体原理参见ctfwiki</p>
-<h4 id="Exp"><a href="#Exp" class="headerlink" title="Exp"></a>Exp</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> libnum</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">import</span> sympy</span><br><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> gcd</span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> isqrt</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randrange</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">n = <span class="number">104228256293611313959676852310116852553951496121352860038971098657350022997841589403091722735802150153734050783858816709247647536393314564077002364012463220999962114186339228164032217361145009468516448617173972835797623658266515762201804936729547278758839604969469770650218191574897316410254695420895895051693</span></span><br><span class="line">phi = <span class="number">104228256293611313959676852310116852553951496121352860038971098657350022997837434645707418205268240995284026522165519145773852565112344453740579163420312890001524537570675468046604347184376661743552799809753709321949095844960227307733389258381950812717245522599433727311919405966404418872873961877021696812800</span></span><br><span class="line">q = <span class="number">24513014442114004234202354110477737650785387286781126308169912007819</span></span><br><span class="line">s1 = <span class="number">764450933738974696530033347966845551587903750431946039815672438603</span></span><br><span class="line">r1 = <span class="number">8881880595434882344509893789458546908449907797285477983407324325035</span></span><br><span class="line">r2 = <span class="number">8881880595434882344509893789458546908449907797285477983407324325035</span></span><br><span class="line">s2 = <span class="number">22099482232399385060035569388467035727015978742301259782677969649659</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">factorize_multi_prime</span>(<span class="params">N, phi</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Recovers the prime factors from a modulus if Euler&#x27;s totient is known.</span></span><br><span class="line"><span class="string">    This method works for a modulus consisting of any number of primes, but is considerably be slower than factorize.</span></span><br><span class="line"><span class="string">    More information: Hinek M. J., Low M. K., Teske E., &quot;On Some Attacks on Multi-prime RSA&quot; (Section 3)</span></span><br><span class="line"><span class="string">    :param N: the modulus</span></span><br><span class="line"><span class="string">    :param phi: Euler&#x27;s totient, the order of the multiplicative group modulo N</span></span><br><span class="line"><span class="string">    :return: a tuple containing the prime factors</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    prime_factors = <span class="built_in">set</span>()</span><br><span class="line">    factors = [N]</span><br><span class="line">    <span class="keyword">while</span> <span class="built_in">len</span>(factors) &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="comment"># Element to factorize.</span></span><br><span class="line">        N = factors[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">        w = randrange(<span class="number">2</span>, N - <span class="number">1</span>)</span><br><span class="line">        i = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> phi % (<span class="number">2</span> ** i) == <span class="number">0</span>:</span><br><span class="line">            sqrt_1 = <span class="built_in">pow</span>(w, phi // (<span class="number">2</span> ** i), N)</span><br><span class="line">            <span class="keyword">if</span> sqrt_1 &gt; <span class="number">1</span> <span class="keyword">and</span> sqrt_1 != N - <span class="number">1</span>:</span><br><span class="line">                <span class="comment"># We can remove the element to factorize now, because we have a factorization.</span></span><br><span class="line">                factors = factors[<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line">                p = gcd(N, sqrt_1 + <span class="number">1</span>)</span><br><span class="line">                q = N // p</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> isPrime(p):</span><br><span class="line">                    prime_factors.add(p)</span><br><span class="line">                <span class="keyword">elif</span> p &gt; <span class="number">1</span>:</span><br><span class="line">                    factors.append(p)</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> isPrime(q):</span><br><span class="line">                    prime_factors.add(q)</span><br><span class="line">                <span class="keyword">elif</span> q &gt; <span class="number">1</span>:</span><br><span class="line">                    factors.append(q)</span><br><span class="line"></span><br><span class="line">                <span class="comment"># Continue in the outer loop</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">tuple</span>(prime_factors)</span><br><span class="line">n_factors = factorize_multi_prime(n , phi)</span><br><span class="line">n_factors = <span class="built_in">sorted</span>(n_factors)</span><br><span class="line">m1 = long_to_bytes(n_factors[<span class="number">0</span>] + n_factors[<span class="number">3</span>]) <span class="comment"># p x</span></span><br><span class="line">m2 = long_to_bytes(n_factors[<span class="number">1</span>] + n_factors[<span class="number">2</span>]) <span class="comment"># q r</span></span><br><span class="line"></span><br><span class="line">hm1 = bytes_to_long(sha256(m1).digest())</span><br><span class="line">hm2 = bytes_to_long(sha256(m2).digest())</span><br><span class="line"><span class="comment"># k , x -&gt; flag</span></span><br><span class="line">k = gmpy2.invert((s1 - s2) , q) * (hm1 - hm2) % q</span><br><span class="line">x = (s1 * k - hm1) * gmpy2.invert(r1 , q) % q</span><br><span class="line">flag = libnum.n2s(<span class="built_in">int</span>(x))   </span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="Exp"><a href="#Exp" class="headerlink" title="Exp"></a>Exp</h4><pre><code class="python">from Crypto.Util.number import *
+import libnum
+import gmpy2
+import sympy
+from z3 import *
+import random
+from math import gcd
+from gmpy2 import isqrt
+from random import randrange
+from hashlib import *
 
-        </div>
+e = 65537
+n = 104228256293611313959676852310116852553951496121352860038971098657350022997841589403091722735802150153734050783858816709247647536393314564077002364012463220999962114186339228164032217361145009468516448617173972835797623658266515762201804936729547278758839604969469770650218191574897316410254695420895895051693
+phi = 104228256293611313959676852310116852553951496121352860038971098657350022997837434645707418205268240995284026522165519145773852565112344453740579163420312890001524537570675468046604347184376661743552799809753709321949095844960227307733389258381950812717245522599433727311919405966404418872873961877021696812800
+q = 24513014442114004234202354110477737650785387286781126308169912007819
+s1 = 764450933738974696530033347966845551587903750431946039815672438603
+r1 = 8881880595434882344509893789458546908449907797285477983407324325035
+r2 = 8881880595434882344509893789458546908449907797285477983407324325035
+s2 = 22099482232399385060035569388467035727015978742301259782677969649659
 
-        
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>Mykonos</span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>Permalink:</span>
-                        <span><a href="http://mykonos-x.github.io/2022/08/28/%E9%95%BF%E5%9F%8E%E6%9D%AF2022-known-phi/">http://mykonos-x.github.io/2022/08/28/%E9%95%BF%E5%9F%8E%E6%9D%AF2022-known-phi/</a></span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>License:</span>
-                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
-                    </p>
-                
-                
-                     <p class="copyright-item">
-                         <span>Slogan:</span>
-                         <span><strong>You can go further</strong>.</span>
-                     </p>
-                
+def factorize_multi_prime(N, phi):
+    &quot;&quot;&quot;
+    Recovers the prime factors from a modulus if Euler&#39;s totient is known.
+    This method works for a modulus consisting of any number of primes, but is considerably be slower than factorize.
+    More information: Hinek M. J., Low M. K., Teske E., &quot;On Some Attacks on Multi-prime RSA&quot; (Section 3)
+    :param N: the modulus
+    :param phi: Euler&#39;s totient, the order of the multiplicative group modulo N
+    :return: a tuple containing the prime factors
+    &quot;&quot;&quot;
+    prime_factors = set()
+    factors = [N]
+    while len(factors) &gt; 0:
+        # Element to factorize.
+        N = factors[0]
 
-            </section>
-        
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
-                    
-                    
-                        <a href="/tags/write-up/"># write-up</a>
-                    
-                        <a href="/tags/crypto/"># crypto</a>
-                    
-                        <a href="/tags/rsa/"># rsa</a>
-                    
-                        <a href="/tags/dsa/"># dsa</a>
-                    
-                        
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2022/08/29/BJDCTF2020-Babyrop2/">BJDCTF2020 Babyrop2</a>
-            
-            
-            <a class="next" rel="next" href="/2022/08/20/BJDCTF2020-EasyRSA/">BJDCTF2020 EasyRSA</a>
-            
-        </section>
+        w = randrange(2, N - 1)
+        i = 1
+        while phi % (2 ** i) == 0:
+            sqrt_1 = pow(w, phi // (2 ** i), N)
+            if sqrt_1 &gt; 1 and sqrt_1 != N - 1:
+                # We can remove the element to factorize now, because we have a factorization.
+                factors = factors[1:]
 
+                p = gcd(N, sqrt_1 + 1)
+                q = N // p
 
-    </article>
-</div>
+                if isPrime(p):
+                    prime_factors.add(p)
+                elif p &gt; 1:
+                    factors.append(p)
 
-            </div>
-            <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© Mykonos | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
-    </div>
-</footer>
+                if isPrime(q):
+                    prime_factors.add(q)
+                elif q &gt; 1:
+                    factors.append(q)
 
-    </div>
-</body>
+                # Continue in the outer loop
+                break
 
-</html>
+            i += 1
+
+    return tuple(prime_factors)
+n_factors = factorize_multi_prime(n , phi)
+n_factors = sorted(n_factors)
+m1 = long_to_bytes(n_factors[0] + n_factors[3]) # p x
+m2 = long_to_bytes(n_factors[1] + n_factors[2]) # q r
+
+hm1 = bytes_to_long(sha256(m1).digest())
+hm2 = bytes_to_long(sha256(m2).digest())
+# k , x -&gt; flag
+k = gmpy2.invert((s1 - s2) , q) * (hm1 - hm2) % q
+x = (s1 * k - hm1) * gmpy2.invert(r1 , q) % q
+flag = libnum.n2s(int(x))   
+print(flag)
+</code></pre>
+<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/2022/08/29/BJDCTF2020-Babyrop2/">← 下一篇 BJDCTF2020 Babyrop2</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2022/08/20/BJDCTF2020-EasyRSA/">BJDCTF2020 EasyRSA 上一篇 →</a></div></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/">Mykonos</a></h1><div id="description"><p></p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/Mykonos-x"><i class="fab fa-github" alt="Github"></i></a><a class="social" href="g0dzirrazhou@gmail.com"><i class="fa fa-envelope" alt="E-Mail"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Involved-Knowledge"><span class="toc-number">1.</span> <span class="toc-text">Involved Knowledge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-number">2.</span> <span class="toc-text">Description</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Analyze"><span class="toc-number">2.1.</span> <span class="toc-text">Analyze</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Exp"><span class="toc-number">2.2.</span> <span class="toc-text">Exp</span></a></li></ol></li></ol></div></div><footer><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> 使用主题 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> 主题作者 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/search.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script></body></html>

