@@ -34,7 +34,7 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
   --light-background: url('/img/bk.jpg');
 }</style><meta name="generator" content="Hexo 6.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="Search" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem"><a class="navBlock" href="/about/"><span class="navItemTitle">About</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>网鼎杯2022 青龙组 Handmake</h1><div id="post-info"><span>First Post: <div class="control"><time datetime="2023-09-25T15:52:44.000Z" id="date"> 2023-09-25</time></div></span></div></div><hr><div id="post-content"><h3 id="Handmake"><a href="#Handmake" class="headerlink" title="Handmake"></a>Handmake</h3><h4 id="Analyse"><a href="#Analyse" class="headerlink" title="Analyse"></a>Analyse</h4><h5 id="1-查看文件类型"><a href="#1-查看文件类型" class="headerlink" title="1. 查看文件类型"></a>1. 查看文件类型</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">m1sceden4@DESKTOP-H37I3CV:/reverse/Handmake$ file challenge                                             <br>challenge: ASCII text, with CRLF line terminators<br></code></pre></td></tr></table></figure>
 <p>发现是文本文件，cat一下</p>
-<p class='item-img' data-src='pic/cat.jpg'><img src="pic/cat.jpg" alt=""></p>
+<p class='item-img' data-src='/pic/cat.jpg'><img src="/pic/cat.jpg" alt=""></p>
 <p>可以看到这是go代码，篇幅很长，共有15w行之多。将文件后缀改为<code>.go</code>，通过任意编辑器打开文件</p>
 <h5 id="2-分析文件内容"><a href="#2-分析文件内容" class="headerlink" title="2. 分析文件内容"></a>2. 分析文件内容</h5><p>这段go代码定义了很多很多函数，在不知道题目意思的情况下，大概可以感觉这些函数应该是起到混淆和加大逆向难度的作用</p>
 <p>找到main函数，代码如下：</p>
@@ -51,7 +51,7 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
 <ul>
 <li>亦或者可以对该go文件进行编译，或者直接运行，可以在终端得到输出</li>
 </ul>
-<p class='item-img' data-src='pic/output.jpg'><img src="pic/output.jpg" alt=""></p>
+<p class='item-img' data-src='/pic/output.jpg'><img src="/pic/output.jpg" alt=""></p>
 <p>知道了这两段输出，大概就知道题目的意思了</p>
 <h4 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h4><h5 id="func-1"><a href="#func-1" class="headerlink" title="func 1"></a>func 1</h5><p>要求找的第一个函数需要有六个参数并且第三个参数的名字是gLIhR</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">func \w+\(\w+\s+\[\]\w+,\s+\w+\s+\w+,\s+gLIhR\s+\w+,\s+\w+\s+\w+,\s+\w+\s+\w+,\s+\w+\s+\w+\)<br></code></pre></td></tr></table></figure>
@@ -70,7 +70,7 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
 <li>垂直制表符</li>
 <li>换页符</li>
 </ul>
-<p class='item-img' data-src='pic/func1.jpg'><img src="pic/func1.jpg" alt=""></p>
+<p class='item-img' data-src='/pic/func1.jpg'><img src="/pic/func1.jpg" alt=""></p>
 <p>那么第一个函数我们应该输入<code>ZlXDJkH3OZN4Mayd</code></p>
 <p>将字符串每一位转为十六进制，接着按照顺序取出得到前半段flag</p>
 <p>3a4e76449355c414 </p>
