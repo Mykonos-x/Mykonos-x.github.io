@@ -72,8 +72,11 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
 </ul>
 <p class='item-img' data-src='/pic/func1.jpg'><img src="/pic/func1.jpg" alt=""></p>
 <p>那么第一个函数我们应该输入<code>ZlXDJkH3OZN4Mayd</code></p>
-<p>将字符串每一位转为十六进制，接着按照顺序取出得到前半段flag</p>
-<p>3a4e76449355c414 </p>
+<p>根据源程序</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">GwSqNHQ7dPXpIG64</span><span class="hljs-params">(cJPTR <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">string</span> &#123;<br>    YrXQd := hex.EncodeToString([]<span class="hljs-type">byte</span>(cJPTR))<br>    <span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c&quot;</span>, YrXQd[<span class="hljs-number">22</span>], YrXQd[<span class="hljs-number">19</span>], YrXQd[<span class="hljs-number">20</span>], YrXQd[<span class="hljs-number">21</span>], YrXQd[<span class="hljs-number">28</span>], YrXQd[<span class="hljs-number">10</span>], YrXQd[<span class="hljs-number">20</span>], YrXQd[<span class="hljs-number">7</span>], YrXQd[<span class="hljs-number">29</span>], YrXQd[<span class="hljs-number">14</span>], YrXQd[<span class="hljs-number">0</span>], YrXQd[<span class="hljs-number">18</span>], YrXQd[<span class="hljs-number">3</span>], YrXQd[<span class="hljs-number">24</span>], YrXQd[<span class="hljs-number">27</span>], YrXQd[<span class="hljs-number">31</span>])<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>将字符串<code>ZlXDJkH3OZN4Mayd</code>每一位转为十六进制，接着按照顺序取出得到前半段flag</p>
+<p>3a4e76449355c414</p>
+<p>当然也可以直接在源程序中添加fmt.Println()输出<code>fmt.Sprintf(&quot;%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c&quot;, YrXQd[22], YrXQd[19], YrXQd[20], YrXQd[21], YrXQd[28], YrXQd[10], YrXQd[20], YrXQd[7], YrXQd[29], YrXQd[14], YrXQd[0], YrXQd[18], YrXQd[3], YrXQd[24], YrXQd[27], YrXQd[31])</code>，接着运行，输出结果</p>
 <h5 id="func-2"><a href="#func-2" class="headerlink" title="func 2"></a>func 2</h5><p>需要找到一个函数有 3 个调用者并调用名为 <code>cHZv5op8rOmlAkb6</code>的函数</p>
 <p>找到<code>UhnCm82SDGE0zLYO</code>符合要求</p>
 <p>简单的异或</p>
