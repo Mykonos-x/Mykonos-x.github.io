@@ -1,50 +1,223 @@
-<!DOCTYPE html><html lang="en" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Kernel environment construction(Kernel环境搭建) | Silence to hear.</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><script>var config = {"root":"/","search":{"preload":false,"activeHolder":"键入以继续","blurHolder":"数据检索","noResult":"无 $0 相关数据"},"code":{"codeInfo":"$0 - $1 行","copy":"code.copy","copyFinish":"code.copyFinish","expand":"code.expand"}}</script><script src="//unpkg.com/mermaid@9.2.2/dist/mermaid.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.1/MathJax.js"></script><script>MathJax.Hub.Config({
- menuSettings: {
-   zoom: "None"
- },
- showMathMenu: false,
- jax: ["input/TeX","output/CommonHTML"],
- extensions: ["tex2jax.js"],
- TeX: {
-   extensions: ["AMSmath.js","AMSsymbols.js"],
-   equationNumbers: {
-     autoNumber: "AMS"
-   }
- },
- tex2jax: {
-   inlineMath: [["\\(", "\\)"]],
-   displayMath: [["\\[", "\\]"]]
- }
-});</script><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><link rel="stylesheet" href="/css/arknights.css"><script>if (window.localStorage.getItem('theme-mode') === 'light')
- document.documentElement.setAttribute('theme-mode', 'light')
-if (window.localStorage.getItem('theme-mode') === 'dark')
- document.documentElement.setAttribute('theme-mode', 'dark')</script><style>@font-face {
- font-family: Bender;
- src: local('Bender'), url("/font/Bender.ttf"), url("/font/Bender.otf");
-}
-@font-face {
- font-family: BenderLight;
- src: local('BenderLight'), url("/font/BenderLight.ttf");
-}
-@font-face {
- font-family: 'JetBrains Mono';
- src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
-}</style><style>:root {
-  --dark-background: url('/img/hope.jpg');
-  --light-background: url('/img/bk.jpg');
-}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem"><a class="navBlock" href="/about/"><span class="navItemTitle">About</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>Kernel environment construction(Kernel环境搭建)</h1><div id="post-info"><span>文章发布时间: <div class="control"><time datetime="2022-05-02T15:48:00.000Z" id="date"> 2022-05-02</time></div></span></div></div><hr><div id="post-content"><h2 id="前置"><a href="#前置" class="headerlink" title="前置"></a>前置</h2><p>遇到了很多问题,这里做一个记录,部分步骤没有截图<br>I have encountered a lot of problems, here is a record, some steps have no screenshots</p>
-<h3 id="qemu"><a href="#qemu" class="headerlink" title="qemu"></a>qemu</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo apt-get install qemu<br></code></pre></td></tr></table></figure>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>Kernel environment construction(Kernel环境搭建)</title>
+  
+  <link rel="canonical" href="http://mykonos-x.github.io/2022/05/02/Kernel-environment-construction-Kernel%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+  
+  <meta name="description" content="前置遇到了很多问题,这里做一个记录,部分步骤没有截图I have encountered a lot of problems, here is a record, some steps have no screenshots qemusudo apt-get install qemu  ```she">
+  
+  
+  <meta name="author" content="Mykonos">
+  
+  
+  
+  <meta property="og:site_name" content="Silence to hear." />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Kernel environment construction(Kernel环境搭建)" />
+  
+  <meta property="og:description" content="前置遇到了很多问题,这里做一个记录,部分步骤没有截图I have encountered a lot of problems, here is a record, some steps have no screenshots qemusudo apt-get install qemu  ```she">
+  
+  <meta property="og:url" content="http://mykonos-x.github.io/2022/05/02/Kernel-environment-construction-Kernel%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kernel environment construction(Kernel环境搭建)">
+  
+  <meta name="twitter:description" content="前置遇到了很多问题,这里做一个记录,部分步骤没有截图I have encountered a lot of problems, here is a record, some steps have no screenshots qemusudo apt-get install qemu  ```she">
+  
+  
+  
+  
+  <meta name="twitter:url" content="http://mykonos-x.github.io/2022/05/02/Kernel-environment-construction-Kernel%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="/fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/prism-dark.css">
+
+  
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+
+  <!-- User css -->
+  
+  
+<link rel="stylesheet" href="/css/user.css">
+
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #0FA0CE;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #0FA0CE 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #0FA0CE;
+  }
+  .nanobar .bar {
+    background: #0FA0CE;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #0FA0CE;
+    border-color: #0FA0CE;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #0FA0CE;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+  
+  <script src="/js/pic.min.js" defer></script>
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌑</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>☀️</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      Hi there.
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+          
+          <a href="/About" class="ml">About</a>
+          
+        
+        
+          
+            <a href="mailto:g0dzirrazhou@gmail.com" target="_blank" class="ml">Email</a>
+          
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>Kernel environment construction(Kernel环境搭建)</h2>
+
+  <h2 id="前置"><a href="#前置" class="headerlink" title="前置"></a>前置</h2><p>遇到了很多问题,这里做一个记录,部分步骤没有截图<br>I have encountered a lot of problems, here is a record, some steps have no screenshots</p>
+<h3 id="qemu"><a href="#qemu" class="headerlink" title="qemu"></a>qemu</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> qemu<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <ul>
-<li>```shell<br>qemu-&lt;两下tab&gt; <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs plaintext"><br>  会弹出qemu可以模拟的所有平台(All platforms that QEMU can be simulated will pop up) 	<br><br>### busybox<br><br>官网:https://busybox.net/<br><br>![](https://pic.imgdb.cn/item/626ff5bc239250f7c5fd10f5.jpg)<br><br>进入busybox目录<br>Enter the busybox directory<br>```shell<br>make menuconfig<br></code></pre></td></tr></table></figure>
+<li>```shell<br>qemu-&lt;两下tab&gt; <pre class="line-numbers language-none"><code class="language-none">
+  会弹出qemu可以模拟的所有平台(All platforms that QEMU can be simulated will pop up) 	
+
+### busybox
+
+官网:https:&#x2F;&#x2F;busybox.net&#x2F;
+
+![](https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;626ff5bc239250f7c5fd10f5.jpg)
+
+进入busybox目录
+Enter the busybox directory
+&#96;&#96;&#96;shell
+make menuconfig<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 <blockquote>
 <p>Q : HOSTCC  scripts/basic/fixdep<br>    /bin/sh: 1: gcc: not found<br>    scripts/Makefile.host:90: recipe for target ‘scripts/basic/fixdep’ failed<br>    make[1]: <strong><em> [scripts/basic/fixdep] Error 127<br>    Makefile:532: recipe for target ‘scripts_basic’ failed<br>    make: </em></strong> [scripts_basic] Error 2</p>
 <p>A : 此报错是因为缺少gcc(This error is due to the lack of GCC)</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo apt install gcc<br></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> gcc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>Q : $ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- menuconfig<br>    HOSTCC  scripts/kconfig/mconf.o<br>    <command-line>:0:12: fatal error: curses.h: 没有那个文件或目录<br>    compilation terminated.<br>    scripts/Makefile.host:108: recipe for target ‘scripts/kconfig/mconf.o’ failed<br>    make[1]: <strong><em> [scripts/kconfig/mconf.o] Error 1<br>    Makefile:541: recipe for target ‘menuconfig’ failed<br>    make: </em></strong> [menuconfig] Error 2</p>
 <p>A : 这是因为ubuntu缺少ncurses devel套件,安装即可(This is because Ubuntu lacks NCURSES Devel kit, just install it)</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo apt-get install libncurses5-dev<br></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> libncurses5-dev<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </blockquote>
 <p>接着会进入settings<br>Then you will enter settings</p>
 <ul>
@@ -52,31 +225,105 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
 <li>安装目录<code>(Destination path for &quot;make install&quot;(NEW))</code>我设置的是<code>./rootfs</code>(Install the directory <code>(Destination Path for&quot; Make Install &quot;(New)</code> <code>./ROOTFS</code>)</li>
 <li>保存退出(Save and exit)</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">make -j4<br></code></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">make install <br></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">make</span> <span class="token parameter variable">-j4</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">make</span> <span class="token function">install</span> <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>接着就会在busybox中看到生成的<code>rootfs</code>文件夹<br>Then you will see the generated <code>rootfs</code> folder</p>
 <p>到这里做基本的内核pwn题基本的环境已经够了<br>It’s enough to do the basic environment of the core PWN question here.</p>
-<h3 id="运行boot-sh-Could-not-access-KVM-Kernel-module"><a href="#运行boot-sh-Could-not-access-KVM-Kernel-module" class="headerlink" title="运行boot.sh:Could not access KVM Kernel module"></a>运行boot.sh:Could not access KVM Kernel module</h3><p class='item-img' data-src='https://pic.imgdb.cn/item/626ff9f4239250f7c5086f3e.jpg'><img src="https://pic.imgdb.cn/item/626ff9f4239250f7c5086f3e.jpg" alt=""></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">qemu-system-x86_64 -initrd rootfs.cpio -kernel bzImage -append <span class="hljs-string">&#x27;console=ttyS0 root=/dev/ram oops=panic panic=1&#x27;</span> -enable-kvm -monitor /dev/null -m 64M --nographic  -smp cores=1,threads=1 -cpu kvm64,+smep<br></code></pre></td></tr></table></figure>
+<h3 id="运行boot-sh-Could-not-access-KVM-Kernel-module"><a href="#运行boot-sh-Could-not-access-KVM-Kernel-module" class="headerlink" title="运行boot.sh:Could not access KVM Kernel module"></a>运行boot.sh:Could not access KVM Kernel module</h3><p><img src="https://pic.imgdb.cn/item/626ff9f4239250f7c5086f3e.jpg" alt=""></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">qemu-system-x86_64 <span class="token parameter variable">-initrd</span> rootfs.cpio <span class="token parameter variable">-kernel</span> bzImage <span class="token parameter variable">-append</span> <span class="token string">'console=ttyS0 root=/dev/ram oops=panic panic=1'</span> -enable-kvm <span class="token parameter variable">-monitor</span> /dev/null <span class="token parameter variable">-m</span> 64M <span class="token parameter variable">--nographic</span>  <span class="token parameter variable">-smp</span> <span class="token assign-left variable">cores</span><span class="token operator">=</span><span class="token number">1</span>,threads<span class="token operator">=</span><span class="token number">1</span> <span class="token parameter variable">-cpu</span> kvm64,+smep<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>因为虚拟机缺少kvm,在run boot.sh的时候可以先将boot.sh的source_code里的<code>-enable-kvm</code>去掉,boot.sh就可以运行了<br>Because the virtual machine lacks KVM, when run boot.sh, you can first remove the source_code of boot.sh first.</p>
-<p class='item-img' data-src='https://pic.imgdb.cn/item/626ffad2239250f7c50ab050.jpg'><img src="https://pic.imgdb.cn/item/626ffad2239250f7c50ab050.jpg" alt=""></p>
-<h3 id="重新打包系统文件-Re-pack-the-system-file"><a href="#重新打包系统文件-Re-pack-the-system-file" class="headerlink" title="重新打包系统文件(Re -pack the system file)"></a>重新打包系统文件(Re -pack the system file)</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">find . | cpio -o -H newc &gt; ../rootfs.cpio<br></code></pre></td></tr></table></figure>
+<p><img src="https://pic.imgdb.cn/item/626ffad2239250f7c50ab050.jpg" alt=""></p>
+<h3 id="重新打包系统文件-Re-pack-the-system-file"><a href="#重新打包系统文件-Re-pack-the-system-file" class="headerlink" title="重新打包系统文件(Re -pack the system file)"></a>重新打包系统文件(Re -pack the system file)</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">find</span> <span class="token builtin class-name">.</span> <span class="token operator">|</span> cpio <span class="token parameter variable">-o</span> <span class="token parameter variable">-H</span> newc <span class="token operator">></span> <span class="token punctuation">..</span>/rootfs.cpio<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>当然也可以写个<code>pack.sh</code><br>Of course you can also write a <code>Pack.sh</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">!/bin/sh</span><br><br>cp -r rootfs rootfs_tmp<br>cp -r etc rootfs_tmp/<br>cp init rootfs_tmp/<br>cp babydriver.ko rootfs_tmp/<br><br>gcc -g -static exp.c -o exp<br>cp exp rootfs_tmp/<br><br>chmod +x rootfs_tmp/init<br>chmod g-w -R rootfs_tmp/<br>chmod o-w -R rootfs_tmp/<br>sudo chown -R root rootfs_tmp/<br>sudo chgrp -R root rootfs_tmp/<br>sudo chmod u+s rootfs_tmp/bin/busybox<br><br>cd rootfs_tmp<br>find . | cpio -o -H newc &gt; ../rootfs.cpio<br>cd ..<br><br>sudo rm -rf rootfs_tmp<br></code></pre></td></tr></table></figure>
-<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/2022/05/07/Heap-Exploitation/">← 下一篇 Heap Exploitation</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2022/03/02/About-the-problem-of-wrong-screen-ratio-of-mobile-phone-virtual-machine-in-Android-Studio-%E5%85%B3%E4%BA%8EAndroid-Studio%E4%B8%AD%E6%89%8B%E6%9C%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B1%8F%E5%B9%95%E6%AF%94%E4%BE%8B%E4%B8%8D%E5%AF%B9%E7%9A%84%E9%97%AE%E9%A2%98/">About the problem of wrong screen ratio of mobile phone virtual machine in Android Studio(关于Android Studio中手机虚拟机屏幕比例不对的问题) 上一篇 →</a></div></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="/img/avatar2.gif" alt="Logo"></a><h1 id="Dr"><a href="/">Mykonos</a></h1><div id="description"><p></p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/Mykonos-x"><i class="fab fa-github" alt="Github"></i></a><a class="social" href="g0dzirrazhou@gmail.com"><i class="fa fa-envelope" alt="E-Mail"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE"><span class="toc-number">1.</span> <span class="toc-text">前置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#qemu"><span class="toc-number">1.1.</span> <span class="toc-text">qemu</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8Cboot-sh-Could-not-access-KVM-Kernel-module"><span class="toc-number">1.2.</span> <span class="toc-text">运行boot.sh:Could not access KVM Kernel module</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6-Re-pack-the-system-file"><span class="toc-number">1.3.</span> <span class="toc-text">重新打包系统文件(Re -pack the system file)</span></a></li></ol></li></ol></div></div><footer><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> 使用主题 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> 主题作者 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><script src="/js/search.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
-lightGallery(document.getElementById('post-bg'), {
-  plugins: [lgZoom,lgThumbnail],
-  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
- cacheBust: false,
- selectors: ['title','article','#aside-block','.pjax-js'],
- switches: {'article': Pjax.switches.sideBySide},
- switchesOptions: {
-   'article': {
-     classNames: {
-       remove: "pjax-out",
-       add: "pjax-in"
-     }
-   }
- }
-});
-document.addEventListener("pjax:complete", reset);reset()})</script></body></html>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/sh</span>
+
+<span class="token function">cp</span> <span class="token parameter variable">-r</span> rootfs rootfs_tmp
+<span class="token function">cp</span> <span class="token parameter variable">-r</span> etc rootfs_tmp/
+<span class="token function">cp</span> init rootfs_tmp/
+<span class="token function">cp</span> babydriver.ko rootfs_tmp/
+
+gcc <span class="token parameter variable">-g</span> <span class="token parameter variable">-static</span> exp.c <span class="token parameter variable">-o</span> exp
+<span class="token function">cp</span> exp rootfs_tmp/
+
+<span class="token function">chmod</span> +x rootfs_tmp/init
+<span class="token function">chmod</span> g-w <span class="token parameter variable">-R</span> rootfs_tmp/
+<span class="token function">chmod</span> o-w <span class="token parameter variable">-R</span> rootfs_tmp/
+<span class="token function">sudo</span> <span class="token function">chown</span> <span class="token parameter variable">-R</span> root rootfs_tmp/
+<span class="token function">sudo</span> <span class="token function">chgrp</span> <span class="token parameter variable">-R</span> root rootfs_tmp/
+<span class="token function">sudo</span> <span class="token function">chmod</span> u+s rootfs_tmp/bin/busybox
+
+<span class="token builtin class-name">cd</span> rootfs_tmp
+<span class="token function">find</span> <span class="token builtin class-name">.</span> <span class="token operator">|</span> cpio <span class="token parameter variable">-o</span> <span class="token parameter variable">-H</span> newc <span class="token operator">></span> <span class="token punctuation">..</span>/rootfs.cpio
+<span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>
+
+<span class="token function">sudo</span> <span class="token function">rm</span> <span class="token parameter variable">-rf</span> rootfs_tmp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+  <p><a class="classtest-link" href="/tags/kernel/" rel="tag">kernel</a>, <a class="classtest-link" href="/tags/pwn/" rel="tag">pwn</a> — May 2, 2022</p>
+  
+
+
+        </div>
+        <div class="row mt-2">
+  <h3>Search</h3>
+  <div><input id="search-text" title="search" class="search-text" type="text" placeholder="search......"></div>
+  <div style="margin-top: 1.5rem;">
+    <ul id="result"></ul>
+  </div>
+</div>
+        <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+        at <a href="https://en.wikipedia.org/wiki/Earth" target="_blank" rel="noreferrer">Earth</a>.</p>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+      <a class="ml-0 footer-link icon" href="https://github.com/Mykonos-x" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="GitHub">
+        <svg class="github svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+      
+
+      
+
+      
+      <a class="ml-0 footer-link icon" href="https://twitter.com/mykonos_x" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="Twitter">
+        <svg class="twitter svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter</title><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/></svg>
+      </a>
+      
+
+      
+
+      
+
+    </div>
+  
+</div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>

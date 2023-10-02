@@ -1,41 +1,202 @@
-<!DOCTYPE html><html lang="en" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Hola,openEuler!（openEuler安装图形界面） | Silence to hear.</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><script>var config = {"root":"/","search":{"preload":false,"activeHolder":"键入以继续","blurHolder":"数据检索","noResult":"无 $0 相关数据"},"code":{"codeInfo":"$0 - $1 行","copy":"code.copy","copyFinish":"code.copyFinish","expand":"code.expand"}}</script><script src="//unpkg.com/mermaid@9.2.2/dist/mermaid.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.1/MathJax.js"></script><script>MathJax.Hub.Config({
- menuSettings: {
-   zoom: "None"
- },
- showMathMenu: false,
- jax: ["input/TeX","output/CommonHTML"],
- extensions: ["tex2jax.js"],
- TeX: {
-   extensions: ["AMSmath.js","AMSsymbols.js"],
-   equationNumbers: {
-     autoNumber: "AMS"
-   }
- },
- tex2jax: {
-   inlineMath: [["\\(", "\\)"]],
-   displayMath: [["\\[", "\\]"]]
- }
-});</script><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><link rel="stylesheet" href="/css/arknights.css"><script>if (window.localStorage.getItem('theme-mode') === 'light')
- document.documentElement.setAttribute('theme-mode', 'light')
-if (window.localStorage.getItem('theme-mode') === 'dark')
- document.documentElement.setAttribute('theme-mode', 'dark')</script><style>@font-face {
- font-family: Bender;
- src: local('Bender'), url("/font/Bender.ttf"), url("/font/Bender.otf");
-}
-@font-face {
- font-family: BenderLight;
- src: local('BenderLight'), url("/font/BenderLight.ttf");
-}
-@font-face {
- font-family: 'JetBrains Mono';
- src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
-}</style><style>:root {
-  --dark-background: url('/img/hope.jpg');
-  --light-background: url('/img/bk.jpg');
-}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem"><a class="navBlock" href="/about/"><span class="navItemTitle">About</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>Hola,openEuler!（openEuler安装图形界面）</h1><div id="post-info"><span>文章发布时间: <div class="control"><time datetime="2021-06-29T14:41:00.000Z" id="date"> 2021-06-29</time></div></span></div></div><hr><div id="post-content"><h1 id="什么是openEuler"><a href="#什么是openEuler" class="headerlink" title="什么是openEuler"></a>什么是openEuler</h1><p>openEuler是一个开源免费的Linux发行版系统，通过开放的社区形式与全球的开发者共同构建一个开放、多元和架构包容的软件生态体系，openEuler同时是一个创新的系统，倡导客户在系统上提出创新想法、开拓新思路、实践新方案。</p>
-<h1 id="下载镜像"><a href="#下载镜像" class="headerlink" title="下载镜像"></a>下载镜像</h1><p><a target="_blank" rel="noopener" href="https://openeuler.org/zh/download/">https://openeuler.org/zh/download/</a><br>这里我下载的是openEuler 20.03 LTS SP1<br class='item-img' data-src='https://pic.imgdb.cn/item/60db27935132923bf8463f95.png'><img src="https://pic.imgdb.cn/item/60db27935132923bf8463f95.png" alt=""><br>里的openEuler-20.03-LTS-SP1-x86_64-dvd.iso</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>Hola,openEuler!（openEuler安装图形界面）</title>
+  
+  <link rel="canonical" href="http://mykonos-x.github.io/2021/06/29/Hola-openEuler-%EF%BC%88openEuler%E5%AE%89%E8%A3%85%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%EF%BC%89/">
+  
+  <meta name="description" content="什么是openEuleropenEuler是一个开源免费的Linux发行版系统，通过开放的社区形式与全球的开发者共同构建一个开放、多元和架构包容的软件生态体系，openEuler同时是一个创新的系统，倡导客户在系统上提出创新想法、开拓新思路、实践新方案。 下载镜像https://openeuler.">
+  
+  
+  <meta name="author" content="Mykonos">
+  
+  
+  
+  <meta property="og:site_name" content="Silence to hear." />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Hola,openEuler!（openEuler安装图形界面）" />
+  
+  <meta property="og:description" content="什么是openEuleropenEuler是一个开源免费的Linux发行版系统，通过开放的社区形式与全球的开发者共同构建一个开放、多元和架构包容的软件生态体系，openEuler同时是一个创新的系统，倡导客户在系统上提出创新想法、开拓新思路、实践新方案。 下载镜像https://openeuler.">
+  
+  <meta property="og:url" content="http://mykonos-x.github.io/2021/06/29/Hola-openEuler-%EF%BC%88openEuler%E5%AE%89%E8%A3%85%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%EF%BC%89/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hola,openEuler!（openEuler安装图形界面）">
+  
+  <meta name="twitter:description" content="什么是openEuleropenEuler是一个开源免费的Linux发行版系统，通过开放的社区形式与全球的开发者共同构建一个开放、多元和架构包容的软件生态体系，openEuler同时是一个创新的系统，倡导客户在系统上提出创新想法、开拓新思路、实践新方案。 下载镜像https://openeuler.">
+  
+  
+  
+  
+  <meta name="twitter:url" content="http://mykonos-x.github.io/2021/06/29/Hola-openEuler-%EF%BC%88openEuler%E5%AE%89%E8%A3%85%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%EF%BC%89/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="/fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/prism-dark.css">
+
+  
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+
+  <!-- User css -->
+  
+  
+<link rel="stylesheet" href="/css/user.css">
+
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #0FA0CE;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #0FA0CE 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #0FA0CE;
+  }
+  .nanobar .bar {
+    background: #0FA0CE;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #0FA0CE;
+    border-color: #0FA0CE;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #0FA0CE;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+  
+  <script src="/js/pic.min.js" defer></script>
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌑</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>☀️</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      Hi there.
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+          
+          <a href="/About" class="ml">About</a>
+          
+        
+        
+          
+            <a href="mailto:g0dzirrazhou@gmail.com" target="_blank" class="ml">Email</a>
+          
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>Hola,openEuler!（openEuler安装图形界面）</h2>
+
+  <h1 id="什么是openEuler"><a href="#什么是openEuler" class="headerlink" title="什么是openEuler"></a>什么是openEuler</h1><p>openEuler是一个开源免费的Linux发行版系统，通过开放的社区形式与全球的开发者共同构建一个开放、多元和架构包容的软件生态体系，openEuler同时是一个创新的系统，倡导客户在系统上提出创新想法、开拓新思路、实践新方案。</p>
+<h1 id="下载镜像"><a href="#下载镜像" class="headerlink" title="下载镜像"></a>下载镜像</h1><p><a target="_blank" rel="noopener" href="https://openeuler.org/zh/download/">https://openeuler.org/zh/download/</a><br>这里我下载的是openEuler 20.03 LTS SP1<br><img src="https://pic.imgdb.cn/item/60db27935132923bf8463f95.png" alt=""><br>里的openEuler-20.03-LTS-SP1-x86_64-dvd.iso</p>
 <h1 id="新建虚拟机"><a href="#新建虚拟机" class="headerlink" title="新建虚拟机"></a>新建虚拟机</h1><p>VMware新建虚拟机，选择openEuler镜像<br>我比较懒所以用的典型类型的配置<br>客户机操作系统：Linux<br>版本：其他Linux 5.x及更高版本内核64位<br>新建好虚拟机后就可以安装了</p>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>STEP1———选择中文<br class='item-img' data-src='https://pic.imgdb.cn/item/60db28225132923bf84b2c81.png'><img src="https://pic.imgdb.cn/item/60db28225132923bf84b2c81.png" alt=""><br>STEP2———有三个地方需要设置<br class='item-img' data-src='https://pic.imgdb.cn/item/60db27d95132923bf848a0aa.png'><img src="https://pic.imgdb.cn/item/60db27d95132923bf848a0aa.png" alt=""><br>1.安装位置<br>2.网络和主机名<br>3.Root密码<br>然后点击开始安装就好了<br class='item-img' data-src='https://img-blog.csdnimg.cn/2020112807082398.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpdW1pYW9jbg==,size_16,color_FFFFFF,t_70#pic_center'><img src="https://img-blog.csdnimg.cn/2020112807082398.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpdW1pYW9jbg==,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>STEP1———选择中文<br><img src="https://pic.imgdb.cn/item/60db28225132923bf84b2c81.png" alt=""><br>STEP2———有三个地方需要设置<br><img src="https://pic.imgdb.cn/item/60db27d95132923bf848a0aa.png" alt=""><br>1.安装位置<br>2.网络和主机名<br>3.Root密码<br>然后点击开始安装就好了<br><img src="https://img-blog.csdnimg.cn/2020112807082398.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpdW1pYW9jbg==,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
 <blockquote>
 <p>然而还没有结束</p>
 </blockquote>
@@ -46,27 +207,88 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
 <p>于是乎</p>
 <h1 id="安装图形界面"><a href="#安装图形界面" class="headerlink" title="安装图形界面"></a>安装图形界面</h1><p>(这里不仅总结了安装图形界面的过程以及过程中遇到的麻烦问题和解决方法)</p>
 <p>1.检查网络连接</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">ping www.baidu.com<br></code></pre></td></tr></table></figure></h2><h2 id="gt-如果出现name-or-service-not-know则进行以下步骤1-添加DNS服务器vi-etc-resolv-conf进入编辑模式，增加如下两行内容，分别是首选DNS服务器和备选DNS服务器。（可以自己选择DNS服务器，包括谷歌的8-8-8-8或者腾讯的119-29-29-29都是可以的）nameserver-114-114-114-114nameserver-114-114-114-115保存退出，再ping一次，如果还是报错，继续执行下一步2-修改如下配置文件-文件名不同的客户端可能会不一样-vi-etc-sysconfig-network-scprits-ifcfg-enp0s3将ONBOOT-no改成ONBOOT-yes保存退出，重启网络service-network-restart"><a href="#gt-如果出现name-or-service-not-know则进行以下步骤1-添加DNS服务器vi-etc-resolv-conf进入编辑模式，增加如下两行内容，分别是首选DNS服务器和备选DNS服务器。（可以自己选择DNS服务器，包括谷歌的8-8-8-8或者腾讯的119-29-29-29都是可以的）nameserver-114-114-114-114nameserver-114-114-114-115保存退出，再ping一次，如果还是报错，继续执行下一步2-修改如下配置文件-文件名不同的客户端可能会不一样-vi-etc-sysconfig-network-scprits-ifcfg-enp0s3将ONBOOT-no改成ONBOOT-yes保存退出，重启网络service-network-restart" class="headerlink" title="&gt;如果出现name or service not know则进行以下步骤1.添加DNS服务器vi /etc/resolv.conf进入编辑模式，增加如下两行内容，分别是首选DNS服务器和备选DNS服务器。（可以自己选择DNS服务器，包括谷歌的8.8.8.8或者腾讯的119.29.29.29都是可以的）nameserver 114.114.114.114nameserver 114.114.114.115保存退出，再ping一次，如果还是报错，继续执行下一步2.修改如下配置文件(文件名不同的客户端可能会不一样)vi /etc/sysconfig/network-scprits/ifcfg-enp0s3将ONBOOT=no改成ONBOOT=yes保存退出，重启网络service network restart"></a>&gt;如果出现<kbd>name or service not know</kbd>则进行以下步骤<br>1.添加DNS服务器<br><code>vi /etc/resolv.conf</code><br>进入编辑模式，增加如下两行内容，分别是首选DNS服务器和备选DNS服务器。（可以自己选择DNS服务器，包括谷歌的8.8.8.8或者腾讯的119.29.29.29都是可以的）<BR><code>nameserver 114.114.114.114</code><br><code>nameserver 114.114.114.115</code><BR>保存退出，再ping一次，如果还是报错，继续执行下一步<br>2.修改如下配置文件(文件名不同的客户端可能会不一样)<br><code>vi /etc/sysconfig/network-scprits/ifcfg-enp0s3</code><br>将ONBOOT=no改成ONBOOT=yes保存退出，重启网络<br><code>service network restart</code></h2><p>2.增加软件源<br><code>sudo vi /etc/yum.repos.d/openEuler_x86_64.repo</code><br>编辑软件源文件，最后加上<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">[base]<br>name=base<br>baseurl=https://repo.openeuler.org/openEuler-20.03-LTS/OS/x86_64/<br>enabled=1<br>gpgcheck=0<br></code></pre></td></tr></table></figure></p>
-<p>然后退出vi，输入<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">yum makecache<br></code></pre></td></tr></table></figure></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><pre class="line-numbers language-none"><code class="language-none">ping www.baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></h2><h2 id="gt-如果出现name-or-service-not-know则进行以下步骤1-添加DNS服务器vi-etc-resolv-conf进入编辑模式，增加如下两行内容，分别是首选DNS服务器和备选DNS服务器。（可以自己选择DNS服务器，包括谷歌的8-8-8-8或者腾讯的119-29-29-29都是可以的）nameserver-114-114-114-114nameserver-114-114-114-115保存退出，再ping一次，如果还是报错，继续执行下一步2-修改如下配置文件-文件名不同的客户端可能会不一样-vi-etc-sysconfig-network-scprits-ifcfg-enp0s3将ONBOOT-no改成ONBOOT-yes保存退出，重启网络service-network-restart"><a href="#gt-如果出现name-or-service-not-know则进行以下步骤1-添加DNS服务器vi-etc-resolv-conf进入编辑模式，增加如下两行内容，分别是首选DNS服务器和备选DNS服务器。（可以自己选择DNS服务器，包括谷歌的8-8-8-8或者腾讯的119-29-29-29都是可以的）nameserver-114-114-114-114nameserver-114-114-114-115保存退出，再ping一次，如果还是报错，继续执行下一步2-修改如下配置文件-文件名不同的客户端可能会不一样-vi-etc-sysconfig-network-scprits-ifcfg-enp0s3将ONBOOT-no改成ONBOOT-yes保存退出，重启网络service-network-restart" class="headerlink" title="&gt;如果出现name or service not know则进行以下步骤1.添加DNS服务器vi /etc/resolv.conf进入编辑模式，增加如下两行内容，分别是首选DNS服务器和备选DNS服务器。（可以自己选择DNS服务器，包括谷歌的8.8.8.8或者腾讯的119.29.29.29都是可以的）nameserver 114.114.114.114nameserver 114.114.114.115保存退出，再ping一次，如果还是报错，继续执行下一步2.修改如下配置文件(文件名不同的客户端可能会不一样)vi /etc/sysconfig/network-scprits/ifcfg-enp0s3将ONBOOT=no改成ONBOOT=yes保存退出，重启网络service network restart"></a>&gt;如果出现<kbd>name or service not know</kbd>则进行以下步骤<br>1.添加DNS服务器<br><code>vi /etc/resolv.conf</code><br>进入编辑模式，增加如下两行内容，分别是首选DNS服务器和备选DNS服务器。（可以自己选择DNS服务器，包括谷歌的8.8.8.8或者腾讯的119.29.29.29都是可以的）<BR><code>nameserver 114.114.114.114</code><br><code>nameserver 114.114.114.115</code><BR>保存退出，再ping一次，如果还是报错，继续执行下一步<br>2.修改如下配置文件(文件名不同的客户端可能会不一样)<br><code>vi /etc/sysconfig/network-scprits/ifcfg-enp0s3</code><br>将ONBOOT=no改成ONBOOT=yes保存退出，重启网络<br><code>service network restart</code></h2><p>2.增加软件源<br><code>sudo vi /etc/yum.repos.d/openEuler_x86_64.repo</code><br>编辑软件源文件，最后加上<br><pre class="line-numbers language-none"><code class="language-none">[base]
+name&#x3D;base
+baseurl&#x3D;https:&#x2F;&#x2F;repo.openeuler.org&#x2F;openEuler-20.03-LTS&#x2F;OS&#x2F;x86_64&#x2F;
+enabled&#x3D;1
+gpgcheck&#x3D;0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+<p>然后退出vi，输入<br><pre class="line-numbers language-none"><code class="language-none">yum makecache<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></p>
 <p>显示Metadata cache created就说明成功了，否则就检查下网络连接<br>3.安装GNOME桌面<br>依次输入</p>
-<h2 id="-1"><a href="#-1" class="headerlink" title=""></a><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">yum install gnome-shell gdm gnome-session gnome-terminal -y<br>systemctl enable gdm.service                  //设置gdm自启<br>systemctl set-default graphical.target        //修改启动级别为图形化<br></code></pre></td></tr></table></figure></h2><blockquote>
+<h2 id="-1"><a href="#-1" class="headerlink" title=""></a><pre class="line-numbers language-none"><code class="language-none">yum install gnome-shell gdm gnome-session gnome-terminal -y
+systemctl enable gdm.service                  &#x2F;&#x2F;设置gdm自启
+systemctl set-default graphical.target        &#x2F;&#x2F;修改启动级别为图形化<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></h2><blockquote>
 <p>这里如果遇到<kbd>/etc/rc.d/rc/local is not marked executable,skipping</kbd><br>则确保rc.local是可执行的<br><code>sudo chmod +x /etc/rc.local</code><br>然后启动它<br><code>sudo systemctl enable rc-local.service</code><br>通过下面的命令重新启动系统或者手动启动脚本<br><code>sudo systemctl start  rc-local.service</code><br>接着就会看到<br>```$ sudo systemctl status rc-local.service● rc-local.service - /etc/rc.local Compatibility<br>Loaded: loaded (/lib/systemd/system/rc-local.service; static; vendor preset: enabled)<br>Drop-In: /lib/systemd/system/rc-local.service.d<br>    └─debian.conf<br>Active: active (running) since Mon 2018-04-02 10:39:44 -03; 1s ago<br>Process: 2044 ExecStart=/etc/rc.local start (code=exited, status=0/SUCCESS)<br>Main PID: 2049 (svscanboot)<br>Tasks: 3<br>Memory: 556.0K<br>CPU: 10ms</p>
-<h2 id="CGroup-system-slice-rc-local-service-问题解决"><a href="#CGroup-system-slice-rc-local-service-问题解决" class="headerlink" title="CGroup: /system.slice/rc-local.service```问题解决"></a>CGroup: /system.slice/rc-local.service```<br>问题解决</h2><p>4.接下来替换启动文件<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">wget https://zycxzx.obs.cn-east-3.myhuaweicloud.com/Xsession<br>mv Xsession /etc/gdm/<br>chmod -R 777 /etc/gdm/Xsession               //这个操作的原因是openEuler源里的gdm文件Xsession有问题，从网上下一个替换即可，否则图形化无法正常登录<br></code></pre></td></tr></table></figure><br>最后reboot即可<br class='item-img' data-src='https://pic.imgdb.cn/item/60db28915132923bf84f10ff.png'><img src="https://pic.imgdb.cn/item/60db28915132923bf84f10ff.png" alt=""><br class='item-img' data-src='https://pic.imgdb.cn/item/60db29055132923bf85337fe.png'><img src="https://pic.imgdb.cn/item/60db29055132923bf85337fe.png" alt=""></p>
+<h2 id="CGroup-system-slice-rc-local-service-问题解决"><a href="#CGroup-system-slice-rc-local-service-问题解决" class="headerlink" title="CGroup: /system.slice/rc-local.service```问题解决"></a>CGroup: /system.slice/rc-local.service```<br>问题解决</h2><p>4.接下来替换启动文件<br><pre class="line-numbers language-none"><code class="language-none">wget https:&#x2F;&#x2F;zycxzx.obs.cn-east-3.myhuaweicloud.com&#x2F;Xsession
+mv Xsession &#x2F;etc&#x2F;gdm&#x2F;
+chmod -R 777 &#x2F;etc&#x2F;gdm&#x2F;Xsession               &#x2F;&#x2F;这个操作的原因是openEuler源里的gdm文件Xsession有问题，从网上下一个替换即可，否则图形化无法正常登录<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><br>最后reboot即可<br><img src="https://pic.imgdb.cn/item/60db28915132923bf84f10ff.png" alt=""><br><img src="https://pic.imgdb.cn/item/60db29055132923bf85337fe.png" alt=""></p>
 </blockquote>
-<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/2021/12/19/For-Final-Exam-java-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%80%BB%E7%BB%93/">← 下一篇 (For Final Exam)java 期末复习总结</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2021/06/29/REVERSE%E5%85%A5%E9%97%A8/">REVERSE入门 上一篇 →</a></div></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="/img/avatar2.gif" alt="Logo"></a><h1 id="Dr"><a href="/">Mykonos</a></h1><div id="description"><p></p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/Mykonos-x"><i class="fab fa-github" alt="Github"></i></a><a class="social" href="g0dzirrazhou@gmail.com"><i class="fa fa-envelope" alt="E-Mail"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFopenEuler"><span class="toc-number">1.</span> <span class="toc-text">什么是openEuler</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F"><span class="toc-number">2.</span> <span class="toc-text">下载镜像</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-number">3.</span> <span class="toc-text">新建虚拟机</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">4.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2"><span class="toc-number">5.</span> <span class="toc-text">安装图形界面</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">5.1.</span> <span class="toc-text">1ping www.baidu.com</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gt-%E5%A6%82%E6%9E%9C%E5%87%BA%E7%8E%B0name-or-service-not-know%E5%88%99%E8%BF%9B%E8%A1%8C%E4%BB%A5%E4%B8%8B%E6%AD%A5%E9%AA%A41-%E6%B7%BB%E5%8A%A0DNS%E6%9C%8D%E5%8A%A1%E5%99%A8vi-etc-resolv-conf%E8%BF%9B%E5%85%A5%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F%EF%BC%8C%E5%A2%9E%E5%8A%A0%E5%A6%82%E4%B8%8B%E4%B8%A4%E8%A1%8C%E5%86%85%E5%AE%B9%EF%BC%8C%E5%88%86%E5%88%AB%E6%98%AF%E9%A6%96%E9%80%89DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E5%A4%87%E9%80%89DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E3%80%82%EF%BC%88%E5%8F%AF%E4%BB%A5%E8%87%AA%E5%B7%B1%E9%80%89%E6%8B%A9DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8C%E5%8C%85%E6%8B%AC%E8%B0%B7%E6%AD%8C%E7%9A%848-8-8-8%E6%88%96%E8%80%85%E8%85%BE%E8%AE%AF%E7%9A%84119-29-29-29%E9%83%BD%E6%98%AF%E5%8F%AF%E4%BB%A5%E7%9A%84%EF%BC%89nameserver-114-114-114-114nameserver-114-114-114-115%E4%BF%9D%E5%AD%98%E9%80%80%E5%87%BA%EF%BC%8C%E5%86%8Dping%E4%B8%80%E6%AC%A1%EF%BC%8C%E5%A6%82%E6%9E%9C%E8%BF%98%E6%98%AF%E6%8A%A5%E9%94%99%EF%BC%8C%E7%BB%A7%E7%BB%AD%E6%89%A7%E8%A1%8C%E4%B8%8B%E4%B8%80%E6%AD%A52-%E4%BF%AE%E6%94%B9%E5%A6%82%E4%B8%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-%E6%96%87%E4%BB%B6%E5%90%8D%E4%B8%8D%E5%90%8C%E7%9A%84%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%AF%E8%83%BD%E4%BC%9A%E4%B8%8D%E4%B8%80%E6%A0%B7-vi-etc-sysconfig-network-scprits-ifcfg-enp0s3%E5%B0%86ONBOOT-no%E6%94%B9%E6%88%90ONBOOT-yes%E4%BF%9D%E5%AD%98%E9%80%80%E5%87%BA%EF%BC%8C%E9%87%8D%E5%90%AF%E7%BD%91%E7%BB%9Cservice-network-restart"><span class="toc-number">5.2.</span> <span class="toc-text">&gt;如果出现name or service not know则进行以下步骤1.添加DNS服务器vi &#x2F;etc&#x2F;resolv.conf进入编辑模式，增加如下两行内容，分别是首选DNS服务器和备选DNS服务器。（可以自己选择DNS服务器，包括谷歌的8.8.8.8或者腾讯的119.29.29.29都是可以的）nameserver 114.114.114.114nameserver 114.114.114.115保存退出，再ping一次，如果还是报错，继续执行下一步2.修改如下配置文件(文件名不同的客户端可能会不一样)vi &#x2F;etc&#x2F;sysconfig&#x2F;network-scprits&#x2F;ifcfg-enp0s3将ONBOOT&#x3D;no改成ONBOOT&#x3D;yes保存退出，重启网络service network restart</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-1"><span class="toc-number">5.3.</span> <span class="toc-text">123yum install gnome-shell gdm gnome-session gnome-terminal -ysystemctl enable gdm.service                  &#x2F;&#x2F;设置gdm自启systemctl set-default graphical.target        &#x2F;&#x2F;修改启动级别为图形化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CGroup-system-slice-rc-local-service-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="toc-number">5.4.</span> <span class="toc-text">CGroup: &#x2F;system.slice&#x2F;rc-local.service&#96;&#96;&#96;问题解决</span></a></li></ol></li></ol></div></div><footer><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> 使用主题 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> 主题作者 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><script src="/js/search.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
-lightGallery(document.getElementById('post-bg'), {
-  plugins: [lgZoom,lgThumbnail],
-  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
- cacheBust: false,
- selectors: ['title','article','#aside-block','.pjax-js'],
- switches: {'article': Pjax.switches.sideBySide},
- switchesOptions: {
-   'article': {
-     classNames: {
-       remove: "pjax-out",
-       add: "pjax-in"
-     }
-   }
- }
-});
-document.addEventListener("pjax:complete", reset);reset()})</script></body></html>
+
+  <p><a class="classtest-link" href="/tags/openEuler/" rel="tag">openEuler</a>, <a class="classtest-link" href="/tags/solutions/" rel="tag">solutions</a> — Jun 29, 2021</p>
+  
+
+
+        </div>
+        <div class="row mt-2">
+  <h3>Search</h3>
+  <div><input id="search-text" title="search" class="search-text" type="text" placeholder="search......"></div>
+  <div style="margin-top: 1.5rem;">
+    <ul id="result"></ul>
+  </div>
+</div>
+        <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+        at <a href="https://en.wikipedia.org/wiki/Earth" target="_blank" rel="noreferrer">Earth</a>.</p>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+      <a class="ml-0 footer-link icon" href="https://github.com/Mykonos-x" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="GitHub">
+        <svg class="github svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+      
+
+      
+
+      
+      <a class="ml-0 footer-link icon" href="https://twitter.com/mykonos_x" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="Twitter">
+        <svg class="twitter svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter</title><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/></svg>
+      </a>
+      
+
+      
+
+      
+
+    </div>
+  
+</div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>
