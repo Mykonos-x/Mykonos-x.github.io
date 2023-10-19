@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="http://mykonos-x.github.io/2023/10/19/Gin-%E5%85%A5%E9%97%A8/">
   
-  <meta name="description" content="[toc] ：关于Gin部分的内容为笔者年初所写 年初开始踉踉跄跄地学Golang的后端框架Gin了，如果是学过Java后端的人来说应该学Go和Gin很快，但是怎么说呢，笔者的Java和当时学的后端学的依托答辩，所以学Golang和Gin的时候相当于也在捡起以前的一些知识，加上笔者自认为不是天赋型选">
+  <meta name="description" content="：关于Gin部分的内容为笔者年初所写 年初开始踉踉跄跄地学Golang的后端框架Gin了，如果是学过Java后端的人来说应该学Go和Gin很快，但是怎么说呢，笔者的Java和当时学的后端学的依托答辩，所以学Golang和Gin的时候相当于也在捡起以前的一些知识，加上笔者自认为不是天赋型选手，感觉自己">
   
   
   <meta name="author" content="Mykonos">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Gin 入门" />
   
-  <meta property="og:description" content="[toc] ：关于Gin部分的内容为笔者年初所写 年初开始踉踉跄跄地学Golang的后端框架Gin了，如果是学过Java后端的人来说应该学Go和Gin很快，但是怎么说呢，笔者的Java和当时学的后端学的依托答辩，所以学Golang和Gin的时候相当于也在捡起以前的一些知识，加上笔者自认为不是天赋型选">
+  <meta property="og:description" content="：关于Gin部分的内容为笔者年初所写 年初开始踉踉跄跄地学Golang的后端框架Gin了，如果是学过Java后端的人来说应该学Go和Gin很快，但是怎么说呢，笔者的Java和当时学的后端学的依托答辩，所以学Golang和Gin的时候相当于也在捡起以前的一些知识，加上笔者自认为不是天赋型选手，感觉自己">
   
   <meta property="og:url" content="http://mykonos-x.github.io/2023/10/19/Gin-%E5%85%A5%E9%97%A8/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Gin 入门">
   
-  <meta name="twitter:description" content="[toc] ：关于Gin部分的内容为笔者年初所写 年初开始踉踉跄跄地学Golang的后端框架Gin了，如果是学过Java后端的人来说应该学Go和Gin很快，但是怎么说呢，笔者的Java和当时学的后端学的依托答辩，所以学Golang和Gin的时候相当于也在捡起以前的一些知识，加上笔者自认为不是天赋型选">
+  <meta name="twitter:description" content="：关于Gin部分的内容为笔者年初所写 年初开始踉踉跄跄地学Golang的后端框架Gin了，如果是学过Java后端的人来说应该学Go和Gin很快，但是怎么说呢，笔者的Java和当时学的后端学的依托答辩，所以学Golang和Gin的时候相当于也在捡起以前的一些知识，加上笔者自认为不是天赋型选手，感觉自己">
   
   
   
@@ -193,9 +193,35 @@
         <div class="trans">
             <h2>Gin 入门</h2>
 
-  <p>[toc]</p>
-<p>：关于Gin部分的内容为笔者年初所写</p>
+  <p>：关于Gin部分的内容为笔者年初所写</p>
 <p>年初开始踉踉跄跄地学Golang的后端框架<code>Gin</code>了，如果是学过Java后端的人来说应该学Go和Gin很快，但是怎么说呢，笔者的Java和当时学的后端学的依托答辩，所以学<code>Golang</code>和<code>Gin</code>的时候相当于也在捡起以前的一些知识，加上笔者自认为不是天赋型选手，感觉自己学习的进度也比较慢，争取在后期更加注重自己的学习效率问题</p>
+<!-- toc -->
+<ul>
+<li><a href="#构建路由">构建路由</a></li>
+<li><a href="#响应json请求">响应JSON请求</a></li>
+<li><a href="#cjson">c.JSON()</a></li>
+<li><a href="#响应josnp请求">响应JOSNP请求</a></li>
+<li><a href="#模板-template">模板 template</a></li>
+<li><a href="#gin模板基本语法">Gin模板基本语法</a></li>
+<li><a href="#预定义函数">预定义函数</a></li>
+<li><a href="#自定义模板函数">自定义模板函数</a></li>
+<li><a href="#公共模板嵌套template">公共模板(嵌套template)</a></li>
+<li><a href="#静态web服务">静态web服务</a></li>
+<li><a href="#gin获取查询参数">Gin获取查询参数</a></li>
+<li><a href="#获取post参数">获取POST参数</a></li>
+<li><a href="#获取get-post传递的数据绑定到结构体">获取GET POST传递的数据绑定到结构体</a></li>
+<li><a href="#获取post-xml的数据">获取POST XML的数据</a></li>
+<li><a href="#配置动态路由">配置动态路由</a></li>
+<li><a href="#路由分组-路由文件抽离">路由分组 | 路由文件抽离</a></li>
+<li><a href="#控制器抽离">控制器抽离</a></li>
+<li><a href="#控制器继承">控制器继承</a></li>
+<li><a href="#gin中间件">Gin中间件</a></li>
+<li><a href="#文件上传">文件上传</a></li>
+<li><a href="#cookie">Cookie</a></li>
+<li><a href="#多个二级域名共享cookie">多个二级域名共享Cookie</a></li>
+<li><a href="#session">Session</a></li>
+</ul>
+<!-- tocstop -->
 <h3><span id="构建路由">构建路由</span></h3><p>RESTful API是目前比较成熟的一套互联网应用程序的API设计理论，设计我们的路由时建议参考RESTful API指南</p>
 <p>在RESTful架构中，每个网站代表一种资源，不同的请求方式表示执行不同的操作</p>
 <div class="table-container">
