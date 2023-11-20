@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="http://mykonos-x.github.io/2022/03/02/Configure-SDK-environment-variables-for-Android-Studio-development-%E9%85%8D%E7%BD%AESDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/">
   
-  <meta name="description" content="System environment variable settingsStep 1 Add ANDROID_HOME 系统变量(S)$\rightarrow$新建  system variable$\rightarrow$NEW 添加变量名(add variable name)：ANDROID_H">
+  <meta name="description" content="System environment variable settings Step 1 Add ANDROID_HOME  系统变量(S)$\rightarrow$新建  system variable$\rightarrow$NEW 添加变量名(add variable name)：ANDROID">
   
   
   <meta name="author" content="Ez3ki3l">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Configure SDK environment variables for Android Studio development(配置SDK环境变量)" />
   
-  <meta property="og:description" content="System environment variable settingsStep 1 Add ANDROID_HOME 系统变量(S)$\rightarrow$新建  system variable$\rightarrow$NEW 添加变量名(add variable name)：ANDROID_H">
+  <meta property="og:description" content="System environment variable settings Step 1 Add ANDROID_HOME  系统变量(S)$\rightarrow$新建  system variable$\rightarrow$NEW 添加变量名(add variable name)：ANDROID">
   
   <meta property="og:url" content="http://mykonos-x.github.io/2022/03/02/Configure-SDK-environment-variables-for-Android-Studio-development-%E9%85%8D%E7%BD%AESDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Configure SDK environment variables for Android Studio development(配置SDK环境变量)">
   
-  <meta name="twitter:description" content="System environment variable settingsStep 1 Add ANDROID_HOME 系统变量(S)$\rightarrow$新建  system variable$\rightarrow$NEW 添加变量名(add variable name)：ANDROID_H">
+  <meta name="twitter:description" content="System environment variable settings Step 1 Add ANDROID_HOME  系统变量(S)$\rightarrow$新建  system variable$\rightarrow$NEW 添加变量名(add variable name)：ANDROID">
   
   
   
@@ -193,13 +193,16 @@
         <div class="trans">
             <h2>Configure SDK environment variables for Android Studio development(配置SDK环境变量)</h2>
 
-  <h2 id="System-environment-variable-settings"><a href="#System-environment-variable-settings" class="headerlink" title="System environment variable settings"></a>System environment variable settings</h2><h3 id="Step-1-Add-ANDROID-HOME"><a href="#Step-1-Add-ANDROID-HOME" class="headerlink" title="Step 1 Add ANDROID_HOME"></a>Step 1 Add ANDROID_HOME</h3><ul>
+  <h2><span id="system-environment-variable-settings">System environment variable settings</span></h2>
+<h3><span id="step-1-add-android_home">Step 1 Add ANDROID_HOME</span></h3>
+<ul>
 <li>系统变量(S)$\rightarrow$<code>新建</code>  system variable$\rightarrow$<code>NEW</code></li>
 <li>添加变量名(add variable name)：<code>ANDROID_HOME</code></li>
-<li>添加变量值(add variable value)：<code>你所安装的SDK路径</code>，常规安装则在<code>C:\Users\(Your username)\AppData\Local\Android\SDK</code>  Normally installed in<code>C:\Users\(Your username)\AppData\Local\Android\SDK</code> </li>
+<li>添加变量值(add variable value)：<code>你所安装的SDK路径</code>，常规安装则在<code>C:\Users\(Your username)\AppData\Local\Android\SDK</code>  Normally installed in<code>C:\Users\(Your username)\AppData\Local\Android\SDK</code></li>
 </ul>
-<p><img src="https://pic.imgdb.cn/item/621f4f205baa1a80abf08a88.jpg" alt=""></p>
-<h3 id="Step-2-Add-to-Path"><a href="#Step-2-Add-to-Path" class="headerlink" title="Step 2 Add to Path"></a>Step 2 Add to Path</h3><pre class="line-numbers language-none"><code class="language-none">ANDROID_HOME%\tools;%ANDROID_HOME%\platform-tools<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="https://pic.imgdb.cn/item/621f4f205baa1a80abf08a88.jpg" alt></p>
+<h3><span id="step-2-add-to-path">Step 2 Add to Path</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">ANDROID_HOME%\tools;%ANDROID_HOME%\platform-tools<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>确认之后cmd输入<code>abd</code>和<code>android</code>查看环境是否配置成功</p>
 <p>After confirmation, enter <code>abd</code> and <code>android</code> in cmd to check whether the environment is configured successfully</p>
 <p>将会看到</p>

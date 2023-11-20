@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="http://mykonos-x.github.io/2022/08/20/BJDCTF2020-EasyRSA/">
   
-  <meta name="description" content="Description来做做数学题吧 from Crypto.Util.number import getPrime,bytes_to_long from sympy import Derivative from fractions import Fraction from secret impor">
+  <meta name="description" content="Description 来做做数学题吧 from Crypto.Util.number import getPrime,bytes_to_long from sympy import Derivative from fractions import Fraction from secret impo">
   
   
   <meta name="author" content="Ez3ki3l">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="BJDCTF2020 EasyRSA" />
   
-  <meta property="og:description" content="Description来做做数学题吧 from Crypto.Util.number import getPrime,bytes_to_long from sympy import Derivative from fractions import Fraction from secret impor">
+  <meta property="og:description" content="Description 来做做数学题吧 from Crypto.Util.number import getPrime,bytes_to_long from sympy import Derivative from fractions import Fraction from secret impo">
   
   <meta property="og:url" content="http://mykonos-x.github.io/2022/08/20/BJDCTF2020-EasyRSA/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="BJDCTF2020 EasyRSA">
   
-  <meta name="twitter:description" content="Description来做做数学题吧 from Crypto.Util.number import getPrime,bytes_to_long from sympy import Derivative from fractions import Fraction from secret impor">
+  <meta name="twitter:description" content="Description 来做做数学题吧 from Crypto.Util.number import getPrime,bytes_to_long from sympy import Derivative from fractions import Fraction from secret impo">
   
   
   
@@ -193,7 +193,8 @@
         <div class="trans">
             <h2>BJDCTF2020 EasyRSA</h2>
 
-  <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>来做做数学题吧</p>
+  <h3><span id="description">Description</span></h3>
+<p>来做做数学题吧</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> Crypto<span class="token punctuation">.</span>Util<span class="token punctuation">.</span>number <span class="token keyword">import</span> getPrime<span class="token punctuation">,</span>bytes_to_long
 <span class="token keyword">from</span> sympy <span class="token keyword">import</span> Derivative
 <span class="token keyword">from</span> fractions <span class="token keyword">import</span> Fraction
@@ -215,25 +216,31 @@ output:
 
 '''</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="Involved-Knowledge"><a href="#Involved-Knowledge" class="headerlink" title="Involved Knowledge"></a>Involved Knowledge</h3><h4 id="Fraction"><a href="#Fraction" class="headerlink" title="Fraction()"></a>Fraction()</h4><p>Fraction()用于形成分式，例如</p>
+<h3><span id="involved-knowledge">Involved Knowledge</span></h3>
+<h4><span id="fraction">Fraction()</span></h4>
+<p>Fraction()用于形成分式，例如</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">Fraction<span class="token punctuation">(</span><span class="token number">1</span> <span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
 <span class="token operator">>></span><span class="token operator">></span> <span class="token number">1</span><span class="token operator">/</span><span class="token number">2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h4 id="Derivative"><a href="#Derivative" class="headerlink" title="Derivative()"></a>Derivative()</h4><p>Derivative()用于求导，例如</p>
+<h4><span id="derivative">Derivative()</span></h4>
+<p>Derivative()用于求导，例如</p>
 <p>$K = 2^x + 4y^4 + 5y$</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">Derivative<span class="token punctuation">(</span>K <span class="token punctuation">,</span> x<span class="token punctuation">)</span>
 <span class="token operator">>></span><span class="token operator">></span> 2x<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h4 id="Basic-RSA"><a href="#Basic-RSA" class="headerlink" title="Basic RSA"></a>Basic RSA</h4><p>$m^e \equiv c \bmod n$</p>
+<h4><span id="basic-rsa">Basic RSA</span></h4>
+<p>$m^e \equiv c \bmod n$</p>
 <p>$c^d \equiv m \bmod n$</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">m <span class="token operator">=</span> <span class="token builtin">pow</span><span class="token punctuation">(</span>c <span class="token punctuation">,</span> d <span class="token punctuation">,</span> n<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h3><p><strong>z=Fraction(1,Derivative(arctan(p),p))-Fraction(1,Derivative(arth(q),q))</strong></p>
-<p>$z = \frac{1}{[arctan(p)]’} - \frac{1}{[arth(q)]’}\z = \frac{1}{\frac{1}{(1 + p^2)}} - \frac{1}{\frac{1}{(1-q^2)}}\z = 1 + p^2 - 1 + q^2\z=p^2 + q^2$</p>
+<h3><span id="analyze">Analyze</span></h3>
+<p><strong>z=Fraction(1,Derivative(arctan(p),p))-Fraction(1,Derivative(arth(q),q))</strong></p>
+<p>$z = \frac{1}{[arctan(p)]‘} - \frac{1}{[arth(q)]’}\z = \frac{1}{\frac{1}{(1 + p^2)}} - \frac{1}{\frac{1}{(1-q^2)}}\z = 1 + p^2 - 1 + q^2\z=p^2 + q^2$</p>
 <p>得到关系式①</p>
 <p>∵$(p + q)^2 = p^2 + q^2 + 2pq$ ②$(p-q)^2 = p^2 + q^2 - 2pq$③</p>
 <p>∴由①②③得，</p>
 <p>$(p + q)^2 = z + 2n\(p-q)^2=z-2n$</p>
 <p>这里可以直接对$(p+q)^2$和$(p-q)^2$开方，再经过变换得到$p,q$</p>
 <p>也可以使用z3直接对这两个方程进行求解，得到$p,q$</p>
-<h3 id="Exp"><a href="#Exp" class="headerlink" title="Exp"></a>Exp</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> libnum
+<h3><span id="exp">Exp</span></h3>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> libnum
 <span class="token keyword">import</span> gmpy2
 <span class="token keyword">from</span> z3 <span class="token keyword">import</span> <span class="token operator">*</span>
 

@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="http://mykonos-x.github.io/2022/02/06/ROPgadget%E5%AE%89%E8%A3%85%E5%8F%8A%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/">
   
-  <meta name="description" content="安装sudo apt-get install python-capstone   git clone https://github.com/JonathanSalwan/ROPgadget.git   cd ROPgadget   sudo python setup.py install  运行m1">
+  <meta name="description" content="安装 sudo apt-get install python-capstone   git clone https://github.com/JonathanSalwan/ROPgadget.git   cd ROPgadget   sudo python setup.py install  运行 ">
   
   
   <meta name="author" content="Ez3ki3l">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="ROPgadget安装及报错解决" />
   
-  <meta property="og:description" content="安装sudo apt-get install python-capstone   git clone https://github.com/JonathanSalwan/ROPgadget.git   cd ROPgadget   sudo python setup.py install  运行m1">
+  <meta property="og:description" content="安装 sudo apt-get install python-capstone   git clone https://github.com/JonathanSalwan/ROPgadget.git   cd ROPgadget   sudo python setup.py install  运行 ">
   
   <meta property="og:url" content="http://mykonos-x.github.io/2022/02/06/ROPgadget%E5%AE%89%E8%A3%85%E5%8F%8A%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="ROPgadget安装及报错解决">
   
-  <meta name="twitter:description" content="安装sudo apt-get install python-capstone   git clone https://github.com/JonathanSalwan/ROPgadget.git   cd ROPgadget   sudo python setup.py install  运行m1">
+  <meta name="twitter:description" content="安装 sudo apt-get install python-capstone   git clone https://github.com/JonathanSalwan/ROPgadget.git   cd ROPgadget   sudo python setup.py install  运行 ">
   
   
   
@@ -193,7 +193,8 @@
         <div class="trans">
             <h2>ROPgadget安装及报错解决</h2>
 
-  <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> python-capstone
+  <h2><span id="安装">安装</span></h2>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> python-capstone
  
 <span class="token function">git</span> clone https://github.com/JonathanSalwan/ROPgadget.git
  
@@ -201,8 +202,10 @@
  
 <span class="token function">sudo</span> python setup.py <span class="token function">install</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">m1sceden4@DESKTOP-H37I3CV:~/ROPgadget$ ROPgadget<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h2><p>运行之后可能会发现报错</p>
+<h2><span id="运行">运行</span></h2>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">m1sceden4@DESKTOP-H37I3CV:~/ROPgadget$ ROPgadget<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2><span id="报错">报错</span></h2>
+<p>运行之后可能会发现报错</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Traceback <span class="token punctuation">(</span>most recent call last<span class="token punctuation">)</span>:
   File <span class="token string">"/usr/local/bin/ROPgadget"</span>, line <span class="token number">4</span>, <span class="token keyword">in</span> <span class="token operator">&lt;</span>module<span class="token operator">></span>
     __import__<span class="token punctuation">(</span><span class="token string">'pkg_resources'</span><span class="token punctuation">)</span>.run_script<span class="token punctuation">(</span><span class="token string">'ROPGadget==6.6'</span>, <span class="token string">'ROPgadget'</span><span class="token punctuation">)</span>
@@ -211,7 +214,8 @@
   File <span class="token string">"/usr/lib/python3/dist-packages/pkg_resources/__init__.py"</span>, line <span class="token number">1429</span>, <span class="token keyword">in</span> run_script
     .format<span class="token punctuation">(</span>**locals<span class="token punctuation">(</span><span class="token punctuation">))</span>,
 pkg_resources.ResolutionError: Script <span class="token string">'scripts/ROPgadget'</span> not found <span class="token keyword">in</span> metadata at <span class="token string">'/usr/local/lib/python3.6/dist-packages/ROPGadget-6.6.dist-info'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">cp</span> <span class="token parameter variable">-r</span> scripts /usr/local/lib/python3.6/dist-packages/ROPGadget-6.6.dist-info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2><span id="解决">解决</span></h2>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">cp</span> <span class="token parameter variable">-r</span> scripts /usr/local/lib/python3.6/dist-packages/ROPGadget-6.6.dist-info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>这里不要复制 , 将你之前报错中显示的路径复制到上面的路径中</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">m1sceden4@DESKTOP-H37I3CV:~/ROPgadget$ ROPgadget <span class="token parameter variable">--help</span>
 usage: ROPgadget <span class="token punctuation">[</span>-h<span class="token punctuation">]</span> <span class="token punctuation">[</span>-v<span class="token punctuation">]</span> <span class="token punctuation">[</span>-c<span class="token punctuation">]</span> <span class="token punctuation">[</span>--binary <span class="token operator">&lt;</span>binary<span class="token operator">></span><span class="token punctuation">]</span> <span class="token punctuation">[</span>--opcode <span class="token operator">&lt;</span>opcodes<span class="token operator">></span><span class="token punctuation">]</span>

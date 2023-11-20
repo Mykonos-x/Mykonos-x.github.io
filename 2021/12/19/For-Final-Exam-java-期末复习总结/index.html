@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="http://mykonos-x.github.io/2021/12/19/For-Final-Exam-java-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%80%BB%E7%BB%93/">
   
-  <meta name="description" content="Unicode编码 Unicode 统一码，万国码 目标是支持世界上所有的字符 表示：在值前面加上前缀/u  耦合 耦合也叫块间联系，指软件系统结构中各模块之间相互联系紧密程度的一种度量，模块之间联系越紧密，其耦合性就越强，模块之间越独立，耦合性就越差  package 同一个包中类的名字是不同的，">
+  <meta name="description" content="Unicode编码  Unicode 统一码，万国码 目标是支持世界上所有的字符 表示：在值前面加上前缀/u  耦合  耦合也叫块间联系，指软件系统结构中各模块之间相互联系紧密程度的一种度量，模块之间联系越紧密，其耦合性就越强，模块之间越独立，耦合性就越差  package  同一个包中类的名字是不">
   
   
   <meta name="author" content="Ez3ki3l">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="(For Final Exam)java 期末复习总结" />
   
-  <meta property="og:description" content="Unicode编码 Unicode 统一码，万国码 目标是支持世界上所有的字符 表示：在值前面加上前缀/u  耦合 耦合也叫块间联系，指软件系统结构中各模块之间相互联系紧密程度的一种度量，模块之间联系越紧密，其耦合性就越强，模块之间越独立，耦合性就越差  package 同一个包中类的名字是不同的，">
+  <meta property="og:description" content="Unicode编码  Unicode 统一码，万国码 目标是支持世界上所有的字符 表示：在值前面加上前缀/u  耦合  耦合也叫块间联系，指软件系统结构中各模块之间相互联系紧密程度的一种度量，模块之间联系越紧密，其耦合性就越强，模块之间越独立，耦合性就越差  package  同一个包中类的名字是不">
   
   <meta property="og:url" content="http://mykonos-x.github.io/2021/12/19/For-Final-Exam-java-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%80%BB%E7%BB%93/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="(For Final Exam)java 期末复习总结">
   
-  <meta name="twitter:description" content="Unicode编码 Unicode 统一码，万国码 目标是支持世界上所有的字符 表示：在值前面加上前缀/u  耦合 耦合也叫块间联系，指软件系统结构中各模块之间相互联系紧密程度的一种度量，模块之间联系越紧密，其耦合性就越强，模块之间越独立，耦合性就越差  package 同一个包中类的名字是不同的，">
+  <meta name="twitter:description" content="Unicode编码  Unicode 统一码，万国码 目标是支持世界上所有的字符 表示：在值前面加上前缀/u  耦合  耦合也叫块间联系，指软件系统结构中各模块之间相互联系紧密程度的一种度量，模块之间联系越紧密，其耦合性就越强，模块之间越独立，耦合性就越差  package  同一个包中类的名字是不">
   
   
   
@@ -193,32 +193,40 @@
         <div class="trans">
             <h2>(For Final Exam)java 期末复习总结</h2>
 
-  <h2 id="Unicode编码"><a href="#Unicode编码" class="headerlink" title="Unicode编码"></a>Unicode编码</h2><ul>
+  <h2><span id="unicode编码">Unicode编码</span></h2>
+<ul>
 <li>Unicode 统一码，万国码</li>
 <li>目标是支持世界上所有的字符</li>
 <li>表示：在值前面加上前缀<code>/u</code></li>
 </ul>
-<h2 id="耦合"><a href="#耦合" class="headerlink" title="耦合"></a>耦合</h2><ul>
+<h2><span id="耦合">耦合</span></h2>
+<ul>
 <li>耦合也叫块间联系，指软件系统结构中各模块之间相互联系紧密程度的一种度量，模块之间联系越紧密，其耦合性就越强，模块之间越独立，耦合性就越差</li>
 </ul>
-<h2 id="package"><a href="#package" class="headerlink" title="package"></a>package</h2><ul>
+<h2><span id="package">package</span></h2>
+<ul>
 <li>同一个包中类的名字是不同的，不同的包中类的名字可以相同，当同时调用两个不同包中相同类名的类时，应该加上包名加以区别，因此，包可以避免名字冲突</li>
 <li>包也限定了访问权限，拥有包访问权限的类才能访问其中某个包的类</li>
 </ul>
-<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><ul>
+<h2><span id="继承">继承</span></h2>
+<ul>
 <li>继承就是子类继承父类的特征和行为，使得子类对象(实例)具有父类的实例和方法；或子类从父类继承方法，使得子类具有父类相同的行为</li>
 <li>一个Java类只能有一个父类</li>
-<li>继承关键字：<code>extends</code>和<code>implements</code>和<code>final</code><pre class="line-numbers language-none"><code class="language-none">class father&#123;
+<li>继承关键字：<code>extends</code>和<code>implements</code>和<code>final</code></li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">class father&#123;
 	
 &#125;
 class children extends father&#123;
 
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
 <li>java不支持<code>多继承</code>，但是支持<code>多重继承</code>(java中类只允许单一继承)，但可以通过接口实现多继承</li>
 <li>继承后，子类拥有父类<code>非public</code>的属性，同时子类也可以拥有自己的属性和方法，及子类可以对父类进行扩展</li>
-<li>提高了类之间的耦合性(继承的缺点，耦合度越高就会<br>造成代码之间的联系越密切，代码独立性越差)</li>
+<li>提高了类之间的耦合性(继承的缺点，耦合度越高就会<br>
+造成代码之间的联系越密切，代码独立性越差)</li>
 </ul>
-<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h2><div class="table-container">
+<h2><span id="修饰符">修饰符</span></h2>
 <table>
 <thead>
 <tr>
@@ -260,10 +268,12 @@ class children extends father&#123;
 </tr>
 </tbody>
 </table>
-</div>
-<h2 id="this关键字"><a href="#this关键字" class="headerlink" title="this关键字"></a>this关键字</h2><ul>
+<h2><span id="this关键字">this关键字</span></h2>
+<ul>
 <li>在方法中引用成员变量(尤其是区分同名的局部变量)</li>
-<li>在构造方法中调用其他构造方法(一定出现在第一句)<pre class="line-numbers language-none"><code class="language-none">public class Main&#123;
+<li>在构造方法中调用其他构造方法(一定出现在第一句)</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">public class Main&#123;
 	public Main()&#123;
 	System.out.println( &quot; 构造方法一被调用了&quot; );
 &#125;
@@ -279,10 +289,9 @@ class children extends father&#123;
 &#125;
 
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ul>
 <p>&lt;!-7-11 jmu-java-03面向对象基础-05-覆盖-&gt;</p>
-<h2 id="抽象类和接口"><a href="#抽象类和接口" class="headerlink" title="抽象类和接口"></a>抽象类和接口</h2><ul>
+<p>##抽象类和接口</p>
+<ul>
 <li>接口被子类实现，抽象类要被子类继承</li>
 <li>接口变量全为公共静态变量，抽象类中可有普通变量</li>
 <li>接口中全为方法的声明，抽象类中可以有方法的实现</li>
@@ -291,8 +300,10 @@ class children extends father&#123;
 <li>接口中方法全为抽象方法，而抽象类中可以有非抽象的方法</li>
 <li>抽象类<code>不能</code>被实例化</li>
 <li>接口的成员变量只能是常量，默认修饰符:public static final</li>
-<li>接口的成员方法只能是抽象方法，默认修饰符:public abstract </li>
-<li>使用interface声明一个接口时，只可以用<code>public</code>修饰符修饰该接口<pre class="line-numbers language-none"><code class="language-none">public class Usertest implements UserDao&#123;
+<li>接口的成员方法只能是抽象方法，默认修饰符:public abstract</li>
+<li>使用interface声明一个接口时，只可以用<code>public</code>修饰符修饰该接口</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">public class Usertest implements UserDao&#123;
 	public void myPrint()&#123;
 	System.out.println(&quot;nihao&quot;);
 &#125;
@@ -300,9 +311,8 @@ class children extends father&#123;
 	System.out.println(&quot;新增&quot;);
 &#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ul>
-<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><pre class="line-numbers language-none"><code class="language-none">public static boolean cathcFinallyTest1()&#123;
+<h2><span id="异常">异常</span></h2>
+<pre class="line-numbers language-none"><code class="language-none">public static boolean cathcFinallyTest1()&#123;
 	try&#123;
 	int i &#x3D; 10 &#x2F; 0;
 	System.out.println(&quot;i value is :&quot; + i );
@@ -318,25 +328,30 @@ class children extends father&#123;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>throwable是所有异常类的父类</li>
-<li><code>throws</code> 是方法可能抛出异常的声明(在声明方法时，表示该方法可能要抛出异常)<pre class="line-numbers language-none"><code class="language-none">public void doA( int a ) throws Exception1 , Exception3&#123;
+<li><code>throws</code> 是方法可能抛出异常的声明(在声明方法时，表示该方法可能要抛出异常)</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">public void doA( int a ) throws Exception1 , Exception3&#123;
 	
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
-<li><code>throw</code>是语句(抛出异常的语句)<pre class="line-numbers language-none"><code class="language-none">try&#123;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><code>throw</code>是语句(抛出异常的语句)</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">try&#123;
 	...
 &#125; catch ( Exception e )&#123;
 	throw e;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
+<h2><span id="数组">数组</span></h2>
+<ul>
+<li>不允许在前面的括号里面写元素个数</li>
 </ul>
-<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><ul>
-<li>不允许在前面的括号里面写元素个数<pre class="line-numbers language-none"><code class="language-none">正确地定义一个二维数组
+<pre class="line-numbers language-none"><code class="language-none">正确地定义一个二维数组
 int a[][] &#x3D; new int[3][];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <blockquote>
 <p>eg: 对于int[] a = new int[10]; a[10] -= 1;会使其发生数组越界</p>
 </blockquote>
-</li>
-</ul>
-<h2 id="类于对象"><a href="#类于对象" class="headerlink" title="类于对象"></a>类于对象</h2><ul>
+<h2><span id="类于对象">类于对象</span></h2>
+<ul>
 <li>构造函数是类的一种特殊函数，它的方法名必须与类名相同</li>
 <li>构造函数的主要作用是完成对类的c对象的初始化工作</li>
 <li>一般在创造对象时，系统会自动调用构造函数</li>
@@ -350,7 +365,7 @@ int a[][] &#x3D; new int[3][];<span aria-hidden="true" class="line-numbers-rows"
 <li>当类中没有定义任何构造方法时，java编译器会为这个类创建缺省构造方法</li>
 <li>局部变量可以与类中的成员l变量同名,用this区分即可</li>
 <li>局部变量未经赋值，不能使用</li>
-<li>若要定义一个类属性或者类方法，应该用<code>static</code> </li>
+<li>若要定义一个类属性或者类方法，应该用<code>static</code></li>
 <li>类的实例方法表示类对对象的行为</li>
 <li>System不能实例化，即不能创建System类的对象</li>
 <li>类，及其属性，方法可以同时有一个以上的修饰符来修饰</li>
@@ -358,8 +373,10 @@ int a[][] &#x3D; new int[3][];<span aria-hidden="true" class="line-numbers-rows"
 <li>一个类的非静态方法可以访问该类的静态成员变量</li>
 <li>在实例方法或构造器中，this用来引用当前对象，通过使用this可引用当前对象的任何成员</li>
 </ul>
-<h3 id="局部内部类"><a href="#局部内部类" class="headerlink" title="局部内部类"></a>局部内部类</h3><blockquote>
+<h3><span id="局部内部类">局部内部类</span></h3>
+<blockquote>
 <p>定义在成员方法中的类就是局部类</p>
+</blockquote>
 <ul>
 <li>不能使用任何的访问修饰符</li>
 <li>会生成两个.class文件</li>
@@ -367,14 +384,24 @@ int a[][] &#x3D; new int[3][];<span aria-hidden="true" class="line-numbers-rows"
 <li>局部内部类不能包含静态成员</li>
 <li>局部内部类可以访问外部类的所有成员</li>
 </ul>
-</blockquote>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
-<li>一个数组不能放不同类型的数值</li>
-<li>字节码文件是与平台无关的二进制码，执行时由解释器解释成本地机器码</li>
-<li>一个java源文件可以有多个类，但是只能有一个类是public的</li>
-<li><p>java允许创建不规则数组，即java多维数组中各行的列数可以不同</p>
+<h2><span id="概述">概述</span></h2>
+<ul>
+<li>
+<p>一个数组不能放不同类型的数值</p>
 </li>
-<li><p>当输入为2时，以下方法的返回值是多少</p>
+<li>
+<p>字节码文件是与平台无关的二进制码，执行时由解释器解释成本地机器码</p>
+</li>
+<li>
+<p>一个java源文件可以有多个类，但是只能有一个类是public的</p>
+</li>
+<li>
+<p>java允许创建不规则数组，即java多维数组中各行的列数可以不同</p>
+</li>
+<li>
+<p>当输入为2时，以下方法的返回值是多少</p>
+</li>
+</ul>
 <pre class="line-numbers language-none"><code class="language-none">public int getValue( int i )&#123;
 	int result &#x3D; 0;
 	switch( i )&#123;
@@ -388,15 +415,16 @@ int a[][] &#x3D; new int[3][];<span aria-hidden="true" class="line-numbers-rows"
 	return result;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>返回值是10，<code>由于case后没有break,故从case2后一直运行</code></p>
-</li>
-</ul>
-<h2 id=""><a href="#" class="headerlink" title="?"></a>?</h2><pre class="line-numbers language-none"><code class="language-none">public static boolean isOdd( int data )&#123;
+<h2><span id>?</span></h2>
+<pre class="line-numbers language-none"><code class="language-none">public static boolean isOdd( int data )&#123;
 	return data % 2 &#x3D;&#x3D; 0 ? true : false;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>如果?前为真，则执行冒号前的语句，若为假，则执行冒号后的语句</li>
 </ul>
-<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><h3 id="ArryList"><a href="#ArryList" class="headerlink" title="ArryList"></a>ArryList</h3><pre class="line-numbers language-none"><code class="language-none">public class Test_str&#123;
+<h2><span id="集合">集合</span></h2>
+<h3><span id="arrylist">ArryList</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">public class Test_str&#123;
 	public static void main( String args[] )&#123;
 		ArryList arryList &#x3D; new ArryList();
 		arryList.add( &quot;1&quot; );
@@ -426,7 +454,8 @@ int a[][] &#x3D; new int[3][];<span aria-hidden="true" class="line-numbers-rows"
 		System.out.println( arryList.contains( 3.3 ) ); &#x2F;&#x2F;是则返回true，否则返回false
 	&#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><pre class="line-numbers language-none"><code class="language-none">public class Main&#123;
+<h3><span id="hashmap">HashMap</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">public class Main&#123;
 	public static void main( String args[] )&#123;
 		HashMap hashMap &#x3D; new HashMap();
 		
@@ -443,7 +472,8 @@ int a[][] &#x3D; new int[3][];<span aria-hidden="true" class="line-numbers-rows"
 		System.out.println( set );
 	&#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h3><ul>
+<h3><span id="hashset">HashSet</span></h3>
+<ul>
 <li>不允许重复元素</li>
 <li>没有索引，没有带索引的方法，也不能用普通的for循环遍历</li>
 <li>是一个无序的集合，存储元素和取出元素的顺序可能不一致</li>
@@ -472,13 +502,16 @@ class Child extends People {
        }
 }
 -->
-<h2 id="程序题"><a href="#程序题" class="headerlink" title="程序题"></a>程序题</h2><h3 id="是否偶数"><a href="#是否偶数" class="headerlink" title="是否偶数"></a>是否偶数</h3><pre class="line-numbers language-none"><code class="language-none">public static boolean isOdd(int data)
+<h2><span id="程序题">程序题</span></h2>
+<h3><span id="是否偶数">是否偶数</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">public static boolean isOdd(int data)
 
     &#123;
 
         return data % 2 &#x3D;&#x3D; 0 ? true : false;
     &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="求最大值"><a href="#求最大值" class="headerlink" title="求最大值"></a>求最大值</h3><pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+<h3><span id="求最大值">求最大值</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
 public  class Main &#123;
     public static void main(String[] args)&#123;
         Scanner sc&#x3D;new Scanner(System.in);
@@ -488,7 +521,8 @@ public  class Main &#123;
         System.out.println(z);
     &#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="统计符合条件元素的个数"><a href="#统计符合条件元素的个数" class="headerlink" title="统计符合条件元素的个数"></a>统计符合条件元素的个数</h3><pre class="line-numbers language-none"><code class="language-none">import java.util.*;
+<h3><span id="统计符合条件元素的个数">统计符合条件元素的个数</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.*;
 public class Main&#123;
     public static void main(String[] args)&#123;
         Scanner in&#x3D;new Scanner(System.in);
@@ -507,7 +541,8 @@ public class Main&#123;
         System.out.println((sum-count)+&quot;,&quot;+count);
     &#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="闰年"><a href="#闰年" class="headerlink" title="闰年"></a>闰年</h3><pre class="line-numbers language-none"><code class="language-none">import java.util.*;
+<h3><span id="闰年">闰年</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.*;
 public class Main&#123;
     public static void main(String[] args)&#123;
         Scanner in &#x3D; new Scanner(System.in);
@@ -520,7 +555,8 @@ public class Main&#123;
             System.out.print(&quot;no&quot;);
     &#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="一个月总天数"><a href="#一个月总天数" class="headerlink" title="一个月总天数"></a>一个月总天数</h3><pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+<h3><span id="一个月总天数">一个月总天数</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
 
 public class Main &#123;
 
@@ -567,7 +603,8 @@ public class Main &#123;
 	&#125;
 
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="统计正数和负数的个数然后计算这些数的平均值"><a href="#统计正数和负数的个数然后计算这些数的平均值" class="headerlink" title="统计正数和负数的个数然后计算这些数的平均值"></a>统计正数和负数的个数然后计算这些数的平均值</h3><pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+<h3><span id="统计正数和负数的个数然后计算这些数的平均值">统计正数和负数的个数然后计算这些数的平均值</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
 public class Main &#123;
     public static void main(String[] args)&#123;
         Scanner input&#x3D;new Scanner(System.in);
@@ -595,7 +632,8 @@ public class Main &#123;
         &#125;
     &#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="程序-直角三角"><a href="#程序-直角三角" class="headerlink" title="程序-直角三角"></a>程序-直角三角</h3><pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+<h3><span id="程序-直角三角">程序-直角三角</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
 
 public class Main &#123;
 
@@ -624,7 +662,8 @@ else   System.out.println(&quot;0.0&quot;);
 	
 &#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="输出所有大于平均值的数"><a href="#输出所有大于平均值的数" class="headerlink" title="输出所有大于平均值的数"></a>输出所有大于平均值的数</h3><pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+<h3><span id="输出所有大于平均值的数">输出所有大于平均值的数</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
 
 public class Main &#123;
 	public static void main (String[] args) &#123;
@@ -650,7 +689,8 @@ public class Main &#123;
 		
 		&#125;
 	&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="设计一个矩形类Rectangle"><a href="#设计一个矩形类Rectangle" class="headerlink" title="设计一个矩形类Rectangle"></a>设计一个矩形类Rectangle</h3><pre class="line-numbers language-none"><code class="language-none">class Rectangle&#123;
+<h3><span id="设计一个矩形类rectangle">设计一个矩形类Rectangle</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">class Rectangle&#123;
     private double width &#x3D; 1,height &#x3D; 1;
     public Rectangle()&#123;&#125;
     public Rectangle(double a,double b)&#123;
@@ -664,7 +704,8 @@ public class Main &#123;
         return (width + height) * 2;
     &#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="构造函数与toString"><a href="#构造函数与toString" class="headerlink" title="构造函数与toString"></a>构造函数与toString</h3><pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+<h3><span id="构造函数与tostring">构造函数与toString</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
 
 public class Main &#123;
 	public static void main(String[] args) &#123;
@@ -732,7 +773,8 @@ class Person&#123;
     
     
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h3><pre class="line-numbers language-none"><code class="language-none">public class Main &#123;
+<h3><span id="构造方法">构造方法</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">public class Main &#123;
     public Main()&#123;
         System.out.println(&quot;构造方法一被调用了&quot;);
     &#125;
@@ -748,7 +790,8 @@ class Person&#123;
         Main v &#x3D; new Main(true);
     &#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="根据派生写出基类"><a href="#根据派生写出基类" class="headerlink" title="根据派生写出基类"></a>根据派生写出基类</h3><pre class="line-numbers language-none"><code class="language-none">public String getId()&#123;
+<h3><span id="根据派生写出基类">根据派生写出基类</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">public String getId()&#123;
 	    return id;
 	&#125;
 public String setId(String id)&#123;
@@ -773,10 +816,12 @@ public String setId(String id)&#123;
 	public void say()&#123;
 	    System.out.print(&quot;I&#39;m a person! My name is &quot; + this.name + &quot;.&quot;);
 	    &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="写出派生类构造方法"><a href="#写出派生类构造方法" class="headerlink" title="写出派生类构造方法"></a>写出派生类构造方法</h3><pre class="line-numbers language-none"><code class="language-none">super(id,name);
+<h3><span id="写出派生类构造方法">写出派生类构造方法</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">super(id,name);
 this.sid &#x3D;sid;
 this.score &#x3D;score;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h3 id="重写equals父类"><a href="#重写equals父类" class="headerlink" title="重写equals父类"></a>重写equals父类</h3><pre class="line-numbers language-none"><code class="language-none">public boolean equals( Object obj )&#123;
+<h3><span id="重写equals父类">重写equals父类</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">public boolean equals( Object obj )&#123;
 	if( this &#x3D;&#x3D; obj )
 	return true;
 	if( obj &#x3D;&#x3D; null )
@@ -789,7 +834,8 @@ this.score &#x3D;score;<span aria-hidden="true" class="line-numbers-rows"><span>
 	else
 	return false;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="覆盖"><a href="#覆盖" class="headerlink" title="覆盖"></a>覆盖</h3><pre class="line-numbers language-none"><code class="language-none">import java.util.ArrayList;
+<h3><span id="覆盖">覆盖</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
@@ -863,7 +909,8 @@ class PersonOverride&#123;
         return Objects.hash(name, age, gender);
     &#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="从抽象类shape扩展出一个圆形"><a href="#从抽象类shape扩展出一个圆形" class="headerlink" title="从抽象类shape扩展出一个圆形"></a>从抽象类shape扩展出一个圆形</h3><pre class="line-numbers language-none"><code class="language-none">class Circle extends shape&#123;
+<h3><span id="从抽象类shape扩展出一个圆形">从抽象类shape扩展出一个圆形</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">class Circle extends shape&#123;
 	double radius;
 	public Circle( double radius )&#123;
 	this.radius &#x3D; radius ;
@@ -876,7 +923,8 @@ class PersonOverride&#123;
 	return Math.PI  * 2 * radius ;
 &#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="创建一个直角三角形类实现IShape接口"><a href="#创建一个直角三角形类实现IShape接口" class="headerlink" title="创建一个直角三角形类实现IShape接口"></a>创建一个直角三角形类实现IShape接口</h3><pre class="line-numbers language-none"><code class="language-none">class RTriangle implements IShape&#123;
+<h3><span id="创建一个直角三角形类实现ishape接口">创建一个直角三角形类实现IShape接口</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">class RTriangle implements IShape&#123;
 	double a,b;
 	
 	public RTriangle(double a, double b) &#123;
@@ -891,7 +939,8 @@ class PersonOverride&#123;
 		return a+b+Math.sqrt(a*a+b*b);
 	&#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="面向对象基础-04-形状-继承"><a href="#面向对象基础-04-形状-继承" class="headerlink" title="面向对象基础-04-形状-继承"></a>面向对象基础-04-形状-继承</h3><pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+<h3><span id="面向对象基础-04-形状-继承">面向对象基础-04-形状-继承</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
  
 abstract class Shape &#123;
 	double PI &#x3D; 3.14;
@@ -1003,7 +1052,8 @@ public class Main &#123;
 		in.close();
 	&#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="面向对象进阶-04-嵌套类-静态嵌套类"><a href="#面向对象进阶-04-嵌套类-静态嵌套类" class="headerlink" title="面向对象进阶-04-嵌套类-静态嵌套类"></a>面向对象进阶-04-嵌套类-静态嵌套类</h3><pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+<h3><span id="面向对象进阶-04-嵌套类-静态嵌套类">面向对象进阶-04-嵌套类-静态嵌套类</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
 
 public class Main &#123;
 
@@ -1063,7 +1113,8 @@ class ArrayUtils&#123;
 		
 	&#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="集体评分2"><a href="#集体评分2" class="headerlink" title="集体评分2"></a>集体评分2</h3><pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+<h3><span id="集体评分2">集体评分2</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
 public class Main &#123;
     public static void main(String[] args) &#123;
         Scanner in &#x3D; new Scanner(System.in);
@@ -1098,7 +1149,8 @@ class RT extends RR&#123;
         return sum&#x2F;3;
     &#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="程序改错题2"><a href="#程序改错题2" class="headerlink" title="程序改错题2"></a>程序改错题2</h3><pre class="line-numbers language-none"><code class="language-none">public class Main &#123;
+<h3><span id="程序改错题2">程序改错题2</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">public class Main &#123;
 	 public static void main(String[] args) &#123;
 	        Animal animal &#x3D; new Dog();
 	        animal.shout();
@@ -1122,7 +1174,8 @@ class Dog extends Animal &#123;
         System.out.println(&quot;Dog is running&quot;);
     &#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="程序填空题3"><a href="#程序填空题3" class="headerlink" title="程序填空题3"></a>程序填空题3</h3><pre class="line-numbers language-none"><code class="language-none">public class Main &#123;
+<h3><span id="程序填空题3">程序填空题3</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">public class Main &#123;
 	public static void main(String[] args) &#123;
         Son son &#x3D; new Son();
         son.method();
@@ -1157,7 +1210,8 @@ class Son extends Parent &#123;
         
     &#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="接口—四则计算器"><a href="#接口—四则计算器" class="headerlink" title="接口—四则计算器"></a>接口—四则计算器</h3><pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+<h3><span id="接口四则计算器">接口–四则计算器</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
 
 public class Main&#123;
 
@@ -1192,7 +1246,8 @@ class Sub implements IComputer
 		return n-m;
 	&#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="异常-1"><a href="#异常-1" class="headerlink" title="异常"></a>异常</h3><pre class="line-numbers language-none"><code class="language-none">catch(Exception e)&#123;
+<h3><span id="异常">异常</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">catch(Exception e)&#123;
                 if (choice.equals(&quot;number&quot;))
                     System.out.println (&quot;number format exception&quot;);
                 if (choice.equals(&quot;illegal&quot;))
@@ -1201,7 +1256,8 @@ class Sub implements IComputer
                     System.out.println (&quot;other exception&quot;);
                 System.out.println (e);
             &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="成绩录入时的及格与不及格人数统计"><a href="#成绩录入时的及格与不及格人数统计" class="headerlink" title="成绩录入时的及格与不及格人数统计"></a>成绩录入时的及格与不及格人数统计</h3><pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+<h3><span id="成绩录入时的及格与不及格人数统计">成绩录入时的及格与不及格人数统计</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
  
 public class Main &#123;
     public static void main(String[] args) &#123;
@@ -1251,7 +1307,8 @@ object
                 System.out.println(o[i]);
             &#125;
         &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="人口统计"><a href="#人口统计" class="headerlink" title="人口统计"></a>人口统计</h3><pre class="line-numbers language-none"><code class="language-none">public static int numofHan(String data[])&#123;
+<h3><span id="人口统计">人口统计</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">public static int numofHan(String data[])&#123;
 	String str &#x3D; &quot;汉族&quot;;
 	int ans &#x3D; 0;
 	for(String s: data)&#123;
@@ -1284,7 +1341,8 @@ public class Main &#123;
 		
 	&#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="单词替换"><a href="#单词替换" class="headerlink" title="单词替换"></a>单词替换</h3><pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+<h3><span id="单词替换">单词替换</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
 public class Main &#123;
     public static void main(String[] args) &#123;
         Scanner sc &#x3D; new Scanner(System.in);
@@ -1304,7 +1362,8 @@ public class Main &#123;
         System.out.println(s1.trim());
     &#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="随机数"><a href="#随机数" class="headerlink" title="随机数"></a>随机数</h3><pre class="line-numbers language-none"><code class="language-none">import java.util.*;
+<h3><span id="随机数">随机数</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.*;
 public class Main &#123;
 
 	public static void main(String[] args) &#123;
@@ -1322,7 +1381,8 @@ public class Main &#123;
 		System.out.println(4*(double)count&#x2F;n);	
 	&#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="List指定元素删除"><a href="#List指定元素删除" class="headerlink" title="List指定元素删除"></a>List指定元素删除</h3><pre class="line-numbers language-none"><code class="language-none">public static List&lt;String&gt; convertStringToList(String line) &#123;
+<h3><span id="list指定元素删除">List指定元素删除</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">public static List&lt;String&gt; convertStringToList(String line) &#123;
 		List&lt;String&gt; a&#x3D;new ArrayList&lt;String&gt;();
 		String s[]&#x3D;line.split(&quot;\\s+&quot;);
 		for(int i&#x3D;0;i&lt;s.length;i++) &#123;
@@ -1344,7 +1404,8 @@ public class Main &#123;
 			&#125;
 		&#125;
 	&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="ArryList入门"><a href="#ArryList入门" class="headerlink" title="ArryList入门"></a>ArryList入门</h3><pre class="line-numbers language-none"><code class="language-none">import java.util.*;
+<h3><span id="arrylist入门">ArryList入门</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.*;
 public class Main&#123;
  public static void main(String[] args) &#123;
   ArrayList strList &#x3D; new ArrayList();
@@ -1386,7 +1447,8 @@ public class Main&#123;
   System.out.println(strList + &quot;,&quot; + strList.size() + &quot;,&quot;+ strList.isEmpty());
  &#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="出勤最多的人"><a href="#出勤最多的人" class="headerlink" title="出勤最多的人"></a>出勤最多的人</h3><pre class="line-numbers language-none"><code class="language-none">import java.util.*;
+<h3><span id="出勤最多的人">出勤最多的人</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.*;
 
 class Main&#123;
     public static void main(String[] args) &#123;
@@ -1464,7 +1526,8 @@ class PrintTask implements Runnable
 		System.out.println(Thread.currentThread().getName());
 	&#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="倒数计时线程"><a href="#倒数计时线程" class="headerlink" title="倒数计时线程"></a>倒数计时线程</h3><pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+<h3><span id="倒数计时线程">倒数计时线程</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
 
 class PrintTask implements Runnable &#123;
 	private int n;
@@ -1487,7 +1550,8 @@ public class Main&#123;
 	    	t.start();
 	    &#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="程序改错题4"><a href="#程序改错题4" class="headerlink" title="程序改错题4"></a>程序改错题4</h3><pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+<h3><span id="程序改错题4">程序改错题4</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
 
 public class Main &#123;
 	public static void main(String[] args) &#123;

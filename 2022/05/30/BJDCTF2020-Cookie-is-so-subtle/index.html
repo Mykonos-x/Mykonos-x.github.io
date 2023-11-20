@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="http://mykonos-x.github.io/2022/05/30/BJDCTF2020-Cookie-is-so-subtle/">
   
-  <meta name="description" content="知识点  SSTI模板注入 Cookie注入  index.php     hint.php   我们在hint.php中看到Why not take a closer look at cookies?,加上题目名字我们可以猜测这道题的漏洞点在cookie上面 我们通过burpsuite抓下包看一下">
+  <meta name="description" content="知识点  SSTI模板注入 Cookie注入   index.php    hint.php   我们在hint.php中看到Why not take a closer look at cookies?,加上题目名字我们可以猜测这道题的漏洞点在cookie上面 我们通过burpsuite抓下包看一下">
   
   
   <meta name="author" content="Ez3ki3l">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="BJDCTF2020 Cookie is so subtle" />
   
-  <meta property="og:description" content="知识点  SSTI模板注入 Cookie注入  index.php     hint.php   我们在hint.php中看到Why not take a closer look at cookies?,加上题目名字我们可以猜测这道题的漏洞点在cookie上面 我们通过burpsuite抓下包看一下">
+  <meta property="og:description" content="知识点  SSTI模板注入 Cookie注入   index.php    hint.php   我们在hint.php中看到Why not take a closer look at cookies?,加上题目名字我们可以猜测这道题的漏洞点在cookie上面 我们通过burpsuite抓下包看一下">
   
   <meta property="og:url" content="http://mykonos-x.github.io/2022/05/30/BJDCTF2020-Cookie-is-so-subtle/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="BJDCTF2020 Cookie is so subtle">
   
-  <meta name="twitter:description" content="知识点  SSTI模板注入 Cookie注入  index.php     hint.php   我们在hint.php中看到Why not take a closer look at cookies?,加上题目名字我们可以猜测这道题的漏洞点在cookie上面 我们通过burpsuite抓下包看一下">
+  <meta name="twitter:description" content="知识点  SSTI模板注入 Cookie注入   index.php    hint.php   我们在hint.php中看到Why not take a closer look at cookies?,加上题目名字我们可以猜测这道题的漏洞点在cookie上面 我们通过burpsuite抓下包看一下">
   
   
   
@@ -196,10 +196,10 @@
   <p>知识点</p>
 <blockquote>
 <p>SSTI模板注入 Cookie注入</p>
+</blockquote>
 <ul>
 <li>index.php</li>
 </ul>
-</blockquote>
 <p><img src="https://pic.imgdb.cn/item/6294a05b094754312903696b.jpg" alt="index.php"></p>
 <ul>
 <li>hint.php</li>
@@ -207,16 +207,19 @@
 <p><img src="https://pic.imgdb.cn/item/6294a0c3094754312903e140.jpg" alt="hint.php"></p>
 <p>我们在hint.php中看到<code>Why not take a closer look at cookies?</code>,加上题目名字我们可以猜测这道题的漏洞点在cookie上面</p>
 <p>我们通过<code>burpsuite</code>抓下包看一下cookie</p>
-<p><img src="https://pic.imgdb.cn/item/6294a15709475431290488af.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/6294a15709475431290488af.jpg" alt></p>
 <p>页面提交后,cookie这里多了一个<code>user=(msg you input)</code>,那么是不是可以命令执行呢</p>
 <p>经过多次尝试,发现这是一个SSTI.即服务器端模板注入,什么是SSTI呢</p>
-<h3 id="SSTI"><a href="#SSTI" class="headerlink" title="SSTI"></a>SSTI</h3><p>是什么 : Server-Side Template Injection </p>
+<h3><span id="ssti">SSTI</span></h3>
+<p>是什么 : Server-Side Template Injection</p>
 <p>是什么引发 : <code>render_template</code>渲染函数 , 该函数在渲染时, 对用户输入的变量不做渲染 , <code>&#123;&#123;&#125;&#125;</code>在jinja2中作为<code>变量包裹标识符</code>,即jinja2中,会把<code>&#123;&#123;&#125;&#125;</code>包裹的内容当作变量解析替换,比如4会被解析成4,这样就像sql一样存在注入漏洞</p>
-<h4 id="判断SSTI类型"><a href="#判断SSTI类型" class="headerlink" title="判断SSTI类型"></a>判断SSTI类型</h4><p><img src="https://pic.imgdb.cn/item/6294a3a10947543129077948.jpg" alt=""></p>
+<h4><span id="判断ssti类型">判断SSTI类型</span></h4>
+<p><img src="https://pic.imgdb.cn/item/6294a3a10947543129077948.jpg" alt></p>
 <p>网上扒拉了一张图</p>
-<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><p>那么我们经过测试之后,大概能确定这里采用的是Twig引擎,网上扒拉一份payload</p>
+<h3><span id="exp">exp</span></h3>
+<p>那么我们经过测试之后,大概能确定这里采用的是Twig引擎,网上扒拉一份payload</p>
 <pre class="line-numbers language-none"><code class="language-none">&#123;&#123;_self.env.registerUndefinedFilterCallback(&quot;exec&quot;)&#125;&#125;&#123;&#123;_self.env.getFilter(&quot;cat &#x2F;flag&quot;)&#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="https://pic.imgdb.cn/item/6294a5b909475431290a3f95.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/6294a5b909475431290a3f95.jpg" alt></p>
 <p>get flag</p>
 <p>需要注意的是,这里需要通过burp抓包改包再放包,因为在页面端的输入会经过url编码而失去注入作用</p>
 

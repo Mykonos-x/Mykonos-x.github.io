@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="http://mykonos-x.github.io/2022/09/27/Stack-Smashing/">
   
-  <meta name="description" content="Stack Smashing当canary被覆盖后，会call到__stack_chk_fail打印argv[0]这个指针指向的字符串，默认是程序的名字，如果我们把它覆盖为其他的地址时，它就会把其他内存地址的信息给打印出来 Example:wdb2018_guessAnalyzeArch:     ">
+  <meta name="description" content="Stack Smashing 当canary被覆盖后，会call到__stack_chk_fail打印argv[0]这个指针指向的字符串，默认是程序的名字，如果我们把它覆盖为其他的地址时，它就会把其他内存地址的信息给打印出来 Example:wdb2018_guess Analyze Arch:  ">
   
   
   <meta name="author" content="Ez3ki3l">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Stack Smashing" />
   
-  <meta property="og:description" content="Stack Smashing当canary被覆盖后，会call到__stack_chk_fail打印argv[0]这个指针指向的字符串，默认是程序的名字，如果我们把它覆盖为其他的地址时，它就会把其他内存地址的信息给打印出来 Example:wdb2018_guessAnalyzeArch:     ">
+  <meta property="og:description" content="Stack Smashing 当canary被覆盖后，会call到__stack_chk_fail打印argv[0]这个指针指向的字符串，默认是程序的名字，如果我们把它覆盖为其他的地址时，它就会把其他内存地址的信息给打印出来 Example:wdb2018_guess Analyze Arch:  ">
   
   <meta property="og:url" content="http://mykonos-x.github.io/2022/09/27/Stack-Smashing/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Stack Smashing">
   
-  <meta name="twitter:description" content="Stack Smashing当canary被覆盖后，会call到__stack_chk_fail打印argv[0]这个指针指向的字符串，默认是程序的名字，如果我们把它覆盖为其他的地址时，它就会把其他内存地址的信息给打印出来 Example:wdb2018_guessAnalyzeArch:     ">
+  <meta name="twitter:description" content="Stack Smashing 当canary被覆盖后，会call到__stack_chk_fail打印argv[0]这个指针指向的字符串，默认是程序的名字，如果我们把它覆盖为其他的地址时，它就会把其他内存地址的信息给打印出来 Example:wdb2018_guess Analyze Arch:  ">
   
   
   
@@ -193,8 +193,11 @@
         <div class="trans">
             <h2>Stack Smashing</h2>
 
-  <h3 id="Stack-Smashing"><a href="#Stack-Smashing" class="headerlink" title="Stack Smashing"></a>Stack Smashing</h3><p>当canary被覆盖后，会call到<code>__stack_chk_fail</code>打印argv[0]这个指针指向的字符串，默认是程序的名字，如果我们把它覆盖为其他的地址时，它就会把其他内存地址的信息给打印出来</p>
-<h3 id="Example-wdb2018-guess"><a href="#Example-wdb2018-guess" class="headerlink" title="Example:wdb2018_guess"></a>Example:wdb2018_guess</h3><h4 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Arch:     amd64-64-little
+  <h3><span id="stack-smashing">Stack Smashing</span></h3>
+<p>当canary被覆盖后，会call到<code>__stack_chk_fail</code>打印argv[0]这个指针指向的字符串，默认是程序的名字，如果我们把它覆盖为其他的地址时，它就会把其他内存地址的信息给打印出来</p>
+<h3><span id="examplewdb2018_guess">Example:wdb2018_guess</span></h3>
+<h4><span id="analyze">Analyze</span></h4>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Arch:     amd64-64-little
 RELRO:    Partial RELRO
 Stack:    Canary found
 NX:       NX enabled
@@ -205,7 +208,8 @@ Please <span class="token builtin class-name">type</span> your guessing flag
 You should take <span class="token function">more</span> effort to get six sence, and one <span class="token function">more</span> challenge<span class="token operator">!</span><span class="token operator">!</span>
 Please <span class="token builtin class-name">type</span> your guessing flag<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>以上是程序开启的一些保护和大概的流程</p>
-<h5 id="main"><a href="#main" class="headerlink" title="main"></a>main</h5><pre class="line-numbers language-c" data-language="c"><code class="language-c">__int64 __fastcall <span class="token function">main</span><span class="token punctuation">(</span>__int64 a1<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>a2<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>a3<span class="token punctuation">)</span>
+<h5><span id="main">main</span></h5>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">__int64 __fastcall <span class="token function">main</span><span class="token punctuation">(</span>__int64 a1<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>a2<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>a3<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
   __WAIT_STATUS stat_loc<span class="token punctuation">;</span> <span class="token comment">// [rsp+14h] [rbp-8Ch] BYREF</span>
   __int64 v6<span class="token punctuation">;</span> <span class="token comment">// [rsp+20h] [rbp-80h]</span>
@@ -248,29 +252,32 @@ Please <span class="token builtin class-name">type</span> your guessing flag<spa
     <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"You should take more effort to get six sence, and one more challenge!!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">return</span> <span class="token number">0LL</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>可以看到通过<code>gets</code>来接收变量s2，也就是用户输入，然后与buf(即flag)进行compare，如果相同则输出””You must have great six sense!!!! :-o “</p>
+<p>可以看到通过<code>gets</code>来接收变量s2，也就是用户输入，然后与buf(即flag)进行compare，如果相同则输出&quot;&quot;You must have great six sense!!! :-o &quot;</p>
 <p>否则让用户继续进行输入</p>
 <p>虽然是危险函数<code>gets</code>，但是由于本题开启了canary保护，所以没法进行stackoverflow或者搭配ROP等攻击</p>
 <p>这里的话我们利用stack smashing来泄露程序的内存信息</p>
-<h4 id="Principle"><a href="#Principle" class="headerlink" title="Principle"></a>Principle</h4><p>前言已经提到过，当canary被覆盖后，会调用<code>__stack_chk_fail</code>这个函数，打印<code>argv[0]</code>这个指针指向的字符串，默认为程序的名字，stacksmashing的思想就是通过覆盖<code>argv[0]</code>这个指针指向的地址，让程序在调用<code>__stack_chk_fail</code>的时候，输出我们想要的内容，比如可以通过覆盖<code>argv[0]</code>为puts的got表地址，从而让程序打印出puts函数的真实地址，来泄露libc</p>
-<h4 id="Structure-attack-script"><a href="#Structure-attack-script" class="headerlink" title="Structure attack script"></a>Structure attack script</h4><p>首先我们需要动调找到<code>argv[0]</code>这个指针距离用户输入的偏移，<code>__libc_argv[0]</code>里面存储的是程序的名字，找到指向<code>__libc_argv[0]</code>的指针即可，计算这个指针和指向用户输入的内容的指针的偏移</p>
-<p><img src="https://pic1.imgdb.cn/item/6331dba616f2c2beb130943d.jpg" alt=""></p>
+<h4><span id="principle">Principle</span></h4>
+<p>前言已经提到过，当canary被覆盖后，会调用<code>__stack_chk_fail</code>这个函数，打印<code>argv[0]</code>这个指针指向的字符串，默认为程序的名字，stacksmashing的思想就是通过覆盖<code>argv[0]</code>这个指针指向的地址，让程序在调用<code>__stack_chk_fail</code>的时候，输出我们想要的内容，比如可以通过覆盖<code>argv[0]</code>为puts的got表地址，从而让程序打印出puts函数的真实地址，来泄露libc</p>
+<h4><span id="structure-attack-script">Structure attack script</span></h4>
+<p>首先我们需要动调找到<code>argv[0]</code>这个指针距离用户输入的偏移，<code>__libc_argv[0]</code>里面存储的是程序的名字，找到指向<code>__libc_argv[0]</code>的指针即可，计算这个指针和指向用户输入的内容的指针的偏移</p>
+<p><img src="https://pic1.imgdb.cn/item/6331dba616f2c2beb130943d.jpg" alt></p>
 <p>这里的话，16.04环境下偏移是<code>0x128</code>，然后就可以往这个地址去覆盖想要泄露的函数地址了，比如这里我们泄露puts函数地址</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">payload1 <span class="token operator">=</span> <span class="token string">b'a'</span> <span class="token operator">*</span> <span class="token number">0x128</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>puts_got<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="https://pic1.imgdb.cn/item/6331dc6c16f2c2beb13159f2.jpg" alt=""></p>
+<p><img src="https://pic1.imgdb.cn/item/6331dc6c16f2c2beb13159f2.jpg" alt></p>
 <p>输出的地方如图所示，接收了puts地址后就可以拿到libc基址了</p>
 <p>接着就涉及到如何通过libc地址来得到栈地址这个知识点了</p>
-<h5 id="Obtain-the-stack-address-through-libc-address"><a href="#Obtain-the-stack-address-through-libc-address" class="headerlink" title="Obtain the stack address through libc address"></a>Obtain the stack address through libc address</h5><p>在libc中保存了一个函数叫<code>_environ</code>，存的是当前进程的环境变量，我们可以通过<code>_environ</code>函数来得到环境变量地址，而环境变量是存在栈上的，然后我们通过偏移就可以计算得到其他函数的地址了</p>
+<h5><span id="obtain-the-stack-address-through-libc-address">Obtain the stack address through libc address</span></h5>
+<p>在libc中保存了一个函数叫<code>_environ</code>，存的是当前进程的环境变量，我们可以通过<code>_environ</code>函数来得到环境变量地址，而环境变量是存在栈上的，然后我们通过偏移就可以计算得到其他函数的地址了</p>
 <p>首先得到<code>_environ</code>函数地址</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">environ_addr <span class="token operator">=</span> libc_base <span class="token operator">+</span> libc<span class="token punctuation">.</span>sym<span class="token punctuation">[</span><span class="token string">'__environ'</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>然后用<code>_environ</code>函数地址覆盖<code>__libc_argv[0]</code>指针地址，让程序通过<code>__stack_chk_fail</code>报错输出<code>_environ</code>环境变量地址</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">payload2 <span class="token operator">=</span> <span class="token string">b'a'</span> <span class="token operator">*</span> <span class="token number">0x128</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>environ_addr<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>这样就拿到环境变量地址了，下一步就是去找存flag的变量地址和环境变量地址的偏移</p>
 <p>gdb下可以通过<code>x/a _environ</code>来查看环境变量地址，通过<code>search flag</code>来查找flag变量地址，相减得到偏移</p>
-<p><img src="https://pic1.imgdb.cn/item/6331df9e16f2c2beb1341a9e.jpg" alt=""></p>
+<p><img src="https://pic1.imgdb.cn/item/6331df9e16f2c2beb1341a9e.jpg" alt></p>
 <p>16.04下偏移为<code>0x168</code></p>
 <p>最后一步将<code>__libc_argv[0]</code>覆盖成flag的地址即可，通过<code>__stack_chk_fail</code>来输出flag值</p>
-<p><img src="https://pic1.imgdb.cn/item/6331e03616f2c2beb1349640.jpg" alt=""></p>
+<p><img src="https://pic1.imgdb.cn/item/6331e03616f2c2beb1349640.jpg" alt></p>
 
   <p><a class="classtest-link" href="/tags/pwn/" rel="tag">pwn</a> — Sep 27, 2022</p>
   

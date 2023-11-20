@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="http://mykonos-x.github.io/2022/09/02/%E5%8F%AF%E6%80%9C%E7%9A%84RSA-AFCTF2018/">
   
-  <meta name="description" content="这道题记录一个疑问 Involved Knowledge RSA  Private key decryption   Topicpublic.key-----BEGIN PUBLIC KEY----- MIIBJDANBgkqhkiG9w0BAQEFAAOCAREAMIIBDAKCAQMlsYv18">
+  <meta name="description" content="这道题记录一个疑问 Involved Knowledge   RSA   Private key decryption   Topic public.key -----BEGIN PUBLIC KEY----- MIIBJDANBgkqhkiG9w0BAQEFAAOCAREAMIIBDAKCAQMl">
   
   
   <meta name="author" content="Ez3ki3l">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="可怜的RSA AFCTF2018" />
   
-  <meta property="og:description" content="这道题记录一个疑问 Involved Knowledge RSA  Private key decryption   Topicpublic.key-----BEGIN PUBLIC KEY----- MIIBJDANBgkqhkiG9w0BAQEFAAOCAREAMIIBDAKCAQMlsYv18">
+  <meta property="og:description" content="这道题记录一个疑问 Involved Knowledge   RSA   Private key decryption   Topic public.key -----BEGIN PUBLIC KEY----- MIIBJDANBgkqhkiG9w0BAQEFAAOCAREAMIIBDAKCAQMl">
   
   <meta property="og:url" content="http://mykonos-x.github.io/2022/09/02/%E5%8F%AF%E6%80%9C%E7%9A%84RSA-AFCTF2018/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="可怜的RSA AFCTF2018">
   
-  <meta name="twitter:description" content="这道题记录一个疑问 Involved Knowledge RSA  Private key decryption   Topicpublic.key-----BEGIN PUBLIC KEY----- MIIBJDANBgkqhkiG9w0BAQEFAAOCAREAMIIBDAKCAQMlsYv18">
+  <meta name="twitter:description" content="这道题记录一个疑问 Involved Knowledge   RSA   Private key decryption   Topic public.key -----BEGIN PUBLIC KEY----- MIIBJDANBgkqhkiG9w0BAQEFAAOCAREAMIIBDAKCAQMl">
   
   
   
@@ -194,13 +194,18 @@
             <h2>可怜的RSA AFCTF2018</h2>
 
   <p>这道题记录一个疑问</p>
-<h3 id="Involved-Knowledge"><a href="#Involved-Knowledge" class="headerlink" title="Involved Knowledge"></a>Involved Knowledge</h3><ul>
-<li><p>RSA</p>
+<h3><span id="involved-knowledge">Involved Knowledge</span></h3>
+<ul>
+<li>
+<p>RSA</p>
 </li>
-<li><p>Private key decryption</p>
+<li>
+<p>Private key decryption</p>
 </li>
 </ul>
-<h3 id="Topic"><a href="#Topic" class="headerlink" title="Topic"></a>Topic</h3><h4 id="public-key"><a href="#public-key" class="headerlink" title="public.key"></a>public.key</h4><pre class="line-numbers language-none"><code class="language-none">-----BEGIN PUBLIC KEY-----
+<h3><span id="topic">Topic</span></h3>
+<h4><span id="publickey">public.key</span></h4>
+<pre class="line-numbers language-none"><code class="language-none">-----BEGIN PUBLIC KEY-----
 MIIBJDANBgkqhkiG9w0BAQEFAAOCAREAMIIBDAKCAQMlsYv184kJfRcjeGa7Uc&#x2F;4
 3pIkU3SevEA7CZXJfA44bUbBYcrf93xphg2uR5HCFM+Eh6qqnybpIKl3g0kGA4rv
 tcMIJ9&#x2F;PP8npdpVE+U4Hzf4IcgOaOmJiEWZ4smH7LWudMlOekqFTs2dWKbqzlC59
@@ -210,13 +215,15 @@ Si8mZEJ&#x2F;Vlx3gathkUVtlxx&#x2F;+jlScjdM7AFV5fkRidt0LkwosDoPoRz&#x2F;sDFz0qTM
 5q5TAgMBAAE&#x3D;
 -----END PUBLIC KEY-----<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>public.key是公钥，我们可以从中提取出<code>模数n</code>和<code>加密指数e</code></p>
-<h4 id="flag-enc"><a href="#flag-enc" class="headerlink" title="flag.enc"></a>flag.enc</h4><pre class="line-numbers language-none"><code class="language-none">GVd1d3viIXFfcHapEYuo5fAvIiUS83adrtMW&#x2F;MgPwxVBSl46joFCQ1plcnlDGfL19K&#x2F;3PvChV6n5QGohzfVyz2Z5GdTlaknxvHDUGf5HCukokyPwK&#x2F;1EYU7NzrhGE7J5jPdi0Aj7xi&#x2F;Odxy0hGMgpaBLd&#x2F;nL3N8O6i9pc4Gg3O8soOlciBG&#x2F;6&#x2F;xdfN3SzSStMYIN8nfZZMSq3xDDvz4YB7TcTBh4ik4wYhuC77gmT+HWOv5gLTNQ3EkZs5N3EAopy11zHNYU80yv1jtFGcluNPyXYttU5qU33jcp0Wuznac+t+AZHeSQy5vk8DyWorSGMiS+J4KNqSVlDs12EqXEqqJ0uA&#x3D;&#x3D;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4><span id="flagenc">flag.enc</span></h4>
+<pre class="line-numbers language-none"><code class="language-none">GVd1d3viIXFfcHapEYuo5fAvIiUS83adrtMW&#x2F;MgPwxVBSl46joFCQ1plcnlDGfL19K&#x2F;3PvChV6n5QGohzfVyz2Z5GdTlaknxvHDUGf5HCukokyPwK&#x2F;1EYU7NzrhGE7J5jPdi0Aj7xi&#x2F;Odxy0hGMgpaBLd&#x2F;nL3N8O6i9pc4Gg3O8soOlciBG&#x2F;6&#x2F;xdfN3SzSStMYIN8nfZZMSq3xDDvz4YB7TcTBh4ik4wYhuC77gmT+HWOv5gLTNQ3EkZs5N3EAopy11zHNYU80yv1jtFGcluNPyXYttU5qU33jcp0Wuznac+t+AZHeSQy5vk8DyWorSGMiS+J4KNqSVlDs12EqXEqqJ0uA&#x3D;&#x3D;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>可以很明显的看到flag.enc 也就是密文c 是经过base64加密的，我们在计算的时候就需要对flag.enc里面的内容进行base64解码</p>
-<h3 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h3><p>我们通过公钥得到了<code>n</code>和<code>e</code>后，可以尝试对<code>n</code>进行分解，试图找到<code>p</code>，<code>q</code></p>
+<h3><span id="analyze">Analyze</span></h3>
+<p>我们通过公钥得到了<code>n</code>和<code>e</code>后，可以尝试对<code>n</code>进行分解，试图找到<code>p</code>，<code>q</code></p>
 <p>发现n是可被分解的,那么就拿到了<code>p</code>和<code>q</code></p>
 <pre class="line-numbers language-none"><code class="language-none">p &#x3D; 3133337
 q &#x3D; 25478326064937419292200172136399497719081842914528228316455906211693118321971399936004729134841162974144246271486439695786036588117424611881955950996219646807378822278285638261582099108339438949573034101215141156156408742843820048066830863814362379885720395082318462850002901605689761876319151147352730090957556940842144299887394678743607766937828094478336401159449035878306853716216548374273462386508307367713112073004011383418967894930554067582453248981022011922883374442736848045920676341361871231787163441467533076890081721882179369168787287724769642665399992556052144845878600126283968890273067575342061776244939<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>$\phi n = (p-1) <em> (q-1) \rightarrow $ phi_n = (p - 1) </em> (q - 1)</p>
+<p>$\phi n = (p-1) * (q-1) \rightarrow $ phi_n = (p - 1) * (q - 1)</p>
 <p>$e * d \equiv1\mod \phi n \rightarrow$ d = gmpy2.invert(e , phi_n)</p>
 <p>这里就是我所不明白的地方，为什么这道题不能通过求得私钥<code>d</code>，然后<code>pow(c , d ,n)</code>拿到明文，如果有知道的师傅的话评论区教教弟弟</p>
 <p>这里需要从<code>Crypto.PublicKey</code>导入<code>RSA</code>这个方法，从<code>Crypto.Cipher</code>导入<code>PKCS1_OAEP</code></p>
@@ -225,8 +232,9 @@ q &#x3D; 25478326064937419292200172136399497719081842914528228316455906211693118
 key <span class="token operator">=</span> RSA<span class="token punctuation">.</span>importKey<span class="token punctuation">(</span>key_info<span class="token punctuation">.</span>exportKey<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 key <span class="token operator">=</span> PKCS1_OAEP<span class="token punctuation">.</span>new<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
 flag <span class="token operator">=</span> key<span class="token punctuation">.</span>decrypt<span class="token punctuation">(</span>c<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p><del>具体怎么实现的等我学了这两个库的方法再回来补充吧</del></p>
-<h3 id="Exp"><a href="#Exp" class="headerlink" title="Exp"></a>Exp</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> gmpy2
+<p><s>具体怎么实现的等我学了这两个库的方法再回来补充吧</s></p>
+<h3><span id="exp">Exp</span></h3>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> gmpy2
 <span class="token keyword">import</span> libnum
 <span class="token keyword">import</span> base64
 <span class="token keyword">from</span> Crypto<span class="token punctuation">.</span>Util<span class="token punctuation">.</span>number <span class="token keyword">import</span> bytes_to_long <span class="token punctuation">,</span> long_to_bytes
@@ -252,8 +260,8 @@ key <span class="token operator">=</span> RSA<span class="token punctuation">.</
 key <span class="token operator">=</span> PKCS1_OAEP<span class="token punctuation">.</span>new<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
 flag <span class="token operator">=</span> key<span class="token punctuation">.</span>decrypt<span class="token punctuation">(</span>c<span class="token punctuation">)</span>
 <span class="token keyword">print</span><span class="token punctuation">(</span>flag<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>b’afctf{R54<em>|5</em>$0_B0rin9}’</p>
-<p>这道题做的挺难受的，一直卡在通过<code>pow(c , d , n)</code>拿到m后<code>libnum.n2s</code>得到一堆乱码..</p>
+<p>b’afctf{R54_|5_$0_B0rin9}’</p>
+<p>这道题做的挺难受的，一直卡在通过<code>pow(c , d , n)</code>拿到m后<code>libnum.n2s</code>得到一堆乱码…</p>
 
   <p><a class="classtest-link" href="/tags/crypto/" rel="tag">crypto</a>, <a class="classtest-link" href="/tags/rsa/" rel="tag">rsa</a>, <a class="classtest-link" href="/tags/write-up/" rel="tag">write-up</a> — Sep 2, 2022</p>
   

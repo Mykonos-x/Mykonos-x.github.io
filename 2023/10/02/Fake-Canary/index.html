@@ -213,9 +213,10 @@ __wrap___stack_chk_fail_local:
 <p>但是仍然编译后存在</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">*** stack smashing detected ***: terminated
 Aborted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>最后发现其实只需要写一个<code>__Stack_chk_failed</code>函数即可..<br><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">void</span> <span class="token function">__stack_chk_failed</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></p>
+<p>最后发现其实只需要写一个<code>__Stack_chk_failed</code>函数即可…</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">void</span> <span class="token function">__stack_chk_failed</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>实现效果</p>
-<p><img src="https://pic.imgdb.cn/item/651a4a7cc458853aeff99601.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/651a4a7cc458853aeff99601.jpg" alt></p>
 
   <p><a class="classtest-link" href="/tags/pwn/" rel="tag">pwn</a> — Oct 2, 2023</p>
   

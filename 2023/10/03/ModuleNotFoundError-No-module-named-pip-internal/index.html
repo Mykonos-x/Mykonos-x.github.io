@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="http://mykonos-x.github.io/2023/10/03/ModuleNotFoundError-No-module-named-pip-internal/">
   
-  <meta name="description" content="笔者的ubuntu18.04发生这个错误是因为同时安装了两个python3（python3.6和python3.8） step1删除python3.6 sudo apt-get remove python3.6 sudo apt-get remove --auto-remove python3.6 ">
+  <meta name="description" content="笔者的ubuntu18.04发生这个错误是因为同时安装了两个python3（python3.6和python3.8） step1 删除python3.6 sudo apt-get remove python3.6 sudo apt-get remove --auto-remove python3.6">
   
   
   <meta name="author" content="Ez3ki3l">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="ModuleNotFoundError:No module named pip._internal" />
   
-  <meta property="og:description" content="笔者的ubuntu18.04发生这个错误是因为同时安装了两个python3（python3.6和python3.8） step1删除python3.6 sudo apt-get remove python3.6 sudo apt-get remove --auto-remove python3.6 ">
+  <meta property="og:description" content="笔者的ubuntu18.04发生这个错误是因为同时安装了两个python3（python3.6和python3.8） step1 删除python3.6 sudo apt-get remove python3.6 sudo apt-get remove --auto-remove python3.6">
   
   <meta property="og:url" content="http://mykonos-x.github.io/2023/10/03/ModuleNotFoundError-No-module-named-pip-internal/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="ModuleNotFoundError:No module named pip._internal">
   
-  <meta name="twitter:description" content="笔者的ubuntu18.04发生这个错误是因为同时安装了两个python3（python3.6和python3.8） step1删除python3.6 sudo apt-get remove python3.6 sudo apt-get remove --auto-remove python3.6 ">
+  <meta name="twitter:description" content="笔者的ubuntu18.04发生这个错误是因为同时安装了两个python3（python3.6和python3.8） step1 删除python3.6 sudo apt-get remove python3.6 sudo apt-get remove --auto-remove python3.6">
   
   
   
@@ -194,13 +194,16 @@
             <h2>ModuleNotFoundError:No module named pip._internal</h2>
 
   <p>笔者的ubuntu18.04发生这个错误是因为同时安装了两个python3（python3.6和python3.8）</p>
-<h3 id="step1"><a href="#step1" class="headerlink" title="step1"></a>step1</h3><p>删除python3.6</p>
+<h3><span id="step1">step1</span></h3>
+<p>删除python3.6</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> remove python3.6
 <span class="token function">sudo</span> <span class="token function">apt-get</span> remove --auto-remove python3.6
 <span class="token function">sudo</span> <span class="token function">apt-get</span> purge python3.6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h3 id="step2"><a href="#step2" class="headerlink" title="step2"></a>step2</h3><p>删除python3-pip</p>
+<h3><span id="step2">step2</span></h3>
+<p>删除python3-pip</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> remove  python3-pip<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="step3"><a href="#step3" class="headerlink" title="step3"></a>step3</h3><p>重新安装python3-pip</p>
+<h3><span id="step3">step3</span></h3>
+<p>重新安装python3-pip</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> python3-pip<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>此时运行pip3可能还是会报错</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mykonos@DESKTOP-H37I3CV:~/pwndbg$ pip3
@@ -208,9 +211,10 @@ Traceback <span class="token punctuation">(</span>most recent call last<span cla
   File <span class="token string">"/usr/local/bin/pip3"</span>, line <span class="token number">7</span>, <span class="token keyword">in</span> <span class="token operator">&lt;</span>module<span class="token operator">></span>
     from pip._internal.cli.main <span class="token function">import</span> main
 ModuleNotFoundError: No module named <span class="token string">'pip._internal'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="step4"><a href="#step4" class="headerlink" title="step4"></a>step4</h3><p>最后我们只需要更新一下pip，问题应该就结束了</p>
+<h3><span id="step4">step4</span></h3>
+<p>最后我们只需要更新一下pip，问题应该就结束了</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">python3 <span class="token parameter variable">-m</span> pip <span class="token function">install</span> <span class="token parameter variable">--upgrade</span> pip<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="https://pic.imgdb.cn/item/651beb65c458853aef52f8d3.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/651beb65c458853aef52f8d3.jpg" alt></p>
 
   <p><a class="classtest-link" href="/tags/Solutions/" rel="tag">Solutions</a> — Oct 3, 2023</p>
   

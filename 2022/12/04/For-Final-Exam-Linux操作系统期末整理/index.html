@@ -220,7 +220,7 @@
 <li>子网掩码</li>
 <li>默认网关和DNS服务器的IP地址</li>
 </ul>
-<p>12.ls -r中的<code>-r</code>参数的意义是:反向排序</p>
+<p><a target="_blank" rel="noopener" href="http://12.ls">12.ls</a> -r中的<code>-r</code>参数的意义是:反向排序</p>
 <p>13.<code>who</code> , <code>w</code>显示系统所有已经登录的账户</p>
 <p>14.<code>locale</code>显示系统中的本地化设置的语言类型</p>
 <p>15.系统中存在的组都定义在<code>/etc/group</code>文件内,group文件内包含的所有条目,按照先后顺序应该为<code>groupname,password,GID,member list</code></p>
@@ -243,7 +243,6 @@
 <li>软链接可以对一个不存在的文件名进行链接,硬链接不可以</li>
 </ul>
 <p>28.tar参数</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -278,7 +277,6 @@
 </tr>
 </tbody>
 </table>
-</div>
 <ul>
 <li>仅打包,不压缩 : <code>tar -cvf a.tar a</code></li>
 <li>打包,且压缩 : <code>tar -zcvf a.tar.gz a</code></li>
@@ -287,13 +285,18 @@
 </ul>
 <p>29.gzip</p>
 <ul>
-<li><p>将当前目录的每个文件压缩成.gz文件 : <code>gzip *</code></p>
+<li>
+<p>将当前目录的每个文件压缩成.gz文件 : <code>gzip *</code></p>
 </li>
-<li><p>递归压缩指定目录的所有文件及子目录 : <code>gzip -r &lt;dir name&gt;</code></p>
+<li>
+<p>递归压缩指定目录的所有文件及子目录 : <code>gzip -r &lt;dir name&gt;</code></p>
 </li>
-<li><p>解压 : <code>gzip -d a.gz</code></p>
+<li>
+<p>解压 : <code>gzip -d a.gz</code></p>
 </li>
-<li>递归解压 : <code>gzip -dr &lt;dir name&gt;</code></li>
+<li>
+<p>递归解压 : <code>gzip -dr &lt;dir name&gt;</code></p>
+</li>
 </ul>
 <p>ps : 压缩命令并不能直接压缩目录,必须用tar命令将目录打包,然后才能用gzip命令或bzip2命令对文件压 缩</p>
 <p>30.zip</p>
@@ -343,7 +346,7 @@
 </ul>
 <p>38.<code>chage</code>用于密码的实效管理,用来修改账号和密码的有效期</p>
 <ul>
-<li>-d 将最近一次密码设置时间设为”最近日期”</li>
+<li>-d 将最近一次密码设置时间设为&quot;最近日期&quot;</li>
 <li>-E 将账户过期时间设置为过期日期</li>
 </ul>
 <p>41.关于sticky bit:只针对目录有效，使目录下的文件只有文件拥有者才能删除(如果不属于拥有者，仅属于group或者other，就算有w权限，也不能删除文件)</p>
@@ -419,7 +422,6 @@
 <p>84.创建物理卷前必须创建磁盘分区</p>
 <p>85.<code>LGPL</code>允许不公开源代码</p>
 <p>86.不同字符对应的文件类型:</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -458,9 +460,8 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p>87.扩大逻辑卷命令<code>lvextend</code></p>
-<p>88.逻辑卷管理缩小文件系统时必须将逻辑卷卸载 </p>
+<p>88.逻辑卷管理缩小文件系统时必须将逻辑卷卸载</p>
 <p>89.rpm包安装时<code>-nodeps</code>忽略检查依赖关系</p>
 <p>90.linux脚本不是包含机器代码的二进制文件</p>
 <p>91.yum配置文件存在放<code>/etc/yum.repos.d</code></p>

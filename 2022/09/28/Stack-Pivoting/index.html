@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="http://mykonos-x.github.io/2022/09/28/Stack-Pivoting/">
   
-  <meta name="description" content="为什么需要stack pivoting 当stack overflow的空间不足时  怎么实现stack pivoting通过将ebp覆盖成构造的fake_ebp，然后利用leave_ret这个gadget将esp劫持到fake_ebp的地址上，从而实现栈的迁移 为什么是leave ret leav">
+  <meta name="description" content="为什么需要stack pivoting  当stack overflow的空间不足时  怎么实现stack pivoting 通过将ebp覆盖成构造的fake_ebp，然后利用leave_ret这个gadget将esp劫持到fake_ebp的地址上，从而实现栈的迁移 为什么是leave ret  l">
   
   
   <meta name="author" content="Ez3ki3l">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Stack Pivoting" />
   
-  <meta property="og:description" content="为什么需要stack pivoting 当stack overflow的空间不足时  怎么实现stack pivoting通过将ebp覆盖成构造的fake_ebp，然后利用leave_ret这个gadget将esp劫持到fake_ebp的地址上，从而实现栈的迁移 为什么是leave ret leav">
+  <meta property="og:description" content="为什么需要stack pivoting  当stack overflow的空间不足时  怎么实现stack pivoting 通过将ebp覆盖成构造的fake_ebp，然后利用leave_ret这个gadget将esp劫持到fake_ebp的地址上，从而实现栈的迁移 为什么是leave ret  l">
   
   <meta property="og:url" content="http://mykonos-x.github.io/2022/09/28/Stack-Pivoting/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Stack Pivoting">
   
-  <meta name="twitter:description" content="为什么需要stack pivoting 当stack overflow的空间不足时  怎么实现stack pivoting通过将ebp覆盖成构造的fake_ebp，然后利用leave_ret这个gadget将esp劫持到fake_ebp的地址上，从而实现栈的迁移 为什么是leave ret leav">
+  <meta name="twitter:description" content="为什么需要stack pivoting  当stack overflow的空间不足时  怎么实现stack pivoting 通过将ebp覆盖成构造的fake_ebp，然后利用leave_ret这个gadget将esp劫持到fake_ebp的地址上，从而实现栈的迁移 为什么是leave ret  l">
   
   
   
@@ -193,35 +193,41 @@
         <div class="trans">
             <h2>Stack Pivoting</h2>
 
-  <h3 id="为什么需要stack-pivoting"><a href="#为什么需要stack-pivoting" class="headerlink" title="为什么需要stack pivoting"></a>为什么需要stack pivoting</h3><ul>
+  <h3><span id="为什么需要stack-pivoting">为什么需要stack pivoting</span></h3>
+<ul>
 <li>当stack overflow的空间不足时</li>
 </ul>
-<h3 id="怎么实现stack-pivoting"><a href="#怎么实现stack-pivoting" class="headerlink" title="怎么实现stack pivoting"></a>怎么实现stack pivoting</h3><p>通过将<code>ebp</code>覆盖成构造的<code>fake_ebp</code>，然后利用<code>leave_ret</code>这个gadget将<code>esp</code>劫持到<code>fake_ebp</code>的地址上，从而实现栈的迁移</p>
-<h4 id="为什么是leave-ret"><a href="#为什么是leave-ret" class="headerlink" title="为什么是leave ret"></a>为什么是leave ret</h4><ul>
-<li>leave:<ul>
+<h3><span id="怎么实现stack-pivoting">怎么实现stack pivoting</span></h3>
+<p>通过将<code>ebp</code>覆盖成构造的<code>fake_ebp</code>，然后利用<code>leave_ret</code>这个gadget将<code>esp</code>劫持到<code>fake_ebp</code>的地址上，从而实现栈的迁移</p>
+<h4><span id="为什么是leave-ret">为什么是leave ret</span></h4>
+<ul>
+<li>leave:
+<ul>
 <li>mov esp , ebp;</li>
 <li>pop ebp;</li>
 </ul>
 </li>
-<li>ret:<ul>
+<li>ret:
+<ul>
 <li>pop eip</li>
 </ul>
 </li>
 </ul>
-<h3 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h3><p>首先程序有stack overflow漏洞，我们将栈覆盖成下面的样子</p>
-<p><img src="https://pic1.imgdb.cn/item/6333cd3016f2c2beb1dd01b3.jpg" alt=""></p>
+<h3><span id="实现过程">实现过程</span></h3>
+<p>首先程序有stack overflow漏洞，我们将栈覆盖成下面的样子</p>
+<p><img src="https://pic1.imgdb.cn/item/6333cd3016f2c2beb1dd01b3.jpg" alt></p>
 <p>执行完<code>mov esp , ebp</code>后</p>
-<p><img src="https://pic1.imgdb.cn/item/6333cd9d16f2c2beb1dd652e.jpg" alt=""> </p>
+<p><img src="https://pic1.imgdb.cn/item/6333cd9d16f2c2beb1dd652e.jpg" alt></p>
 <p>接着就是<code>pop ebp</code>，执行完后如图</p>
-<p><img src="https://pic1.imgdb.cn/item/6333cdf716f2c2beb1ddba6c.jpg" alt=""></p>
+<p><img src="https://pic1.imgdb.cn/item/6333cdf716f2c2beb1ddba6c.jpg" alt></p>
 <p>由于esp是栈顶指针，当<code>pop ebp</code>后，栈顶的元素被弹给了ebp，所以esp应当向下移4个字节，也就是一个单位</p>
 <p>下一步通过read()函数的<code>ret</code>来把内容输入到<code>fake_ebp1</code>地址上，这里主要是要将<code>fake_ebp2</code>的地址给到<code>fake_ebp1</code>的地址上</p>
-<p><img src="https://pic1.imgdb.cn/item/6333ea2916f2c2beb1fb1950.jpg" alt=""></p>
+<p><img src="https://pic1.imgdb.cn/item/6333ea2916f2c2beb1fb1950.jpg" alt></p>
 <p>下一步就来到了<code>leave_ret</code>，也就是重复上方的<code>mov esp,ebp</code> <code>pop ebp</code>和<code>pop eip</code></p>
 <p><code>mov esp,ebp</code> 后</p>
-<p><img src="https://pic1.imgdb.cn/item/6333ee1916f2c2beb1fef96c.jpg" alt=""></p>
+<p><img src="https://pic1.imgdb.cn/item/6333ee1916f2c2beb1fef96c.jpg" alt></p>
 <p>接着<code>pop ebp</code>，由于<code>fake_ebp1</code>中放的是<code>fake_ebp2</code>的地址，所以<code>ebp</code>会指到<code>fake_ebp2</code>处去</p>
-<p><img src="https://pic1.imgdb.cn/item/6333efe316f2c2beb100d87a.jpg" alt=""></p>
+<p><img src="https://pic1.imgdb.cn/item/6333efe316f2c2beb100d87a.jpg" alt></p>
 <p>此时再执行<code>ret</code>命令，他就会执行我们构造在bss段或者data段上的内容了</p>
 <p>到这里stack pivoting就完成了</p>
 

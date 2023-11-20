@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="http://mykonos-x.github.io/2022/02/06/%E5%85%B3%E4%BA%8Epython%E5%87%BA%E7%8E%B0-RequestsDependencyWarning-%E5%BC%82%E5%B8%B8/">
   
-  <meta name="description" content="原因是:requests本身自带urllib3这个库的副本，在这个库的子目录下解决方案  可以是更新库 也可以强制安装当前库sudo pip install --upgrade urllib3  sudo pip install --upgrade requests 问题解决">
+  <meta name="description" content="原因是:requests本身自带urllib3这个库的副本，在这个库的子目录下 解决方案  可以是更新库 也可以强制安装当前库  sudo pip install --upgrade urllib3  sudo pip install --upgrade requests 问题解决">
   
   
   <meta name="author" content="Ez3ki3l">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="关于python出现&#39;RequestsDependencyWarning&#39;异常" />
   
-  <meta property="og:description" content="原因是:requests本身自带urllib3这个库的副本，在这个库的子目录下解决方案  可以是更新库 也可以强制安装当前库sudo pip install --upgrade urllib3  sudo pip install --upgrade requests 问题解决">
+  <meta property="og:description" content="原因是:requests本身自带urllib3这个库的副本，在这个库的子目录下 解决方案  可以是更新库 也可以强制安装当前库  sudo pip install --upgrade urllib3  sudo pip install --upgrade requests 问题解决">
   
   <meta property="og:url" content="http://mykonos-x.github.io/2022/02/06/%E5%85%B3%E4%BA%8Epython%E5%87%BA%E7%8E%B0-RequestsDependencyWarning-%E5%BC%82%E5%B8%B8/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="关于python出现&#39;RequestsDependencyWarning&#39;异常">
   
-  <meta name="twitter:description" content="原因是:requests本身自带urllib3这个库的副本，在这个库的子目录下解决方案  可以是更新库 也可以强制安装当前库sudo pip install --upgrade urllib3  sudo pip install --upgrade requests 问题解决">
+  <meta name="twitter:description" content="原因是:requests本身自带urllib3这个库的副本，在这个库的子目录下 解决方案  可以是更新库 也可以强制安装当前库  sudo pip install --upgrade urllib3  sudo pip install --upgrade requests 问题解决">
   
   
   
@@ -193,14 +193,16 @@
         <div class="trans">
             <h2>关于python出现'RequestsDependencyWarning'异常</h2>
 
-  <p>原因是:requests本身自带urllib3这个库的副本，在这个库的子目录下<br>解决方案</p>
+  <p>原因是:requests本身自带urllib3这个库的副本，在这个库的子目录下<br>
+解决方案</p>
 <ul>
 <li>可以是更新库</li>
-<li>也可以强制安装当前库<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pip <span class="token function">install</span> <span class="token parameter variable">--upgrade</span> urllib3
+<li>也可以强制安装当前库</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pip <span class="token function">install</span> <span class="token parameter variable">--upgrade</span> urllib3
 
 <span class="token function">sudo</span> pip <span class="token function">install</span> <span class="token parameter variable">--upgrade</span> requests<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-问题解决</li>
-</ul>
+<p>问题解决</p>
 
   <p><a class="classtest-link" href="/tags/solutions/" rel="tag">solutions</a> — Feb 6, 2022</p>
   

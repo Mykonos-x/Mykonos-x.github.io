@@ -193,9 +193,10 @@
         <div class="trans">
             <h2>Environment variable path rewrite script(环境变量path重写脚本)</h2>
 
-  <p>朋友估计是装Android Studio把环境变量搞没了，找了个重写环境变量的shell脚本，这里记录一下，<del>万一哪天自己手滑</del></p>
-<p>I guessed that my friend installed Android Studio to get rid of the environment variables. I found a shell script that rewrites the environment variables. Record it here, <del>In case I slip by myself someday</del></p>
-<h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">@echo off
+  <p>朋友估计是装Android Studio把环境变量搞没了，找了个重写环境变量的shell脚本，这里记录一下，<s>万一哪天自己手滑</s></p>
+<p>I guessed that my friend installed Android Studio to get rid of the environment variables. I found a shell script that rewrites the environment variables. Record it here, <s>In case I slip by myself someday</s></p>
+<h2><span id="脚本">脚本</span></h2>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">@echo off
 REM 声明采用UTF-8编码
 chcp <span class="token number">65001</span><span class="token operator">&amp;</span>cls
 
@@ -229,7 +230,8 @@ taskkill /im explorer.exe /f
 start explorer.exe
 
 pause<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>重命名为winSetPath.bat , 管理员身份启动<br>Rename to winSetPath.bat, start as administrator</p>
+<p>重命名为winSetPath.bat , 管理员身份启动<br>
+Rename to winSetPath.bat, start as administrator</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">%SystemRoot%<span class="token punctuation">\</span>system32<span class="token punctuation">;</span>%SystemRoot%<span class="token punctuation">;</span>%SystemRoot%<span class="token punctuation">\</span>System32<span class="token punctuation">\</span>Wbem<span class="token punctuation">;</span>%SYSTEMROOT%<span class="token punctuation">\</span>System32<span class="token punctuation">\</span>WindowsPowerShell<span class="token punctuation">\</span>v1.0<span class="token punctuation">\</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>最后加上默认环境变量</p>
 <p>问题解决</p>

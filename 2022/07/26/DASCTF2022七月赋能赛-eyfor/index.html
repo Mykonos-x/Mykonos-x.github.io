@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="http://mykonos-x.github.io/2022/07/26/DASCTF2022%E4%B8%83%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9B-eyfor/">
   
-  <meta name="description" content="checksecArch:     amd64-64-little RELRO:    Partial RELRO Stack:    No canary found NX:       NX enabled PIE:      No PIE (0x400000) Filepwn4: ELF 64-">
+  <meta name="description" content="checksec Arch:     amd64-64-little RELRO:    Partial RELRO Stack:    No canary found NX:       NX enabled PIE:      No PIE (0x400000) File pwn4: ELF 6">
   
   
   <meta name="author" content="Ez3ki3l">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="DASCTF2022七月赋能赛 eyfor" />
   
-  <meta property="og:description" content="checksecArch:     amd64-64-little RELRO:    Partial RELRO Stack:    No canary found NX:       NX enabled PIE:      No PIE (0x400000) Filepwn4: ELF 64-">
+  <meta property="og:description" content="checksec Arch:     amd64-64-little RELRO:    Partial RELRO Stack:    No canary found NX:       NX enabled PIE:      No PIE (0x400000) File pwn4: ELF 6">
   
   <meta property="og:url" content="http://mykonos-x.github.io/2022/07/26/DASCTF2022%E4%B8%83%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9B-eyfor/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="DASCTF2022七月赋能赛 eyfor">
   
-  <meta name="twitter:description" content="checksecArch:     amd64-64-little RELRO:    Partial RELRO Stack:    No canary found NX:       NX enabled PIE:      No PIE (0x400000) Filepwn4: ELF 64-">
+  <meta name="twitter:description" content="checksec Arch:     amd64-64-little RELRO:    Partial RELRO Stack:    No canary found NX:       NX enabled PIE:      No PIE (0x400000) File pwn4: ELF 6">
   
   
   
@@ -193,16 +193,19 @@
         <div class="trans">
             <h2>DASCTF2022七月赋能赛 eyfor</h2>
 
-  <h3 id="checksec"><a href="#checksec" class="headerlink" title="checksec"></a>checksec</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Arch:     amd64-64-little
+  <h3><span id="checksec">checksec</span></h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Arch:     amd64-64-little
 RELRO:    Partial RELRO
 Stack:    No canary found
 NX:       NX enabled
 PIE:      No PIE <span class="token punctuation">(</span>0x400000<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="File"><a href="#File" class="headerlink" title="File"></a>File</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pwn4: ELF <span class="token number">64</span>-bit LSB executable, x86-64, version <span class="token number">1</span> <span class="token punctuation">(</span>SYSV<span class="token punctuation">)</span>, dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, <span class="token keyword">for</span> GNU/Linux <span class="token number">3.2</span>.0, BuildID<span class="token punctuation">[</span>sha1<span class="token punctuation">]</span><span class="token operator">=</span>1133aeb41afd0e7b11659d5a27e062c4b34b1474, not stripped<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="Analyse"><a href="#Analyse" class="headerlink" title="Analyse"></a>Analyse</h3><ul>
+<h3><span id="file">File</span></h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pwn4: ELF <span class="token number">64</span>-bit LSB executable, x86-64, version <span class="token number">1</span> <span class="token punctuation">(</span>SYSV<span class="token punctuation">)</span>, dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, <span class="token keyword">for</span> GNU/Linux <span class="token number">3.2</span>.0, BuildID<span class="token punctuation">[</span>sha1<span class="token punctuation">]</span><span class="token operator">=</span>1133aeb41afd0e7b11659d5a27e062c4b34b1474, not stripped<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3><span id="analyse">Analyse</span></h3>
+<ul>
 <li>run thr program</li>
 </ul>
-<p><img src="https://pic.imgdb.cn/item/62df4d17f54cd3f937bb1cb9.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/62df4d17f54cd3f937bb1cb9.jpg" alt></p>
 <ul>
 <li>function-main</li>
 </ul>
@@ -246,7 +249,8 @@ PIE:      No PIE <span class="token punctuation">(</span>0x400000<span class="to
   <span class="token keyword">return</span> result<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>seed为10，rand()生成随机数，for循环接收4次用户输入，赋给buf；这里需要让buf等于每次生成的随机数，我们使用<code>ctypes</code>来实现，这样变量v8每次循环就会++，当v8为4时，我们可以输入v4来作为vul函数的参数。vul函数有个栈溢出的漏洞，先读取v4的内容到&amp;nbytes[4]上，再用strncpy将&amp;nbytes[4]的内容复制0x200到buf，在BSS段上。我们可以将<code>/bin/sh</code>写到BSS段上后，用system来进行调用，从而getshell</p>
-<h3 id="完整exp"><a href="#完整exp" class="headerlink" title="完整exp"></a>完整exp</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+<h3><span id="完整exp">完整exp</span></h3>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
 <span class="token comment"># import random 这里用ctype</span>
 <span class="token keyword">import</span> ctypes
 context<span class="token punctuation">(</span>os <span class="token operator">=</span> <span class="token string">'linux'</span> <span class="token punctuation">,</span> arch <span class="token operator">=</span> <span class="token string">"amd64"</span> <span class="token punctuation">,</span> log_level <span class="token operator">=</span> <span class="token string">"debug"</span><span class="token punctuation">)</span>

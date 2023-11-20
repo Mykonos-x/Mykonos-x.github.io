@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="http://mykonos-x.github.io/2022/08/28/%E9%95%BF%E5%9F%8E%E6%9D%AF2022-known-phi/">
   
-  <meta name="description" content="Involved Knowledge 已知phi,n 分解n  DSA K共享攻击   Descriptionfrom Crypto.Util.number import getPrime, bytes_to_long, inverse, long_to_bytes from Crypto.Publ">
+  <meta name="description" content="Involved Knowledge   已知phi,n 分解n   DSA K共享攻击   Description from Crypto.Util.number import getPrime, bytes_to_long, inverse, long_to_bytes from Crypto.">
   
   
   <meta name="author" content="Ez3ki3l">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="长城杯2022 known_phi" />
   
-  <meta property="og:description" content="Involved Knowledge 已知phi,n 分解n  DSA K共享攻击   Descriptionfrom Crypto.Util.number import getPrime, bytes_to_long, inverse, long_to_bytes from Crypto.Publ">
+  <meta property="og:description" content="Involved Knowledge   已知phi,n 分解n   DSA K共享攻击   Description from Crypto.Util.number import getPrime, bytes_to_long, inverse, long_to_bytes from Crypto.">
   
   <meta property="og:url" content="http://mykonos-x.github.io/2022/08/28/%E9%95%BF%E5%9F%8E%E6%9D%AF2022-known-phi/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="长城杯2022 known_phi">
   
-  <meta name="twitter:description" content="Involved Knowledge 已知phi,n 分解n  DSA K共享攻击   Descriptionfrom Crypto.Util.number import getPrime, bytes_to_long, inverse, long_to_bytes from Crypto.Publ">
+  <meta name="twitter:description" content="Involved Knowledge   已知phi,n 分解n   DSA K共享攻击   Description from Crypto.Util.number import getPrime, bytes_to_long, inverse, long_to_bytes from Crypto.">
   
   
   
@@ -193,13 +193,17 @@
         <div class="trans">
             <h2>长城杯2022 known_phi</h2>
 
-  <h3 id="Involved-Knowledge"><a href="#Involved-Knowledge" class="headerlink" title="Involved Knowledge"></a>Involved Knowledge</h3><ul>
-<li><p>已知phi,n 分解n</p>
+  <h3><span id="involved-knowledge">Involved Knowledge</span></h3>
+<ul>
+<li>
+<p>已知phi,n 分解n</p>
 </li>
-<li><p>DSA K共享攻击</p>
+<li>
+<p>DSA K共享攻击</p>
 </li>
 </ul>
-<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> Crypto<span class="token punctuation">.</span>Util<span class="token punctuation">.</span>number <span class="token keyword">import</span> getPrime<span class="token punctuation">,</span> bytes_to_long<span class="token punctuation">,</span> inverse<span class="token punctuation">,</span> long_to_bytes
+<h3><span id="description">Description</span></h3>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> Crypto<span class="token punctuation">.</span>Util<span class="token punctuation">.</span>number <span class="token keyword">import</span> getPrime<span class="token punctuation">,</span> bytes_to_long<span class="token punctuation">,</span> inverse<span class="token punctuation">,</span> long_to_bytes
 <span class="token keyword">from</span> Crypto<span class="token punctuation">.</span>PublicKey <span class="token keyword">import</span> DSA
 <span class="token keyword">from</span> hashlib <span class="token keyword">import</span> sha256
 <span class="token keyword">import</span> random
@@ -263,7 +267,8 @@ s1 = 764450933738974696530033347966845551587903750431946039815672438603
 r2 = 8881880595434882344509893789458546908449907797285477983407324325035
 s2 = 22099482232399385060035569388467035727015978742301259782677969649659
 '''</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h4><p>已知phi , n 将n分解，脚本如下</p>
+<h4><span id="analyze">Analyze</span></h4>
+<p>已知phi , n 将n分解，脚本如下</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">factorize_multi_prime</span><span class="token punctuation">(</span>N<span class="token punctuation">,</span> phi<span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token triple-quoted-string string">"""
     Recovers the prime factors from a modulus if Euler's totient is known.
@@ -308,10 +313,11 @@ s2 = 22099482232399385060035569388467035727015978742301259782677969649659
     <span class="token keyword">return</span> <span class="token builtin">tuple</span><span class="token punctuation">(</span>prime_factors<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>接着是DSA的K共享攻击</p>
 <p>我们具体的一个求解步骤</p>
-<p><img src="https://pic.imgdb.cn/item/630a472316f2c2beb1d8e79c.jpg" alt=""></p>
-<p><img src="https://pic.imgdb.cn/item/630a473e16f2c2beb1d8f9bb.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/630a472316f2c2beb1d8e79c.jpg" alt></p>
+<p><img src="https://pic.imgdb.cn/item/630a473e16f2c2beb1d8f9bb.jpg" alt></p>
 <p>具体原理参见ctfwiki</p>
-<h4 id="Exp"><a href="#Exp" class="headerlink" title="Exp"></a>Exp</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> Crypto<span class="token punctuation">.</span>Util<span class="token punctuation">.</span>number <span class="token keyword">import</span> <span class="token operator">*</span>
+<h4><span id="exp">Exp</span></h4>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> Crypto<span class="token punctuation">.</span>Util<span class="token punctuation">.</span>number <span class="token keyword">import</span> <span class="token operator">*</span>
 <span class="token keyword">import</span> libnum
 <span class="token keyword">import</span> gmpy2
 <span class="token keyword">import</span> sympy

@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="http://mykonos-x.github.io/2022/05/02/Kernel-environment-construction-Kernel%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
   
-  <meta name="description" content="前置遇到了很多问题,这里做一个记录,部分步骤没有截图I have encountered a lot of problems, here is a record, some steps have no screenshots qemusudo apt-get install qemu  ```she">
+  <meta name="description" content="##前置 遇到了很多问题,这里做一个记录,部分步骤没有截图 I have encountered a lot of problems, here is a record, some steps have no screenshots qemu sudo apt-get install qemu   ">
   
   
   <meta name="author" content="Ez3ki3l">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Kernel environment construction(Kernel环境搭建)" />
   
-  <meta property="og:description" content="前置遇到了很多问题,这里做一个记录,部分步骤没有截图I have encountered a lot of problems, here is a record, some steps have no screenshots qemusudo apt-get install qemu  ```she">
+  <meta property="og:description" content="##前置 遇到了很多问题,这里做一个记录,部分步骤没有截图 I have encountered a lot of problems, here is a record, some steps have no screenshots qemu sudo apt-get install qemu   ">
   
   <meta property="og:url" content="http://mykonos-x.github.io/2022/05/02/Kernel-environment-construction-Kernel%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Kernel environment construction(Kernel环境搭建)">
   
-  <meta name="twitter:description" content="前置遇到了很多问题,这里做一个记录,部分步骤没有截图I have encountered a lot of problems, here is a record, some steps have no screenshots qemusudo apt-get install qemu  ```she">
+  <meta name="twitter:description" content="##前置 遇到了很多问题,这里做一个记录,部分步骤没有截图 I have encountered a lot of problems, here is a record, some steps have no screenshots qemu sudo apt-get install qemu   ">
   
   
   
@@ -193,10 +193,15 @@
         <div class="trans">
             <h2>Kernel environment construction(Kernel环境搭建)</h2>
 
-  <h2 id="前置"><a href="#前置" class="headerlink" title="前置"></a>前置</h2><p>遇到了很多问题,这里做一个记录,部分步骤没有截图<br>I have encountered a lot of problems, here is a record, some steps have no screenshots</p>
-<h3 id="qemu"><a href="#qemu" class="headerlink" title="qemu"></a>qemu</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> qemu<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+  <p>##前置<br>
+遇到了很多问题,这里做一个记录,部分步骤没有截图<br>
+I have encountered a lot of problems, here is a record, some steps have no screenshots</p>
+<h3><span id="qemu">qemu</span></h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> qemu<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <ul>
-<li>```shell<br>qemu-&lt;两下tab&gt; <pre class="line-numbers language-none"><code class="language-none">
+<li>
+<pre><code class="language-shell">qemu-&lt;两下tab&gt; 
+<pre class="line-numbers language-none"><code class="language-none">
   会弹出qemu可以模拟的所有平台(All platforms that QEMU can be simulated will pop up) 	
 
 ### busybox
@@ -209,17 +214,32 @@
 Enter the busybox directory
 &#96;&#96;&#96;shell
 make menuconfig<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</code></pre>
 </li>
 </ul>
 <blockquote>
-<p>Q : HOSTCC  scripts/basic/fixdep<br>    /bin/sh: 1: gcc: not found<br>    scripts/Makefile.host:90: recipe for target ‘scripts/basic/fixdep’ failed<br>    make[1]: <strong><em> [scripts/basic/fixdep] Error 127<br>    Makefile:532: recipe for target ‘scripts_basic’ failed<br>    make: </em></strong> [scripts_basic] Error 2</p>
+<p>Q : HOSTCC  scripts/basic/fixdep<br>
+/bin/sh: 1: gcc: not found<br>
+scripts/Makefile.host:90: recipe for target ‘scripts/basic/fixdep’ failed	<br>
+make[1]: *** [scripts/basic/fixdep] Error 127<br>
+Makefile:532: recipe for target ‘scripts_basic’ failed<br>
+make: *** [scripts_basic] Error 2</p>
 <p>A : 此报错是因为缺少gcc(This error is due to the lack of GCC)</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> gcc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Q : $ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- menuconfig<br>    HOSTCC  scripts/kconfig/mconf.o<br>    <command-line>:0:12: fatal error: curses.h: 没有那个文件或目录<br>    compilation terminated.<br>    scripts/Makefile.host:108: recipe for target ‘scripts/kconfig/mconf.o’ failed<br>    make[1]: <strong><em> [scripts/kconfig/mconf.o] Error 1<br>    Makefile:541: recipe for target ‘menuconfig’ failed<br>    make: </em></strong> [menuconfig] Error 2</p>
+<p>Q : $ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- menuconfig<br>
+HOSTCC  scripts/kconfig/mconf.o<br>
+<command-line>:0:12: fatal error: curses.h: 没有那个文件或目录<br>
+compilation terminated.<br>
+scripts/Makefile.host:108: recipe for target ‘scripts/kconfig/mconf.o’ failed<br>
+make[1]: *** [scripts/kconfig/mconf.o] Error 1<br>
+Makefile:541: recipe for target ‘menuconfig’ failed<br>
+make: *** [menuconfig] Error 2</command-line></p>
 <p>A : 这是因为ubuntu缺少ncurses devel套件,安装即可(This is because Ubuntu lacks NCURSES Devel kit, just install it)</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> libncurses5-dev<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </blockquote>
-<p>接着会进入settings<br>Then you will enter settings</p>
+<p>接着会进入settings<br>
+Then you will enter settings</p>
 <ul>
 <li>勾选<code>Build static binary(no shared libs)</code>,因为动态链接需要额外的动态链接库,这样会使得系统文件变得很大(Check the `Build Static binary (no shared libs), because the dynamic link requires an additional dynamic link library, which will make the system file a large)</li>
 <li>安装目录<code>(Destination path for &quot;make install&quot;(NEW))</code>我设置的是<code>./rootfs</code>(Install the directory <code>(Destination Path for&quot; Make Install &quot;(New)</code> <code>./ROOTFS</code>)</li>
@@ -227,14 +247,20 @@ make menuconfig<span aria-hidden="true" class="line-numbers-rows"><span></span><
 </ul>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">make</span> <span class="token parameter variable">-j4</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">make</span> <span class="token function">install</span> <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>接着就会在busybox中看到生成的<code>rootfs</code>文件夹<br>Then you will see the generated <code>rootfs</code> folder</p>
-<p>到这里做基本的内核pwn题基本的环境已经够了<br>It’s enough to do the basic environment of the core PWN question here.</p>
-<h3 id="运行boot-sh-Could-not-access-KVM-Kernel-module"><a href="#运行boot-sh-Could-not-access-KVM-Kernel-module" class="headerlink" title="运行boot.sh:Could not access KVM Kernel module"></a>运行boot.sh:Could not access KVM Kernel module</h3><p><img src="https://pic.imgdb.cn/item/626ff9f4239250f7c5086f3e.jpg" alt=""></p>
+<p>接着就会在busybox中看到生成的<code>rootfs</code>文件夹<br>
+Then you will see the generated <code>rootfs</code> folder</p>
+<p>到这里做基本的内核pwn题基本的环境已经够了<br>
+It’s enough to do the basic environment of the core PWN question here.</p>
+<h3><span id="运行bootshcould-not-access-kvm-kernel-module">:Could not access KVM Kernel module</span></h3>
+<p><img src="https://pic.imgdb.cn/item/626ff9f4239250f7c5086f3e.jpg" alt></p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">qemu-system-x86_64 <span class="token parameter variable">-initrd</span> rootfs.cpio <span class="token parameter variable">-kernel</span> bzImage <span class="token parameter variable">-append</span> <span class="token string">'console=ttyS0 root=/dev/ram oops=panic panic=1'</span> -enable-kvm <span class="token parameter variable">-monitor</span> /dev/null <span class="token parameter variable">-m</span> 64M <span class="token parameter variable">--nographic</span>  <span class="token parameter variable">-smp</span> <span class="token assign-left variable">cores</span><span class="token operator">=</span><span class="token number">1</span>,threads<span class="token operator">=</span><span class="token number">1</span> <span class="token parameter variable">-cpu</span> kvm64,+smep<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>因为虚拟机缺少kvm,在run boot.sh的时候可以先将boot.sh的source_code里的<code>-enable-kvm</code>去掉,boot.sh就可以运行了<br>Because the virtual machine lacks KVM, when run boot.sh, you can first remove the source_code of boot.sh first.</p>
-<p><img src="https://pic.imgdb.cn/item/626ffad2239250f7c50ab050.jpg" alt=""></p>
-<h3 id="重新打包系统文件-Re-pack-the-system-file"><a href="#重新打包系统文件-Re-pack-the-system-file" class="headerlink" title="重新打包系统文件(Re -pack the system file)"></a>重新打包系统文件(Re -pack the system file)</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">find</span> <span class="token builtin class-name">.</span> <span class="token operator">|</span> cpio <span class="token parameter variable">-o</span> <span class="token parameter variable">-H</span> newc <span class="token operator">></span> <span class="token punctuation">..</span>/rootfs.cpio<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>当然也可以写个<code>pack.sh</code><br>Of course you can also write a <code>Pack.sh</code></p>
+<p>因为虚拟机缺少kvm,在run boot.sh的时候可以先将boot.sh的source_code里的<code>-enable-kvm</code>去掉,boot.sh就可以运行了<br>
+Because the virtual machine lacks KVM, when run <a target="_blank" rel="noopener" href="http://boot.sh">boot.sh</a>, you can first remove the source_code of <a target="_blank" rel="noopener" href="http://boot.sh">boot.sh</a> first.</p>
+<p><img src="https://pic.imgdb.cn/item/626ffad2239250f7c50ab050.jpg" alt></p>
+<h3><span id="重新打包系统文件re-pack-the-system-file">重新打包系统文件(Re -pack the system file)</span></h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">find</span> <span class="token builtin class-name">.</span> <span class="token operator">|</span> cpio <span class="token parameter variable">-o</span> <span class="token parameter variable">-H</span> newc <span class="token operator">></span> <span class="token punctuation">..</span>/rootfs.cpio<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>当然也可以写个<code>pack.sh</code><br>
+Of course you can also write a <code>Pack.sh</code></p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/sh</span>
 
 <span class="token function">cp</span> <span class="token parameter variable">-r</span> rootfs rootfs_tmp

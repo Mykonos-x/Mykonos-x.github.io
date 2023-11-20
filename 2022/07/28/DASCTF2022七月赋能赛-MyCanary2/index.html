@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="http://mykonos-x.github.io/2022/07/28/DASCTF2022%E4%B8%83%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9B-MyCanary2/">
   
-  <meta name="description" content="Analyse sub_4012B6()  unsigned int sub_4012B6() &amp;#123;   int v0; // eax   int fd; // [rsp+Ch] [rbp-4h]    setbuf(stdin, 0LL);   setbuf(stdout, 0LL);  ">
+  <meta name="description" content="Analyse  sub_4012B6()  unsigned int sub_4012B6() &amp;#123;   int v0; // eax   int fd; // [rsp+Ch] [rbp-4h]    setbuf(stdin, 0LL);   setbuf(stdout, 0LL); ">
   
   
   <meta name="author" content="Ez3ki3l">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="DASCTF2022七月赋能赛 MyCanary2" />
   
-  <meta property="og:description" content="Analyse sub_4012B6()  unsigned int sub_4012B6() &amp;#123;   int v0; // eax   int fd; // [rsp+Ch] [rbp-4h]    setbuf(stdin, 0LL);   setbuf(stdout, 0LL);  ">
+  <meta property="og:description" content="Analyse  sub_4012B6()  unsigned int sub_4012B6() &amp;#123;   int v0; // eax   int fd; // [rsp+Ch] [rbp-4h]    setbuf(stdin, 0LL);   setbuf(stdout, 0LL); ">
   
   <meta property="og:url" content="http://mykonos-x.github.io/2022/07/28/DASCTF2022%E4%B8%83%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9B-MyCanary2/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="DASCTF2022七月赋能赛 MyCanary2">
   
-  <meta name="twitter:description" content="Analyse sub_4012B6()  unsigned int sub_4012B6() &amp;#123;   int v0; // eax   int fd; // [rsp+Ch] [rbp-4h]    setbuf(stdin, 0LL);   setbuf(stdout, 0LL);  ">
+  <meta name="twitter:description" content="Analyse  sub_4012B6()  unsigned int sub_4012B6() &amp;#123;   int v0; // eax   int fd; // [rsp+Ch] [rbp-4h]    setbuf(stdin, 0LL);   setbuf(stdout, 0LL); ">
   
   
   
@@ -193,7 +193,8 @@
         <div class="trans">
             <h2>DASCTF2022七月赋能赛 MyCanary2</h2>
 
-  <h3 id="Analyse"><a href="#Analyse" class="headerlink" title="Analyse"></a>Analyse</h3><ul>
+  <h3><span id="analyse">Analyse</span></h3>
+<ul>
 <li>sub_4012B6()</li>
 </ul>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">unsigned</span> <span class="token keyword">int</span> <span class="token function">sub_4012B6</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -293,8 +294,9 @@
 <span class="token operator">+</span><span class="token number">0000000000000008</span>  r              db <span class="token number">8</span> <span class="token function">dup</span><span class="token punctuation">(</span><span class="token operator">?</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>栈的一个分布，v2在buf的下方，我们在利用stackoverflow的时候会将v2覆盖掉，这样退出程序必然会crash</p>
 <p>逻辑漏洞：如果我们先利用stackoverflow漏洞，ROP，调用system，构造system(“/bin/sh”)，再采用case2来生成canary，<code>qword_4040D0</code>的值会被赋给v2，这样虽然刚才v2被覆盖掉，但是现在已经是新生成的canary的值了，退出程序不会crash</p>
-<p><del>刚拿到这道题的时候我在预测canary的值，没想到这么简单</del></p>
-<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token triple-quoted-string string">'''
+<p><s>刚拿到这道题的时候我在预测canary的值，没想到这么简单</s></p>
+<h3><span id="exp">exp</span></h3>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token triple-quoted-string string">'''
     Arch:     amd64-64-little
     RELRO:    Partial RELRO
     Stack:    No canary found
