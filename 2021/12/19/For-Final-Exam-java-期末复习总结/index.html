@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>(For Final Exam)java 期末复习总结</title>
+  
+  <link rel="canonical" href="http://mykonos-x.github.io/2021/12/19/For-Final-Exam-java-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%80%BB%E7%BB%93/">
+  
+  <meta name="description" content="Unicode编码  Unicode 统一码，万国码 目标是支持世界上所有的字符 表示：在值前面加上前缀/u  耦合   耦合也叫块间联系，指软件系统结构中各模块之间相互联系紧密程度的一种度量，模块之间联系越紧密，其耦合性就越强，模块之间越独立，耦合性就越差   package   同一个包中类的名">
+  
+  
+  <meta name="author" content="Ez3ki3l">
+  
+  
+  
+  <meta property="og:site_name" content="Silence to hear." />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="(For Final Exam)java 期末复习总结" />
+  
+  <meta property="og:description" content="Unicode编码  Unicode 统一码，万国码 目标是支持世界上所有的字符 表示：在值前面加上前缀/u  耦合   耦合也叫块间联系，指软件系统结构中各模块之间相互联系紧密程度的一种度量，模块之间联系越紧密，其耦合性就越强，模块之间越独立，耦合性就越差   package   同一个包中类的名">
+  
+  <meta property="og:url" content="http://mykonos-x.github.io/2021/12/19/For-Final-Exam-java-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%80%BB%E7%BB%93/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="(For Final Exam)java 期末复习总结">
+  
+  <meta name="twitter:description" content="Unicode编码  Unicode 统一码，万国码 目标是支持世界上所有的字符 表示：在值前面加上前缀/u  耦合   耦合也叫块间联系，指软件系统结构中各模块之间相互联系紧密程度的一种度量，模块之间联系越紧密，其耦合性就越强，模块之间越独立，耦合性就越差   package   同一个包中类的名">
+  
+  
+  
+  
+  <meta name="twitter:url" content="http://mykonos-x.github.io/2021/12/19/For-Final-Exam-java-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%80%BB%E7%BB%93/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="/fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/prism-dark.css">
+
+  
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+
+  <!-- User css -->
+  
+  
+<link rel="stylesheet" href="/css/user.css">
+
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #7cc1df;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #7cc1df 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #7cc1df;
+  }
+  .nanobar .bar {
+    background: #7cc1df;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #7cc1df;
+    border-color: #7cc1df;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #7cc1df;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+  
+  <script src="/js/pic.min.js" defer></script>
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌑</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>☀️</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      Hi there.
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+          
+          <a href="/about" class="ml">About</a>
+          
+        
+        
+          
+            <a href="mailto:g0dzirrazhou@gmail.com" target="_blank" class="ml">Email</a>
+          
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>(For Final Exam)java 期末复习总结</h2>
+
+  <h2><span id="unicode编码">Unicode编码</span></h2>
+<ul class="lvl-0">
+<li class="lvl-2">Unicode 统一码，万国码</li>
+<li class="lvl-2">目标是支持世界上所有的字符</li>
+<li class="lvl-2">表示：在值前面加上前缀<code>/u</code></li>
+</ul>
+<h2><span id="耦合">耦合</span></h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>耦合也叫块间联系，指软件系统结构中各模块之间相互联系紧密程度的一种度量，模块之间联系越紧密，其耦合性就越强，模块之间越独立，耦合性就越差</p>
+</li>
+</ul>
+<h2><span id="package">package</span></h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>同一个包中类的名字是不同的，不同的包中类的名字可以相同，当同时调用两个不同包中相同类名的类时，应该加上包名加以区别，因此，包可以避免名字冲突</p>
+</li>
+<li class="lvl-2">
+<p>包也限定了访问权限，拥有包访问权限的类才能访问其中某个包的类</p>
+</li>
+</ul>
+<h2><span id="继承">继承</span></h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>继承就是子类继承父类的特征和行为，使得子类对象(实例)具有父类的实例和方法；或子类从父类继承方法，使得子类具有父类相同的行为</p>
+</li>
+<li class="lvl-2">
+<p>一个Java类只能有一个父类</p>
+</li>
+<li class="lvl-2">
+<p>继承关键字：<code>extends</code>和<code>implements</code>和<code>final</code></p>
+</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">class father&#123;
+	
+&#125;
+class children extends father&#123;
+
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>java不支持<code>多继承</code>，但是支持<code>多重继承</code>(java中类只允许单一继承)，但可以通过接口实现多继承</p>
+</li>
+<li class="lvl-2">
+<p>继承后，子类拥有父类<code>非public</code>的属性，同时子类也可以拥有自己的属性和方法，及子类可以对父类进行扩展</p>
+</li>
+<li class="lvl-2">
+<p>提高了类之间的耦合性(继承的缺点，耦合度越高就会造成代码之间的联系越密切，代码独立性越差)</p>
+</li>
+</ul>
+<h2><span id="修饰符">修饰符</span></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">修饰符</th>
+<th style="text-align:center">当前类</th>
+<th style="text-align:center">当前包</th>
+<th style="text-align:center">子孙类</th>
+<th style="text-align:center">其他包</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">public</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+</tr>
+<tr>
+<td style="text-align:center">protected</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">×</td>
+</tr>
+<tr>
+<td style="text-align:center">private</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">×</td>
+</tr>
+<tr>
+<td style="text-align:center">default</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">×</td>
+</tr>
+</tbody>
+</table>
+<h2><span id="this关键字">this关键字</span></h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>在方法中引用成员变量(尤其是区分同名的局部变量)</p>
+</li>
+<li class="lvl-2">
+<p>在构造方法中调用其他构造方法(一定出现在第一句)</p>
+</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">public class Main&#123;
+	public Main()&#123;
+	System.out.println( &quot; 构造方法一被调用了&quot; );
+&#125;
+	public Main( int x )&#123;
+	this();
+	System.out.println( &quot;构造方法二被调用了&quot; );
+&#125;
+	public Main( boolean b )&#123;
+	System.out.println( &quot;构造方法三被调用了&quot; );
+&#125;
+	public static void main( String[] args )&#123;
+	Main a &#x3D; new Main( true );
+&#125;
+
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>&lt;!-7-11 jmu-java-03面向对象基础-05-覆盖-&gt;</p>
+<p>##抽象类和接口</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>接口被子类实现，抽象类要被子类继承</p>
+</li>
+<li class="lvl-2">
+<p>接口变量全为公共静态变量，抽象类中可有普通变量</p>
+</li>
+<li class="lvl-2">
+<p>接口中全为方法的声明，抽象类中可以有方法的实现</p>
+</li>
+<li class="lvl-2">
+<p>接口中不可以有构造函数，抽象类中可以有构造函数</p>
+</li>
+<li class="lvl-2">
+<p>接口可多实现，而抽象类必须被单继承</p>
+</li>
+<li class="lvl-2">
+<p>接口中方法全为抽象方法，而抽象类中可以有非抽象的方法</p>
+</li>
+<li class="lvl-2">
+<p>抽象类<code>不能</code>被实例化</p>
+</li>
+<li class="lvl-2">
+<p>接口的成员变量只能是常量，默认修饰符:public static final</p>
+</li>
+<li class="lvl-2">
+<p>接口的成员方法只能是抽象方法，默认修饰符:public abstract</p>
+</li>
+<li class="lvl-2">
+<p>使用interface声明一个接口时，只可以用<code>public</code>修饰符修饰该接口</p>
+</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">public class Usertest implements UserDao&#123;
+	public void myPrint()&#123;
+	System.out.println(&quot;nihao&quot;);
+&#125;
+	public void insert(A a)&#123;
+	System.out.println(&quot;新增&quot;);
+&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2><span id="异常">异常</span></h2>
+<pre class="line-numbers language-none"><code class="language-none">public static boolean cathcFinallyTest1()&#123;
+	try&#123;
+	int i &#x3D; 10 &#x2F; 0;
+	System.out.println(&quot;i value is :&quot; + i );
+	return true;
+&#125;
+	catch ( Exception e )&#123;
+	System.out.println(&quot;-- Exception --&quot;);
+	return catchMethod();
+&#125;
+	finally&#123;
+	finallyMethod();
+&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>throwable是所有异常类的父类</p>
+</li>
+<li class="lvl-2">
+<p><code>throws</code> 是方法可能抛出异常的声明(在声明方法时，表示该方法可能要抛出异常)</p>
+</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">public void doA( int a ) throws Exception1 , Exception3&#123;
+	
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>throw</code>是语句(抛出异常的语句)</p>
+</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">try&#123;
+	...
+&#125; catch ( Exception e )&#123;
+	throw e;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2><span id="数组">数组</span></h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>不允许在前面的括号里面写元素个数</p>
+</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">正确地定义一个二维数组
+int a[][] &#x3D; new int[3][];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<blockquote>
+<p>eg: 对于int[] a = new int[10]; a[10] -= 1;会使其发生数组越界</p>
+</blockquote>
+<h2><span id="类于对象">类于对象</span></h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>构造函数是类的一种特殊函数，它的方法名必须与类名相同</p>
+</li>
+<li class="lvl-2">
+<p>构造函数的主要作用是完成对类的c对象的初始化工作</p>
+</li>
+<li class="lvl-2">
+<p>一般在创造对象时，系统会自动调用构造函数</p>
+</li>
+<li class="lvl-2">
+<p>String是final修饰的Java类</p>
+</li>
+<li class="lvl-2">
+<p>基本数据类型：int long short boolean byte double float char</p>
+</li>
+</ul>
+<blockquote>
+<p>java中<code>static</code>关键字修饰的方法可以直接通过类名来调用</p>
+</blockquote>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>当类中没有定义任何构造方法时，java编译器会为这个类创建缺省构造方法</p>
+</li>
+<li class="lvl-2">
+<p>局部变量可以与类中的成员l变量同名,用this区分即可</p>
+</li>
+<li class="lvl-2">
+<p>局部变量未经赋值，不能使用</p>
+</li>
+<li class="lvl-2">
+<p>若要定义一个类属性或者类方法，应该用<code>static</code></p>
+</li>
+<li class="lvl-2">
+<p>类的实例方法表示类对对象的行为</p>
+</li>
+<li class="lvl-2">
+<p>System不能实例化，即不能创建System类的对象</p>
+</li>
+<li class="lvl-2">
+<p>类，及其属性，方法可以同时有一个以上的修饰符来修饰</p>
+</li>
+<li class="lvl-2">
+<p>一个类的静态方法不可以访问该类的静态成员变量</p>
+</li>
+<li class="lvl-2">
+<p>一个类的非静态方法可以访问该类的静态成员变量</p>
+</li>
+<li class="lvl-2">
+<p>在实例方法或构造器中，this用来引用当前对象，通过使用this可引用当前对象的任何成员</p>
+</li>
+</ul>
+<h3><span id="局部内部类">局部内部类</span></h3>
+<blockquote>
+<p>定义在成员方法中的类就是局部类</p>
+</blockquote>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>不能使用任何的访问修饰符</p>
+</li>
+<li class="lvl-2">
+<p>会生成两个.class文件</p>
+</li>
+<li class="lvl-2">
+<p>局部内部类只能访问方法中声明的final类型的变量</p>
+</li>
+<li class="lvl-2">
+<p>局部内部类不能包含静态成员</p>
+</li>
+<li class="lvl-2">
+<p>局部内部类可以访问外部类的所有成员</p>
+</li>
+</ul>
+<h2><span id="概述">概述</span></h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>一个数组不能放不同类型的数值</p>
+</li>
+<li class="lvl-2">
+<p>字节码文件是与平台无关的二进制码，执行时由解释器解释成本地机器码</p>
+</li>
+<li class="lvl-2">
+<p>一个java源文件可以有多个类，但是只能有一个类是public的</p>
+</li>
+<li class="lvl-2">
+<p>java允许创建不规则数组，即java多维数组中各行的列数可以不同</p>
+</li>
+<li class="lvl-2">
+<p>当输入为2时，以下方法的返回值是多少</p>
+</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">public int getValue( int i )&#123;
+	int result &#x3D; 0;
+	switch( i )&#123;
+	case 1 :
+		result &#x3D; result + i;
+	case 2 :
+		result &#x3D; result + i * 2;
+	case 3 :
+		result &#x3D; result + i * 3;
+&#125;
+	return result;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>返回值是10，<code>由于case后没有break,故从case2后一直运行</code></p>
+<h2><span id>?</span></h2>
+<pre class="line-numbers language-none"><code class="language-none">public static boolean isOdd( int data )&#123;
+	return data % 2 &#x3D;&#x3D; 0 ? true : false;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>如果?前为真，则执行冒号前的语句，若为假，则执行冒号后的语句</p>
+</li>
+</ul>
+<h2><span id="集合">集合</span></h2>
+<h3><span id="arrylist">ArryList</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">public class Test_str&#123;
+	public static void main( String args[] )&#123;
+		ArryList arryList &#x3D; new ArryList();
+		arryList.add( &quot;1&quot; );
+		arryList.add(2);
+		arryList.add(3.3);
+		
+		&#x2F;&#x2F;查看
+		&#x2F;&#x2F;方法一
+		System.out.println( arryList.get( 0 ) );
+		&#x2F;&#x2F;方法二
+		Iterator iterator &#x3D; arryList.iterator();
+		while( iterator.hasNext() )&#123;
+			System.out.println( iterator.next() );
+		&#125;
+		
+		&#x2F;&#x2F;修改
+		arryList.set( 0 , 1.1 );
+		
+		&#x2F;&#x2F;删除
+		arryList.remove( 0 ); &#x2F;&#x2F;删除下标
+		arryList.remove( &quot;1.1&quot; );
+
+		&#x2F;&#x2F;长度
+		System.out.println( arryList.size() );
+
+		&#x2F;&#x2F;是否包含
+		System.out.println( arryList.contains( 3.3 ) ); &#x2F;&#x2F;是则返回true，否则返回false
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="hashmap">HashMap</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">public class Main&#123;
+	public static void main( String args[] )&#123;
+		HashMap hashMap &#x3D; new HashMap();
+		
+		&#x2F;&#x2F;add
+		hashMap.put( &quot;name&quot; , &quot;张三&quot; );
+		hashMap.put( &quot;lover&quot; , &quot;自己&quot; );
+		
+		&#x2F;&#x2F;searhc
+		String name &#x3D; ( String )hashMap.get( &quot;name&quot; );
+		System.out.println( name );
+		
+		&#x2F;&#x2F;查询所有的Key
+		Set set &#x3D; hashMap.KeySet();
+		System.out.println( set );
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="hashset">HashSet</span></h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>不允许重复元素</p>
+</li>
+<li class="lvl-2">
+<p>没有索引，没有带索引的方法，也不能用普通的for循环遍历</p>
+</li>
+<li class="lvl-2">
+<p>是一个无序的集合，存储元素和取出元素的顺序可能不一致</p>
+</li>
+<li class="lvl-2">
+<p>底层是一个哈希表结构(查询的速度非常的快)</p>
+</li>
+</ul>
+<!--问题
+class People {
+        String name;
+        public People() {
+               System.out.print(1);
+        }
+        public People(String name) {
+               System.out.print(2);
+               this.name = name;
+        }
+}
+class Child extends People {
+       People father;
+       public Child(String name) {
+              System.out.print(3);
+              this.name = name;
+              father = new People(name + ":F");
+       }
+       public Child(){
+             System.out.print(4);
+       }
+}
+-->
+<h2><span id="程序题">程序题</span></h2>
+<h3><span id="是否偶数">是否偶数</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">public static boolean isOdd(int data)
+
+    &#123;
+
+        return data % 2 &#x3D;&#x3D; 0 ? true : false;
+    &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="求最大值">求最大值</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+public  class Main &#123;
+    public static void main(String[] args)&#123;
+        Scanner sc&#x3D;new Scanner(System.in);
+        int x&#x3D;sc.nextInt();
+        int y&#x3D;sc.nextInt();
+        int z&#x3D;x&gt;y?x:y;
+        System.out.println(z);
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="统计符合条件元素的个数">统计符合条件元素的个数</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.*;
+public class Main&#123;
+    public static void main(String[] args)&#123;
+        Scanner in&#x3D;new Scanner(System.in);
+        int n &#x3D; in.nextInt();
+        int count&#x3D;0;
+        int sum&#x3D;0;
+        int number&#x3D;0;
+        for(int i&#x3D;1;i&lt;&#x3D;n;i++)&#123;
+            if(i%3&#x3D;&#x3D;0)&#123;
+                sum&#x3D;sum+1;
+            &#125;
+            if(i%3&#x3D;&#x3D;0&amp;&amp;i%2&#x3D;&#x3D;0)&#123;
+                count&#x3D;count+1;
+            &#125;
+        &#125;
+        System.out.println((sum-count)+&quot;,&quot;+count);
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="闰年">闰年</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.*;
+public class Main&#123;
+    public static void main(String[] args)&#123;
+        Scanner in &#x3D; new Scanner(System.in);
+        int year &#x3D; in.nextInt();
+        if(year%4&#x3D;&#x3D;0 &amp;&amp; year%100!&#x3D;0)
+            System.out.print(&quot;yes&quot;);
+        else if(year%400&#x3D;&#x3D;0)
+            System.out.print(&quot;yes&quot;);
+        else
+            System.out.print(&quot;no&quot;);
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="一个月总天数">一个月总天数</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+
+public class Main &#123;
+
+	public static void main(String[] args) &#123;
+		Scanner in&#x3D;new Scanner(System.in);
+		int a&#x3D;in.nextInt();
+		int b&#x3D;in.nextInt();
+		if((b%4&#x3D;&#x3D;0&amp;&amp;b%100!&#x3D;0)||b%400&#x3D;&#x3D;0) &#123;
+			switch(a)&#123;
+				case 1:System.out.println(&quot;31&quot;); break;
+				case 2:System.out.println(&quot;29&quot;); break;
+				case 3:System.out.println(&quot;31&quot;); break;
+				case 4:System.out.println(&quot;30&quot;); break;
+				case 5:System.out.println(&quot;31&quot;); break;
+				case 6:System.out.println(&quot;30&quot;); break;
+				case 7:System.out.println(&quot;31&quot;); break;
+				case 8:System.out.println(&quot;31&quot;); break;
+				case 9:System.out.println(&quot;30&quot;); break;
+				case 10:System.out.println(&quot;31&quot;); break;
+				case 11:System.out.println(&quot;30&quot;); break;
+				case 12:System.out.println(&quot;31&quot;); break;		
+			&#125;
+		&#125;
+		else
+		&#123;
+			switch(a)&#123;
+			case 1:System.out.println(&quot;31&quot;); break;
+			case 2:System.out.println(&quot;28&quot;); break;
+			case 3:System.out.println(&quot;31&quot;); break;
+			case 4:System.out.println(&quot;30&quot;); break;
+			case 5:System.out.println(&quot;31&quot;); break;
+			case 6:System.out.println(&quot;30&quot;); break;
+			case 7:System.out.println(&quot;31&quot;); break;
+			case 8:System.out.println(&quot;31&quot;); break;
+			case 9:System.out.println(&quot;30&quot;); break;
+			case 10:System.out.println(&quot;31&quot;); break;
+			case 11:System.out.println(&quot;30&quot;); break;
+			case 12:System.out.println(&quot;31&quot;); break;		
+		&#125;
+		&#125;
+		
+		in.close();
+
+	&#125;
+
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="统计正数和负数的个数然后计算这些数的平均值">统计正数和负数的个数然后计算这些数的平均值</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+public class Main &#123;
+    public static void main(String[] args)&#123;
+        Scanner input&#x3D;new Scanner(System.in);
+        int positiveNum&#x3D;0;
+        int negativeNum&#x3D;0;
+        int sum&#x3D;0;
+        while(true)&#123;
+            int x&#x3D; input.nextInt();
+            if(x&#x3D;&#x3D;0)
+                break;
+            if(x&gt;0)
+                positiveNum++;
+            else
+                negativeNum++;
+            sum+&#x3D;x;
+        &#125;
+        if(positiveNum+negativeNum!&#x3D;0)&#123;
+            System.out.println(positiveNum);
+            System.out.println(negativeNum);
+            System.out.println(sum);
+
+            double average&#x3D;0.0;
+            average&#x3D;1.0*sum&#x2F;(positiveNum+negativeNum);
+            System.out.println(average);
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="程序-直角三角">程序-直角三角</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+
+public class Main &#123;
+
+public static void main(String[] args) &#123;
+    Scanner in &#x3D; new Scanner(System.in);
+    int a,b,c;
+    a&#x3D;in.nextInt();
+    b&#x3D;in.nextInt();
+    c&#x3D;in.nextInt();
+
+int aSquare &#x3D; a*a;
+int bSquare &#x3D; b*b;
+int cSquare &#x3D; c*c;
+
+if ((aSquare + bSquare) &#x3D;&#x3D; cSquare)
+    System.out.println(a*b*1.0&#x2F;2);
+    
+else if ((aSquare + cSquare) &#x3D;&#x3D; bSquare)
+    System.out.println(a*c*1.0&#x2F;2);
+    
+else if ((bSquare + cSquare) &#x3D;&#x3D; aSquare)
+    System.out.println(b*c*1.0&#x2F;2);
+else   System.out.println(&quot;0.0&quot;);
+
+	in.close();
+	
+&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="输出所有大于平均值的数">输出所有大于平均值的数</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+
+public class Main &#123;
+	public static void main (String[] args) &#123;
+		int n,sum&#x3D;0,count&#x3D;0;
+		float ave&#x3D;0;
+		Scanner in&#x3D;new Scanner(System.in);
+		n&#x3D;in.nextInt();
+		if(n&gt;&#x3D;1&amp;&amp;n&lt;&#x3D;10) &#123;
+			int i&#x3D;0;
+			int j&#x3D;0;
+			int []a&#x3D;new int[n];
+			for( ;i&lt;n;i++) &#123;
+				a[i]&#x3D;in.nextInt();
+				sum+&#x3D;a[i];
+			&#125;
+			ave&#x3D;(float)sum&#x2F;n;
+			System.out.printf(&quot;%.2f\n&quot;,ave);
+			for(;j&lt;n;j++) &#123;
+				if(a[j]&gt;ave) &#123;count++;System.out.printf(a[j]+&quot; &quot;);&#125;
+			&#125;
+			if(count&#x3D;&#x3D;0) System.out.printf(&quot;&quot;);&#125;
+		else System.out.printf(&quot;Invalid.&quot;);
+		
+		&#125;
+	&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="设计一个矩形类rectangle">设计一个矩形类Rectangle</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">class Rectangle&#123;
+    private double width &#x3D; 1,height &#x3D; 1;
+    public Rectangle()&#123;&#125;
+    public Rectangle(double a,double b)&#123;
+        width &#x3D; a;
+        height &#x3D; b;
+    &#125;
+    public double getArea()&#123;
+        return width * height;
+    &#125;
+    public double getPerimeter()&#123;
+        return (width + height) * 2;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="构造函数与tostring">构造函数与toString</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+
+public class Main &#123;
+	public static void main(String[] args) &#123;
+		Scanner cin &#x3D; new Scanner(System.in);
+		int n &#x3D; cin.nextInt();
+		Person[] p &#x3D; new Person[n];
+		for(int i &#x3D; 0;i &lt; n;i++) &#123;
+			String name &#x3D; cin.next();
+			int age &#x3D; cin.nextInt();
+			boolean gender &#x3D; cin.nextBoolean();
+			p[i] &#x3D; new Person(name,age,gender);
+		&#125;
+		for(int i &#x3D; n - 1;i &gt;&#x3D;0;i--) &#123;
+			System.out.println(p[i].toString());
+		&#125;
+		
+		Person q &#x3D; new Person();
+		System.out.println(q.toString());
+	&#125;
+&#125;
+class Person&#123;
+    private String name;
+    private int age;
+    private boolean gender;
+    private int id;
+    
+    public Person()&#123;
+        System.out.println(&quot;This is constructor&quot;);
+        System.out.println(name + &quot;,&quot; + age + &quot;,&quot; + gender + &quot;,&quot; + id);
+    &#125;
+    public Person(String name,int age,boolean gender)&#123;
+        this.name &#x3D; name;
+        this.age &#x3D; age;
+        this.gender &#x3D; gender;
+    &#125;
+    @Override
+	public String toString() &#123;
+		return &quot;Person [name&#x3D;&quot; + name + &quot;, age&#x3D;&quot; + age + &quot;, gender&#x3D;&quot; + gender + &quot;, id&#x3D;&quot; + id + &quot;]&quot;;
+	&#125;
+	public String getName() &#123;
+		return name;
+	&#125;
+	public void setName(String name) &#123;
+		this.name &#x3D; name;
+	&#125;
+	public int getAge() &#123;
+		return age;
+	&#125;
+	public void setAge(int age) &#123;
+		this.age &#x3D; age;
+	&#125;
+	public boolean isGender() &#123;
+		return gender;
+	&#125;
+	public void setGender(boolean gender) &#123;
+		this.gender &#x3D; gender;
+	&#125;
+	public int getId() &#123;
+		return id;
+	&#125;
+	public void setId(int id) &#123;
+		this.id &#x3D; id;
+	&#125;
+    
+    
+    
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="构造方法">构造方法</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">public class Main &#123;
+    public Main()&#123;
+        System.out.println(&quot;构造方法一被调用了&quot;);
+    &#125;
+    public Main(int x)&#123;
+        System.out.println(&quot;构造方法二被调用了&quot;);
+    &#125;
+    public Main(boolean b)&#123;
+        System.out.println(&quot;构造方法三被调用了&quot;);
+    &#125;
+    public static void main(String[] args) &#123;
+        Main m &#x3D; new Main();
+        Main d &#x3D; new Main(4);
+        Main v &#x3D; new Main(true);
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="根据派生写出基类">根据派生写出基类</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">public String getId()&#123;
+	    return id;
+	&#125;
+public String setId(String id)&#123;
+	    return this.id&#x3D;id;
+	&#125;
+
+	public void setName(String name)&#123;
+	    this.name&#x3D;name;
+	&#125;
+
+	public String getName()&#123;
+	    return name;
+	&#125;
+
+	public People()&#123;
+		
+	&#125;
+	public People(String id,String name) &#123;
+		this.id&#x3D;id;
+		this.name&#x3D;name;
+	&#125;
+	public void say()&#123;
+	    System.out.print(&quot;I&#39;m a person! My name is &quot; + this.name + &quot;.&quot;);
+	    &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="写出派生类构造方法">写出派生类构造方法</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">super(id,name);
+this.sid &#x3D;sid;
+this.score &#x3D;score;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3><span id="重写equals父类">重写equals父类</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">public boolean equals( Object obj )&#123;
+	if( this &#x3D;&#x3D; obj )
+	return true;
+	if( obj &#x3D;&#x3D; null )
+	return false;
+	if( getClass() !&#x3D; obj.getClass() )
+	return false;
+	Student other &#x3D; ( Student ) obj;
+	if( id &#x3D;&#x3D; other.id )
+	return true;
+	else
+	return false;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="覆盖">覆盖</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Scanner;
+public class Main&#123;
+    public static void main(String[] args) &#123;
+       Scanner sc&#x3D;new Scanner(System.in);
+       int n1&#x3D; sc.nextInt();
+       boolean f&#x3D;true;
+       sc.nextLine();
+       ArrayList&lt;PersonOverride&gt; ap&#x3D;new ArrayList&lt;PersonOverride&gt;();
+        for (int i&#x3D;0;i&lt;n1;i++)&#123;
+            ap.add(new PersonOverride());
+        &#125;
+        int n2&#x3D; sc.nextInt();
+        sc.nextLine();
+        for (int i&#x3D;0;i&lt;n2;i++)&#123;
+            f&#x3D;true;
+            PersonOverride a&#x3D;new PersonOverride(sc.next(),sc.nextInt(), sc.nextBoolean());
+            sc.nextLine();
+            for (PersonOverride aa:ap) &#123;
+                if (aa.equals(a))&#123;
+                    f&#x3D;false;
+                    break;
+                &#125;
+            &#125;
+            if (f)ap.add(a);
+        &#125;
+
+        for(PersonOverride a:ap)&#123;
+            System.out.println(a.toString().replace(&quot;[&quot;,&quot;&quot;).replace(&quot;]&quot;,&quot;&quot;));
+        &#125;
+        System.out.println(ap.size()-n1);
+        System.out.println(Arrays.toString(PersonOverride.class.getConstructors()));
+    &#125;
+
+&#125;
+
+class PersonOverride&#123;
+    private String name;
+    private  int age;
+    private boolean gender;
+
+    public PersonOverride() &#123;
+        this(&quot;default&quot;,1,true);
+    &#125;
+
+    public PersonOverride(String name, int age, boolean gender) &#123;
+        this.name &#x3D; name;
+        this.age &#x3D; age;
+        this.gender &#x3D; gender;
+    &#125;
+
+
+    @Override
+    public String toString() &#123;
+        return name + &quot;-&quot; + age + &quot;-&quot; + gender;
+    &#125;
+
+    @Override
+    public boolean equals(Object o) &#123;
+        if (this &#x3D;&#x3D; o) return true;
+        if (o &#x3D;&#x3D; null || getClass() !&#x3D; o.getClass()) return false;
+        PersonOverride that &#x3D; (PersonOverride) o;
+        return age &#x3D;&#x3D; that.age &amp;&amp;
+                gender &#x3D;&#x3D; that.gender &amp;&amp;
+                name.equals(that.name);
+    &#125;
+
+    @Override
+    public int hashCode() &#123;
+        return Objects.hash(name, age, gender);
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="从抽象类shape扩展出一个圆形">从抽象类shape扩展出一个圆形</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">class Circle extends shape&#123;
+	double radius;
+	public Circle( double radius )&#123;
+	this.radius &#x3D; radius ;
+	&#125;
+	@Override
+	public double getArea()&#123;
+	return Math.PI * radius * radius ;
+	&#125;
+	public double getPerimeter()&#123;
+	return Math.PI  * 2 * radius ;
+&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="创建一个直角三角形类实现ishape接口">创建一个直角三角形类实现IShape接口</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">class RTriangle implements IShape&#123;
+	double a,b;
+	
+	public RTriangle(double a, double b) &#123;
+		super();
+		this.a &#x3D; a;
+		this.b &#x3D; b;
+	&#125;
+	public  double getArea() &#123;
+		return 0.5*a*b;
+	&#125;
+	public double getPerimeter() &#123;
+		return a+b+Math.sqrt(a*a+b*b);
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="面向对象基础-04-形状-继承">面向对象基础-04-形状-继承</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+ 
+abstract class Shape &#123;
+	double PI &#x3D; 3.14;
+ 
+	public abstract double getPerimeter();
+ 
+	public abstract double getArea();
+&#125;
+ 
+class Rectangle extends Shape &#123;
+	int wide, len;
+ 
+	Rectangle(int a, int b) &#123;
+		wide &#x3D; a;
+		len &#x3D; b;
+	&#125;
+ 
+	@Override
+	public double getPerimeter() &#123;
+		&#x2F;&#x2F; TODO Auto-generated method stub
+		return 2 * (wide + len);
+	&#125;
+ 
+	@Override
+	public double getArea() &#123;
+		&#x2F;&#x2F; TODO Auto-generated method stub
+		return wide * len;
+	&#125;
+	
+	public String toString()&#123;
+		return &quot;[width&#x3D;&quot; + wide + &quot;, length&#x3D;&quot; + len + &quot;]&quot;;
+	&#125;
+&#125;
+ 
+class Circle extends Shape &#123;
+	int radius;
+ 
+	Circle(int _radius) &#123;
+		radius &#x3D; _radius;
+	&#125;
+ 
+	@Override
+	public double getPerimeter() &#123;
+		&#x2F;&#x2F; TODO Auto-generated method stub
+		return radius * 2 * PI;
+	&#125;
+ 
+	@Override
+	public double getArea() &#123;
+		&#x2F;&#x2F; TODO Auto-generated method stub
+		return radius * radius * PI;
+	&#125;
+ 
+	public String toString()&#123;
+		return &quot;[radius&#x3D;&quot; + radius + &quot;]&quot;;
+	&#125;
+ 
+&#125;
+ 
+public class Main &#123;
+	public static void main(String[] args) &#123;
+		Scanner in &#x3D; new Scanner(System.in);
+		int n &#x3D; in.nextInt();
+		in.nextLine();
+		Shape A[] &#x3D; new Shape[n];
+		int k &#x3D; 0, j &#x3D; 0;
+		double sumAllArea &#x3D; 0, sumAllPerimeter &#x3D; 0;
+		for (int i &#x3D; 0; i &lt; n; i++) &#123;
+			String S &#x3D; in.next();
+			if (S.equals(&quot;rect&quot;)) &#123;
+				int wide &#x3D; in.nextInt(), len &#x3D; in.nextInt();
+				in.nextLine();
+				A[i] &#x3D; new Rectangle(wide, len);
+			&#125; else if (S.equals(&quot;cir&quot;)) &#123;
+				int radius &#x3D; in.nextInt();
+				in.nextLine();
+				A[i] &#x3D; new Circle(radius);
+			&#125;
+			sumAllArea +&#x3D; A[i].getArea();
+			sumAllPerimeter +&#x3D; A[i].getPerimeter();
+		&#125;
+ 
+		System.out.println(sumAllPerimeter);
+		System.out.println(sumAllArea);
+		System.out.print(&quot;[&quot;);
+		for (int i &#x3D; 0; i &lt; n; i++) &#123;
+			if(i !&#x3D; 0)
+				System.out.print(&quot;, &quot;);
+			if (A[i] instanceof Rectangle) &#123;
+					System.out.print(&quot;Rectangle &quot;);
+				System.out.print(A[i].toString());
+			&#125;
+			else &#123;
+					System.out.print(&quot;Circle &quot;);
+				System.out.print(A[i].toString());	
+			&#125;
+		&#125;
+ 
+		System.out.println(&quot;]&quot;);
+ 
+		for(int i &#x3D; 0;i &lt; n;i++) &#123;
+			if(A[i] instanceof Rectangle) &#123;
+				System.out.println(&quot;class Rectangle,class Shape&quot;);
+			&#125;else &#123;
+				System.out.println(&quot;class Circle,class Shape&quot;);
+ 
+			&#125;
+		&#125;
+		in.close();
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="面向对象进阶-04-嵌套类-静态嵌套类">面向对象进阶-04-嵌套类-静态嵌套类</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+
+public class Main &#123;
+
+	public static void main(String[] args) &#123;
+		Scanner in&#x3D;new Scanner(System.in);
+		int n&#x3D;in.nextInt();
+		
+		
+		double s[]&#x3D;new double[n];&#x2F;&#x2F;为什么不用ArrayUtils[]s&#x3D;new ArrayUtils[n];因为是double数组
+		for(int i&#x3D;0;i&lt;s.length;i++) &#123;
+			double m&#x3D;in.nextDouble();
+			s[i]&#x3D;m;
+		&#125;
+		ArrayUtils l&#x3D;new ArrayUtils();
+		double max&#x3D;s[0];
+		double min&#x3D;s[0];
+		
+		System.out.println(l.findMinMax(s).toString());
+		System.out.println(ArrayUtils.PairResult.class);
+	&#125;
+
+&#125;
+class ArrayUtils&#123;
+	
+	static PairResult findMinMax(double[] s)
+	&#123;
+		PairResult b&#x3D;new PairResult();
+		double min&#x3D;s[0];
+		double max&#x3D;s[0];
+		for(int i&#x3D;0;i&lt;s.length;i++) &#123;
+			if(s[i]&gt;max) &#123;
+				max&#x3D;s[i];
+			&#125;
+			else if(s[i]&lt;min) &#123;
+				min&#x3D;s[i];
+			&#125;
+		&#125;
+		b.setMax(max);
+		b.setMin(min);
+		return b;
+	&#125;
+
+	static class PairResult&#123;
+		private double min;
+		private double max;
+		@Override
+		public String toString() &#123;
+			return &quot;PairResult [min&#x3D;&quot; + min + &quot;, max&#x3D;&quot; + max + &quot;]&quot;;
+		&#125;
+		public void setMin(double min) &#123;
+			this.min &#x3D; min;
+		&#125;
+		public void setMax(double max) &#123;
+			this.max &#x3D; max;
+		&#125;
+		
+		
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="集体评分2">集体评分2</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        Scanner in &#x3D; new Scanner(System.in);
+        int[] grade &#x3D; new int[5];
+        for(int i&#x3D;0; i&lt;grade.length; i++)&#123;
+            grade[i] &#x3D; in.nextInt();
+        &#125;
+ 
+        RR rr &#x3D; new RT(grade);
+        double dd &#x3D; rr.mark();
+        System.out.printf(&quot;%.2f&quot;,dd);
+    &#125;
+&#125;
+abstract class RR&#123;
+    int[] grade;
+    public RR(int[] grade)&#123;
+        this.grade &#x3D; grade;
+    &#125;
+    public abstract double mark();
+&#125;
+class RT extends RR&#123;
+    public RT(int[] grade) &#123;
+        super(grade);
+    &#125;
+ 
+    @Override
+    public double mark() &#123;
+        double sum&#x3D;0;
+        for (int i&#x3D;1;i&lt;grade.length-1;i++)&#123;
+            sum+&#x3D;grade[i];
+        &#125;
+        return sum&#x2F;3;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="程序改错题2">程序改错题2</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">public class Main &#123;
+	 public static void main(String[] args) &#123;
+	        Animal animal &#x3D; new Dog();
+	        animal.shout();
+	        ((Dog) animal).run();
+	    &#125;
+
+&#125;
+class Animal &#123;
+    void shout() &#123;
+        System.out.println(&quot;animal shout！&quot;);
+    &#125;
+&#125;
+
+class Dog extends Animal &#123;
+    void shout() &#123;
+        super.shout();
+        System.out.println(&quot;wangwang……&quot;);
+    &#125;
+
+    void run() &#123;
+        System.out.println(&quot;Dog is running&quot;);
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="程序填空题3">程序填空题3</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">public class Main &#123;
+	public static void main(String[] args) &#123;
+        Son son &#x3D; new Son();
+        son.method();
+    &#125;
+
+&#125;
+class Parent &#123;
+    Parent() &#123;
+        System.out.println(&quot;Parent&#39;s Constructor without parameter&quot;);
+    &#125;
+
+    Parent(boolean b) &#123;
+        System.out.println(&quot;Parent&#39;s Constructor with a boolean parameter&quot;);
+    &#125;
+
+    public void method() &#123;
+        System.out.println(&quot;Parent&#39;s method()&quot;);
+    &#125;
+&#125;
+
+class Son extends Parent &#123;
+    &#x2F;&#x2F;补全本类定义
+	private static boolean b;&#x2F;&#x2F;为什么要写static
+	Son() 
+    &#123;&#x2F;&#x2F;为什么不写public
+		super(b);
+		System.out.println(&quot;Son&#39;s Constructor without parameter&quot;);
+	&#125;
+	public void method() &#123;
+		System.out.println(&quot;Son&#39;s method()&quot;);
+		System.out.println(&quot;Parent&#39;s method()&quot;);
+        
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="接口四则计算器">接口–四则计算器</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+
+public class Main&#123;
+
+	public static void main(String[] args) &#123;
+		Scanner in&#x3D;new Scanner(System.in);
+		int n&#x3D;in.nextInt();
+		int m&#x3D;in.nextInt();
+		Add l&#x3D;new Add();
+		Sub j&#x3D;new Sub();
+		System.out.println(l.computer(n, m));
+		System.out.println(j.computer(n, m));
+		
+		in.close();
+
+	&#125;
+
+&#125;
+interface IComputer&#123;
+	abstract public int computer(int n ,int m);
+&#125;
+class Add implements IComputer
+&#123;
+	int m,n;
+	public int computer(int n ,int m) &#123;
+		return n+m;
+	&#125;
+&#125;
+class Sub implements IComputer
+&#123;
+	int m,n;
+	public int computer(int n ,int m) &#123;
+		return n-m;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="异常">异常</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">catch(Exception e)&#123;
+                if (choice.equals(&quot;number&quot;))
+                    System.out.println (&quot;number format exception&quot;);
+                if (choice.equals(&quot;illegal&quot;))
+                    System.out.println (&quot;illegal argument exception&quot;);
+                if (choice.equals(&quot;except&quot;))
+                    System.out.println (&quot;other exception&quot;);
+                System.out.println (e);
+            &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="成绩录入时的及格与不及格人数统计">成绩录入时的及格与不及格人数统计</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+ 
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        Scanner sc&#x3D;new Scanner(System.in);
+        int count&#x3D;sc.nextInt();
+        int pass&#x3D;0;
+        for (int i&#x3D;0;i&lt;count;i++)&#123;
+            int grade&#x3D;sc.nextInt();
+            if (grade&lt;0||grade&gt;100)&#123;
+                System.out.println(grade+&quot;invalid!&quot;);
+            &#125;else if (grade&gt;&#x3D;60)&#123;
+                pass++;
+            &#125;
+        &#125;
+        System.out.println(pass);
+        System.out.println(count-pass);
+ 
+    &#125;
+&#125;
+
+object
+ int n &#x3D; sc.nextInt();
+        Object [] o &#x3D; new Object[n];
+        
+        for( int i &#x3D; 0; i &lt; n; i ++ )&#123;
+            String str &#x3D; sc.next();
+            switch( str )&#123;
+                case &quot;c&quot;:
+                    o[i] &#x3D; new Computer();
+                    break;
+                case &quot;d&quot;:
+                    o[i] &#x3D; new Double(sc.nextDouble());
+                    break;
+                case &quot;i&quot;:
+                    o[i] &#x3D; new Integer(sc.nextInt());
+                    break;
+                case &quot;s&quot;:
+                    o[i] &#x3D; new String(sc.next());
+                    break;
+                default:
+                    o[i] &#x3D; null;
+            &#125;
+        &#125;
+        
+        for( int i &#x3D; n - 1; i &gt;&#x3D; 0; -- i )&#123;
+            if( o[i] !&#x3D; null )&#123;
+                System.out.println(o[i]);
+            &#125;
+        &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="人口统计">人口统计</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">public static int numofHan(String data[])&#123;
+	String str &#x3D; &quot;汉族&quot;;
+	int ans &#x3D; 0;
+	for(String s: data)&#123;
+		if(s.indexOf(str, s.lastIndexOf(&quot;,&quot;)) !&#x3D; -1) &#123;
+			++ans;
+		&#125;
+	&#125;
+	return ans;
+&#125;
+
+StringBuilder
+
+import java.util.Scanner;
+
+public class Main &#123;
+	public static void main(String[] args) &#123;
+		Scanner scan &#x3D; new Scanner(System.in);
+		while(scan.hasNext()) &#123;
+			int n &#x3D; scan.nextInt();
+			int begin &#x3D; scan.nextInt();
+			int end &#x3D; scan.nextInt();
+			
+			StringBuilder string &#x3D; new StringBuilder();
+			for (int i &#x3D; 0; i &lt; n; i++) &#123;
+				string.append(i);
+			&#125;
+			System.out.println(string.substring(begin,end));
+		&#125;
+		scan.close();
+		
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="单词替换">单词替换</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        Scanner sc &#x3D; new Scanner(System.in);
+        String str &#x3D; sc.nextLine();
+        String str1 &#x3D; sc.nextLine();
+        String str2 &#x3D; sc.nextLine();
+        String[] s &#x3D; str.split(&quot; &quot;);
+        for (int i &#x3D; 0; i &lt; s.length; i++) &#123;
+            if (s[i].equals(str1))&#123;
+                s[i] &#x3D; str2;
+            &#125;
+        &#125;
+         String s1 &#x3D; &quot;&quot;;
+        for (int i &#x3D; 0; i &lt; s.length; i++) &#123;
+            s1 +&#x3D; s[i] + &quot; &quot;;
+        &#125;
+        System.out.println(s1.trim());
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="随机数">随机数</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.*;
+public class Main &#123;
+
+	public static void main(String[] args) &#123;
+		&#x2F;&#x2F; TODO Auto-generated method stub
+		Scanner input &#x3D; new Scanner(System.in);
+		long seed &#x3D; input.nextLong();
+        int n &#x3D; input.nextInt();
+		Random r &#x3D; new Random(seed);
+		int count &#x3D; 0;
+		for (int i&#x3D;0;i&lt;n;i++) &#123;
+			double x &#x3D; r.nextDouble()*2-1;
+			double y &#x3D; r.nextDouble()*2-1;
+			if ( x*x + y*y &lt;&#x3D;1) count++;
+		&#125;
+		System.out.println(4*(double)count&#x2F;n);	
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="list指定元素删除">List指定元素删除</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">public static List&lt;String&gt; convertStringToList(String line) &#123;
+		List&lt;String&gt; a&#x3D;new ArrayList&lt;String&gt;();
+		String s[]&#x3D;line.split(&quot;\\s+&quot;);
+		for(int i&#x3D;0;i&lt;s.length;i++) &#123;
+			a.add(s[i]);
+		&#125;
+		return a;
+	&#125;
+	public static void remove(List&lt;String&gt; list, String str) &#123;
+		for(int i&#x3D;0;i&lt;list.size();)
+        &#123;
+			if(list.get(i).equals(str))
+            &#123;
+				list.remove(i);
+				i&#x3D;0;
+			&#125;
+            else 
+            &#123;
+				i++;
+			&#125;
+		&#125;
+	&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="arrylist入门">ArryList入门</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.*;
+public class Main&#123;
+ public static void main(String[] args) &#123;
+  ArrayList strList &#x3D; new ArrayList();
+  Scanner in &#x3D; new Scanner(System.in);
+  while (true) &#123;
+   String s &#x3D; in.next();
+   if (!s.equals(&quot;!!end!!&quot;)) &#123;
+    strList.add(s);
+   &#125; 
+   else
+    break;
+  &#125;
+  strList.add(0, &quot;begin&quot;);
+  strList.add(&quot;end&quot;);
+  System.out.println(strList);
+  String str &#x3D; new String();
+  str &#x3D; in.next();
+  System.out.println(strList.contains(str));
+  System.out.println(strList.indexOf(str));
+  System.out.println(strList.lastIndexOf(str));
+  System.out.println(strList.get(0));
+  strList.remove(0);
+  System.out.println(strList);
+  str &#x3D; in.next();
+  strList.set(1, str);
+  System.out.println(strList);
+  ArrayList strList1 &#x3D; new ArrayList();
+  str &#x3D; in.next();
+  in.close();
+  for (int j &#x3D; 0; j &lt; strList.size(); j++) &#123;
+   if (((String) strList.get(j)).contains(str)) &#123;
+    strList1.add(strList.get(j));
+   &#125;
+  &#125;
+  System.out.println(strList1);
+  strList.remove(str);
+  System.out.println(strList);
+  strList.clear();
+  System.out.println(strList + &quot;,&quot; + strList.size() + &quot;,&quot;+ strList.isEmpty());
+ &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="出勤最多的人">出勤最多的人</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.*;
+
+class Main&#123;
+    public static void main(String[] args) &#123;
+       Scanner cin &#x3D; new Scanner(System.in);
+       Map&lt;String, Integer&gt; map &#x3D; new TreeMap();
+       TreeSet ts &#x3D; new TreeSet();
+       int max &#x3D; 0;
+
+       String str_name &#x3D; cin.nextLine();
+       String []name_str &#x3D; str_name.split(&quot; &quot;);
+
+       for( int i &#x3D; 0; i &lt; name_str.length; i ++ )&#123;
+           int t &#x3D; ts.size();
+           ts.add(name_str[i]);
+           if( t &#x3D;&#x3D; ts.size() )&#123; &#x2F;&#x2F; 表示有重复
+               if ( map.get(name_str[i]) + 1 &gt; max)&#123;
+                   max &#x3D; map.get(name_str[i]) + 1;
+               &#125;
+               map.put( name_str[i], map.get(name_str[i]) + 1); &#x2F;&#x2F; 更新map中的值
+           &#125;
+           else&#123;
+               map.put(name_str[i], 1 );
+           &#125;
+       &#125;
+       String []cnt_name_people &#x3D; new String[ts.size()];
+       int cnt &#x3D; 0;
+       for( Map.Entry&lt;String, Integer&gt; entry: map.entrySet())&#123;
+           String key &#x3D; entry.getKey();
+           int value &#x3D; entry.getValue();
+
+           if( max &#x3D;&#x3D; 0)&#123;&#x2F;&#x2F; 全部出勤1次，特殊情况
+               cnt_name_people[cnt ++ ] &#x3D; key;
+           &#125;
+           else if( value &#x3D;&#x3D; max )&#123;
+                cnt_name_people[cnt ++ ] &#x3D; key;
+           &#125;
+       &#125;
+       for( int i &#x3D; 0; i &lt; cnt - 1; i ++ )&#123;
+           System.out.print(cnt_name_people[i] + &quot; &quot;);
+       &#125;
+        System.out.println(cnt_name_people[cnt -1 ]);
+       cin.close();
+    &#125;
+&#125;
+
+Thread
+class MyThread extends Thread&#123;
+	int i;
+	public MyThread(int i)&#123;
+		this.i&#x3D;i;
+	&#125;
+	public void run () &#123;
+		for(int r&#x3D;0;r&lt;i;r++) &#123;
+			System.out.println(r);
+		&#125;
+		System.out.println(Thread.currentThread().getName()+&quot; &quot;+isAlive());
+	&#125;
+	
+&#125;
+
+PrintTask
+class PrintTask implements Runnable
+&#123;
+	private int n;
+	public PrintTask(int n)
+	&#123;
+		this.n&#x3D;n;
+	&#125;
+	public void run()
+	&#123;
+		for(int i&#x3D;0;i&lt;n;i++)
+		&#123;
+			System.out.println(i);
+		&#125;
+		System.out.println(Thread.currentThread().getName());
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="倒数计时线程">倒数计时线程</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+
+class PrintTask implements Runnable &#123;
+	private int n;
+	public PrintTask(int n)
+	&#123;
+		   this.n&#x3D;n;
+	&#125;
+	public void run() &#123;
+		for(int i&#x3D;n;i&gt;&#x3D;0;i--) &#123;
+		for(int l&#x3D;0;l&lt;500;l++);
+		System.out.println(i);
+	    &#125;
+	&#125;
+&#125;
+public class Main&#123;
+	    public static void main(String[] args) &#123;
+	    	Scanner in&#x3D;new Scanner(System.in) ;
+	    	PrintTask ta&#x3D;new PrintTask(in.nextInt());
+	    	Thread t&#x3D;new Thread(ta);
+	    	t.start();
+	    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="程序改错题4">程序改错题4</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">import java.util.Scanner;
+
+public class Main &#123;
+	public static void main(String[] args) &#123;
+		Thread t &#x3D; new Thread(new RunHandler());
+		t.start();
+	&#125;
+&#125;
+
+class RunHandler implements Runnable  &#123;
+	public void run() &#123;
+		Scanner in &#x3D; new Scanner(System.in);
+		int x &#x3D; in.nextInt();
+		for(int i&#x3D;0;i&lt;x;i++) &#123;
+			System.out.println(&quot;run&quot;);
+		&#125;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+  <p><a class="classtest-link" href="/tags/exam/" rel="tag">exam</a> — Dec 19, 2021</p>
+  
+
+
+        </div>
+        <div class="row mt-2">
+  <h3>Search</h3>
+  <div><input id="search-text" title="search" class="search-text" type="text" placeholder="search......"></div>
+  <div style="margin-top: 1.5rem;">
+    <ul id="result"></ul>
+  </div>
+</div>
+        <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+        at <a href="https://en.wikipedia.org/wiki/Earth" target="_blank" rel="noreferrer">Earth</a>.</p>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+      <a class="ml-0 footer-link icon" href="https://github.com/Mykonos-x" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="GitHub">
+        <svg class="github svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+      
+
+      
+
+      
+      <a class="ml-0 footer-link icon" href="https://twitter.com/mykonos_x" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="Twitter">
+        <svg class="twitter svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter</title><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/></svg>
+      </a>
+      
+
+      
+
+      
+
+    </div>
+  
+</div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>

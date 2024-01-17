@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>OneSecretTwoEncryption ACTF2018</title>
+  
+  <link rel="canonical" href="http://mykonos-x.github.io/2022/08/30/OneSecretTwoEncryption-ACTF2018/">
+  
+  <meta name="description" content="Involved Knowledge RSA Shared prime number  Topicpublic1.pub-----BEGIN PUBLIC KEY----- MIICIDANBgkqhkiG9w0BAQEFAAOCAg0AMIICCAKCAQAma&amp;#x2F;gXML+bivU20m">
+  
+  
+  <meta name="author" content="Ez3ki3l">
+  
+  
+  
+  <meta property="og:site_name" content="Silence to hear." />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="OneSecretTwoEncryption ACTF2018" />
+  
+  <meta property="og:description" content="Involved Knowledge RSA Shared prime number  Topicpublic1.pub-----BEGIN PUBLIC KEY----- MIICIDANBgkqhkiG9w0BAQEFAAOCAg0AMIICCAKCAQAma&amp;#x2F;gXML+bivU20m">
+  
+  <meta property="og:url" content="http://mykonos-x.github.io/2022/08/30/OneSecretTwoEncryption-ACTF2018/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OneSecretTwoEncryption ACTF2018">
+  
+  <meta name="twitter:description" content="Involved Knowledge RSA Shared prime number  Topicpublic1.pub-----BEGIN PUBLIC KEY----- MIICIDANBgkqhkiG9w0BAQEFAAOCAg0AMIICCAKCAQAma&amp;#x2F;gXML+bivU20m">
+  
+  
+  
+  
+  <meta name="twitter:url" content="http://mykonos-x.github.io/2022/08/30/OneSecretTwoEncryption-ACTF2018/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="/fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/prism-dark.css">
+
+  
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+
+  <!-- User css -->
+  
+  
+<link rel="stylesheet" href="/css/user.css">
+
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon2.png">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #7cc1df;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #7cc1df 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #7cc1df;
+  }
+  .nanobar .bar {
+    background: #7cc1df;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #7cc1df;
+    border-color: #7cc1df;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #7cc1df;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+  
+  <script src="/js/pic.min.js" defer></script>
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌑</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>☀️</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      Hi there.
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+          
+          <a href="/about" class="ml">About</a>
+          
+        
+        
+          
+            <a href="mailto:g0dzirrazhou@gmail.com" target="_blank" class="ml">Email</a>
+          
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>OneSecretTwoEncryption ACTF2018</h2>
+
+  <h3 id="Involved-Knowledge"><a href="#Involved-Knowledge" class="headerlink" title="Involved Knowledge"></a>Involved Knowledge</h3><ul>
+<li>RSA</li>
+<li>Shared prime number</li>
+</ul>
+<h3 id="Topic"><a href="#Topic" class="headerlink" title="Topic"></a>Topic</h3><h4 id="public1-pub"><a href="#public1-pub" class="headerlink" title="public1.pub"></a>public1.pub</h4><pre class="line-numbers language-none"><code class="language-none">-----BEGIN PUBLIC KEY-----
+MIICIDANBgkqhkiG9w0BAQEFAAOCAg0AMIICCAKCAQAma&#x2F;gXML+bivU20mJu55PZ
+SjNAE6S0PQ2WV5sYIA7ZLbJ6lshW8cfohErN0TUIv+6O+hXSMFd4wrv27+f6akPE
+qeNL6LWjKqcnC9I03vbyYDZuLkfeoPwM9UHIuRUfU&#x2F;l&#x2F;LDOCkjkOkHN5SMufg66y
+OGc4wLDi9f8sET4QMerAVF&#x2F;HZ7acpYYCu8QoWnOSy9KiVzKQMzKkaL+WcN2sbLsA
+61zjixv7ybMHDmcyMKHb5VbfPsqMW19roYLV5luY3SlrhTogmyGg19Q3k7hYW3ca
+Jc7WLEbPD&#x2F;OnlHMDLArNUYMyB9t0CdLNZZCHE6pbiMaNGS+rwGcqxHbWCpGCS0vZ
+AoIBAA0zxRVob0N2SXRSPv7GRHMzj&#x2F;mpACiz3VrKtwKgm+MM1UrnvbtCpPcqjqw6
+4w7HJqf6O&#x2F;ccA7l0qY35jbvhOLD2II6rf8USZwkm27ygOuHA3SRS9XZyzpshUmRO
+YyJtogGntK4R9R7wfW1HHJbIj5R3&#x2F;HV&#x2F;gYdT9XxKq7yICxFSVv3u1lgVBjNeUzTn
+5MzOlX9tCEjcS54eq9OCGLEIetj24xTfsruKf&#x2F;DDGNTRA1et8fU4H49NMsqqHL1R
+ZdKvy1SEBWoOrj&#x2F;XQycz0Dsyre0jcaDWnaywlulHGrPKXYc6ePAJ9S7IMOTKblCf
+FU9nj28KAsm&#x2F;RBAV3PEMkJ3edPM&#x3D;
+-----END PUBLIC KEY-----<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="public1-pub-1"><a href="#public1-pub-1" class="headerlink" title="public1.pub"></a>public1.pub</h4><pre class="line-numbers language-none"><code class="language-none">-----BEGIN PUBLIC KEY-----
+MIIBITANBgkqhkiG9w0BAQEFAAOCAQ4AMIIBCQKCAQASwScpBgKVbfU6JjRoIA9v
+JkVCapA5hkllstoPZhO6T1mQZK5DSD+ggwMXu&#x2F;Ivfa3qKsnQ9zFrvIULjWk52+&#x2F;+
+q1sckgVNXKE9K8RREuj0ChN1Qzx24dpmtz60ObxxQESRkSpLD8wvDTurAd1rolaK
+qqS2uXxv9CzbrMzSZOD1UDEmKa&#x2F;JSXy3YvQ67S4c3NOQVgwHcAmQuqWZTmVuFxsb
+l1hwmWSPMgTcNkFpMcjeCx0+DuuN&#x2F;lTqQWFygJGBRnAvLwSpXUuq747FQiilca5P
++7fiz2Tb2OEn2&#x2F;WE41vjqMVHUjGxY+RseDpND71FOvkGl8ixWEq8ebflkadtVcK1
+AgMBAAE&#x3D;
+-----END PUBLIC KEY-----<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="flag-encry1"><a href="#flag-encry1" class="headerlink" title="flag_encry1"></a>flag_encry1</h4><pre class="line-numbers language-none"><code class="language-none">ÏH¿–r÷;î+28 x#_fèaV·ãêª&gt;Û#ì^öšÊ#áÁmkÜ)k»üjRL@f_ëxxü½ù‘&amp;$¤&quot;öp&#39;•êÕdŠ%´jjù&#123;’©&quot;^&gt;a4çÀÂ÷Ct·ÿ™&#123;òB&#39;ˆ#ï¤õ[»Gß‚w…ø©ÿ«Sª—ãrØ@–&quot;ð…s£ýœ+U4§÷z¨(×Ï&#x2F;F º„¹BS·&quot;,Ð[F&#x3D;nPà0
+Ö Q%(”$yýüºmÓL&#x3D;€w]mWg†í¼Uû#]b¶SÈJ½õÑ¬sa.íSŒƒŠãð“~&#39;uNÃ&#x3D;D7
+5”ÖC .Au&gt;ÁdTÃ3¬:y(¬ëDM<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="flag-encry2"><a href="#flag-encry2" class="headerlink" title="flag_encry2"></a>flag_encry2</h4><pre class="line-numbers language-none"><code class="language-none"> ?繨楺o偈?n(汏E*A聦t??&#96;N&#96;搯痲&gt;0gh茅翭V筇旎畨 ?雧翍Om袥bZ?4鶒懍
+x趽巂\紧Z€_┅颌J魓?汕苤t4q??aR幚鯞腻s&#39;仩愓楫?	sZ酨A咓蝘玧?留S?瓘顂eJv$洶[ yD噓蟟K棠嶅э毽 頶??e姲H屁3倔擿In6?弈Z跟誺F蠎 @偖??~v圣V??@&#96;3扲瑭ir^?嘭l舑-繇?<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>一份秘密发送给两个人不太好吧，那我各自加密一次好啦~~~<br>素数生成好慢呀<br>偷个懒也……不会有问题的吧？</p>
+<h3 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h3><p>题目附件给了两个公钥，以及两段密文，说明加密了两段明文</p>
+<p>通过题目描述<code>素数生成好慢呀 偷个懒也……不会有问题的吧？</code> 既然素数生成慢，那么这里的偷个懒也就明显的提示了在第二次加密的时候和第一次<code>共享</code>了<code>素数</code></p>
+<p>分析到这里就结束了</p>
+<p>那么这道题我们通过两个公钥可以拿到两组n和e，两个n又是共享了素数的，我们就可以通过gcd(n1 , n2)得到p，从而得到q1 , q2。有了pq，就可以得到phi_n1 phi_n2 从而拿到d1 d2 就可以求解了</p>
+<h3 id="openssl"><a href="#openssl" class="headerlink" title="openssl"></a>openssl</h3><p>我们对公钥的读取可以通过openssl这个工具</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">openssl rsa <span class="token parameter variable">-pubin</span> <span class="token parameter variable">-in</span> public2.pub <span class="token parameter variable">-text</span> <span class="token parameter variable">-modulus</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>我们会得到以下内容</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Exponent: <span class="token number">65537</span> <span class="token punctuation">(</span>0x10001<span class="token punctuation">)</span>
+<span class="token assign-left variable">Modulus</span><span class="token operator">=</span>12C127290602956DF53A263468200F6F2645426A9039864965B2DA0F6613BA4F599064AE43483FA0830317BBF22F7DADEA2AC9D0F7316BBC850B8D6939DBEFFEAB5B1C92054D5CA13D2BC45112E8F40A1375433C76E1DA66B73EB439BC71404491912A4B0FCC2F0D3BAB01DD6BA2568AAAA4B6B97C6FF42CDBACCCD264E0F550312629AFC9497CB762F43AED2E1CDCD390560C07700990BAA5994E656E171B1B97587099648F3204DC36416931C8DE0B1D3E0EEB8DFE54EA41617280918146702F2F04A95D4BAAEF8EC54228A571AE4FFBB7E2CF64DBD8E127DBF584E35BE3A8C5475231B163E46C783A4D0FBD453AF90697C8B1584ABC79B7E591A76D55C2B5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>这里的Exponent就是e</p>
+<p>modulus是模数n，只是我们发现是16进制的，通过int转成10进制就好</p>
+<p>也可以通过在线网站ssl <a target="_blank" rel="noopener" href="http://www.hiencode.com/pub_asys.html">SSL在线工具-公钥解析</a></p>
+<h3 id="Exp"><a href="#Exp" class="headerlink" title="Exp"></a>Exp</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> gmpy2
+<span class="token keyword">import</span> libnum
+<span class="token keyword">from</span> Crypto<span class="token punctuation">.</span>Util<span class="token punctuation">.</span>number <span class="token keyword">import</span> bytes_to_long
+n1 <span class="token operator">=</span> <span class="token number">4850297138162223468826481623082440249579136876798312652735204698689613969008632545220976699170308454082390834742570718247804202060929493571642074679428565168405877110681518105667301785653517697684490982375078989886040451115082120928982588380914609273008153977907950532498605486225883973643141516024058315360572988744607134110254489421516026937249163493982681336628726033489124705657217768229058487155865265080427488028921879608338898933540825564889012166181346177276639828346376362168934208822467295673761876965864573164529336885250577357767314256581019474130651412100897839606491189424373959244023695669653213498329</span>
+e1 <span class="token operator">=</span> <span class="token number">1666626632960368239001159408047765991270250042206244157447171188195657302933019501932101777999510001235736338843107709871785906749393004257614129802061081155861433722380145001537181142613515290138835765236002811689986472280762408157176437503021753061588746520433720734608953639111558556930490721517579994493088551013050835690019772600744317398218183883402192060480979979456469937863257781362521184578142129444122428832106721725409309113975986436241662107879085361014650716439042856013203440242834878648506244428367706708431121109714505981728529818874621868624754285069693368779495316600601299037277003994790396589299</span>
+
+e2 <span class="token operator">=</span> <span class="token number">65537</span>
+n2 <span class="token operator">=</span> <span class="token number">2367536768672000959668181171787295271898789288397672997134843418932405959946739637368044420319861797856771490573443003520137149324080217971836780570522258661419034481514883068092752166752967879497095564732505614751532330408675056285275354250157955321457579006360393218327164804951384290041956551855334492796719901818165788902547584563455747941517296875697241841177219635024461395596117584194226134777078874543699117761893699634303571421106917894215078938885999963580586824497040073241055890328794310025879014294051230590716562942538031883965317397728271589759718376073414632026801806560862906691989093298478752580277</span>
+
+p <span class="token operator">=</span> gmpy2<span class="token punctuation">.</span>gcd<span class="token punctuation">(</span>n1 <span class="token punctuation">,</span> n2<span class="token punctuation">)</span>
+q1 <span class="token operator">=</span> n1 <span class="token operator">//</span> p
+q2 <span class="token operator">=</span> n2 <span class="token operator">//</span> p
+
+phi_n1 <span class="token operator">=</span> <span class="token punctuation">(</span>p <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>q1 <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+phi_n2 <span class="token operator">=</span> <span class="token punctuation">(</span>p <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>q2 <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+
+d1 <span class="token operator">=</span> gmpy2<span class="token punctuation">.</span>invert<span class="token punctuation">(</span>e1 <span class="token punctuation">,</span> phi_n1<span class="token punctuation">)</span>
+d2 <span class="token operator">=</span> gmpy2<span class="token punctuation">.</span>invert<span class="token punctuation">(</span>e2 <span class="token punctuation">,</span> phi_n2<span class="token punctuation">)</span>
+
+<span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">"flag_encry1"</span> <span class="token punctuation">,</span> <span class="token string">"rb"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f1<span class="token punctuation">:</span>
+	c1 <span class="token operator">=</span> f1<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+	c1 <span class="token operator">=</span> bytes_to_long<span class="token punctuation">(</span>c1<span class="token punctuation">)</span>
+
+<span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">"flag_encry2"</span> <span class="token punctuation">,</span> <span class="token string">"rb"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f2<span class="token punctuation">:</span>
+	c2 <span class="token operator">=</span> f2<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+	c2 <span class="token operator">=</span> bytes_to_long<span class="token punctuation">(</span>c2<span class="token punctuation">)</span>
+m1 <span class="token operator">=</span> <span class="token builtin">pow</span><span class="token punctuation">(</span>c1 <span class="token punctuation">,</span> d1 <span class="token punctuation">,</span> n1<span class="token punctuation">)</span>
+m2 <span class="token operator">=</span> <span class="token builtin">pow</span><span class="token punctuation">(</span>c2 <span class="token punctuation">,</span> d2 <span class="token punctuation">,</span> n2<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>libnum<span class="token punctuation">.</span>n2s<span class="token punctuation">(</span>m1<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>libnum<span class="token punctuation">.</span>n2s<span class="token punctuation">(</span>m2<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>afctf{You_Know_0p3u55I}</p>
+</blockquote>
+
+  <p><a class="classtest-link" href="/tags/crypto/" rel="tag">crypto</a>, <a class="classtest-link" href="/tags/rsa/" rel="tag">rsa</a>, <a class="classtest-link" href="/tags/write-up/" rel="tag">write-up</a> — Aug 30, 2022</p>
+  
+
+
+        </div>
+        <div class="row mt-2">
+  <h3>Search</h3>
+  <div><input id="search-text" title="search" class="search-text" type="text" placeholder="search......"></div>
+  <div style="margin-top: 1.5rem;">
+    <ul id="result"></ul>
+  </div>
+</div>
+        <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+        at <a href="https://en.wikipedia.org/wiki/Earth" target="_blank" rel="noreferrer">Earth</a>.</p>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+      <a class="ml-0 footer-link icon" href="https://github.com/Mykonos-x" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="GitHub">
+        <svg class="github svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+      
+
+      
+
+      
+      <a class="ml-0 footer-link icon" href="https://twitter.com/mykonos_x" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="Twitter">
+        <svg class="twitter svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter</title><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/></svg>
+      </a>
+      
+
+      
+
+      
+
+    </div>
+  
+</div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>

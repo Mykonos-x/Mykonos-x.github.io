@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>Gin 入门</title>
+  
+  <link rel="canonical" href="http://mykonos-x.github.io/2023/10/19/Gin-%E5%85%A5%E9%97%A8/">
+  
+  <meta name="description" content="：关于Gin部分的内容为笔者年初所写 年初开始踉踉跄跄地学Golang的后端框架Gin了，如果是学过Java后端的人来说应该学Go和Gin很快，但是怎么说呢，笔者的Java和当时学的后端学的依托答辩，所以学Golang和Gin的时候相当于也在捡起以前的一些知识，加上笔者自认为不是天赋型选手，感觉自己">
+  
+  
+  <meta name="author" content="Ez3ki3l">
+  
+  
+  
+  <meta property="og:site_name" content="Silence to hear." />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Gin 入门" />
+  
+  <meta property="og:description" content="：关于Gin部分的内容为笔者年初所写 年初开始踉踉跄跄地学Golang的后端框架Gin了，如果是学过Java后端的人来说应该学Go和Gin很快，但是怎么说呢，笔者的Java和当时学的后端学的依托答辩，所以学Golang和Gin的时候相当于也在捡起以前的一些知识，加上笔者自认为不是天赋型选手，感觉自己">
+  
+  <meta property="og:url" content="http://mykonos-x.github.io/2023/10/19/Gin-%E5%85%A5%E9%97%A8/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Gin 入门">
+  
+  <meta name="twitter:description" content="：关于Gin部分的内容为笔者年初所写 年初开始踉踉跄跄地学Golang的后端框架Gin了，如果是学过Java后端的人来说应该学Go和Gin很快，但是怎么说呢，笔者的Java和当时学的后端学的依托答辩，所以学Golang和Gin的时候相当于也在捡起以前的一些知识，加上笔者自认为不是天赋型选手，感觉自己">
+  
+  
+  
+  
+  <meta name="twitter:url" content="http://mykonos-x.github.io/2023/10/19/Gin-%E5%85%A5%E9%97%A8/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="/fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/prism-dark.css">
+
+  
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+
+  <!-- User css -->
+  
+  
+<link rel="stylesheet" href="/css/user.css">
+
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #7cc1df;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #7cc1df 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #7cc1df;
+  }
+  .nanobar .bar {
+    background: #7cc1df;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #7cc1df;
+    border-color: #7cc1df;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #7cc1df;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+  
+  <script src="/js/pic.min.js" defer></script>
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌑</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>☀️</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      Hi there.
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+          
+          <a href="/about" class="ml">About</a>
+          
+        
+        
+          
+            <a href="mailto:g0dzirrazhou@gmail.com" target="_blank" class="ml">Email</a>
+          
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>Gin 入门</h2>
+
+  <p>：关于Gin部分的内容为笔者年初所写</p>
+<p>年初开始踉踉跄跄地学Golang的后端框架<code>Gin</code>了，如果是学过Java后端的人来说应该学Go和Gin很快，但是怎么说呢，笔者的Java和当时学的后端学的依托答辩，所以学<code>Golang</code>和<code>Gin</code>的时候相当于也在捡起以前的一些知识，加上笔者自认为不是天赋型选手，感觉自己学习的进度也比较慢，争取在后期更加注重自己的学习效率问题</p>
+<!-- toc -->
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="#%E6%9E%84%E5%BB%BA%E8%B7%AF%E7%94%B1">构建路由</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#%E5%93%8D%E5%BA%94json%E8%AF%B7%E6%B1%82">响应JSON请求</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#cjson">c.JSON()</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#%E5%93%8D%E5%BA%94josnp%E8%AF%B7%E6%B1%82">响应JOSNP请求</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#%E6%A8%A1%E6%9D%BF-template">模板 template</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#gin%E6%A8%A1%E6%9D%BF%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95">Gin模板基本语法</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#%E9%A2%84%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0">预定义函数</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E6%9D%BF%E5%87%BD%E6%95%B0">自定义模板函数</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#%E5%85%AC%E5%85%B1%E6%A8%A1%E6%9D%BF%E5%B5%8C%E5%A5%97template">公共模板(嵌套template)</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#%E9%9D%99%E6%80%81web%E6%9C%8D%E5%8A%A1">静态web服务</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#gin%E8%8E%B7%E5%8F%96%E6%9F%A5%E8%AF%A2%E5%8F%82%E6%95%B0">Gin获取查询参数</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#%E8%8E%B7%E5%8F%96post%E5%8F%82%E6%95%B0">获取POST参数</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#%E8%8E%B7%E5%8F%96get-post%E4%BC%A0%E9%80%92%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E5%88%B0%E7%BB%93%E6%9E%84%E4%BD%93">获取GET POST传递的数据绑定到结构体</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#%E8%8E%B7%E5%8F%96post-xml%E7%9A%84%E6%95%B0%E6%8D%AE">获取POST XML的数据</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#%E9%85%8D%E7%BD%AE%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1">配置动态路由</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#%E8%B7%AF%E7%94%B1%E5%88%86%E7%BB%84-%E8%B7%AF%E7%94%B1%E6%96%87%E4%BB%B6%E6%8A%BD%E7%A6%BB">路由分组 | 路由文件抽离</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#%E6%8E%A7%E5%88%B6%E5%99%A8%E6%8A%BD%E7%A6%BB">控制器抽离</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#%E6%8E%A7%E5%88%B6%E5%99%A8%E7%BB%A7%E6%89%BF">控制器继承</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#gin%E4%B8%AD%E9%97%B4%E4%BB%B6">Gin中间件</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0">文件上传</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#cookie">Cookie</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#%E5%A4%9A%E4%B8%AA%E4%BA%8C%E7%BA%A7%E5%9F%9F%E5%90%8D%E5%85%B1%E4%BA%ABcookie">多个二级域名共享Cookie</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#session">Session</a></p>
+</li>
+</ul>
+<!-- tocstop -->
+<h3><span id="构建路由">构建路由</span></h3>
+<p>RESTful API是目前比较成熟的一套互联网应用程序的API设计理论，设计我们的路由时建议参考RESTful API指南</p>
+<p>在RESTful架构中，每个网站代表一种资源，不同的请求方式表示执行不同的操作</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>从服务器取出资源(一项或多项)</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>在服务器新建一个资源</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>在服务器更新资源(客户端提供改变后完整的资源)</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>从服务器删除资源</td>
+</tr>
+</tbody>
+</table>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token string">"github.com/gin-gonic/gin"</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	<span class="token comment">//创建一个默认的路由引擎</span>
+	r <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token comment">// 配置路由</span>
+	r<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token string">"根目录"</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+	r<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/news"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token string">"新闻页面"</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+	r<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">"/posturl"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token string">"这是一个POST返回数据"</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// 启动HTTP服务，默认在8080端口</span>
+	r<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// 如果需要热加载的话需要安装fresh</span>
+<span class="token punctuation">&#125;</span> 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="响应json请求">响应JSON请求</span></h3>
+<h3><span id="cjson">c.JSON()</span></h3>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">r<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/json1"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">&#123;</span>
+			<span class="token string">"success"</span><span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+			<span class="token string">"msg"</span><span class="token punctuation">:</span>     <span class="token string">"This is json1"</span><span class="token punctuation">,</span>
+		<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+	r<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/json2"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">interface</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span> <span class="token comment">//此处需要两个参数，一个状态码，一个map类型的空接口，也可以用gin.H,H是map[string]interface&#123;&#125; 的快捷方式</span>
+			<span class="token string">"success"</span><span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+			<span class="token string">"msg"</span><span class="token punctuation">:</span>     <span class="token string">"This is json2"</span><span class="token punctuation">,</span>
+		<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4><span id="ginh">gin.H{}</span></h4>
+<p>在上述响应JSON请求中我们使用<code>gin.H&#123;&#125;</code>这个类型构造了一个键值对象，<code>gin.H&#123;&#125;</code>是一个<code>map[string]interface&#123;&#125;</code>,该类型帮助开发者很方便的构建出一个map对象，不只用于<code>c.JSON</code>方法，也可以用于其他场景</p>
+<h3><span id="响应josnp请求">响应JOSNP请求</span></h3>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">r<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/jsonp"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	c<span class="token punctuation">.</span><span class="token function">JSONP</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">interface</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>
+		<span class="token string">"success"</span><span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+		<span class="token string">"msg"</span><span class="token punctuation">:</span>     <span class="token string">"This is jsonp"</span><span class="token punctuation">,</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4><span id="什么是jsonp">什么是JSONP</span></h4>
+<p>JSONP是一种跨域数据访问技术，它允许在一个域名下使用脚本来获取来自另一个域名下的JSON数据，通常用于第三放服务获取数据</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>只支持GET</p>
+</li>
+</ul>
+<p>JSONP的基本利用原理是利用script标签的跨域特性，通过动态创建script标签，以URL的形式加载远程的JSON数据，通过执行回调函数的方式将获取到的JSON数据传到客户端</p>
+<blockquote>
+<p>总的来说，JSON是一种数据格式，JSONP是一种数据传输协议。JSONP是一种为解决跨域访问数据而生的一种技术方案</p>
+</blockquote>
+<h3><span id="模板-template">模板 template</span></h3>
+<h4><span id="模板放在不同目录里面的配置方法">模板放在不同目录里面的配置方法</span></h4>
+<p>Gin框架如果不同目录下有同名的模板的话我们需要用<code>define</code>协助定义</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">&#123;&#123;define "admin/index.html"&#125;&#125;
+
+xxx
+
+&#123;&#123;end&#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>相当于给模板定义一个名字，define end成对出现</p>
+<h3><span id="gin模板基本语法">Gin模板基本语法</span></h3>
+<h4><span id="输出数据">输出数据</span></h4>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token punctuation">.</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4><span id="比较函数">比较函数</span></h4>
+<table>
+<thead>
+<tr>
+<th>比较函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>eq</td>
+<td>如果arg1 == arg2，返回true</td>
+</tr>
+<tr>
+<td>ne</td>
+<td>如果arg1 != arg2，返回true</td>
+</tr>
+<tr>
+<td>lt</td>
+<td>如果arg1 &lt; arg2，返回true</td>
+</tr>
+<tr>
+<td>le</td>
+<td>如果arg1 &lt;= arg2，返回true</td>
+</tr>
+<tr>
+<td>gt</td>
+<td>如果arg1 &gt; arg2，返回true</td>
+</tr>
+<tr>
+<td>ge</td>
+<td>如果arg1 &gt;= arg2，返回true</td>
+</tr>
+</tbody>
+</table>
+<h4><span id="条件判断">条件判断</span></h4>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token keyword">if</span> pipeline<span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span> T1 <span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span>end<span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token keyword">if</span> pipeline<span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span> T1 <span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token keyword">else</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span> T0 <span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span>end<span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token keyword">if</span> pipeline<span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span> T1 <span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token keyword">else</span> <span class="token keyword">if</span> pipeline<span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span> T0 <span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token keyword">else</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span> T2 <span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span>end<span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4><span id="循环">循环</span></h4>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token keyword">range</span> $key<span class="token punctuation">,</span>$value <span class="token operator">:=</span> <span class="token punctuation">.</span>obj<span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span>$value<span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token keyword">else</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span>pipeline的值其长度为<span class="token number">0</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span>end<span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>实例</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">r<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/admin"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	c<span class="token punctuation">.</span><span class="token function">HTML</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> <span class="token string">"admin/login.html"</span><span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">&#123;</span>
+		<span class="token string">"title"</span><span class="token punctuation">:</span> <span class="token string">"这是admin首页"</span><span class="token punctuation">,</span>
+		<span class="token string">"score"</span><span class="token punctuation">:</span> <span class="token number">80</span><span class="token punctuation">,</span>
+		<span class="token string">"hobby"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">&#123;</span><span class="token string">"吃饭"</span><span class="token punctuation">,</span> <span class="token string">"睡觉"</span><span class="token punctuation">,</span> <span class="token string">"写代码"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token comment">//创建数组</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">></span></span>
+    &#123;&#123;range $key,$value := .hobby&#125;&#125;
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>&#123;&#123;$key&#125;&#125; : &#123;&#123;$value&#125;&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+    &#123;&#123;end&#125;&#125;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://pic.imgdb.cn/item/63f0f8bff144a01007863734.jpg" alt></p>
+<h4><span id="结构体循环打印">结构体循环打印</span></h4>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">r<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/dnews"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	news <span class="token operator">:=</span> <span class="token operator">&amp;</span>Article<span class="token punctuation">&#123;</span>
+		Title<span class="token punctuation">:</span>   <span class="token string">"观众看到的新闻标题"</span><span class="token punctuation">,</span>
+		Content<span class="token punctuation">:</span> <span class="token string">"观众看到的新闻内容"</span><span class="token punctuation">,</span>
+	<span class="token punctuation">&#125;</span>
+	c<span class="token punctuation">.</span><span class="token function">HTML</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> <span class="token string">"default/news.html"</span><span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">&#123;</span>
+		<span class="token string">"title"</span><span class="token punctuation">:</span> <span class="token string">"这是default新闻页面"</span><span class="token punctuation">,</span>
+		<span class="token string">"news"</span><span class="token punctuation">:</span>  news<span class="token punctuation">,</span>
+		<span class="token string">"newslist"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token keyword">interface</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span> <span class="token comment">//定义了一个空接口，用于存结构体</span>
+			<span class="token operator">&amp;</span>Article<span class="token punctuation">&#123;</span>
+				Title<span class="token punctuation">:</span>   <span class="token string">"观众看到的新闻标题-1"</span><span class="token punctuation">,</span>
+				Content<span class="token punctuation">:</span> <span class="token string">"观众看到的新闻内容-1"</span><span class="token punctuation">,</span>
+			<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+			<span class="token operator">&amp;</span>Article<span class="token punctuation">&#123;</span>
+				Title<span class="token punctuation">:</span>   <span class="token string">"观众看到的新闻标题-2"</span><span class="token punctuation">,</span>
+				Content<span class="token punctuation">:</span> <span class="token string">"观众看到的新闻内容-2"</span><span class="token punctuation">,</span>
+			<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+		<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">></span></span>
+    &#123;&#123;range $key, $value := .newslist&#125;&#125;
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>&#123;&#123;$key&#125;&#125; &#123;&#123;$value.Title&#125;&#125; : &#123;&#123;$value.Content&#125;&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+    &#123;&#123;end&#125;&#125;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://pic.imgdb.cn/item/63f0fb23f144a010078a4f7a.jpg" alt></p>
+<h4><span id="with">with</span></h4>
+<p>解构结构体</p>
+<h3><span id="预定义函数">预定义函数</span></h3>
+<p>执行模板时，函数从两个函数字典中查找：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>模板函数字典</p>
+</li>
+<li class="lvl-2">
+<p>全局函数字典</p>
+</li>
+</ul>
+<p>一般不在模板内定义函数，而是使用<code>Funcs</code>方法添加函数到模板里</p>
+<h4><span id="add">add</span></h4>
+<p>函数返回它的第一个空参数或者最后一个参数</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">and x y <span class="token operator">&lt;=</span><span class="token operator">></span> <span class="token keyword">if</span> x then y <span class="token keyword">else</span> x<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4><span id="or">or</span></h4>
+<p>返回第一个非空参数或者最后一个参数</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">or x y <span class="token operator">&lt;=</span><span class="token operator">></span> <span class="token keyword">if</span> x then x <span class="token keyword">else</span> y<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4><span id="not">not</span></h4>
+<p>返回它单个参数的布尔否定值</p>
+<h4><span id="len">len</span></h4>
+<p>返回它的参数的类型长度</p>
+<h4><span id="index">index</span></h4>
+<p>执行结果为 第一个参数以剩下的参数为索引/键 指向的值</p>
+<h3><span id="自定义模板函数">自定义模板函数</span></h3>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">//提前写好自定义函数</span>
+<span class="token keyword">func</span> <span class="token function">UnixToTime</span><span class="token punctuation">(</span>timestamp <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">&#123;</span>
+	t <span class="token operator">:=</span> time<span class="token punctuation">.</span><span class="token function">Unix</span><span class="token punctuation">(</span><span class="token function">int64</span><span class="token punctuation">(</span>timestamp<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+	<span class="token keyword">return</span> t<span class="token punctuation">.</span><span class="token function">Format</span><span class="token punctuation">(</span><span class="token string">"2006-01-02 15:04:05"</span><span class="token punctuation">)</span> <span class="token comment">//注意这是固定的格式</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    r <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token comment">//自定义函数 ：放在创建默认路由引擎后，加载模板前</span>
+	r<span class="token punctuation">.</span><span class="token function">SetFuncMap</span><span class="token punctuation">(</span>template<span class="token punctuation">.</span>FuncMap<span class="token punctuation">&#123;</span>
+		<span class="token string">"UnixToTime"</span><span class="token punctuation">:</span> UnixToTime<span class="token punctuation">,</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+	<span class="token comment">//加载模板</span>
+	r<span class="token punctuation">.</span><span class="token function">LoadHTMLGlob</span><span class="token punctuation">(</span><span class="token string">"templates/*/*"</span><span class="token punctuation">)</span>
+	
+	r<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/admin"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		c<span class="token punctuation">.</span><span class="token function">HTML</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> <span class="token string">"admin/login.html"</span><span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">&#123;</span>
+			<span class="token string">"title"</span><span class="token punctuation">:</span>    <span class="token string">"这是admin首页"</span><span class="token punctuation">,</span>
+			<span class="token string">"score"</span><span class="token punctuation">:</span>    <span class="token number">80</span><span class="token punctuation">,</span>
+			<span class="token string">"hobby"</span><span class="token punctuation">:</span>    <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">&#123;</span><span class="token string">"吃饭"</span><span class="token punctuation">,</span> <span class="token string">"睡觉"</span><span class="token punctuation">,</span> <span class="token string">"写代码"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token comment">//创建数组</span>
+			<span class="token string">"unixtime"</span><span class="token punctuation">:</span> <span class="token number">1676777941</span><span class="token punctuation">,</span> <span class="token comment">//传入unix时间戳数据</span>
+		<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>需要注意的点是自定义函数声明的位置 ： 放在创建默认路由引擎后，加载模板前</p>
+<h3><span id="公共模板嵌套template">公共模板(嵌套template)</span></h3>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">&#123;&#123;define "public/PageHeader.html"&#125;&#125;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css">
+    <span class="token selector">h1</span><span class="token punctuation">&#123;</span>
+        <span class="token property">background-color</span><span class="token punctuation">:</span> #000<span class="token punctuation">;</span>
+        <span class="token property">color</span><span class="token punctuation">:</span> #fff<span class="token punctuation">;</span>
+        <span class="token property">text-align</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span> Welcome to my world<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+&#123;&#123;end&#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">&#123;&#123;define "default/index.html"&#125;&#125;
+<span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>X-UA-Compatible<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>IE=edge<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width=device-width, initial-scale=1.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Document<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    &#123;&#123;template "public/PageHeader.html"&#125;&#125; 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>--!--</span><span class="token punctuation">></span></span>此处嵌套了template "public/PageHeader.html"<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>--!--</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>This is Default index.html<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span><span class="token punctuation">></span></span>&#123;&#123;.title&#125;&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">></span></span>
+    &#123;&#123;template "public/PageFooter.html"&#125;&#125;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+
+&#123;&#123;end&#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>index.html</p>
+<p><img src="https://pic.imgdb.cn/item/63f1ae8ff144a01007663a53.jpg" alt></p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">&#123;&#123;define "admin/login.html"&#125;&#125;
+<span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>X-UA-Compatible<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>IE=edge<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width=device-width, initial-scale=1.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Document<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    &#123;&#123;template "public/PageHeader.html"&#125;&#125;
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>This is Admin login.html<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span><span class="token punctuation">></span></span>&#123;&#123;.title&#125;&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- 条件判断 --></span>
+    &#123;&#123;if ge .score 60&#125;&#125;
+    及格了捏
+    &#123;&#123;else&#125;&#125;
+    不及格哦
+    &#123;&#123;end&#125;&#125;
+    <span class="token comment">&lt;!-- 循环 --></span>
+    
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">></span></span>
+        &#123;&#123;range $key,$value := .hobby&#125;&#125;
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>&#123;&#123;$key&#125;&#125; : &#123;&#123;$value&#125;&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+        &#123;&#123;end&#125;&#125;
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">></span></span>
+    &#123;&#123;.unixtime&#125;&#125;
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">></span></span>
+    &#123;&#123;UnixToTime .unixtime&#125;&#125;
+    &#123;&#123;template "public/PageFooter.html"&#125;&#125;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+&#123;&#123;end&#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>login.html</p>
+<p><img src="https://pic.imgdb.cn/item/63f1af01f144a0100766e429.jpg" alt></p>
+<h3><span id="静态web服务">静态web服务</span></h3>
+<h4><span id="加载文件">加载文件</span></h4>
+<p>配置web静态目录，第一个参数表示路由，第二个参数表示映射的目录</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">//配置静态路由</span>
+r<span class="token punctuation">.</span><span class="token function">Static</span><span class="token punctuation">(</span><span class="token string">"/xxxx"</span><span class="token punctuation">,</span> <span class="token string">"./static"</span><span class="token punctuation">)</span>
+<span class="token comment">// 实例</span>
+r<span class="token punctuation">.</span><span class="token function">Static</span><span class="token punctuation">(</span><span class="token string">"/static"</span><span class="token punctuation">,</span> <span class="token string">"./static"</span><span class="token punctuation">)</span> <span class="token comment">//第二个参数表示映射的目录</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>index.html,我们在index.html中引入这个css</p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span>define <span class="token string">"default/index.html"</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+<span class="token selector">&lt;!DOCTYPE html>
+&lt;html lang="en">
+&lt;head>
+    &lt;meta charset="UTF-8">
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=edge">
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0">
+    &lt;title>Document&lt;/title>
+    &lt;link rel="stylesheet" href="/static/css/base.css">
+    &lt;!-- 引入"static/css/base.css" -->
+&lt;/head>
+&lt;body></span>
+    <span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span>template <span class="token string">"public/PageHeader.html"</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+    <span class="token selector">&lt;h1>This is Default index.html&lt;/h1>
+    &lt;h2></span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span>.title<span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token selector">&lt;/h2></span>
+    <span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span>template <span class="token string">"public/PageFooter.html"</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+<span class="token selector">&lt;/body>
+&lt;/html></span>
+
+<span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span>end<span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过路径<code>/static/css/base.css</code>访问该CSS文件</p>
+<pre class="line-numbers language-http" data-language="http"><code class="language-http"><span class="token header"><span class="token header-name keyword">http</span><span class="token punctuation">:</span><span class="token header-value">//127.0.0.1:8080/static/css/base.css</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="https://pic.imgdb.cn/item/63f1d3a7f144a01007a1826d.jpg" alt></p>
+<p>由于index.html引入了该css文件，我们可以看到index.html上的h1和h2的样式发生了改变</p>
+<p><img src="https://pic.imgdb.cn/item/63f1d534f144a01007a3c8d2.jpg" alt></p>
+<h4><span id="加载图片">加载图片</span></h4>
+<p>将图片放置在目标路径下之后，在html代码中引入图片</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">&#123;&#123;define "default/index.html"&#125;&#125;
+<span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>X-UA-Compatible<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>IE=edge<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width=device-width, initial-scale=1.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Document<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/static/css/base.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- 引入"static/css/base.css"，注意最好在最前面加上'/'，这样是突出目标文件和根目录的关系，以免出错 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    &#123;&#123;template "public/PageHeader.html"&#125;&#125;
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>This is Default index.html<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span><span class="token punctuation">></span></span>&#123;&#123;.title&#125;&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- 在此处放置图片 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/static/img/test.png<span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    &#123;&#123;template "public/PageFooter.html"&#125;&#125;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+
+&#123;&#123;end&#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://pic.imgdb.cn/item/63f1d6d0f144a01007a5e0c1.jpg" alt></p>
+<h3><span id="gin获取查询参数">Gin获取查询参数</span></h3>
+<h4><span id="query">Query</span></h4>
+<p>Querystring parameters，查询参数</p>
+<p>使用方法</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">r<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	username <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">Query</span><span class="token punctuation">(</span><span class="token string">"username"</span><span class="token punctuation">)</span>
+	age <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">Query</span><span class="token punctuation">(</span><span class="token string">"age"</span><span class="token punctuation">)</span>
+	page <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">DefaultQuery</span><span class="token punctuation">(</span><span class="token string">"page"</span><span class="token punctuation">,</span> <span class="token string">"1"</span><span class="token punctuation">)</span> <span class="token comment">//DefaultQuery(key string, defaultValue string) string</span>
+	c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">&#123;</span>
+		<span class="token string">"username"</span><span class="token punctuation">:</span> username<span class="token punctuation">,</span>
+		<span class="token string">"age"</span><span class="token punctuation">:</span>      age<span class="token punctuation">,</span>
+		<span class="token string">"page"</span><span class="token punctuation">:</span>     page<span class="token punctuation">,</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>配置了三个接收参数，<code>uesenmae</code>,<code>age</code>,<code>page</code>，请求URL</p>
+<pre class="line-numbers language-http" data-language="http"><code class="language-http"><span class="token header"><span class="token header-name keyword">http</span><span class="token punctuation">:</span><span class="token header-value">//127.0.0.1:8080/?username=AnatomyX&amp;age=21&amp;page=17</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>返回</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span><span class="token property">"age"</span><span class="token operator">:</span><span class="token string">"21"</span><span class="token punctuation">,</span><span class="token property">"page"</span><span class="token operator">:</span><span class="token string">"17"</span><span class="token punctuation">,</span><span class="token property">"username"</span><span class="token operator">:</span><span class="token string">"AnatomyX"</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3><span id="获取post参数">获取POST参数</span></h3>
+<p>我们先创建一个获取POST数据的路由(们)</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>r.GET(“/user”, func(…)) 负责展示访问<code>/user</code>后的页面</p>
+</li>
+<li class="lvl-2">
+<p>r.POST(‘/AddUser’, func(xxx)) 负责在响应了<code>/AddUser</code>事件后，获取POST数据</p>
+</li>
+</ul>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">//POST提交数据,访问/user，填写表单</span>
+	r<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/user"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token comment">//设置访问/user时显示的页面</span>
+		c<span class="token punctuation">.</span><span class="token function">HTML</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token string">"default/user.html"</span><span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+		<span class="token comment">//func (*gin.Context).HTML(code int, name string, obj any)</span>
+		<span class="token comment">//每次写这种方法的时候就是要注意具体的参数</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+	<span class="token comment">//当'/user'页面点击了'提交'后，获取POST的数据</span>
+	r<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">"/AddUser"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">//注意是r.POST</span>
+		<span class="token comment">//通过PosTForM获取表单数据</span>
+		username <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">PostForm</span><span class="token punctuation">(</span><span class="token string">"username"</span><span class="token punctuation">)</span> <span class="token comment">//获取username的数据,赋值给username</span>
+		password <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">PostForm</span><span class="token punctuation">(</span><span class="token string">"password"</span><span class="token punctuation">)</span> <span class="token comment">//获取password的数据,赋值给password</span>
+		<span class="token comment">//以JSON的格式输出</span>
+		c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">&#123;</span>
+			<span class="token string">"username"</span><span class="token punctuation">:</span> username<span class="token punctuation">,</span>
+			<span class="token string">"password"</span><span class="token punctuation">:</span> password<span class="token punctuation">,</span>
+		<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>并以JSON的方式输出</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">&#123;&#123;define "default/user.html"&#125;&#125;
+<span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>X-UA-Compatible<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>IE=edge<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width=device-width, initial-scale=1.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Document<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- 定义一个form表单 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>AddUser<span class="token punctuation">"</span></span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>post<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token comment">&lt;!-- 绑定username --></span>
+        Username: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span><span class="token punctuation">></span></span> 
+        <span class="token comment">&lt;!-- 绑定password --></span>
+        Password: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Submit<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+
+&#123;&#123;end&#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这样当我们在<code>/user</code>页面填完表单后，会跳转到<code>/AddUser</code>这个页面以JSON的格式输出我们刚刚POST提交的数据</p>
+<p><img src="https://pic.imgdb.cn/item/63f25235f144a01007742e7f.jpg" alt></p>
+<h3><span id="获取get-post传递的数据绑定到结构体">获取GET POST传递的数据绑定到结构体</span></h3>
+<h4><span id="cshouldbind">c.ShouldBind()</span></h4>
+<p>c.ShouldBind()可以更好的控制绑定</p>
+<p>支持绑定<code>urlencoded form</code>和<code>multipart form</code></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>如果是<code>GET</code>请求，只使用<code>Form</code>绑定引擎(<code>query</code>)</p>
+</li>
+<li class="lvl-2">
+<p>如果是<code>POST</code>请求，首先检查<code>content-type</code>是否为<code>JSON</code>或者<code>XML</code>，然后再使用<code>Form</code>绑定到结构体</p>
+</li>
+</ul>
+<p>首先定义一个结构体，并打上标签</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">//将GET POST传递的数据绑定到结构体 - 创建结构体</span>
+<span class="token keyword">type</span> UserInfo <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+	Username <span class="token builtin">string</span> <span class="token string">`json:"username" form:"username"`</span> <span class="token comment">//切记不要冒号":"后 空一格，这是有格式规定的</span>
+	Password <span class="token builtin">string</span> <span class="token string">`json:"password" form:"password"`</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里一定要注意标签的格式，不要擅自在<code>:</code>后加一个空格(space)</p>
+<h4><span id="将get传递的值绑定到结构体">将GET传递的值绑定到结构体</span></h4>
+<p>main.go</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">//获取GET传递的值绑定到结构体</span>
+r<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/getUser"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	<span class="token comment">//实例化结构体</span>
+	user <span class="token operator">:=</span> <span class="token operator">&amp;</span>UserInfo<span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+	<span class="token keyword">if</span> err <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">ShouldBind</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"%#v"</span><span class="token punctuation">,</span> user<span class="token punctuation">)</span> <span class="token comment">//%#v 先输出结构体名字，再输出结构体(字段名字+字段值)</span>
+		c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> user<span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+		c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">&#123;</span>
+			<span class="token string">"err"</span><span class="token punctuation">:</span> err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>user.html</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">&#123;&#123;define "default/user.html"&#125;&#125;
+<span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>X-UA-Compatible<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>IE=edge<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width=device-width, initial-scale=1.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Document<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- 定义一个form表单 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/getUser<span class="token punctuation">"</span></span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>post<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token comment">&lt;!-- 绑定username --></span>
+        Username: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span><span class="token punctuation">></span></span> 
+        <span class="token comment">&lt;!-- 绑定password --></span>
+        Password: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Submit<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+
+&#123;&#123;end&#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4><span id="将post传递的值绑定到结构体">将POST传递的值绑定到结构体</span></h4>
+<p>main.go</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">//获取POST传递的值绑定到结构体</span>
+r<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">"/postUser"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	<span class="token comment">//实例化结构体</span>
+	user <span class="token operator">:=</span> <span class="token operator">&amp;</span>UserInfo<span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+	<span class="token keyword">if</span> err <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">ShouldBind</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"%#v"</span><span class="token punctuation">,</span> user<span class="token punctuation">)</span>
+		c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> user<span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+		c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">&#123;</span>
+			<span class="token string">"err"</span><span class="token punctuation">:</span> err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">&#123;&#123;define "default/user.html"&#125;&#125;
+<span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>X-UA-Compatible<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>IE=edge<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width=device-width, initial-scale=1.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Document<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- 定义一个form表单 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/postUser<span class="token punctuation">"</span></span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>post<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token comment">&lt;!-- 绑定username --></span>
+        Username: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span><span class="token punctuation">></span></span> 
+        <span class="token comment">&lt;!-- 绑定password --></span>
+        Password: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Submit<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+
+&#123;&#123;end&#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="获取post-xml的数据">获取POST XML的数据</span></h3>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">//获取 POST XML数据</span>
+	r<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">"/xml"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		article <span class="token operator">:=</span> <span class="token operator">&amp;</span>Article<span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+		xmlSliceData<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">GetRawData</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">//从c.Request.Body读取请求数据，返回[]byte切片</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"xmlSliceData:"</span><span class="token punctuation">,</span> xmlSliceData<span class="token punctuation">)</span>
+		<span class="token keyword">if</span> err <span class="token operator">:=</span> xml<span class="token punctuation">.</span><span class="token function">Unmarshal</span><span class="token punctuation">(</span>xmlSliceData<span class="token punctuation">,</span> <span class="token operator">&amp;</span>article<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+			<span class="token comment">// xml.Unmarshal接收到的数据xmlSliceData解构，按照article的参数读取，并存值到&amp;article</span>
+			c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> article<span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+			c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusBadRequest<span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">&#123;</span>
+				<span class="token string">"err"</span><span class="token punctuation">:</span> err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+			<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span>
+
+	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>当我们向<code>127.0.0.1/xml</code>通过<code>POST</code>的方式传递xml的数据包</p>
+<h3><span id="配置动态路由">配置动态路由</span></h3>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// 动态路由</span>
+r<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/dynamicRouting/:cid"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	cid <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">Param</span><span class="token punctuation">(</span><span class="token string">"cid"</span><span class="token punctuation">)</span>
+	c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> <span class="token string">"%v"</span><span class="token punctuation">,</span> cid<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里通过<code>/:cid</code>即设置了动态路由，我们通过以下类型访问</p>
+<pre class="line-numbers language-http" data-language="http"><code class="language-http">127.0.0.1/dynamicRouting/123
+127.0.0.1/dynamicRouting/124
+127.0.0.1/dynamicRouting/125<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>会得到类似以下回显</p>
+<p><img src="https://pic.imgdb.cn/item/63f33296f144a0100778a577.jpg" alt></p>
+<h4><span id="动态路由的适用情景">动态路由的适用情景</span></h4>
+<p>以下回答来自ChatGPT</p>
+<hr>
+<p>动态路由在以下情境中非常有用：</p>
+<ol>
+<li class="lvl-3">
+<p>多租户应用程序：在多租户应用程序中，不同的租户可能需要不同的路由规则，例如使用不同的域名或子域名来访问他们的应用程序。在这种情况下，动态路由可以允许您根据租户身份动态更改路由规则，从而使请求得到正确的处理。</p>
+</li>
+<li class="lvl-3">
+<p>A/B测试：在A/B测试期间，您可能需要将一小部分的流量引导到不同的代码路径上，以测试新功能或改进。动态路由允许您根据用户ID、IP地址或其他标识符将流量路由到不同的代码路径上，以进行测试或实验。</p>
+</li>
+<li class="lvl-3">
+<p>负载均衡：动态路由还可以用于负载均衡。您可以根据服务器的可用性或负载情况来动态更改路由规则，从而将流量均衡分配到不同的服务器上。</p>
+</li>
+<li class="lvl-3">
+<p>动态API网关：在API网关中，动态路由可用于根据不同的URL路径、HTTP方法或其他标识符将请求路由到不同的后端服务上。这种动态路由的灵活性使得API网关可以适应快速变化的需求和不断扩展的后端服务。</p>
+</li>
+</ol>
+<p>总之，动态路由可以使您根据需要动态地更改路由规则，从而使您的应用程序更加灵活和可扩展。</p>
+<hr>
+<h3><span id="路由分组-路由文件抽离">路由分组 | 路由文件抽离</span></h3>
+<p>main.go</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">"RoutingGroupandRouting/routers"</span>
+
+	<span class="token string">"github.com/gin-gonic/gin"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	<span class="token comment">//创建一个默认的路由引擎</span>
+	r <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	routers<span class="token punctuation">.</span><span class="token function">DefaultRoutersInit</span><span class="token punctuation">(</span>r<span class="token punctuation">)</span>
+	routers<span class="token punctuation">.</span><span class="token function">AdminRoutersInit</span><span class="token punctuation">(</span>r<span class="token punctuation">)</span>
+	routers<span class="token punctuation">.</span><span class="token function">ApiRoutersInit</span><span class="token punctuation">(</span>r<span class="token punctuation">)</span>
+	r<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>/routers/defaultRouters.go</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> routers
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">"net/http"</span>
+
+	<span class="token string">"github.com/gin-gonic/gin"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">DefaultRoutersInit</span><span class="token punctuation">(</span>r <span class="token operator">*</span>gin<span class="token punctuation">.</span>Engine<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	defaultRouters <span class="token operator">:=</span> r<span class="token punctuation">.</span><span class="token function">Group</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#123;</span>
+		defaultRouters<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> <span class="token string">"this is defaultRouters's home page"</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+		defaultRouters<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/news"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> <span class="token string">"this is defaultRouters's news page"</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+		defaultRouters<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/article"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> <span class="token string">"this is defaultRouters's article page"</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>/routers/adminRouters.go</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> routers
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">"net/http"</span>
+
+	<span class="token string">"github.com/gin-gonic/gin"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">AdminRoutersInit</span><span class="token punctuation">(</span>r <span class="token operator">*</span>gin<span class="token punctuation">.</span>Engine<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	adminRouters <span class="token operator">:=</span> r<span class="token punctuation">.</span><span class="token function">Group</span><span class="token punctuation">(</span><span class="token string">"/admin"</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#123;</span>
+		adminRouters<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> <span class="token string">"this is admin's home page"</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+		adminRouters<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/users"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> <span class="token string">"this is admin's users page"</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+		adminRouters<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/article"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> <span class="token string">"this is admin's article page"</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>/router/apiRouters</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> routers
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">"net/http"</span>
+
+	<span class="token string">"github.com/gin-gonic/gin"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">ApiRoutersInit</span><span class="token punctuation">(</span>r <span class="token operator">*</span>gin<span class="token punctuation">.</span>Engine<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	apiRouter <span class="token operator">:=</span> r<span class="token punctuation">.</span><span class="token function">Group</span><span class="token punctuation">(</span><span class="token string">"/api"</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#123;</span>
+		apiRouter<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> <span class="token string">"this is the api's home page"</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+		apiRouter<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/users"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> <span class="token string">"this is users' api page"</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+		apiRouter<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/admin"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> <span class="token string">"this is admin's api page"</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="控制器抽离">控制器抽离</span></h3>
+<p>这里只简单创建了一个控制器抽离的情况</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">├─controllers
+│  ├─admin
+│  │      userController.go
+│  │
+│  ├─api
+│  └─frontEnd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们创建放置控制器的文件夹<code>controllers</code>，下方依次根据控制器的从属关系和作用创建文件夹和控制器go文件，例如这里只抽离了admin中user相关的控制器</p>
+<p>RoutingGroupandRouting/controllers/admin/userController.go</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> admin
+
+<span class="token keyword">import</span> <span class="token string">"github.com/gin-gonic/gin"</span>
+
+<span class="token keyword">func</span> <span class="token function">UserShow</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token string">"this is show user function"</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">func</span> <span class="token function">UserAdd</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token string">"this is add user function"</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">func</span> <span class="token function">UserArticle</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token string">"this is user's article function"</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>adminRouters.go</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> routers
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">"RoutingGroupandRouting/controllers/admin"</span>
+	<span class="token string">"net/http"</span>
+
+	<span class="token string">"github.com/gin-gonic/gin"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">AdminRoutersInit</span><span class="token punctuation">(</span>r <span class="token operator">*</span>gin<span class="token punctuation">.</span>Engine<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	adminRouters <span class="token operator">:=</span> r<span class="token punctuation">.</span><span class="token function">Group</span><span class="token punctuation">(</span><span class="token string">"/admin"</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#123;</span>
+		adminRouters<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> <span class="token string">"this is admin's home page"</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+		adminRouters<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/users"</span><span class="token punctuation">,</span> admin<span class="token punctuation">.</span>UserShow<span class="token punctuation">)</span>
+		adminRouters<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/article"</span><span class="token punctuation">,</span> admin<span class="token punctuation">.</span>UserArticle<span class="token punctuation">)</span>
+		adminRouters<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/useradd"</span><span class="token punctuation">,</span> admin<span class="token punctuation">.</span>UserAdd<span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>路由分组、路由文件抽离、控制器抽离，这些都是为了方便小组开发，毕竟如果项目很大是不可能一个人开发完的。如果全部写在一个文件里面，多人开发起来就是个问题，所以才会有<code>路由文件抽离</code>，<code>控制器抽离</code>等，让外部文件里面的方法来处理对应的业务逻辑</p>
+<p><img src="https://pic.imgdb.cn/item/63f3708ff144a01007dde0a1.jpg" alt></p>
+<h3><span id="控制器继承">控制器继承</span></h3>
+<p>userController.go</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// 控制器继承</span>
+<span class="token keyword">type</span> UserController <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>con UserController<span class="token punctuation">)</span> <span class="token function">Show</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token string">"this is show user function"</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>adminRouters.go</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">adminRouters<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/users"</span><span class="token punctuation">,</span> admin<span class="token punctuation">.</span>UserController<span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">.</span>Show<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>用结构体来实现控制器的继承这种方法实则是模拟大型项目的目录规范化</p>
+<h3><span id="gin中间件">Gin中间件</span></h3>
+<p>Gin框架允许开发者在处理请求的过程中，加入自己的hook函数，这个hook函数就叫中间件，中间件适合处理一些公共的业务逻辑，比如登录认证，权限校验，数据分页，记录日志，耗时统计等等</p>
+<p>通俗的讲：中间件就是匹配路由前和匹配路由完成后执行的一系列操作</p>
+<p>adminRouters.go</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> routers
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">"RoutingGroupandRouting/controllers/admin"</span>
+	<span class="token string">"fmt"</span>
+	<span class="token string">"net/http"</span>
+
+	<span class="token string">"github.com/gin-gonic/gin"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">initMiddleware</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"this is initMiddleware"</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span> <span class="token comment">//我们在此处定义了一个中间件函数，放在下文路由请求的前面，这样在请求路由之前就会执行中间件函数</span>
+
+<span class="token keyword">func</span> <span class="token function">AdminRoutersInit</span><span class="token punctuation">(</span>r <span class="token operator">*</span>gin<span class="token punctuation">.</span>Engine<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	adminRouters <span class="token operator">:=</span> r<span class="token punctuation">.</span><span class="token function">Group</span><span class="token punctuation">(</span><span class="token string">"/admin"</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#123;</span>
+		adminRouters<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">,</span> initMiddleware<span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> <span class="token string">"this is admin's home page"</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+		adminRouters<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/users"</span><span class="token punctuation">,</span> initMiddleware<span class="token punctuation">,</span> admin<span class="token punctuation">.</span>UserController<span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">.</span>Show<span class="token punctuation">)</span>
+		adminRouters<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/article"</span><span class="token punctuation">,</span> initMiddleware<span class="token punctuation">,</span> admin<span class="token punctuation">.</span>UserArticle<span class="token punctuation">)</span>
+		adminRouters<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/useradd"</span><span class="token punctuation">,</span> initMiddleware<span class="token punctuation">,</span> admin<span class="token punctuation">.</span>UserAdd<span class="token punctuation">)</span>
+		adminRouters<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/error"</span><span class="token punctuation">,</span> initMiddleware<span class="token punctuation">,</span> admin<span class="token punctuation">.</span>UserController<span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">.</span>Error<span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://pic.imgdb.cn/item/63f386d5f144a01007183857.jpg" alt></p>
+<h3><span id="文件上传">文件上传</span></h3>
+<p>main.go</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// 本代码展示了Gin中的文件上传</span>
+<span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">"log"</span>
+	<span class="token string">"net/http"</span>
+	<span class="token string">"path"</span>
+
+	<span class="token string">"github.com/gin-gonic/gin"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	r <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token comment">// 为multipart forms设置较低的内存限制(默认32MiB)</span>
+	r<span class="token punctuation">.</span>MaxMultipartMemory <span class="token operator">=</span> <span class="token number">8</span> <span class="token operator">&lt;&lt;</span> <span class="token number">20</span>
+
+	<span class="token comment">//切记要加载模板</span>
+	r<span class="token punctuation">.</span><span class="token function">LoadHTMLGlob</span><span class="token punctuation">(</span><span class="token string">"template/**/*"</span><span class="token punctuation">)</span>
+
+	r<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		c<span class="token punctuation">.</span><span class="token function">HTML</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> <span class="token string">"web/index.html"</span><span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+	r<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/upload"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		c<span class="token punctuation">.</span><span class="token function">HTML</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> <span class="token string">"web/upload.html"</span><span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+	r<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">"/uploadFile"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token comment">//通过PostForm获取传过来的username</span>
+		username <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">PostForm</span><span class="token punctuation">(</span><span class="token string">"username"</span><span class="token punctuation">)</span>
+		<span class="token comment">//通过FormFile获取传过来的file文件</span>
+		file<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">FormFile</span><span class="token punctuation">(</span><span class="token string">"avatar"</span><span class="token punctuation">)</span> <span class="token comment">//返回两个参数，*multipart.FileHeader, error</span>
+		log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>file<span class="token punctuation">.</span>Filename<span class="token punctuation">)</span>
+
+		dst <span class="token operator">:=</span> path<span class="token punctuation">.</span><span class="token function">Join</span><span class="token punctuation">(</span><span class="token string">"./static/uploadfile"</span><span class="token punctuation">,</span> file<span class="token punctuation">.</span>Filename<span class="token punctuation">)</span> <span class="token comment">//设置保存路径</span>
+		c<span class="token punctuation">.</span><span class="token function">SaveUploadedFile</span><span class="token punctuation">(</span>file<span class="token punctuation">,</span> dst<span class="token punctuation">)</span>
+		<span class="token comment">// c.String(http.StatusOK, fmt.Sprintf("'%s' uploaded!", file.Filename))</span>
+		c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">&#123;</span>
+			<span class="token string">"success"</span><span class="token punctuation">:</span>  <span class="token boolean">true</span><span class="token punctuation">,</span>
+			<span class="token string">"username"</span><span class="token punctuation">:</span> username<span class="token punctuation">,</span>
+			<span class="token string">"dst"</span><span class="token punctuation">:</span>      dst<span class="token punctuation">,</span>
+		<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+		<span class="token comment">//可以在写完整的业务代码之前看看是否页面会跳转到此处，经过检验是没有问题的</span>
+		<span class="token comment">// c.String(200, "Upload successfully")</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+	r<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>upload.html</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">&#123;&#123;define "web/upload.html"&#125;&#125;
+
+<span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>X-UA-Compatible<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>IE=edge<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width=device-width, initial-scale=1.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Document<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>this is an upload page !<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- action: 提交后执行的函数 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/uploadFile<span class="token punctuation">"</span></span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>post<span class="token punctuation">"</span></span> <span class="token attr-name">enctype</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>multipart/form-data<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+     <span class="token comment">&lt;!--注意这里的enctype参数--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">></span></span>
+        用户名：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>用户名<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token comment">&lt;!-- placeholder: 可描述输入字段预期值的简短的提示信息，该提示在用户输入值之前显示在输入字段中 --></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">></span></span>
+        头像：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>avatar<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Submit<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+
+&#123;&#123;end&#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>踩坑：一定要注意在敲前端文件(html)的时候给一些数据命名成了什么，比如上文<code>upload.html</code>这个文件中，笔者给<code>头像文件</code>命名为了<code>avatar</code>，这样在传递数据的时候，头像这个文件其实应该用<code>avatar</code>来接收，但是笔者一直用的<code>file</code>，导致一直报错，可能是笔者前端学的实在是依托答辩的原因</p>
+<p><img src="https://pic.imgdb.cn/item/63f4e8d6f144a01007f64992.jpg" alt></p>
+<h4><span id="html中的enctype">html中的enctype</span></h4>
+<p>为什么说在文件上传中<code>enctype</code>这个参数很重要，因为html表单如何打包数据文件是取决于<code>enctype</code></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>application/x-www-form-urlencoded</code> ：在发送前编码所有字符(默认)（空格被编码为‘+’，特殊字符被编码为ASCII十六进制字符）</p>
+</li>
+<li class="lvl-2">
+<p><code>multipart/form-data</code>：不对字符编码，在使用包含文件上传控件的表单时必须使用</p>
+</li>
+<li class="lvl-2">
+<p><code>text/plain</code>：空格替换为‘+’号，但不对特殊字符编码</p>
+</li>
+</ul>
+<p>所以如果涉及到上传文件的话，需要在定义表单时加个参数<code>enctype=multipart/form-data</code></p>
+<h4><span id="根据时间存储文件">根据时间存储文件</span></h4>
+<p>只需要在上述的<code>main.go</code>代码中的存储文件名部分加上计算当前时间的步骤即可</p>
+<p>main.go - /uploadFile POST</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">r<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">"/uploadFile"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token comment">//通过PostForm获取传过来的username</span>
+		username <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">PostForm</span><span class="token punctuation">(</span><span class="token string">"username"</span><span class="token punctuation">)</span>
+		<span class="token comment">//通过FormFile获取传过来的file文件</span>
+		file<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">FormFile</span><span class="token punctuation">(</span><span class="token string">"avatar"</span><span class="token punctuation">)</span> <span class="token comment">//返回两个参数，*multipart.FileHeader, error</span>
+		log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>file<span class="token punctuation">.</span>Filename<span class="token punctuation">)</span>
+		folderName <span class="token operator">:=</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"%d-%d-%d"</span><span class="token punctuation">,</span> time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Year</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Month</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Day</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+		dst <span class="token operator">:=</span> path<span class="token punctuation">.</span><span class="token function">Join</span><span class="token punctuation">(</span><span class="token string">"./static/uploadfile"</span><span class="token punctuation">,</span> folderName<span class="token punctuation">,</span> file<span class="token punctuation">.</span>Filename<span class="token punctuation">)</span> <span class="token comment">//设置保存路径</span>
+		c<span class="token punctuation">.</span><span class="token function">SaveUploadedFile</span><span class="token punctuation">(</span>file<span class="token punctuation">,</span> dst<span class="token punctuation">)</span>
+		<span class="token comment">// c.String(http.StatusOK, fmt.Sprintf("'%s' uploaded!", file.Filename))</span>
+		c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">&#123;</span>
+			<span class="token string">"success"</span><span class="token punctuation">:</span>  <span class="token boolean">true</span><span class="token punctuation">,</span>
+			<span class="token string">"username"</span><span class="token punctuation">:</span> username<span class="token punctuation">,</span>
+			<span class="token string">"dst"</span><span class="token punctuation">:</span>      dst<span class="token punctuation">,</span>
+		<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+		<span class="token comment">//可以在写完整的业务代码之前看看是否页面会跳转到此处，经过检验是没有问题的</span>
+		<span class="token comment">// c.String(200, "Upload successfully")</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://pic.imgdb.cn/item/63f4f561f144a010070c1663.jpg" alt></p>
+<p><img src="https://pic.imgdb.cn/item/63f4fcfaf144a0100717150e.jpg" alt></p>
+<p>这样就可以看到接收到了上传的文件，并且存储在以当天日期命名的文件夹中</p>
+<h3><span id="cookie">Cookie</span></h3>
+<p>Http是无状态协议，即假如多次访问同一个网站，每一次之间的访问都是没有关系的。</p>
+<p>如果我们要实现多个页面之间共享数据的话我们可以使用<code>Cookie</code>或者<code>Session</code>实现</p>
+<p><code>Cookie</code>存储于访问者计算机的<code>浏览器</code>中，可以让我们用同一个浏览器访问同一个域名的时候共享数据</p>
+<h4><span id="cookie实现的功能">Cookie实现的功能</span></h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>保持用户登录登录状态</p>
+</li>
+<li class="lvl-2">
+<p>保持用户浏览历史记录</p>
+</li>
+<li class="lvl-2">
+<p>猜你喜欢，智能推荐</p>
+</li>
+<li class="lvl-2">
+<p>电商网站加入购物车</p>
+</li>
+</ul>
+<p>设置Cookie</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">c<span class="token punctuation">.</span><span class="token function">SetCookie</span><span class="token punctuation">(</span><span class="token string">"username"</span><span class="token punctuation">,</span> <span class="token string">"张三"</span><span class="token punctuation">,</span> <span class="token number">3600</span><span class="token punctuation">,</span> <span class="token string">"/"</span><span class="token punctuation">,</span> <span class="token string">"localhost"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>获取Cookie</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">c<span class="token punctuation">.</span><span class="token function">Cookie</span><span class="token punctuation">(</span><span class="token string">"username"</span><span class="token punctuation">)</span>
+<span class="token comment">//如</span>
+username <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">Cookie</span><span class="token punctuation">(</span><span class="token string">"username"</span><span class="token punctuation">)</span>
+c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token string">"cookie="</span><span class="token operator">+</span>username<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="多个二级域名共享cookie">多个二级域名共享Cookie</span></h3>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">c<span class="token punctuation">.</span><span class="token function">SetCookie</span><span class="token punctuation">(</span><span class="token string">"username"</span><span class="token punctuation">,</span> <span class="token string">"张三"</span><span class="token punctuation">,</span> <span class="token number">3600</span><span class="token punctuation">,</span> <span class="token string">"/"</span><span class="token punctuation">,</span> <span class="token string">".xxxxx.com"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>通过设置作用域为<code>.xxxxx</code>这样即可在<code>a.xxxxx</code>和<code>b.xxxxx</code>共享Cookie</p>
+<h3><span id="session">Session</span></h3>
+<p>由于http协议无状态，当多个人在请求服务器的时候，服务器并不能分辨谁是谁(除非携带了一些识别字段，不过这属于业务层内容，不在讨论范围，这里单说http协议)</p>
+<p>为了让服务器知道请求是谁发出的，所以有了session</p>
+<p>另外<code>session</code>和<code>cookie</code>是不分家的，我们每次说到<code>session</code>，其实默认就是要使用<code>cookie</code>了</p>
+<blockquote>
+<p>第一次登陆，服务器给客户端发送一个唯一的sessionid，并通过http的响应头返回。</p>
+<p>客户端(浏览器)发现返回的数据中有cookie数据就把这个cookie数据存放到内存。下次再发送http请求，就把内存中的cookie数据塞回http请求头中，一并发给服务器。</p>
+<p>服务器在解析请求时，发现请求头中有cookie，就开始识别cookie中的sessionid，拿到sessionid，我们就知道这个请求是由哪个客户端发送过来的了</p>
+</blockquote>
+<p>Gin中需要使用Session中间件来实现Session的功能</p>
+<p>需要引入<code>github.com/gin-contrib/sessions</code>这个包</p>
+<p>main.go</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">"github.com/gin-contrib/sessions"</span>
+	<span class="token string">"github.com/gin-contrib/sessions/cookie"</span>
+<span class="token punctuation">)</span>
+	
+	<span class="token comment">//创建基于Cookie的存储引擎,"secret"参数是用于加密的密钥</span>
+	store <span class="token operator">:=</span> cookie<span class="token punctuation">.</span><span class="token function">NewStore</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">"secret"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token comment">//配置Session中间件</span>
+	r<span class="token punctuation">.</span><span class="token function">Use</span><span class="token punctuation">(</span>sessions<span class="token punctuation">.</span><span class="token function">Sessions</span><span class="token punctuation">(</span><span class="token string">"mySession"</span><span class="token punctuation">,</span> store<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token operator">...</span>
+
+
+
+	r<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/sessionSet"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		session <span class="token operator">:=</span> sessions<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span>
+		session<span class="token punctuation">.</span><span class="token function">Set</span><span class="token punctuation">(</span><span class="token string">"username"</span><span class="token punctuation">,</span> <span class="token string">"张三"</span><span class="token punctuation">)</span>
+		session<span class="token punctuation">.</span><span class="token function">Save</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">//一定要保存</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+	r<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/sessionShow"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		session <span class="token operator">:=</span> sessions<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span>
+		username <span class="token operator">:=</span> session<span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span><span class="token string">"username"</span><span class="token punctuation">)</span>
+		c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> <span class="token string">"username = %v"</span><span class="token punctuation">,</span> username<span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>session的默认过期时间是30天，可以通过<code>session.Options(sessions.Options&#123; MaxAge: 3600 * 6, //6hrs &#125;)</code>设置Session过期时间，MaxAge单位是<code>s</code></p>
+<p>session会保存在服务器</p>
+<p>但是仅仅这样，当我们在使用分布式(负载均衡)的时候，其他的服务器是无法创建和获取Session的，所以我们需要将Session保存在redis或者mongodb或者mysql中</p>
+<h4><span id="关于为什么调用sessiondelete或者sessionclear后session仍在">关于为什么调用session.Delete()或者session.Clear()后session仍在</span></h4>
+<p>这是因为调用了Session的方法如<code>Set</code>,<code>Delete</code>,<code>Clear</code>后，必须调用一次<code>Save</code>方法，否则Session数据不会更新，<s>笔者又躺在这个坑里面好久</s></p>
+<h4><span id="保存到redis数据库实现分布式session">保存到redis数据库实现分布式Session</span></h4>
+<p>将上文中<code>创建基于Cookie的存储引擎</code>的代码修改为如下即可</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">//创建基于Redis的存储引擎</span>
+store<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> redis<span class="token punctuation">.</span><span class="token function">NewStore</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token string">"tcp"</span><span class="token punctuation">,</span> <span class="token string">"localhost:6379"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">"secret"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>10表示最大连接数,tcp表示连接方法，localhost:6379表示服务端口,&quot;&quot;表示密码,此处密码为空,[]byte(“secret”)表示用于加密的密钥</p>
+<p><img src="https://pic.imgdb.cn/item/63f5c680f144a010070a99ce.jpg" alt></p>
+<p>可以看到之前redis里面为空，我们访问了<code>127.0.0.1/setSession</code>后，redis里存入了一条数据，即为session</p>
+<h4><span id="使用sessions中间件注意要点">使用sessions中间件注意要点</span></h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>session仓库其实就是一个<code>map[interface]interface</code>对象，所有session可以存储任意数据</p>
+</li>
+<li class="lvl-2">
+<p>session使用的编码解码器是自带的gob，所以存储类似:<code>struct</code>,<code>map</code>这些对象时需要先注册对象，否则会报错<code>gob&quot;type not registered for...</code></p>
+<ul class="lvl-2">
+<li class="lvl-4">session存储引擎支持<code>cookie</code>,<code>内存</code>,<code>mongodb</code>,<code>redis</code>,<code>postgres</code>,<code>memsotre</code>,<code>memcached</code>以及<code>gorm</code>支持的各类数据库<code>mysql,sqlite</code></li>
+<li class="lvl-4">session在创建时有一个配置项，可以配置session过期时间,cookie,domain,secure,path等参数</li>
+</ul>
+</li>
+</ul>
+
+  <p><a class="classtest-link" href="/tags/Gin/" rel="tag">Gin</a> — Oct 19, 2023</p>
+  
+
+
+        </div>
+        <div class="row mt-2">
+  <h3>Search</h3>
+  <div><input id="search-text" title="search" class="search-text" type="text" placeholder="search......"></div>
+  <div style="margin-top: 1.5rem;">
+    <ul id="result"></ul>
+  </div>
+</div>
+        <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+        at <a href="https://en.wikipedia.org/wiki/Earth" target="_blank" rel="noreferrer">Earth</a>.</p>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+      <a class="ml-0 footer-link icon" href="https://github.com/Mykonos-x" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="GitHub">
+        <svg class="github svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+      
+
+      
+
+      
+      <a class="ml-0 footer-link icon" href="https://twitter.com/mykonos_x" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="Twitter">
+        <svg class="twitter svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter</title><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/></svg>
+      </a>
+      
+
+      
+
+      
+
+    </div>
+  
+</div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>
