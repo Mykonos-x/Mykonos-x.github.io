@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 
-<html theme="dark" showBanner="true" hasBanner="false" > 
+<html theme="dark" showBanner="true" hasBanner="true" > 
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
@@ -31,14 +31,7 @@
     <link rel="alternate" href="/atom.xml" title="Silence to hear." type="application/atom+xml">
   
   
-    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
-    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-128.png" sizes="128x128">
-    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-180.png" sizes="180x180">
-    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-192.png" sizes="192x192">
-    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-32.png" sizes="32x32">
-    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
-    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
-    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+    <link rel="shortcut icon" href="/coding.png">
   
   
   
@@ -48,6 +41,13 @@
 
 <body>
   
+  
+    
+<div id="banner" class="">
+  <img src="/back.jpg" itemprop="image">
+  <div id="banner-dim"></div>
+</div>
+ 
    
   <div id="main-grid" class="  ">
     <div id="nav" class=""  >
@@ -116,19 +116,19 @@
   <div class="info-card">
     <div class="avatar">
       
+        <image src=/avatar.jpg></image>
+      
       <div class="img-dim"></div>
     </div>
     <div class="info">
-      <div class="username">Your Name </div>
+      <div class="username">ymepetb </div>
       <div class="dot"></div>
-      <div class="subtitle">This is the subtitle </div>
+      <div class="subtitle">Try harder </div>
       <div class="link-list">
         
           <a class="link-btn" target="_blank" rel="noopener" href="https://twitter.com" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
         
-          <a class="link-btn" target="_blank" rel="noopener" href="https://store.steampowered.com" title="Steam"><i class="fa-brands fa-steam"></i></a>
-        
-          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com" title="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/Mykonos-x" title="GitHub"><i class="fa-brands fa-github"></i></a>
          
       </div>  
     </div>
@@ -225,7 +225,92 @@
   
   <div id="footer-info" class="inner">
     
-    &copy; 2024 Your Name<br>
+    &copy; 2024 ymepetb<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>
+5%85%B3%E4%BA%8Epython%E5%87%BA%E7%8E%B0-RequestsDependencyWarning-%E5%BC%82%E5%B8%B8/" title="关于python出现'RequestsDependencyWarning'异常">
+        <div class="date">02-06</div>
+        <div class="line">
+            <div class="dot"></div>
+        </div>
+        <div class="title">
+            <div class="title-inner">
+                
+                    关于python出现'RequestsDependencyWarning'异常
+                
+            </div>
+        </div>
+        <div class="tags">
+            #solutions
+        </div>
+      </a>
+    
+      
+      
+        
+        <div class="year-line">
+            <div class="year-num">2021</div>
+            <div class="dot-wrapper">
+                <div class="dot"></div>
+            </div>
+            <div class="article-count">1 article</div>
+        </div>
+      
+      <a class="archive-article-link" href="/2021/06/29/Hola-openEuler-%EF%BC%88openEuler%E5%AE%89%E8%A3%85%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%EF%BC%89/" title="Hola,openEuler!（openEuler安装图形界面）">
+        <div class="date">06-29</div>
+        <div class="line">
+            <div class="dot"></div>
+        </div>
+        <div class="title">
+            <div class="title-inner">
+                
+                    Hola,openEuler!（openEuler安装图形界面）
+                
+            </div>
+        </div>
+        <div class="tags">
+            #solutions #openEuler
+        </div>
+      </a>
+    
+  </div>
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2024 ymepetb<br>
     Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
   </div>
 </footer>
