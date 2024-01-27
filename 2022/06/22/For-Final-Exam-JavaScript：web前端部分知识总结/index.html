@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="false" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>(For Final Exam)JavaScript：web前端部分知识总结 | Silence to hear.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="HTML&amp;CSS   web应用程序出现之前，客户机&#x2F;服务器(C&#x2F;S)是应用程序的主流框架   客户机主要任务：  1.建立和断开于服务器端的连接 2.提交数据访问请求 3.等待服务通告，接收请求结果或错误 4.处理数据库访问结果或错误，包括重发请求和终止请求 提供友好的应用程序用户界面 数据输入&#x2F;输出及验证    服务器端任务：  为多用户管理一个独立的数据库 管理和处理接收到的数据访问">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(For Final Exam)JavaScript：web前端部分知识总结">
+<meta property="og:url" content="http://mykonos-x.github.io/2022/06/22/For-Final-Exam-JavaScript%EF%BC%9Aweb%E5%89%8D%E7%AB%AF%E9%83%A8%E5%88%86%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Silence to hear.">
+<meta property="og:description" content="HTML&amp;CSS   web应用程序出现之前，客户机&#x2F;服务器(C&#x2F;S)是应用程序的主流框架   客户机主要任务：  1.建立和断开于服务器端的连接 2.提交数据访问请求 3.等待服务通告，接收请求结果或错误 4.处理数据库访问结果或错误，包括重发请求和终止请求 提供友好的应用程序用户界面 数据输入&#x2F;输出及验证    服务器端任务：  为多用户管理一个独立的数据库 管理和处理接收到的数据访问">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-06-22T07:56:00.000Z">
+<meta property="article:modified_time" content="2023-09-05T17:30:46.903Z">
+<meta property="article:author" content="ymepetb">
+<meta property="article:tag" content="exam">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Silence to hear." type="application/atom+xml">
+  
+  
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>Silence to hear. </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS Feed">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS Feed">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">Your Name </div>
+      <div class="dot"></div>
+      <div class="subtitle">This is the subtitle </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://twitter.com" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://store.steampowered.com" title="Steam"><i class="fa-brands fa-steam"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Categories</h3>
+      <div class="category-box">
+            <a class="category-link" href="/categories/tips/">
+                tips
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/basic/">
+                basic
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/CTF-Challenges-Replicated/">
+                CTF Challenges Replicated
+                <div class="category-count">2</div>
+            </a>
+        </div>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Tags</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Gin/" rel="tag">Gin</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Solutions/" rel="tag">Solutions</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/android-development/" rel="tag">android development</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/crypto/" rel="tag">crypto</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/dsa/" rel="tag">dsa</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/exam/" rel="tag">exam</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/kernel/" rel="tag">kernel</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/misc/" rel="tag">misc</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/openEuler/" rel="tag">openEuler</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/reverse/" rel="tag">reverse</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/rsa/" rel="tag">rsa</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/scripts/" rel="tag">scripts</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/solutions/" rel="tag">solutions</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-For-Final-Exam-JavaScript：web前端部分知识总结" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        (For Final Exam)JavaScript：web前端部分知识总结
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2022-06-22T07:56:00.000Z" itemprop="datePublished">2022-06-22</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+             words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/exam/" rel="tag">exam</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h2><span id="htmlampcss">HTML&amp;CSS</span></h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>web应用程序出现之前，客户机/服务器(C/S)是应用程序的主流框架</p>
+<ul class="lvl-2">
+<li class="lvl-4">
+<p>客户机主要任务：</p>
+<ul class="lvl-4">
+<li class="lvl-6">1.建立和断开于服务器端的连接</li>
+<li class="lvl-6">2.提交数据访问请求</li>
+<li class="lvl-6">3.等待服务通告，接收请求结果或错误</li>
+<li class="lvl-6">4.处理数据库访问结果或错误，包括重发请求和终止请求</li>
+<li class="lvl-6">提供友好的应用程序用户界面</li>
+<li class="lvl-6">数据输入/输出及验证</li>
+</ul>
+</li>
+<li class="lvl-4">
+<p>服务器端任务：</p>
+<ul class="lvl-4">
+<li class="lvl-6">为多用户管理一个独立的数据库</li>
+<li class="lvl-6">管理和处理接收到的数据访问请求，包括管理请求队列，管理缓存，响应服务，管理结果和通知服务的完成</li>
+<li class="lvl-6">管理用户账号，控制数据库访问权限和其他安全性</li>
+<li class="lvl-6">维护数据库，包括数据库备份和恢复等</li>
+<li class="lvl-6">保证数据库数据的完整或为用户提供完整性控制手段</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>如果用户请求执行的是ASP或者PHP脚本，则web服务器应用程序将解析并执行脚本，最后将结果转换成<code>HTML</code>格式，，并返回到客户端</p>
+</li>
+<li class="lvl-2">
+<p>br标签是HTML中的<code>换行符</code>,一般结束标签放在开始标签中,即<code>&lt;br/&gt;</code></p>
+</li>
+<li class="lvl-2">
+<p>pre标签用于定义预格式化的文本,其中的文本会以等宽字体显示,并保留空格和换行符.<code>&lt;pre&gt;标签通常可以用来显示源代码</code></p>
+</li>
+<li class="lvl-2">
+<p>li标签用于定义<code>列表项目</code>,有序列表<code>ol</code>,无序列表<code>ul</code></p>
+</li>
+<li class="lvl-2">
+<p>不对<code>span</code>应用样式,span元素中的文本与其他文本视觉上并无差异,可以用CSS定义span标签的显示样式以区别于其他文本</p>
+</li>
+<li class="lvl-2">
+<p><code>a:hover</code>鼠标悬停</p>
+</li>
+<li class="lvl-2">
+<p><code>&lt;img&gt;</code>标签的alt属性指定了<code>替代文本</code>,用于在图片无法显示或者用户禁用图像显示时,代替图像显示在浏览器中的内容</p>
+</li>
+<li class="lvl-2">
+<p><code>[attribute=value]</code>用于选取带有指定属性和值的元素<br><code>[attribute~=value]</code>用于选取指定值中包含指定词汇的元素<br><code>[attribute|=value]</code>用于选取带有以指定值开头的属性值的元素,该值必须是整个单词<br><code>[attribute^=value]</code>匹配属性值以指定值开头的每个元素<br><code>[attribute$=value]</code>匹配属性值以指定结尾的每个元素<br><code>[attribute*=value]</code>匹配属性值中包含指定值的每个元素</p>
+</li>
+<li class="lvl-2">
+<p><code>Tim Berners-Lee</code> <code>欧洲原子物理研究所</code> 发明了WWW(World Wide Web)</p>
+</li>
+<li class="lvl-2">
+<p><code>element,element</code><br><code>element&gt;element</code><br><code>element+element</code>选取第一个指定的元素之后内部紧跟的元素</p>
+</li>
+<li class="lvl-2">
+<table>
+<thead>
+<tr>
+<th>web1.0</th>
+<th>web2.0</th>
+<th>web3.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主要是只读</td>
+<td>疯狂的读写</td>
+<td>便携式和个人</td>
+</tr>
+<tr>
+<td>公司重点</td>
+<td>社区焦点</td>
+<td>个人焦点</td>
+</tr>
+<tr>
+<td>主页</td>
+<td>博客/维基</td>
+<td>直播/Waves</td>
+</tr>
+<tr>
+<td>拥有内容</td>
+<td>分享内容</td>
+<td>整合内容</td>
+</tr>
+<tr>
+<td>网络表单</td>
+<td>网络应用程序</td>
+<td>智能应用</td>
+</tr>
+<tr>
+<td>目录</td>
+<td>标记</td>
+<td>用户行为</td>
+</tr>
+<tr>
+<td>页面浏览量</td>
+<td>每次点击费用</td>
+<td>用户参与</td>
+</tr>
+<tr>
+<td>横幅广告</td>
+<td>互动广告</td>
+<td>行为广告</td>
+</tr>
+<tr>
+<td>大英百科全书在线</td>
+<td>维基百科</td>
+<td>语义网</td>
+</tr>
+<tr>
+<td>HTML/Portals</td>
+<td>XML/RSS</td>
+<td>RDF/RDFS/OWL</td>
+</tr>
+<tr>
+<td>数据不是焦点</td>
+<td>许多人的数据是由一些中介控制</td>
+<td>数据已个性化并且不使用中介</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="lvl-2">
+<p><code>border-top-color</code>:顶边框颜色<br><code>border-bottom-color</code>:底部边框颜色</p>
+</li>
+<li class="lvl-2">
+<p>Ray Tomlinson引入电子邮件功能,他选择的是<code>@</code>符号作为<code>电子邮件</code>地址的标记</p>
+</li>
+<li class="lvl-2">
+<p>HTTP - 超文本传输协议 HTML - 超文本标记语言</p>
+</li>
+<li class="lvl-2">
+<p>表格标签：</p>
+<ul class="lvl-2">
+<li class="lvl-4"><code>&lt;td rowspan=#&gt;</code>用于定义纵向通栏，即纵跨几行（row 是 行的意思）</li>
+<li class="lvl-4"><code>&lt;td colspan=#&gt;</code>用于定义横向通栏，即横跨几列</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>href属性的值是指定一个锚，可以在锚名前面加一个<code>&quot;#&quot;</code></p>
+</li>
+<li class="lvl-2">
+<p><code>C/S架构：</code>即Client/Server，客户端服务器端架构，服务器端有两种：</p>
+<ul class="lvl-2">
+<li class="lvl-4">一种是数据库服务器端，用户通过数据库连接访问服务器端的数据</li>
+<li class="lvl-4">一种是Socket服务器端，服务器端的程序通过Socket与客户端的程序通信</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>frame可以将浏览器窗口分成多个区域，每个区域可以单独显示一个html文件，各个区域也可以先关联地显示一个内容。</p>
+<ul class="lvl-2">
+<li class="lvl-4"><code>&lt;noframe&gt;</code>：框架不能显示时地替换内容</li>
+<li class="lvl-4"><code>&lt;frameset&gt;</code>：标签的基本属性包括<code>rows</code>和<code>cols</code>，框架可以嵌套</li>
+<li class="lvl-4">frame标签属性：
+<ul class="lvl-4">
+<li class="lvl-6">name:框架名</li>
+<li class="lvl-6">src:框架内容url</li>
+<li class="lvl-6">longdesc：框架的长篇描述</li>
+<li class="lvl-6">frameborder:框架边框</li>
+<li class="lvl-6">marginwidth:边距宽度</li>
+<li class="lvl-6">marginheight:边距高度</li>
+<li class="lvl-6">noresize:禁止用户调整框架尺寸</li>
+<li class="lvl-6">scrolling:规定框架中是否需要滚动条</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><code>&lt;pre&gt;</code>：预格式化的文本。其中的文本以等宽字体显示，并保留空格和换行符，通常用来显示源码</p>
+</li>
+<li class="lvl-2">
+<p>CSS选择器：</p>
+<ul class="lvl-2">
+<li class="lvl-4">element , element：同时选取多个元素</li>
+<li class="lvl-4">element element：选取元素内部的元素</li>
+<li class="lvl-4">element &gt; element：选取带有指定父元素的元素</li>
+<li class="lvl-4">element + element：用于选取第一个指定的元素之后（不是内部）紧跟的元素</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>CSS的text-align属性：居中对齐是<code>center</code></p>
+</li>
+<li class="lvl-2">
+<p>HTML文档中用<code>link</code>元素引用外部样式表，使用该元素的<code>href</code>属性指定被链接文档（样式表文件）的位置</p>
+</li>
+<li class="lvl-2">
+<p>jQuery是JavaScript的一个<code>脚本库</code></p>
+</li>
+<li class="lvl-2">
+<p>C++/C是编译型语言，而Java，C#是解释型语言，js是解释型编程语言</p>
+</li>
+<li class="lvl-2">
+<p>最早能够动态生成HTML页面的技术是CGI（Common Gateway Interface）</p>
+</li>
+<li class="lvl-2">
+<p>HTML标签不需要成对出现</p>
+</li>
+<li class="lvl-2">
+<p><code>&lt;body style = &quot;background-color:blue&quot;&gt;</code>是行内样式表</p>
+</li>
+<li class="lvl-2">
+<p>GET提交的参数中，如果有空格会转换成<code>+</code></p>
+</li>
+<li class="lvl-2">
+<p>CSS属性：</p>
+<ul class="lvl-2">
+<li class="lvl-4">width：元素的宽度</li>
+<li class="lvl-4">height：元素的告诉</li>
+<li class="lvl-4">margin：元素的外边距</li>
+<li class="lvl-4">padding：元素内边距</li>
+<li class="lvl-4">border：元素边框的样式</li>
+</ul>
+</li>
+</ul>
+<h2><span id="javascript">JavaScript</span></h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>document.styleSheets[n]</code>获取网页中第<code>n+1</code>个CSS样式表</p>
+</li>
+<li class="lvl-2">
+<p><code>indexOf()</code>方法用于返回String对象内第一次出现子字符串的字符位置  stringObject.indexOf(searchvalue , fromindex)</p>
+<ul class="lvl-2">
+<li class="lvl-4">searchvalue: 指定需检索的字符串值</li>
+<li class="lvl-4">fromindex: 指定在字符串中开始检索的位置</li>
+<li class="lvl-4">取值范围<code>0~stringObject.length - 1</code></li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>JavaScript允许省略var , 直接对未声明的变量赋值(<code>var a = 1</code>与<code>a = 1</code>)相同</p>
+</li>
+<li class="lvl-2">
+<p>Event对象的button属性仅用于<code>onmousedown , onmouseup , onmousemove</code>,对其他事件,不管鼠标状态如何,都返回<code>0</code></p>
+</li>
+<li class="lvl-2">
+<p><code>form.submit()</code>方法允许JavaScript启动表单发送</p>
+</li>
+<li class="lvl-2">
+<p><code>window.blur()</code>方法把键盘焦点从顶层窗口移开</p>
+</li>
+<li class="lvl-2">
+<p>如果局部变量和全局变量同名,则在定义局部变量的函数中,会屏蔽全局变量,优先使用<code>局部变量</code></p>
+</li>
+<li class="lvl-2">
+<p>document对象的属性:</p>
+<ul class="lvl-2">
+<li class="lvl-4">lastModified: 返回文档最后被修改的日期和时间</li>
+<li class="lvl-4">domain: 返回下载当前文档的服务器域名</li>
+<li class="lvl-4">referrer: 返回当前文档的<code>url</code>（不是URL）</li>
+<li class="lvl-4">cookie: 设置或者返回与当前文档有关的所有cookie</li>
+<li class="lvl-4"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsref/dom-obj-document.html">https://www.runoob.com/jsref/dom-obj-document.html</a></li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>JS<code>没有指针</code>,只有引用</p>
+</li>
+<li class="lvl-2">
+<p>form标签常用属性:</p>
+<ul class="lvl-2">
+<li class="lvl-4">name: 表单提交时的名称</li>
+<li class="lvl-4">action: 提交到的地址</li>
+<li class="lvl-4">method: 规定用于发送form-data的HTTP方法,提交方式:get和post</li>
+<li class="lvl-4">enctype: 规定在发送表单数据之前如何对其进行编码</li>
+<li class="lvl-4">application/x-www-form-urlencoded: 在发送前编码所有字符</li>
+<li class="lvl-4">text/plain: 空格转换为&quot;+&quot; 加号,但不对特殊字符编码</li>
+<li class="lvl-4">multipart/form-data: 使用包含文件上传控件的表单时,必须使用该值</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>textarea标签属性:</p>
+<ul class="lvl-2">
+<li class="lvl-4"><a target="_blank" rel="noopener" href="https://m.html.cn/qa/html5/119485783025.html">https://m.html.cn/qa/html5/119485783025.html</a></li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>js事件传导阶段:</p>
+<ul class="lvl-2">
+<li class="lvl-4">事件捕捉(Capturing)</li>
+<li class="lvl-4">目标阶段(target)</li>
+<li class="lvl-4">冒泡阶段(Bubbing)</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>js函数不支持多态</p>
+</li>
+<li class="lvl-2">
+<p>Date类getMilliseconds方法用于返回Date对象中用本地时间表示的毫秒值,取值范围是<code>0~999</code></p>
+</li>
+<li class="lvl-2">
+<p>Java语言在不同平台上运行时不需要重新编译</p>
+</li>
+<li class="lvl-2">
+<p>HTML<code>&lt;input&gt;</code>标签,size属性设置输入字段的宽度</p>
+</li>
+<li class="lvl-2">
+<p>内置数学类MATH的方法 <code>ceil()</code>:返回大于其数字参数的最小整数</p>
+</li>
+<li class="lvl-2">
+<p>键盘事件:</p>
+<ul class="lvl-2">
+<li class="lvl-4">onkeydown: 按键按下触发</li>
+<li class="lvl-4">onkeyup: 按键被松开触发</li>
+<li class="lvl-4">onkeyover: 按键关联到某元素时触发</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>鼠标事件:</p>
+<ul class="lvl-2">
+<li class="lvl-4">onmouseup: 鼠标按键被松开后执行</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>没有<code>createTree()</code>这个document对象的方法</p>
+</li>
+<li class="lvl-2">
+<p><code>NextSibling</code>返回某个元素之后紧跟的节点</p>
+</li>
+<li class="lvl-2">
+<p>内置类String的方法: strike()用于显示加<code>删除线</code>的字符串</p>
+</li>
+<li class="lvl-2">
+<p><code>alert:</code>alert(str),str指定消息对话框的内容</p>
+</li>
+<li class="lvl-2">
+<p><code>===</code>：恒等运算符：如果两者值相等，但是数据类型不同，返回<code>false</code></p>
+</li>
+<li class="lvl-2">
+<p>arrayObject.join(separator)，如果<code>separator</code>参数省略，则使用逗号作为分隔符</p>
+</li>
+<li class="lvl-2">
+<p>事件监听器又称为<code>事件句柄</code>或者<code>事件处理函数</code></p>
+<ul class="lvl-2">
+<li class="lvl-4">addEventListener()参数：
+<ul class="lvl-4">
+<li class="lvl-6">target：触发事件的HTML DOM对象，例如document或者window</li>
+<li class="lvl-6">type：事件类型</li>
+<li class="lvl-6">listener：侦听到事件后，处理事件的函数，此函数必须接受<code>Event</code>对象作为其唯一的参数</li>
+<li class="lvl-6">useCapture：是否使用捕捉。此参数的作用是确定监听器是运行于捕获阶段，目标阶段还是冒泡阶段。一般为<code>false</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>escape()函数用于对字符串进行编码，这样所有的计算机上都可以读取该字符串</p>
+</li>
+<li class="lvl-2">
+<p>停止事件冒泡：</p>
+<ul class="lvl-2">
+<li class="lvl-4">将Event对象的cancelBubble属性设置为True，可以停止事件冒泡</li>
+<li class="lvl-4">对于不支持cancelBubble的浏览器，可以调用Event对象的stopPropagation()方法来停止事件冒泡</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>DOM对象的属性：</p>
+<ul class="lvl-2">
+<li class="lvl-4">innerHTML：获取或设置HTML元素的内容</li>
+<li class="lvl-4">attributes：表示节点的属性集合</li>
+<li class="lvl-4">childNodes：表示节点的孩子节点集合</li>
+<li class="lvl-4">nodeType：返回节点的类型，1表示此节点是标记(tag)，2表示属性(attribute)，3表示此文本项</li>
+<li class="lvl-4">nodeValue：返回文本项节点的值，如果不是文本想节点，返回null</li>
+<li class="lvl-4">data：返回一个字符串，表示文本项节点的值，如果是其他类型节点，返回undefined</li>
+<li class="lvl-4">NextSibling：表示DOM对象的下一个相邻的兄弟节点</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>document方法：</p>
+<ul class="lvl-2">
+<li class="lvl-4">replaceChild(new_node,old_node)：其中new_node指定新的节点，old_node指定被替换的节点(注意是replaceChild()不是replace())</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>页面事件：</p>
+<ul class="lvl-2">
+<li class="lvl-4">onload：页面或者一幅图像完成加载时触发</li>
+<li class="lvl-4">onerror：加载文档或图片错误时触发</li>
+<li class="lvl-4">onresize：窗口或框架被重新调整时触发</li>
+<li class="lvl-4">onbeforeunload：当前的页面内容将要被改变时触发</li>
+<li class="lvl-4">onunload：用户退出时触发</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>js中的遍历：</p>
+<ul class="lvl-2">
+<li class="lvl-4">
+<p>for(let i = 0;i &lt; arr.length; ++i)</p>
+</li>
+<li class="lvl-4">
+<p>arr.forEach((v , i) =&gt; {/* … */})</p>
+</li>
+<li class="lvl-4">
+<p>for(let i in arr)</p>
+<ul class="lvl-4">
+<li class="lvl-6">
+<pre><code class="language-javascript">for(索引变量 in 数组名)
+    &#123;
+        //通过数组名[索引变量]访问每个数组元素
+    &#125;
+</code></pre>
+</li>
+<li class="lvl-6">
+<p>for(索引变量 in 数组名)</p>
+</li>
+</ul>
+</li>
+<li class="lvl-4">
+<p>for(const v of arr)</p>
+</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>js中有四个逻辑运算符：<code>||</code>,<code>&amp;&amp;</code>,<code>!</code>,<code>??</code></p>
+<ul class="lvl-2">
+<li class="lvl-4"><code>||</code>:或</li>
+<li class="lvl-4"><code>&amp;&amp;</code>:与</li>
+<li class="lvl-4"><code>!</code>:非</li>
+<li class="lvl-4"><code>??</code>:空值合并运算符</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>parseint()：parseint(str , radix)，str是待解析的字符串，参数radix可选，表示要解析的数字的基数，该值介于2~36之间</p>
+</li>
+<li class="lvl-2">
+<p>js获取表单对象的方法：</p>
+<ul class="lvl-2">
+<li class="lvl-4">document.getElementById()</li>
+<li class="lvl-4">document.getElementsByName()</li>
+<li class="lvl-4">document.getElementsByTagName()</li>
+<li class="lvl-4">document.forms数组获取表单对象</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>BOM的window对象的方法：</p>
+<ul class="lvl-2">
+<li class="lvl-4">setInterval()：按照指定的周期（以毫秒计算）来调用函数或计算表达式</li>
+<li class="lvl-4">setTimeout()：按指定的毫秒数后调用函数或计算表达式</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>DOM事件标准定义的事件流：</p>
+<ul class="lvl-2">
+<li class="lvl-4">捕获事件流</li>
+<li class="lvl-4">冒泡事件流</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><code>&gt;&gt;&gt;</code>:无符号右移运算<br><code>&gt;&gt;</code>:右移运算符<br><code>&lt;&lt;&lt;</code>:无符号左移运算符<br><code>&lt;&lt;</code>:左移运算符</p>
+</li>
+<li class="lvl-2">
+<p>javascript原始数据类型：Boolean,Number,String</p>
+</li>
+</ul>
+<h2><span id="jqueryampbootstrap">jQuery&amp;BootStrap</span></h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>XMLHttpRequest Level 2 中增加了timeout属性，可以设置HTTP请求的时限，单位为毫秒</p>
+</li>
+<li class="lvl-2">
+<p>XMLHttpRequest对象的open()方法： 用于指定HTTP请求的参数，或者初始化XMLHttpRequest实例对象</p>
+</li>
+<li class="lvl-2">
+<p>setRequestHeader()方法：在调用open()方法之后，send()方法之前</p>
+</li>
+<li class="lvl-2">
+<p>Bootstrap 提供了一套响应式，移动设备有限的流式<code>网格系统</code>，随着屏幕或者视口尺寸的增加，系统会自动分为最多<code>12</code>列</p>
+</li>
+<li class="lvl-2">
+<p>XMLHttpRequest对象的open方法的参数描述中，<code>async:</code>布尔值，指示这个调用使用异步还是同步，默认为true(即异步)</p>
+</li>
+<li class="lvl-2">
+<p><code>statusText:</code>描述了http状态代码文本，仅当readystate值为<code>3</code>或者<code>4</code>才可以用。当readystate为其他值时试图存取statustext属性将引发一个异常</p>
+</li>
+<li class="lvl-2">
+<p>Ajax局部刷新</p>
+</li>
+<li class="lvl-2">
+<p>attr()方法，使用其可以访问匹配的html元素的指定属性，语法为attr(属性名)，返回值是<code>html</code>元素的属性值：</p>
+<ul class="lvl-2">
+<li class="lvl-4">attr(properties):以键值对的形式设置匹配元素的一组属性</li>
+<li class="lvl-4">attr(key , value):以键值对的形式设置匹配元素的指定属性，key指定属性名，value指定属性值</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>input选择器可以匹配表单中所有的<code>input元素</code>，<code>textarea元素</code>，<code>select元素</code>，<code>button元素</code></p>
+</li>
+<li class="lvl-2">
+<p>jQuery属性过滤器：</p>
+<ul class="lvl-2">
+<li class="lvl-4">$([属性名^=值])过滤器匹配指定属性值以指定值开始的元素</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>jQuery内容过滤器:</p>
+<ul class="lvl-2">
+<li class="lvl-4">:contains()：匹配包含指定文本的元素</li>
+<li class="lvl-4">:empty()：匹配不包含子元素或者文本为空的元素（不是<code>:null()</code>）</li>
+<li class="lvl-4">:has()：匹配包含指定子元素的元素</li>
+<li class="lvl-4">:parent()：与empty()过滤器的作用正好相反，使用它可以匹配包含子元素或者文本不为空的元素</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>User-Agent：用户代理，使得服务器能够识别客户使用的操作系统及版本，cpu类型，浏览器及版本，浏览器渲染引擎，浏览器语言，浏览器插件等等</p>
+</li>
+<li class="lvl-2">
+<p>timeStamp：浏览器创建事件的时间与1970/1/1 8:00的时间差，单位为ms</p>
+</li>
+<li class="lvl-2">
+<p>jQuery属性过滤器：</p>
+<ul class="lvl-2">
+<li class="lvl-4">$([属性名$=值])过滤器匹配指定属性值以指定值结尾的元素</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>jQuery表单选择器中没有<code>:file</code>选择器</p>
+</li>
+<li class="lvl-2">
+<p>jQuery表单过滤器：</p>
+<ul class="lvl-2">
+<li class="lvl-4">enabled:匹配表单中所有启用的元素</li>
+<li class="lvl-4">disabled:匹配表单中所有禁用的元素</li>
+<li class="lvl-4">checked:匹配表单中所有被选中的元素(复选框或者单选按钮)</li>
+<li class="lvl-4">selected:匹配表单中所有被选中的<code>option元素</code></li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>preventDefault:如果调用了此方法，则事件的默认动作<code>不会</code>被触发</p>
+</li>
+<li class="lvl-2">
+<p><code>MIME</code>：Multipurpose Internet Mail Extensions</p>
+<ul class="lvl-2">
+<li class="lvl-4"><code>innerHeight():</code>获取元素的高度（）</li>
+<li class="lvl-4"><code>outerWidth():</code>获取元素外部的宽度，包含pdding(内边距)和border(边框)</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>Bootstrap 分页：</p>
+<ul class="lvl-2">
+<li class="lvl-4">Pagination是一种无序列表，Bootstrap像处理其他界面元素一样处理分页</li>
+<li class="lvl-4"><code>.pagination:</code>添加该class来在页面上显示分页</li>
+<li class="lvl-4"><code>.disabled,active:</code>自定义链接，通过使用.disabled来定义不可点击的链接，通过.active来指示当前的页面</li>
+<li class="lvl-4"><code>.pagination-lg,.pagination-sm:</code>使用这些class来获取不同大小的项</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><code>bind():</code>$(selector).bind(event,data,function)</p>
+<ul class="lvl-2">
+<li class="lvl-4">event:必需。规定添加到元素的一个或多个事件。由空格分隔多个事件，必须是有效的事件</li>
+<li class="lvl-4">data:可选。规定传递到函数的额外数据。</li>
+<li class="lvl-4">function:必需。规定当事件发生时运行的函数</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>onblur():元素失去焦点 / focus():获得焦点</p>
+</li>
+<li class="lvl-2">
+<p>jQuery基本过滤器：</p>
+<ul class="lvl-2">
+<li class="lvl-4"><code>:first</code>：匹配找到的第一个元素</li>
+<li class="lvl-4"><code>:last</code>：匹配找到的最后一个元素</li>
+<li class="lvl-4">:<code>not</code>：可以去除与给定选择器相匹配的元素</li>
+<li class="lvl-4">:<code>even</code>：可以匹配所有索引值为偶数的元素，索引值从0开始</li>
+<li class="lvl-4">:<code>odd</code>：可以匹配所有索引值为奇数的元素</li>
+<li class="lvl-4">:<code>eq(index)</code>：可以匹配索引值为index的元素</li>
+<li class="lvl-4">:<code>gt(index)</code>：可以匹配索引值大于index的元素</li>
+<li class="lvl-4">:<code>lt(index)</code>：可以匹配索引值小于index的元素</li>
+<li class="lvl-4"><code>:header</code>：可以选择所有h1,h2,h3类别的header标签</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>jQuery中与CSS类别有关的方法：</p>
+<ul class="lvl-2">
+<li class="lvl-4">addClass()：为匹配的HTML元素添加类别属性</li>
+<li class="lvl-4">hasClass()：判断匹配的元素是否拥有指定值</li>
+<li class="lvl-4">removeClass()：为匹配的元素删除指定的class属性</li>
+<li class="lvl-4">toggleClass()：检查每个元素中指定的类，如果不存在则添加类，如果已经设置则将其删除，也就是执行切换操作</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>定义响应处理函数，要将函数名赋值给XMLHttpRequest对象的onreadystatechange属性，响应处理函数没有参数，指定时也不带括号</p>
+</li>
+</ul>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left "
+    
+      href="/2022/07/05/SDCTF-2022-Oil-Spill/"
+      title="SDCTF 2022 Oil Spill"
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+      
+        SDCTF 2022 Oil Spill
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2022/06/04/OGeek2019-babyrop/"
+      title="OGeek2019 babyrop"
+     >
+
+    <p class="title-text">
+      
+        OGeek2019 babyrop
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2024 Your Name<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>

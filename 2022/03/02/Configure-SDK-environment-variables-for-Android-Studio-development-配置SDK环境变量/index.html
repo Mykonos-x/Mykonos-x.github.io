@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="false" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>Configure SDK environment variables for Android Studio development(配置SDK环境变量) | Silence to hear.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="System environment variable settings Step 1 Add ANDROID_HOME   系统变量(S)$\rightarrow$新建  system variable$\rightarrow$NEW   添加变量名(add variable name)：ANDROID_HOME   添加变量值(add variable value)：你所安装的SDK路径，常规">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Configure SDK environment variables for Android Studio development(配置SDK环境变量)">
+<meta property="og:url" content="http://mykonos-x.github.io/2022/03/02/Configure-SDK-environment-variables-for-Android-Studio-development-%E9%85%8D%E7%BD%AESDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/index.html">
+<meta property="og:site_name" content="Silence to hear.">
+<meta property="og:description" content="System environment variable settings Step 1 Add ANDROID_HOME   系统变量(S)$\rightarrow$新建  system variable$\rightarrow$NEW   添加变量名(add variable name)：ANDROID_HOME   添加变量值(add variable value)：你所安装的SDK路径，常规">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pic.imgdb.cn/item/621f4f205baa1a80abf08a88.jpg">
+<meta property="article:published_time" content="2022-03-02T11:28:00.000Z">
+<meta property="article:modified_time" content="2023-09-05T17:39:34.376Z">
+<meta property="article:author" content="ymepetb">
+<meta property="article:tag" content="android development">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/621f4f205baa1a80abf08a88.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Silence to hear." type="application/atom+xml">
+  
+  
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>Silence to hear. </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS Feed">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS Feed">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">Your Name </div>
+      <div class="dot"></div>
+      <div class="subtitle">This is the subtitle </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://twitter.com" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://store.steampowered.com" title="Steam"><i class="fa-brands fa-steam"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Categories</h3>
+      <div class="category-box">
+            <a class="category-link" href="/categories/tips/">
+                tips
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/basic/">
+                basic
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/CTF-Challenges-Replicated/">
+                CTF Challenges Replicated
+                <div class="category-count">2</div>
+            </a>
+        </div>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Tags</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Gin/" rel="tag">Gin</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Solutions/" rel="tag">Solutions</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/android-development/" rel="tag">android development</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/crypto/" rel="tag">crypto</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/dsa/" rel="tag">dsa</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/exam/" rel="tag">exam</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/kernel/" rel="tag">kernel</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/misc/" rel="tag">misc</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/openEuler/" rel="tag">openEuler</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/reverse/" rel="tag">reverse</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/rsa/" rel="tag">rsa</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/scripts/" rel="tag">scripts</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/solutions/" rel="tag">solutions</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-Configure-SDK-environment-variables-for-Android-Studio-development-配置SDK环境变量" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        Configure SDK environment variables for Android Studio development(配置SDK环境变量)
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2022-03-02T11:28:00.000Z" itemprop="datePublished">2022-03-02</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+             words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android-development/" rel="tag">android development</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h2><span id="system-environment-variable-settings">System environment variable settings</span></h2>
+<h3><span id="step-1-add-android_home">Step 1 Add ANDROID_HOME</span></h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>系统变量(S)$\rightarrow$<code>新建</code>  system variable$\rightarrow$<code>NEW</code></p>
+</li>
+<li class="lvl-2">
+<p>添加变量名(add variable name)：<code>ANDROID_HOME</code></p>
+</li>
+<li class="lvl-2">
+<p>添加变量值(add variable value)：<code>你所安装的SDK路径</code>，常规安装则在<code>C:\Users\(Your username)\AppData\Local\Android\SDK</code>  Normally installed in<code>C:\Users\(Your username)\AppData\Local\Android\SDK</code></p>
+</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/621f4f205baa1a80abf08a88.jpg" alt></p>
+<h3><span id="step-2-add-to-path">Step 2 Add to Path</span></h3>
+<pre class="line-numbers language-none"><code class="language-none">ANDROID_HOME%\tools;%ANDROID_HOME%\platform-tools<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>确认之后cmd输入<code>abd</code>和<code>android</code>查看环境是否配置成功</p>
+<p>After confirmation, enter <code>abd</code> and <code>android</code> in cmd to check whether the environment is configured successfully</p>
+<p>将会看到</p>
+<p>will see</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#abd</span>
+Android Debug Bridge version <span class="token number">1.0</span>.41
+Version <span class="token number">33.0</span>.0-8141338
+Installed as C:<span class="token punctuation">\</span>Users<span class="token punctuation">\</span>M1sceden4<span class="token punctuation">\</span>AppData<span class="token punctuation">\</span>Local<span class="token punctuation">\</span>Android<span class="token punctuation">\</span>Sdk<span class="token punctuation">\</span>platform-tools<span class="token punctuation">\</span>adb.exe
+
+global options:
+ <span class="token parameter variable">-a</span>                       listen on all network interfaces, not just localhost
+ <span class="token parameter variable">-d</span>                       use USB device <span class="token punctuation">(</span>error <span class="token keyword">if</span> multiple devices connected<span class="token punctuation">)</span>
+ <span class="token parameter variable">-e</span>                       use TCP/IP device <span class="token punctuation">(</span>error <span class="token keyword">if</span> multiple TCP/IP devices available<span class="token punctuation">)</span>
+ <span class="token parameter variable">-s</span> SERIAL                use device with given serial <span class="token punctuation">(</span>overrides <span class="token variable">$ANDROID_SERIAL</span><span class="token punctuation">)</span>
+ <span class="token parameter variable">-t</span> ID                    use device with given transport <span class="token function">id</span>
+ <span class="token parameter variable">-H</span>                       name of adb server <span class="token function">host</span> <span class="token punctuation">[</span>default<span class="token operator">=</span>localhost<span class="token punctuation">]</span>
+ <span class="token parameter variable">-P</span>                       port of adb server <span class="token punctuation">[</span>default<span class="token operator">=</span><span class="token number">5037</span><span class="token punctuation">]</span>
+ <span class="token parameter variable">-L</span> SOCKET                listen on given socket <span class="token keyword">for</span> adb server <span class="token punctuation">[</span>default<span class="token operator">=</span>tcp:localhost:5037<span class="token punctuation">]</span>
+ --one-device SERIAL<span class="token operator">|</span>USB  only allowed with <span class="token string">'start-server'</span> or <span class="token string">'server nodaemon'</span>, server will only connect to one USB device, specified by a serial number or USB device address.
+
+general commands:
+ devices <span class="token punctuation">[</span>-l<span class="token punctuation">]</span>             list connected devices <span class="token punctuation">(</span>-l <span class="token keyword">for</span> long output<span class="token punctuation">)</span>
+ <span class="token builtin class-name">help</span>                     show this <span class="token builtin class-name">help</span> message
+ version                  show version num
+
+networking:
+ connect HOST<span class="token punctuation">[</span>:PORT<span class="token punctuation">]</span>      connect to a device via TCP/IP <span class="token punctuation">[</span>default <span class="token assign-left variable">port</span><span class="token operator">=</span><span class="token number">5555</span><span class="token punctuation">]</span>
+ disconnect <span class="token punctuation">[</span>HOST<span class="token punctuation">[</span>:PORT<span class="token punctuation">]</span><span class="token punctuation">]</span>
+     disconnect from given TCP/IP device <span class="token punctuation">[</span>default <span class="token assign-left variable">port</span><span class="token operator">=</span><span class="token number">5555</span><span class="token punctuation">]</span>, or all
+ pair HOST<span class="token punctuation">[</span>:PORT<span class="token punctuation">]</span> <span class="token punctuation">[</span>PAIRING CODE<span class="token punctuation">]</span>
+     pair with a device <span class="token keyword">for</span> secure TCP/IP communication
+ forward <span class="token parameter variable">--list</span>           list all forward socket connections
+ forward <span class="token punctuation">[</span>--no-rebind<span class="token punctuation">]</span> LOCAL REMOTE
+     forward socket connection using:
+       tcp:<span class="token operator">&lt;</span>port<span class="token operator">></span> <span class="token punctuation">(</span><span class="token operator">&lt;</span>local<span class="token operator">></span> may be <span class="token string">"tcp:0"</span> to pick any <span class="token function">open</span> port<span class="token punctuation">)</span>
+       localabstract:<span class="token operator">&lt;</span>unix domain socket name<span class="token operator">></span>
+       localreserved:<span class="token operator">&lt;</span>unix domain socket name<span class="token operator">></span>
+       localfilesystem:<span class="token operator">&lt;</span>unix domain socket name<span class="token operator">></span>
+       jdwp:<span class="token operator">&lt;</span>process pid<span class="token operator">></span> <span class="token punctuation">(</span>remote only<span class="token punctuation">)</span>
+       vsock:<span class="token operator">&lt;</span>CID<span class="token operator">></span>:<span class="token operator">&lt;</span>port<span class="token operator">></span> <span class="token punctuation">(</span>remote only<span class="token punctuation">)</span>
+       acceptfd:<span class="token operator">&lt;</span>fd<span class="token operator">></span> <span class="token punctuation">(</span>listen only<span class="token punctuation">)</span>
+ forward <span class="token parameter variable">--remove</span> LOCAL   remove specific forward socket connection
+ forward --remove-all     remove all forward socket connections
+ ppp TTY <span class="token punctuation">[</span>PARAMETER<span class="token punctuation">..</span>.<span class="token punctuation">]</span>   run PPP over USB
+ reverse <span class="token parameter variable">--list</span>           list all reverse socket connections from device
+ reverse <span class="token punctuation">[</span>--no-rebind<span class="token punctuation">]</span> REMOTE LOCAL
+     reverse socket connection using:
+       tcp:<span class="token operator">&lt;</span>port<span class="token operator">></span> <span class="token punctuation">(</span><span class="token operator">&lt;</span>remote<span class="token operator">></span> may be <span class="token string">"tcp:0"</span> to pick any <span class="token function">open</span> port<span class="token punctuation">)</span>
+       localabstract:<span class="token operator">&lt;</span>unix domain socket name<span class="token operator">></span>
+       localreserved:<span class="token operator">&lt;</span>unix domain socket name<span class="token operator">></span>
+       localfilesystem:<span class="token operator">&lt;</span>unix domain socket name<span class="token operator">></span>
+ reverse <span class="token parameter variable">--remove</span> REMOTE  remove specific reverse socket connection
+ reverse --remove-all     remove all reverse socket connections from device
+ mdns check               check <span class="token keyword">if</span> mdns discovery is available
+ mdns services            list all discovered services
+
+<span class="token function">file</span> transfer:
+ push <span class="token punctuation">[</span>--sync<span class="token punctuation">]</span> <span class="token punctuation">[</span>-z ALGORITHM<span class="token punctuation">]</span> <span class="token punctuation">[</span>-Z<span class="token punctuation">]</span> LOCAL<span class="token punctuation">..</span>. REMOTE
+     copy <span class="token builtin class-name">local</span> files/directories to device
+     --sync: only push files that are newer on the <span class="token function">host</span> than the device
+     -n: dry run: push files to device without storing to the filesystem
+     -z: <span class="token builtin class-name">enable</span> compression with a specified algorithm <span class="token punctuation">(</span>any, none, brotli<span class="token punctuation">)</span>
+     -Z: disable compression
+ pull <span class="token punctuation">[</span>-a<span class="token punctuation">]</span> <span class="token punctuation">[</span>-z ALGORITHM<span class="token punctuation">]</span> <span class="token punctuation">[</span>-Z<span class="token punctuation">]</span> REMOTE<span class="token punctuation">..</span>. LOCAL
+     copy files/dirs from device
+     -a: preserve <span class="token function">file</span> timestamp and mode
+     -z: <span class="token builtin class-name">enable</span> compression with a specified algorithm <span class="token punctuation">(</span>any, none, brotli<span class="token punctuation">)</span>
+     -Z: disable compression
+ <span class="token function">sync</span> <span class="token punctuation">[</span>-l<span class="token punctuation">]</span> <span class="token punctuation">[</span>-z ALGORITHM<span class="token punctuation">]</span> <span class="token punctuation">[</span>-Z<span class="token punctuation">]</span> <span class="token punctuation">[</span>all<span class="token operator">|</span>data<span class="token operator">|</span>odm<span class="token operator">|</span>oem<span class="token operator">|</span>product<span class="token operator">|</span>system<span class="token operator">|</span>system_ext<span class="token operator">|</span>vendor<span class="token punctuation">]</span>
+     <span class="token function">sync</span> a <span class="token builtin class-name">local</span> build from <span class="token variable">$ANDROID_PRODUCT_OUT</span> to the device <span class="token punctuation">(</span>default all<span class="token punctuation">)</span>
+     -n: dry run: push files to device without storing to the filesystem
+     -l: list files that would be copied, but don<span class="token string">'t copy them
+     -z: enable compression with a specified algorithm (any, none, brotli)
+     -Z: disable compression
+
+shell:
+ shell [-e ESCAPE] [-n] [-Tt] [-x] [COMMAND...]
+     run remote shell command (interactive shell if no command given)
+     -e: choose escape character, or "none"; default '</span>~<span class="token string">'
+     -n: don'</span>t <span class="token builtin class-name">read</span> from stdin
+     -T: disable pty allocation
+     -t: allocate a pty <span class="token keyword">if</span> on a <span class="token function">tty</span> <span class="token punctuation">(</span>-tt: force pty allocation<span class="token punctuation">)</span>
+     -x: disable remote <span class="token builtin class-name">exit</span> codes and stdout/stderr separation
+ emu COMMAND              run emulator console <span class="token builtin class-name">command</span>
+
+app installation <span class="token punctuation">(</span>see also <span class="token variable"><span class="token variable">`</span>adb shell cmd package <span class="token builtin class-name">help</span><span class="token variable">`</span></span><span class="token punctuation">)</span>:
+ <span class="token function">install</span> <span class="token punctuation">[</span>-lrtsdg<span class="token punctuation">]</span> <span class="token punctuation">[</span>--instant<span class="token punctuation">]</span> PACKAGE
+     push a single package to the device and <span class="token function">install</span> it
+ install-multiple <span class="token punctuation">[</span>-lrtsdpg<span class="token punctuation">]</span> <span class="token punctuation">[</span>--instant<span class="token punctuation">]</span> PACKAGE<span class="token punctuation">..</span>.
+     push multiple APKs to the device <span class="token keyword">for</span> a single package and <span class="token function">install</span> them
+ install-multi-package <span class="token punctuation">[</span>-lrtsdpg<span class="token punctuation">]</span> <span class="token punctuation">[</span>--instant<span class="token punctuation">]</span> PACKAGE<span class="token punctuation">..</span>.
+     push one or <span class="token function">more</span> packages to the device and <span class="token function">install</span> them atomically
+     -r: replace existing application
+     -t: allow <span class="token builtin class-name">test</span> packages
+     -d: allow version code downgrade <span class="token punctuation">(</span>debuggable packages only<span class="token punctuation">)</span>
+     -p: partial application <span class="token function">install</span> <span class="token punctuation">(</span>install-multiple only<span class="token punctuation">)</span>
+     -g: grant all runtime permissions
+     <span class="token parameter variable">--abi</span> ABI: override platform<span class="token string">'s default ABI
+     --instant: cause the app to be installed as an ephemeral install app
+     --no-streaming: always push APK to device and invoke Package Manager as separate steps
+     --streaming: force streaming APK directly into Package Manager
+     --fastdeploy: use fast deploy
+     --no-fastdeploy: prevent use of fast deploy
+     --force-agent: force update of deployment agent when using fast deploy
+     --date-check-agent: update deployment agent when local version is newer and using fast deploy
+     --version-check-agent: update deployment agent when local version has different version code and using fast deploy
+     (See also `adb shell pm help` for more options.)
+ uninstall [-k] PACKAGE
+     remove this app package from the device
+     '</span>-k<span class="token string">': keep the data and cache directories
+
+debugging:
+ bugreport [PATH]
+     write bugreport to given PATH [default=bugreport.zip];
+     if PATH is a directory, the bug report is saved in that directory.
+     devices that don'</span>t support zipped bug reports output to stdout.
+ jdwp                     list pids of processes hosting a JDWP transport
+ logcat                   show device log <span class="token punctuation">(</span>logcat <span class="token parameter variable">--help</span> <span class="token keyword">for</span> <span class="token function">more</span><span class="token punctuation">)</span>
+
+security:
+ disable-verity           disable dm-verity checking on userdebug builds
+ enable-verity            re-enable dm-verity checking on userdebug builds
+ keygen FILE
+     generate adb public/private key<span class="token punctuation">;</span> private key stored <span class="token keyword">in</span> FILE,
+
+scripting:
+ wait-for<span class="token punctuation">[</span>-TRANSPORT<span class="token punctuation">]</span>-STATE<span class="token punctuation">..</span>.
+     <span class="token function">wait</span> <span class="token keyword">for</span> device to be <span class="token keyword">in</span> a given state
+     STATE: device, recovery, rescue, sideload, bootloader, or disconnect
+     TRANSPORT: usb, local, or any <span class="token punctuation">[</span>default<span class="token operator">=</span>any<span class="token punctuation">]</span>
+ get-state                print offline <span class="token operator">|</span> bootloader <span class="token operator">|</span> device
+ get-serialno             print <span class="token operator">&lt;</span>serial-number<span class="token operator">></span>
+ get-devpath              print <span class="token operator">&lt;</span>device-path<span class="token operator">></span>
+ remount <span class="token punctuation">[</span>-R<span class="token punctuation">]</span>
+      remount partitions read-write. <span class="token keyword">if</span> a <span class="token function">reboot</span> is required, <span class="token parameter variable">-R</span> will
+      will automatically <span class="token function">reboot</span> the device.
+ <span class="token function">reboot</span> <span class="token punctuation">[</span>bootloader<span class="token operator">|</span>recovery<span class="token operator">|</span>sideload<span class="token operator">|</span>sideload-auto-reboot<span class="token punctuation">]</span>
+     <span class="token function">reboot</span> the device<span class="token punctuation">;</span> defaults to booting system image but
+     supports bootloader and recovery too. sideload reboots
+     into recovery and automatically starts sideload mode,
+     sideload-auto-reboot is the same but reboots after sideloading.
+ sideload OTAPACKAGE      sideload the given full OTA package
+ root                     restart adbd with root permissions
+ unroot                   restart adbd without root permissions
+ usb                      restart adbd listening on USB
+ tcpip PORT               restart adbd listening on TCP on PORT
+
+internal debugging:
+ start-server             ensure that there is a server running
+ kill-server              <span class="token function">kill</span> the server <span class="token keyword">if</span> it is running
+ reconnect                kick connection from <span class="token function">host</span> side to force reconnect
+ reconnect device         kick connection from device side to force reconnect
+ reconnect offline        reset offline/unauthorized devices to force reconnect
+
+usb:
+ attach                   attach a detached USB device
+ detach                   detach from a USB device to allow use by other processes
+environment variables:
+ <span class="token variable">$ADB_TRACE</span>
+     comma-separated list of debug info to log:
+     all,adb,sockets,packets,rwx,usb,sync,sysdeps,transport,jdwp
+ <span class="token variable">$ADB_VENDOR_KEYS</span>         colon-separated list of keys <span class="token punctuation">(</span>files or directories<span class="token punctuation">)</span>
+ <span class="token variable">$ANDROID_SERIAL</span>          serial number to connect to <span class="token punctuation">(</span>see -s<span class="token punctuation">)</span>
+ <span class="token variable">$ANDROID_LOG_TAGS</span>        tags to be used by logcat <span class="token punctuation">(</span>see logcat --help<span class="token punctuation">)</span>
+ <span class="token variable">$ADB_LOCAL_TRANSPORT_MAX_PORT</span> max emulator scan port <span class="token punctuation">(</span>default <span class="token number">5585</span>, <span class="token number">16</span> emus<span class="token punctuation">)</span>
+ <span class="token variable">$ADB_MDNS_AUTO_CONNECT</span>   comma-separated list of mdns services to allow auto-connect <span class="token punctuation">(</span>default adb-tls-connect<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#android</span>
+**************************************************************************
+The <span class="token string">"android"</span> <span class="token builtin class-name">command</span> is deprecated.
+For manual SDK, AVD, and project management, please use Android Studio.
+For command-line tools, use tools<span class="token punctuation">\</span>bin<span class="token punctuation">\</span>sdkmanager.bat
+and tools<span class="token punctuation">\</span>bin<span class="token punctuation">\</span>avdmanager.bat
+**************************************************************************
+
+Invalid or unsupported <span class="token builtin class-name">command</span> <span class="token string">""</span>
+
+Supported commands are:
+android list target
+android list avd
+android list device
+android create avd
+android move avd
+android delete avd
+android list sdk
+android update sdk
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>配置完成</p>
+<p>Configuration complete</p>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left "
+    
+      href="/2022/03/02/About-the-problem-of-wrong-screen-ratio-of-mobile-phone-virtual-machine-in-Android-Studio-%E5%85%B3%E4%BA%8EAndroid-Studio%E4%B8%AD%E6%89%8B%E6%9C%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B1%8F%E5%B9%95%E6%AF%94%E4%BE%8B%E4%B8%8D%E5%AF%B9%E7%9A%84%E9%97%AE%E9%A2%98/"
+      title="About the problem of wrong screen ratio of mobile phone virtual machine in Android Studio(关于Android Studio中手机虚拟机屏幕比例不对的问题)"
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+      
+        About the problem of wrong screen ratio of mobile phone virtual machine in Android Studio(关于Android Studio中手机虚拟机屏幕比例不对的问题)
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2022/02/28/Environment-variable-path-rewrite-script-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fpath%E9%87%8D%E5%86%99%E8%84%9A%E6%9C%AC/"
+      title="Environment variable path rewrite script(环境变量path重写脚本)"
+     >
+
+    <p class="title-text">
+      
+        Environment variable path rewrite script(环境变量path重写脚本)
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2024 Your Name<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>

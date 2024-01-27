@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="false" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>DASCTFxGFCTF2022 RSA | Silence to hear.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="Analyze from Crypto.Util.number import * from secret import flag  def encrypt1(n):     n1 &#x3D; hex(n&gt;&gt;200).encode()     n2 &#x3D; str(hex(n))[20:].encode()     return n1,n2   def encrypt2(m , n_1):     c_1 &#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DASCTFxGFCTF2022 RSA">
+<meta property="og:url" content="http://mykonos-x.github.io/2022/12/26/DASCTFxGFCTF2022-RSA/index.html">
+<meta property="og:site_name" content="Silence to hear.">
+<meta property="og:description" content="Analyze from Crypto.Util.number import * from secret import flag  def encrypt1(n):     n1 &#x3D; hex(n&gt;&gt;200).encode()     n2 &#x3D; str(hex(n))[20:].encode()     return n1,n2   def encrypt2(m , n_1):     c_1 &#x3D;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-12-26T13:03:00.000Z">
+<meta property="article:modified_time" content="2023-09-07T16:48:18.659Z">
+<meta property="article:author" content="ymepetb">
+<meta property="article:tag" content="write-up">
+<meta property="article:tag" content="crypto">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Silence to hear." type="application/atom+xml">
+  
+  
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>Silence to hear. </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS Feed">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS Feed">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">Your Name </div>
+      <div class="dot"></div>
+      <div class="subtitle">This is the subtitle </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://twitter.com" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://store.steampowered.com" title="Steam"><i class="fa-brands fa-steam"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Categories</h3>
+      <div class="category-box">
+            <a class="category-link" href="/categories/tips/">
+                tips
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/basic/">
+                basic
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/CTF-Challenges-Replicated/">
+                CTF Challenges Replicated
+                <div class="category-count">2</div>
+            </a>
+        </div>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Tags</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Gin/" rel="tag">Gin</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Solutions/" rel="tag">Solutions</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/android-development/" rel="tag">android development</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/crypto/" rel="tag">crypto</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/dsa/" rel="tag">dsa</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/exam/" rel="tag">exam</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/kernel/" rel="tag">kernel</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/misc/" rel="tag">misc</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/openEuler/" rel="tag">openEuler</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/reverse/" rel="tag">reverse</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/rsa/" rel="tag">rsa</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/scripts/" rel="tag">scripts</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/solutions/" rel="tag">solutions</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-DASCTFxGFCTF2022-RSA" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        DASCTFxGFCTF2022 RSA
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2022-12-26T13:03:00.000Z" itemprop="datePublished">2022-12-26</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+             words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/crypto/" rel="tag">crypto</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h3><span id="analyze">Analyze</span></h3>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> Crypto<span class="token punctuation">.</span>Util<span class="token punctuation">.</span>number <span class="token keyword">import</span> <span class="token operator">*</span>
+<span class="token keyword">from</span> secret <span class="token keyword">import</span> flag
+
+<span class="token keyword">def</span> <span class="token function">encrypt1</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    n1 <span class="token operator">=</span> <span class="token builtin">hex</span><span class="token punctuation">(</span>n<span class="token operator">>></span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    n2 <span class="token operator">=</span> <span class="token builtin">str</span><span class="token punctuation">(</span><span class="token builtin">hex</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> n1<span class="token punctuation">,</span>n2
+
+
+<span class="token keyword">def</span> <span class="token function">encrypt2</span><span class="token punctuation">(</span>m <span class="token punctuation">,</span> n_1<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    c_1 <span class="token operator">=</span> <span class="token builtin">pow</span><span class="token punctuation">(</span>m<span class="token punctuation">,</span>e_1<span class="token punctuation">,</span>n_1<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'c_1 = '</span><span class="token operator">+</span><span class="token builtin">str</span><span class="token punctuation">(</span>c_1<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">encrypt3</span><span class="token punctuation">(</span>m <span class="token punctuation">,</span> n_2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    c_2 <span class="token operator">=</span> <span class="token builtin">pow</span><span class="token punctuation">(</span> m <span class="token punctuation">,</span> e_2 <span class="token punctuation">,</span> n_2<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'c_2 = '</span><span class="token operator">+</span><span class="token builtin">str</span><span class="token punctuation">(</span>c_2<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">encrypt4</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    k <span class="token operator">=</span> getPrime<span class="token punctuation">(</span><span class="token number">512</span><span class="token punctuation">)</span>
+    m <span class="token operator">=</span> m <span class="token operator">%</span> k
+    c_3 <span class="token operator">=</span> <span class="token builtin">pow</span><span class="token punctuation">(</span>m<span class="token punctuation">,</span> e_2<span class="token punctuation">,</span> n_3<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'c_3 = '</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>c_3<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'m = '</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'k = '</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+
+m1<span class="token punctuation">,</span>m2 <span class="token operator">=</span> encrypt1<span class="token punctuation">(</span>flag<span class="token punctuation">)</span>
+m1 <span class="token operator">=</span> bytes_to_long<span class="token punctuation">(</span>m1<span class="token punctuation">)</span>
+m2 <span class="token operator">=</span> bytes_to_long<span class="token punctuation">(</span>m2<span class="token punctuation">)</span>
+
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'n_2 = '</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>n_2<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'n_3 = '</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>n_3<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'e_1 = '</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>e_1<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'e_2 = '</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>e_2<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+
+encrypt2<span class="token punctuation">(</span>m1<span class="token punctuation">,</span>n_1<span class="token punctuation">)</span>
+encrypt3<span class="token punctuation">(</span>n_1<span class="token punctuation">,</span>n_2<span class="token punctuation">)</span>
+encrypt4<span class="token punctuation">(</span>m2<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>有四个encrypt函数，先看看这四个函数分别干了什么</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>encrypt1:这里n1将参数取高200比特位再转为16进制，n2将取参数16进制的后20位，这里可能刚开始不知道函数干了个什么事情，可以自己找数据运行一下，可以猜测这个函数其实就是将flag分成了两半</p>
+</li>
+<li class="lvl-2">
+<p>encrypt2:<code>$c_1 \equiv m ^ &#123;e_1&#125; \mod n_1$</code></p>
+</li>
+<li class="lvl-2">
+<p>encrypt3:$$c_2 \equiv m ^ {e_2} \mod n_2$$</p>
+</li>
+<li class="lvl-2">
+<p>encrypt4:首先生成了一个512bit的素数，然后m对k取余，然后$$c_3 \equiv m ^ {e_2} \mod n_3$$</p>
+</li>
+</ul>
+<p>第二步，看一看数据</p>
+<pre class="line-numbers language-none"><code class="language-none">n_2 &#x3D; 675835056744450121024004008337170937331109883435712066354955474563267257037603081555653829598886559337325172694278764741403348512872239277008719548968016702852609803016353158454788807563316656327979897318887566108985783153878668451688372252234938716250621575338314779485058267785731636967957494369458211599823364746908763588582489400785865427060804408606617016267936273888743392372620816053927031794575978032607311497491069242347165424963308662091557862342478844612402720375931726316909635118113432836702120449010
+n_3 &#x3D; 91294511667572917673898699346231897684542006136956966126836916292947639514392684487940336406038086150289315439796780158189004157494824987037667065310517044311794725172075653186677331434123198117797575528982908532086038107428540586044471407073066169603930082133459486076777574046803264038780927350142555712567
+e_1 &#x3D; 65537
+e_2 &#x3D; 3
+c_1 &#x3D; 47029848959680138397125259006172340325269302342762903311733700258745280761154948381409328053449580957972265859283407071931484707002138926840483316880087281153554181290481533
+c_2 &#x3D; 332431
+c_3 &#x3D; 11951299411967534922967467740790967733301092706094553308467975774492025797106594440070380723007894861454249455013202734019215071856834943490096156048504952328784989777263664832098681831398770963056616417301705739505187754236801407014715780468333977293887519001724078504320344074325196167699818117367329779609
+m &#x3D; 9530454742891231590945778054072843874837824815724564463369259282490619049557772650832818763768769359762168560563265763313176741847581931364
+k &#x3D; 8139616873420730499092246564709331937498029453340099806219977060224838957080870950877930756958455278369862703151353509623205172658012437573652818022676431
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以看到e_2=3，并且给了m，k</p>
+<p>由e_2=3，可以联想到小明文攻击</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">encrypt3<span class="token punctuation">(</span>n_1<span class="token punctuation">,</span>n_2<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>可以发现encryt3正是可以利用小明文攻击，得到n_1</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">for</span> i <span class="token keyword">in</span> tqdm<span class="token punctuation">(</span><span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">200000000</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> gmpy2<span class="token punctuation">.</span>iroot<span class="token punctuation">(</span>n_2 <span class="token operator">*</span> i <span class="token operator">+</span> c_2 <span class="token punctuation">,</span> e_2<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+        n_1 <span class="token operator">=</span>  gmpy2<span class="token punctuation">.</span>iroot<span class="token punctuation">(</span>n_2 <span class="token operator">*</span> i <span class="token operator">+</span> c_2 <span class="token punctuation">,</span> e_2<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"\nn_1=</span><span class="token interpolation"><span class="token punctuation">&#123;</span>n_1<span class="token punctuation">&#125;</span></span><span class="token string">\n"</span></span><span class="token punctuation">)</span>
+        <span class="token keyword">break</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>拿到n_1</p>
+<pre class="line-numbers language-none"><code class="language-none">n_1&#x3D;70406706457855863712635967741447303613971473150228480705119773604469794649140239446237334040048504811343327173817296308781190911727763110615393368497803655390445303946160971<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>根据</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">encrypt2<span class="token punctuation">(</span>m1<span class="token punctuation">,</span>n_1<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>现在拿到了n_1，就可以去尝试求m1了，也就是flag的前半段</p>
+<p>n_1可以通过分解得到三个因子，那么就可以求得</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">n_1 <span class="token operator">=</span> <span class="token number">70406706457855863712635967741447303613971473150228480705119773604469794649140239446237334040048504811343327173817296308781190911727763110615393368497803655390445303946160971</span>
+p_1 <span class="token operator">=</span> <span class="token number">2224243981</span>
+q_1 <span class="token operator">=</span> <span class="token number">2732337821</span>
+r_1 <span class="token operator">=</span> <span class="token number">11585031296201346891716939633970482508158508580350404805965250133832632323150440185890235814142601827544669601048550999405490149435265122374459158586377571</span>
+phi_n_1 <span class="token operator">=</span> <span class="token punctuation">(</span>p_1 <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>q_1 <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>r_1 <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+d_1 <span class="token operator">=</span> gmpy2<span class="token punctuation">.</span>invert<span class="token punctuation">(</span>e_1<span class="token punctuation">,</span> phi_n_1<span class="token punctuation">)</span>
+m1 <span class="token operator">=</span> <span class="token builtin">pow</span><span class="token punctuation">(</span>c_1 <span class="token punctuation">,</span> d_1 <span class="token punctuation">,</span> n_1<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>libnum<span class="token punctuation">.</span>n2s<span class="token punctuation">(</span>m1<span class="token punctuation">)</span><span class="token punctuation">)</span>
+flag1 <span class="token operator">=</span> libnum<span class="token punctuation">.</span>n2s<span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">(</span>libnum<span class="token punctuation">.</span>n2s<span class="token punctuation">(</span>m1<span class="token punctuation">)</span> <span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment">#0x666c61677b3230366538353964</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>得到一串十六进制数<code>0x666c61677b3230366538353964</code> ，即<code>flag&#123;206e859d</code></p>
+<p>剩下encrypt4，由于</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">m <span class="token operator">=</span> m <span class="token operator">%</span> k<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>m,k题目已知，假设$m = m2 + T \cdot k$，由</p>
+<p>$c = m ^ {e_2} \mod n_3$</p>
+<p>即$c = (m2 + T \cdot k) ^ {e_2} \mod n_3$</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#sage</span>
+<span class="token keyword">from</span> Crypto<span class="token punctuation">.</span>Util<span class="token punctuation">.</span>number <span class="token keyword">import</span> <span class="token operator">*</span>
+m <span class="token operator">=</span> <span class="token number">9530454742891231590945778054072843874837824815724564463369259282490619049557772650832818763768769359762168560563265763313176741847581931364</span>
+k <span class="token operator">=</span> <span class="token number">8139616873420730499092246564709331937498029453340099806219977060224838957080870950877930756958455278369862703151353509623205172658012437573652818022676431</span>
+c_3 <span class="token operator">=</span> <span class="token number">11951299411967534922967467740790967733301092706094553308467975774492025797106594440070380723007894861454249455013202734019215071856834943490096156048504952328784989777263664832098681831398770963056616417301705739505187754236801407014715780468333977293887519001724078504320344074325196167699818117367329779609</span>
+n_3 <span class="token operator">=</span> <span class="token number">91294511667572917673898699346231897684542006136956966126836916292947639514392684487940336406038086150289315439796780158189004157494824987037667065310517044311794725172075653186677331434123198117797575528982908532086038107428540586044471407073066169603930082133459486076777574046803264038780927350142555712567</span>
+e <span class="token operator">=</span> <span class="token number">3</span>
+R<span class="token punctuation">.</span><span class="token operator">&lt;</span>x<span class="token operator">></span> <span class="token operator">=</span> PolynomialRing<span class="token punctuation">(</span>Zmod<span class="token punctuation">(</span>n_3<span class="token punctuation">)</span><span class="token punctuation">)</span>
+g <span class="token operator">=</span> <span class="token punctuation">(</span>m <span class="token operator">+</span> k <span class="token operator">*</span> x<span class="token punctuation">)</span> <span class="token operator">**</span> e <span class="token operator">-</span> c_3
+g <span class="token operator">=</span> g<span class="token punctuation">.</span>monic<span class="token punctuation">(</span><span class="token punctuation">)</span>
+r <span class="token operator">=</span> g<span class="token punctuation">.</span>small_roots<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+flag <span class="token operator">=</span> k <span class="token operator">*</span> r <span class="token operator">+</span> m
+<span class="token keyword">print</span><span class="token punctuation">(</span>long_to_bytes<span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">(</span>flag<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>得到一串十六进制<code>383539643865383534633466363030636231323735376262663966357d</code>，发现和前半段flag的十六进制有重叠，故最后得到flag<code>flag&#123;206e859d8e854c4f600cb12757bbf9f5&#125;</code></p>
+<p>又水一篇wp XD</p>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left "
+    
+      href="/2023/09/25/%E7%BD%91%E9%BC%8E%E6%9D%AF2022-%E9%9D%92%E9%BE%99%E7%BB%84-Handmake/"
+      title="网鼎杯2022 青龙组 Handmake"
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+      
+        网鼎杯2022 青龙组 Handmake
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2022/12/19/For-Final-Exam-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/"
+      title="(For Final Exam)计算机组成原理期末复习"
+     >
+
+    <p class="title-text">
+      
+        (For Final Exam)计算机组成原理期末复习
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2024 Your Name<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>Stack Smashing</title>
+  
+  <link rel="canonical" href="http://mykonos-x.github.io/2022/09/27/Stack-Smashing/">
+  
+  <meta name="description" content="Stack Smashing当canary被覆盖后，会call到__stack_chk_fail打印argv[0]这个指针指向的字符串，默认是程序的名字，如果我们把它覆盖为其他的地址时，它就会把其他内存地址的信息给打印出来 Example:wdb2018_guessAnalyzeArch:     ">
+  
+  
+  <meta name="author" content="Ez3ki3l">
+  
+  
+  
+  <meta property="og:site_name" content="Silence to hear." />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Stack Smashing" />
+  
+  <meta property="og:description" content="Stack Smashing当canary被覆盖后，会call到__stack_chk_fail打印argv[0]这个指针指向的字符串，默认是程序的名字，如果我们把它覆盖为其他的地址时，它就会把其他内存地址的信息给打印出来 Example:wdb2018_guessAnalyzeArch:     ">
+  
+  <meta property="og:url" content="http://mykonos-x.github.io/2022/09/27/Stack-Smashing/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Stack Smashing">
+  
+  <meta name="twitter:description" content="Stack Smashing当canary被覆盖后，会call到__stack_chk_fail打印argv[0]这个指针指向的字符串，默认是程序的名字，如果我们把它覆盖为其他的地址时，它就会把其他内存地址的信息给打印出来 Example:wdb2018_guessAnalyzeArch:     ">
+  
+  
+  
+  
+  <meta name="twitter:url" content="http://mykonos-x.github.io/2022/09/27/Stack-Smashing/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="/fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/prism-dark.css">
+
+  
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+
+  <!-- User css -->
+  
+  
+<link rel="stylesheet" href="/css/user.css">
+
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon2.png">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #7cc1df;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #7cc1df 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #7cc1df;
+  }
+  .nanobar .bar {
+    background: #7cc1df;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #7cc1df;
+    border-color: #7cc1df;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #7cc1df;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+  
+  <script src="/js/pic.min.js" defer></script>
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌑</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>☀️</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      Hi there.
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+          
+          <a href="/about" class="ml">About</a>
+          
+        
+        
+          
+            <a href="mailto:g0dzirrazhou@gmail.com" target="_blank" class="ml">Email</a>
+          
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>Stack Smashing</h2>
+
+  <h3 id="Stack-Smashing"><a href="#Stack-Smashing" class="headerlink" title="Stack Smashing"></a>Stack Smashing</h3><p>当canary被覆盖后，会call到<code>__stack_chk_fail</code>打印argv[0]这个指针指向的字符串，默认是程序的名字，如果我们把它覆盖为其他的地址时，它就会把其他内存地址的信息给打印出来</p>
+<h3 id="Example-wdb2018-guess"><a href="#Example-wdb2018-guess" class="headerlink" title="Example:wdb2018_guess"></a>Example:wdb2018_guess</h3><h4 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Arch:     amd64-64-little
+RELRO:    Partial RELRO
+Stack:    Canary found
+NX:       NX enabled
+PIE:      No PIE <span class="token punctuation">(</span>0x400000<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">This is GUESS FLAG CHALLENGE<span class="token operator">!</span>
+Please <span class="token builtin class-name">type</span> your guessing flag
+<span class="token number">123</span>
+You should take <span class="token function">more</span> effort to get six sence, and one <span class="token function">more</span> challenge<span class="token operator">!</span><span class="token operator">!</span>
+Please <span class="token builtin class-name">type</span> your guessing flag<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以上是程序开启的一些保护和大概的流程</p>
+<h5 id="main"><a href="#main" class="headerlink" title="main"></a>main</h5><pre class="line-numbers language-c" data-language="c"><code class="language-c">__int64 __fastcall <span class="token function">main</span><span class="token punctuation">(</span>__int64 a1<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>a2<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>a3<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  __WAIT_STATUS stat_loc<span class="token punctuation">;</span> <span class="token comment">// [rsp+14h] [rbp-8Ch] BYREF</span>
+  __int64 v6<span class="token punctuation">;</span> <span class="token comment">// [rsp+20h] [rbp-80h]</span>
+  __int64 v7<span class="token punctuation">;</span> <span class="token comment">// [rsp+28h] [rbp-78h]</span>
+  <span class="token keyword">char</span> buf<span class="token punctuation">[</span><span class="token number">48</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// [rsp+30h] [rbp-70h] BYREF</span>
+  <span class="token keyword">char</span> s2<span class="token punctuation">[</span><span class="token number">56</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// [rsp+60h] [rbp-40h] BYREF</span>
+  <span class="token keyword">unsigned</span> __int64 v10<span class="token punctuation">;</span> <span class="token comment">// [rsp+98h] [rbp-8h]</span>
+
+  v10 <span class="token operator">=</span> <span class="token function">__readfsqword</span><span class="token punctuation">(</span><span class="token number">0x28u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  v7 <span class="token operator">=</span> <span class="token number">3LL</span><span class="token punctuation">;</span>
+  <span class="token function">LODWORD</span><span class="token punctuation">(</span>stat_loc<span class="token punctuation">.</span>__uptr<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  v6 <span class="token operator">=</span> <span class="token number">0LL</span><span class="token punctuation">;</span>
+  <span class="token function">sub_4009A6</span><span class="token punctuation">(</span>a1<span class="token punctuation">,</span> a2<span class="token punctuation">,</span> a3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">HIDWORD</span><span class="token punctuation">(</span>stat_loc<span class="token punctuation">.</span>__iptr<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token function">open</span><span class="token punctuation">(</span><span class="token string">"./flag.txt"</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token function">HIDWORD</span><span class="token punctuation">(</span>stat_loc<span class="token punctuation">.</span>__iptr<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token function">perror</span><span class="token punctuation">(</span><span class="token string">"./flag.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">_exit</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token function">read</span><span class="token punctuation">(</span><span class="token function">SHIDWORD</span><span class="token punctuation">(</span>stat_loc<span class="token punctuation">.</span>__iptr<span class="token punctuation">)</span><span class="token punctuation">,</span> buf<span class="token punctuation">,</span> <span class="token number">0x30uLL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">close</span><span class="token punctuation">(</span><span class="token function">SHIDWORD</span><span class="token punctuation">(</span>stat_loc<span class="token punctuation">.</span>__iptr<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"This is GUESS FLAG CHALLENGE!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span> <span class="token number">1</span> <span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span> v6 <span class="token operator">>=</span> v7 <span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+      <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"you have no sense... bye :-) "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token number">0LL</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token operator">!</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">int</span><span class="token punctuation">)</span><span class="token function">sub_400A11</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token operator">++</span>v6<span class="token punctuation">;</span>
+    <span class="token function">wait</span><span class="token punctuation">(</span><span class="token punctuation">(</span>__WAIT_STATUS<span class="token punctuation">)</span><span class="token operator">&amp;</span>stat_loc<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"Please type your guessing flag"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">gets</span><span class="token punctuation">(</span>s2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token operator">!</span><span class="token function">strcmp</span><span class="token punctuation">(</span>buf<span class="token punctuation">,</span> s2<span class="token punctuation">)</span> <span class="token punctuation">)</span>
+    <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"You must have great six sense!!!! :-o "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">else</span>
+    <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"You should take more effort to get six sence, and one more challenge!!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token number">0LL</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以看到通过<code>gets</code>来接收变量s2，也就是用户输入，然后与buf(即flag)进行compare，如果相同则输出””You must have great six sense!!!! :-o “</p>
+<p>否则让用户继续进行输入</p>
+<p>虽然是危险函数<code>gets</code>，但是由于本题开启了canary保护，所以没法进行stackoverflow或者搭配ROP等攻击</p>
+<p>这里的话我们利用stack smashing来泄露程序的内存信息</p>
+<h4 id="Principle"><a href="#Principle" class="headerlink" title="Principle"></a>Principle</h4><p>前言已经提到过，当canary被覆盖后，会调用<code>__stack_chk_fail</code>这个函数，打印<code>argv[0]</code>这个指针指向的字符串，默认为程序的名字，stacksmashing的思想就是通过覆盖<code>argv[0]</code>这个指针指向的地址，让程序在调用<code>__stack_chk_fail</code>的时候，输出我们想要的内容，比如可以通过覆盖<code>argv[0]</code>为puts的got表地址，从而让程序打印出puts函数的真实地址，来泄露libc</p>
+<h4 id="Structure-attack-script"><a href="#Structure-attack-script" class="headerlink" title="Structure attack script"></a>Structure attack script</h4><p>首先我们需要动调找到<code>argv[0]</code>这个指针距离用户输入的偏移，<code>__libc_argv[0]</code>里面存储的是程序的名字，找到指向<code>__libc_argv[0]</code>的指针即可，计算这个指针和指向用户输入的内容的指针的偏移</p>
+<p><img src="https://pic1.imgdb.cn/item/6331dba616f2c2beb130943d.jpg" alt=""></p>
+<p>这里的话，16.04环境下偏移是<code>0x128</code>，然后就可以往这个地址去覆盖想要泄露的函数地址了，比如这里我们泄露puts函数地址</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">payload1 <span class="token operator">=</span> <span class="token string">b'a'</span> <span class="token operator">*</span> <span class="token number">0x128</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>puts_got<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="https://pic1.imgdb.cn/item/6331dc6c16f2c2beb13159f2.jpg" alt=""></p>
+<p>输出的地方如图所示，接收了puts地址后就可以拿到libc基址了</p>
+<p>接着就涉及到如何通过libc地址来得到栈地址这个知识点了</p>
+<h5 id="Obtain-the-stack-address-through-libc-address"><a href="#Obtain-the-stack-address-through-libc-address" class="headerlink" title="Obtain the stack address through libc address"></a>Obtain the stack address through libc address</h5><p>在libc中保存了一个函数叫<code>_environ</code>，存的是当前进程的环境变量，我们可以通过<code>_environ</code>函数来得到环境变量地址，而环境变量是存在栈上的，然后我们通过偏移就可以计算得到其他函数的地址了</p>
+<p>首先得到<code>_environ</code>函数地址</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">environ_addr <span class="token operator">=</span> libc_base <span class="token operator">+</span> libc<span class="token punctuation">.</span>sym<span class="token punctuation">[</span><span class="token string">'__environ'</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>然后用<code>_environ</code>函数地址覆盖<code>__libc_argv[0]</code>指针地址，让程序通过<code>__stack_chk_fail</code>报错输出<code>_environ</code>环境变量地址</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">payload2 <span class="token operator">=</span> <span class="token string">b'a'</span> <span class="token operator">*</span> <span class="token number">0x128</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>environ_addr<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这样就拿到环境变量地址了，下一步就是去找存flag的变量地址和环境变量地址的偏移</p>
+<p>gdb下可以通过<code>x/a _environ</code>来查看环境变量地址，通过<code>search flag</code>来查找flag变量地址，相减得到偏移</p>
+<p><img src="https://pic1.imgdb.cn/item/6331df9e16f2c2beb1341a9e.jpg" alt=""></p>
+<p>16.04下偏移为<code>0x168</code></p>
+<p>最后一步将<code>__libc_argv[0]</code>覆盖成flag的地址即可，通过<code>__stack_chk_fail</code>来输出flag值</p>
+<p><img src="https://pic1.imgdb.cn/item/6331e03616f2c2beb1349640.jpg" alt=""></p>
+
+  <p><a class="classtest-link" href="/tags/pwn/" rel="tag">pwn</a> — Sep 27, 2022</p>
+  
+
+
+        </div>
+        <div class="row mt-2">
+  <h3>Search</h3>
+  <div><input id="search-text" title="search" class="search-text" type="text" placeholder="search......"></div>
+  <div style="margin-top: 1.5rem;">
+    <ul id="result"></ul>
+  </div>
+</div>
+        <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+        at <a href="https://en.wikipedia.org/wiki/Earth" target="_blank" rel="noreferrer">Earth</a>.</p>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+      <a class="ml-0 footer-link icon" href="https://github.com/Mykonos-x" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="GitHub">
+        <svg class="github svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+      
+
+      
+
+      
+      <a class="ml-0 footer-link icon" href="https://twitter.com/mykonos_x" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="Twitter">
+        <svg class="twitter svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter</title><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/></svg>
+      </a>
+      
+
+      
+
+      
+
+    </div>
+  
+</div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>

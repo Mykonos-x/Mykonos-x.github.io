@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="false" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>(For Final Exam)计算机组成原理期末复习 | Silence to hear.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="概述 1.两种信息流:数据信息流,控制信息流$\left { \begin{aligned} 指令信息\状态信息\时序信息 \end{aligned} \right.$ 2.五个部件:运算器,存储器,控制器,输入设备,输出设备 3.冯诺依曼体系结构计算机的特点:   硬件由五大部分组成运算器,控制器,存储器,输入设备,输出设备   软件以二进制表示   采用存储程序  所有的程序预先存放在存储器中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(For Final Exam)计算机组成原理期末复习">
+<meta property="og:url" content="http://mykonos-x.github.io/2022/12/19/For-Final-Exam-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Silence to hear.">
+<meta property="og:description" content="概述 1.两种信息流:数据信息流,控制信息流$\left { \begin{aligned} 指令信息\状态信息\时序信息 \end{aligned} \right.$ 2.五个部件:运算器,存储器,控制器,输入设备,输出设备 3.冯诺依曼体系结构计算机的特点:   硬件由五大部分组成运算器,控制器,存储器,输入设备,输出设备   软件以二进制表示   采用存储程序  所有的程序预先存放在存储器中">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pic.imgdb.cn/item/63960820b1fccdcd3622dac9.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6396092fb1fccdcd36243715.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/63943df3b1fccdcd3681e794.jpg">
+<meta property="article:published_time" content="2022-12-19T05:05:00.000Z">
+<meta property="article:modified_time" content="2023-09-05T17:11:38.295Z">
+<meta property="article:author" content="ymepetb">
+<meta property="article:tag" content="exam">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/63960820b1fccdcd3622dac9.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Silence to hear." type="application/atom+xml">
+  
+  
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>Silence to hear. </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS Feed">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS Feed">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">Your Name </div>
+      <div class="dot"></div>
+      <div class="subtitle">This is the subtitle </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://twitter.com" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://store.steampowered.com" title="Steam"><i class="fa-brands fa-steam"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Categories</h3>
+      <div class="category-box">
+            <a class="category-link" href="/categories/tips/">
+                tips
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/basic/">
+                basic
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/CTF-Challenges-Replicated/">
+                CTF Challenges Replicated
+                <div class="category-count">2</div>
+            </a>
+        </div>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Tags</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Gin/" rel="tag">Gin</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Solutions/" rel="tag">Solutions</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/android-development/" rel="tag">android development</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/crypto/" rel="tag">crypto</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/dsa/" rel="tag">dsa</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/exam/" rel="tag">exam</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/kernel/" rel="tag">kernel</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/misc/" rel="tag">misc</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/openEuler/" rel="tag">openEuler</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/reverse/" rel="tag">reverse</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/rsa/" rel="tag">rsa</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/scripts/" rel="tag">scripts</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/solutions/" rel="tag">solutions</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-For-Final-Exam-计算机组成原理期末复习" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        (For Final Exam)计算机组成原理期末复习
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2022-12-19T05:05:00.000Z" itemprop="datePublished">2022-12-19</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+             words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/exam/" rel="tag">exam</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h3><span id="概述">概述</span></h3>
+<p>1.两种信息流:<code>数据信息流</code>,<code>控制信息流</code>$\left { \begin{aligned} 指令信息\状态信息\时序信息 \end{aligned} \right.$</p>
+<p>2.五个部件:<code>运算器</code>,<code>存储器</code>,<code>控制器</code>,<code>输入设备</code>,<code>输出设备</code></p>
+<p>3.冯诺依曼体系结构计算机的特点:</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>硬件由五大部分组成<code>运算器</code>,<code>控制器</code>,<code>存储器</code>,<code>输入设备</code>,<code>输出设备</code></p>
+</li>
+<li class="lvl-2">
+<p>软件以二进制表示</p>
+</li>
+<li class="lvl-2">
+<p>采用存储程序</p>
+<ul class="lvl-2">
+<li class="lvl-4">所有的程序预先存放在存储器中</li>
+<li class="lvl-4">指令采用串行执行的方式</li>
+</ul>
+</li>
+</ul>
+<p>4.计算机系统的层次结构</p>
+<pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">graph</span> BT<span class="token punctuation">;</span>
+数学模型,算法应用程序 <span class="token arrow operator">--></span> 作为软件资源的应用程序 <span class="token arrow operator">--></span> 语言处理程序 <span class="token arrow operator">--></span> 操作系统级 <span class="token arrow operator">--></span> 机器语言<span class="token text string">(指令系统)</span> <span class="token arrow operator">--></span> 微程序控制器,硬连逻辑部件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>5.机器语言,汇编语言,高级语言</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>机器语言:二进制代码表示的机器语言,最底层,机器直接执行</p>
+</li>
+<li class="lvl-2">
+<p>汇编语言:一种需要助记符表示的与机器语言一一对应的语言,需要汇编后才能执行</p>
+</li>
+<li class="lvl-2">
+<p>高级语言:接近人类语言,与计算机结构无关,需要经过解释和编译</p>
+</li>
+</ul>
+<p>6.编译程序与解释程序最大区别在于:前者生成目标代码,后者不生成</p>
+<p>7.汇编程序即汇编写的程序,与编译程序,解释程序不是一个概念</p>
+<p>8.$CPI:一条指令所需的时钟周期数 \ 运行时间 = 指令数 * CPI/ 主频$</p>
+<p>9.偶校验:当实际数据中,<code>1</code>的个数为偶数时,校验位为<code>0</code>,否则这个校验位为<code>1</code></p>
+<p>奇校验:当实际数据中,<code>1</code>的个数为偶数时,校验位为<code>1</code>,否则这个校验位为<code>0</code></p>
+<h3><span id="数值的表示与运算">数值的表示与运算</span></h3>
+<p>1.二进制与十进制之间的转换</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>整数 10 $\rightarrow$ 2 (除2取余法)</p>
+</li>
+<li class="lvl-2">
+<p>小数 10 $\rightarrow$2 (乘2取整法)</p>
+</li>
+<li class="lvl-2">
+<p>整数 2 $\rightarrow$ 10 (按权相加)</p>
+</li>
+<li class="lvl-2">
+<p>小数 2 $\rightarrow$ 10 (按权相加)</p>
+</li>
+</ul>
+<p>2.有符号数:0表示&quot;+“,1表示”-&quot;</p>
+<p>3.二进制码制:原码,补码,反码,移码</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>原码:字长<code>8</code>位,表示范围:<code>-127 ~ 127</code></p>
+<ul class="lvl-2">
+<li class="lvl-4">$[0]_原=[-0]_原=10000000=00000000$</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>反码:按位取反</p>
+<ul class="lvl-2">
+<li class="lvl-4">$[0]_反=[-0]_反=11111111=00000000$</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>补码:通常使用补码来表示负数,这种方法可以使得计算机在进行加减运算的时候可以使用相同的算法来处理正数和负数,可以简化计算机硬件设计,字长<code>8</code>位,表示范围:<code>-128 ~ 127</code></p>
+<ul class="lvl-2">
+<li class="lvl-4">
+<p>补码的计算方法:</p>
+<ul class="lvl-4">
+<li class="lvl-6">$[X_正]_补=[X_正]_原$</li>
+<li class="lvl-6">负数:首先将一个负数的绝对值转成二进制数
+<ul class="lvl-6">
+<li class="lvl-8">再对二进制数进行按位取反</li>
+<li class="lvl-8">然后将结果+1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="lvl-4">
+<p>PS:注意补码和反码的区别:补码和反码都需要按位取反,但是补码还需要+1,反码不需要</p>
+</li>
+<li class="lvl-4">
+<p>$[[X]_补]_补 = [X]原$</p>
+<ul class="lvl-4">
+<li class="lvl-6">如果已知补码求原码,对该补码再求一次补码即可</li>
+</ul>
+</li>
+<li class="lvl-4">
+<p>求变异补码(eg:已知$[X]_补$,求$[-X]_补$)</p>
+<ul class="lvl-4">
+<li class="lvl-6">连同符号位一起,全部按位取反,最后再+1</li>
+</ul>
+</li>
+<li class="lvl-4">
+<p>$[0]_补=[-0]_补=00000000$</p>
+</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>移码:通常用于表示浮点数的阶码,一般为整数,故移码通常用于表示整数</p>
+<ul class="lvl-2">
+<li class="lvl-4">一般包括两种操作(1)位移(2)逻辑运算,快速对数据进行操作</li>
+<li class="lvl-4">对于定点整数X,它的移码是:$[X]_移=2<sup>{n-1}+X$,其中$-2</sup>{n-1}&lt;X&lt;2^{n-1}$
+<ul class="lvl-4">
+<li class="lvl-6">n:$X_原$位数,$2^{n-1}$也称偏置值</li>
+</ul>
+</li>
+<li class="lvl-4">移码表示范围与补码一致,0的移码也只有1种形式</li>
+<li class="lvl-4">求法:
+<ul class="lvl-4">
+<li class="lvl-6">正数:原码符号位变反</li>
+<li class="lvl-6">负数:将原码连同符号位一起变反,末位再+1,即得到移码</li>
+</ul>
+</li>
+<li class="lvl-4">补码与移码:符号相反,数值位相同</li>
+</ul>
+</li>
+</ul>
+<p>4.定点数:</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>定点小数:小数点固定在符号位之后</p>
+</li>
+<li class="lvl-2">
+<p>定点整数:小数点固定在最低数值位之后</p>
+</li>
+</ul>
+<p>定点数精度低,整数为<code>1</code>,小数为$2^{-n}$</p>
+<p>5.浮点数:</p>
+<p>由两部分组成:<code>阶码</code>和<code>尾数</code>,阶码用来表示浮点数的指数部分,尾数用来表示小数部分</p>
+<p>PS:字长相同时,浮点数表示的范围更大,精度更高,但是计算速度比定点数慢</p>
+<p>浮点数真值:$N = \pm R^E \times M$</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>R:阶码的底数,隐含约定为2</p>
+</li>
+<li class="lvl-2">
+<p>E:阶码,定点整数,补码或移码表示,其位数决定了数值的范围</p>
+</li>
+<li class="lvl-2">
+<p>M:尾数,定点小数,原码或补码表示,其尾数决定了数值的精度</p>
+</li>
+</ul>
+<p>尾数M的规格化表示:</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>为提高数据精度,充分利用尾数的有效数位,尽可能占满位数,以保留更多的有效数字</p>
+</li>
+<li class="lvl-2">
+<p>为了浮点数表示的唯一性</p>
+</li>
+</ul>
+<p>浮点数缺点:可移植性差</p>
+<p>IEEE754标准包括32位浮点数(单精度)和64位浮点数(双精度)</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>构成:$N=(-1)^{S} \times M \times 2^{E}$</p>
+<ul class="lvl-2">
+<li class="lvl-4">阶码:E</li>
+<li class="lvl-4">尾数:M</li>
+<li class="lvl-4">符号位:S</li>
+</ul>
+</li>
+</ul>
+<p>规格化数和非规格化数:</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>规格化数就是将浮点数的小数部分移到了最高有效位</p>
+</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/63960820b1fccdcd3622dac9.jpg" alt></p>
+<p>eg:</p>
+<p><img src="https://pic.imgdb.cn/item/6396092fb1fccdcd36243715.jpg" alt></p>
+<h3><span id="运算方法和运算器">运算方法和运算器</span></h3>
+<p>1.$(X+Y)_补=X_补+Y_补$:和的补码=补码的和</p>
+<p>2.$(X-Y)_补=X_补+(-Y)_补$:差的补码=补码的和</p>
+<p>3.一个<code>异或门</code>即可实现<code>自动一位加法</code>,$S=X\oplus Y$</p>
+<p>4.一位全加器逻辑实现:</p>
+<p>$Si = X_i \oplus Y_i \oplus C_i$</p>
+<p>$C_{i+1} = X_iY_i + (X_i \oplus Y_i)C_i$</p>
+<p>5.n位加法器:</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>n位加法器包含n个全加器</p>
+</li>
+<li class="lvl-2">
+<p>将n个一位全加器串联</p>
+</li>
+<li class="lvl-2">
+<p>低位进位输出连接到高位进位输出</p>
+</li>
+</ul>
+<p>6.加法器的改造(引入运算控制位<code>Sub</code>)</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>Sub=0时做加法,送入加法器的是$Y_补$</p>
+</li>
+<li class="lvl-2">
+<p>Sub=1时做减法,送入加法器的是$[-Y]_补$</p>
+</li>
+</ul>
+<p>7.加法器是算数运算电路的核心</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>所有算数运算都基于加法器实现</p>
+</li>
+<li class="lvl-2">
+<p>加法器不区分符号数和无符号数</p>
+</li>
+<li class="lvl-2">
+<p>加法器取低n位为结果,生成标识信息</p>
+</li>
+</ul>
+<p>8.快速加法器:</p>
+<p>能否提前产生各位的进位输入,使得各位的加法运算能并行起来,即可提高多位加法器运算速度</p>
+<p>9.并行加法器进位链:</p>
+<p>$G_i = X_iY_i$</p>
+<p>$P_i = X_i \oplus Y_i$</p>
+<p>$C_{i+1} = G_i + P_iC_i$</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>高位运算依赖于低位进位(计算不能并行)</p>
+</li>
+<li class="lvl-2">
+<p>可以提前得到各位的进位输入</p>
+</li>
+</ul>
+<p>9.乘法运算实现方法:</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>设置专用乘法器实现乘法运算</p>
+</li>
+<li class="lvl-2">
+<p>借助加法器配置相应部件实现乘法运算</p>
+<ul class="lvl-2">
+<li class="lvl-4">原码一位乘法</li>
+<li class="lvl-4">补码一位乘法</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>执行乘法运算子程序来实现乘法运算</p>
+</li>
+</ul>
+<h3><span id="存储系统">存储系统</span></h3>
+<p>1.存储器分类:</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>按存储介质分:</p>
+<ul class="lvl-2">
+<li class="lvl-4">半导体存储器:
+<ul class="lvl-4">
+<li class="lvl-6">双极型存储器 MOS存储器</li>
+<li class="lvl-6">速度快,功耗低</li>
+</ul>
+</li>
+<li class="lvl-4">磁存储器:
+<ul class="lvl-4">
+<li class="lvl-6">磁芯,磁带,磁盘</li>
+<li class="lvl-6">容量大,速度慢,体积大</li>
+</ul>
+</li>
+<li class="lvl-4">激光存储器:
+<ul class="lvl-4">
+<li class="lvl-6">CD-ROM CD-RW CD-R</li>
+<li class="lvl-6">DVD-ROM DVD-RW DVD-R</li>
+<li class="lvl-6">便于携带,廉价,易于保存</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>按存取方式分:</p>
+<ul class="lvl-2">
+<li class="lvl-4">随机存储器:
+<ul class="lvl-4">
+<li class="lvl-6">存取时间和物理位置无关</li>
+<li class="lvl-6">磁芯,半导体存储器</li>
+</ul>
+</li>
+<li class="lvl-4">顺序存储器:
+<ul class="lvl-4">
+<li class="lvl-6">存取时间和物理位置有关
+<ul class="lvl-6">
+<li class="lvl-8">磁盘,磁带,激光存储器</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>按读写功能分:</p>
+<ul class="lvl-2">
+<li class="lvl-4">只读存储器(ROM)
+<ul class="lvl-4">
+<li class="lvl-6">存储器内容是预置,固定的,无法改写</li>
+</ul>
+</li>
+<li class="lvl-4">读/写存储器
+<ul class="lvl-4">
+<li class="lvl-6">既能读出也能写入的存储器</li>
+<li class="lvl-6">随机存储器RAM</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>按信息的可保存性分:</p>
+<ul class="lvl-2">
+<li class="lvl-4">易失性存储器:
+<ul class="lvl-4">
+<li class="lvl-6">断电后信息消失</li>
+<li class="lvl-6">SRAM(静态MOS存储器)</li>
+<li class="lvl-6">DRAM(动态MOS存储器)</li>
+</ul>
+</li>
+<li class="lvl-4">非易失性存储器:
+<ul class="lvl-4">
+<li class="lvl-6">断电后仍能保存信息</li>
+<li class="lvl-6">此存储器,激光存储器,NVRAN</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>按在计算机系统中的作用分:</p>
+<ul class="lvl-2">
+<li class="lvl-4">主存储器</li>
+<li class="lvl-4">辅助存储器</li>
+<li class="lvl-4">高速缓冲存储器(Cache)</li>
+<li class="lvl-4">控制存储器</li>
+</ul>
+</li>
+</ul>
+<p>2.存储地址:字节,半字,半地址</p>
+<p>3.数据存放方式:</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>小端方案:存储器的低地址单元中存放数据的最低字节,字地址等于最高有效字节地址</p>
+</li>
+<li class="lvl-2">
+<p>大端方案:存储器的低字节地址单元中存放数据的最高字节,字地址等于最低有效字节地址</p>
+</li>
+</ul>
+<p>4.按边界对齐的方式存储数据(32位计算机)</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>int(4字节) short(2字节) double(8字节) char(1字节)</p>
+</li>
+<li class="lvl-2">
+<p>short按16位对齐,int按32位对齐,double按64位对齐</p>
+</li>
+<li class="lvl-2">
+<p>对齐可提升访问数据的速度,不对齐可节约空间</p>
+<ul class="lvl-2">
+<li class="lvl-4">双字:64位,数据起始字节地址的最末3位为000,地址是8的整数倍</li>
+<li class="lvl-4">单字:32位,数据起始字节地址的最末2位为00,地址是4的倍数</li>
+<li class="lvl-4">半字:16位,数据起始字节地址的最末1位为0,地址是2的整数倍</li>
+<li class="lvl-4">单字节:8位,数据不存在边界对齐问题</li>
+</ul>
+</li>
+</ul>
+<p>5.DRAM刷新</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>刷新:定期补充电荷以避免电荷泄露引起的信息丢失</p>
+</li>
+<li class="lvl-2">
+<p>刷新周期:存储器两次完整刷新之间的时间间隔</p>
+</li>
+<li class="lvl-2">
+<p>按行刷新:存储体采用双译码结构,刷新地址计数给出刷新行地址</p>
+</li>
+<li class="lvl-2">
+<p>刷新方式:</p>
+<ul class="lvl-2">
+<li class="lvl-4">CPU与刷新控制器对DRAM的争用问题</li>
+<li class="lvl-4">集中式,分散式,异步式
+<ul class="lvl-4">
+<li class="lvl-6">集中刷新方式:
+<ul class="lvl-6">
+<li class="lvl-8">最大刷新周期:2ms</li>
+<li class="lvl-8">在数据丢失之前集中刷新所有行</li>
+<li class="lvl-8">存在死区,用在实时要求不高的场合</li>
+<li class="lvl-8">行数越多,死区时间越长</li>
+</ul>
+</li>
+<li class="lvl-6">分散刷新方式:
+<ul class="lvl-6">
+<li class="lvl-8">最大刷新周期:2ms</li>
+<li class="lvl-8">存储周期:读写+刷新</li>
+<li class="lvl-8">刷新次数:2ms/100ns=20000次</li>
+<li class="lvl-8">过度刷新,低速存储</li>
+</ul>
+</li>
+<li class="lvl-6">异步刷新方式:
+<ul class="lvl-6">
+<li class="lvl-8">刷新周期:2ms,各刷新周期分散安排在2ms内</li>
+<li class="lvl-8">每隔2ms/128=15.5微秒刷新一次,将128次刷新分散</li>
+<li class="lvl-8"><code>效率高,最常用</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>6.DRAM特点:</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>地址线复用,CPU分时传送行,列地址,并分别由行选通信号RAS,列选通信号CAS选通</p>
+</li>
+<li class="lvl-2">
+<p>无片选信号</p>
+</li>
+<li class="lvl-2">
+<p>数据输入($D_{IN}$)和数据输出($D_{OUT}$)分开且可锁存</p>
+</li>
+</ul>
+<p>7.只读存储器(ROM)</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>掩模式只读存储器(MROM)</p>
+</li>
+<li class="lvl-2">
+<p>一次编程只读存储器(PROM)</p>
+</li>
+<li class="lvl-2">
+<p>多次编程只读存储器(EPROM,EEPROM)</p>
+</li>
+</ul>
+<p>8.片选信号线:是一种用于在多个芯片之间进行信息交换的线路.它通常被用于在多个计算机处理器之间进行信息交换.片选信号线能够帮助控制多个芯片之间的信息交换,从而使得电路能够更有效地工作</p>
+<p>9.存储器扩展:</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>字长扩展(数据总线扩展)-位扩展</p>
+</li>
+<li class="lvl-2">
+<p>字数扩展(地址总线扩展)-字扩展</p>
+</li>
+<li class="lvl-2">
+<p>字长,字数同时扩展-字位同时扩展</p>
+</li>
+</ul>
+<h3><span id="高速缓冲存储器cache">高速缓冲存储器(Cache)</span></h3>
+<p>1.功能:缓解快速CPU和慢速的主存之间的速度差异</p>
+<p>2.Cache的理论基础:局部性原理</p>
+<p>3.程序局部性举例:</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>数据:</p>
+<ul class="lvl-2">
+<li class="lvl-4">数据元素访问(空间)</li>
+<li class="lvl-4">数据库记录访问(空间)</li>
+<li class="lvl-4">局部变量,计数器,指针等被重复使用(时间)</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>指令:</p>
+<ul class="lvl-2">
+<li class="lvl-4">顺序访问的指令(空间)</li>
+<li class="lvl-4">重复使用的循环体(时间)</li>
+<li class="lvl-4">子函数(时间)</li>
+</ul>
+</li>
+</ul>
+<p>4.cache的工作原理:</p>
+<p>在处理器附近增加一个<code>隐藏</code>的<code>小</code>容量<code>快速</code>存储器</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>对程序员透明</p>
+</li>
+<li class="lvl-2">
+<p>将经常访问的<code>热数据</code>的副本存放在cache中</p>
+</li>
+<li class="lvl-2">
+<p>提高命中率优化读性能</p>
+</li>
+</ul>
+<p>5.cache的基本概念:</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>命中(hit):CPU访问数据在cache上</p>
+</li>
+<li class="lvl-2">
+<p>缺失(miss):CPU访问数据不在cache上</p>
+</li>
+<li class="lvl-2">
+<p>块(block):cache与主存交换最小单位</p>
+</li>
+<li class="lvl-2">
+<p>行/槽(line/slot):标记,标志位,数据块容器</p>
+</li>
+</ul>
+<p>6.cache性能:</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>命中率(hit rate):主存访问中cache的命中比例</p>
+</li>
+<li class="lvl-2">
+<p>缺失率(miss rate):1-命中率</p>
+</li>
+<li class="lvl-2">
+<p>命中访问的时间(hit time):数据查找时间,cache访问时间,总线传输时间</p>
+</li>
+<li class="lvl-2">
+<p>缺失损失(miss penalty):主存块调入cache,数据传输到处理器的时间  远大于命中时间</p>
+</li>
+</ul>
+<p>7.cache和主存逻辑上分为若干个大小相等的块,每块由若干字节组成,cache的块数远少于主存中的块数,它保存的信息只是主存中若干块的副本</p>
+<p>8.cache的基本结构:</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>内容cache:数据块副本缓冲区</p>
+</li>
+<li class="lvl-2">
+<p>标识cache:用于存放与内存相关的地址信息的区域称为<code>相联存储器</code></p>
+</li>
+</ul>
+<p>内容cache和标识cache共同决定了cache的物理容量</p>
+<p>9.cache的关键技术:</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>数据查找</p>
+</li>
+<li class="lvl-2">
+<p>地址映射:利用某种方式或规则将主存块定位到cache称为地址映射</p>
+<ul class="lvl-2">
+<li class="lvl-4">主存数据如何迁移至cache才能实现快速查找:
+<ul class="lvl-4">
+<li class="lvl-6">直接相联(Cache:分块,主存:分块且分区)</li>
+<li class="lvl-6">全相联
+<ul class="lvl-6">
+<li class="lvl-8">全相联应用场合:
+<ul class="lvl-8">
+<li class="lvl-10">块映射灵活,一对多映射</li>
+<li class="lvl-10">cache全部装满后才会出现块冲突</li>
+<li class="lvl-10">块冲突的概率低,cache利用率高</li>
+<li class="lvl-10">淘汰算法复杂</li>
+<li class="lvl-10">命中率高</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="lvl-6">组相联(Cache:既分块,也分组,主存:既分块,也分组)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>替换策略</p>
+</li>
+<li class="lvl-2">
+<p>写入策略</p>
+</li>
+</ul>
+<p>10.cache由较快的SRAM构成</p>
+<h3><span id="内存管理">内存管理</span></h3>
+<h3><span id="指令系统">指令系统</span></h3>
+<p>1.一条指令通常包含(操作码字段)和(地址码字段)</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>操作码:该执行什么样的操作和具有何种功能</p>
+</li>
+<li class="lvl-2">
+<p>地址码:被操作的信息(指令或数据)的地址#即各种信息地址</p>
+</li>
+</ul>
+<p>2.指令的长度:一条指令中二进制代码的位数</p>
+<p>指令字长取决于(操作码的长度),(操作数地址码的长度),(操作地址的个数)</p>
+<p>3.指令的基本格式:</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>零地址指令:只给出操作码op,没有显式地址</p>
+<ul class="lvl-2">
+<li class="lvl-4">不需要操作数的指令,如空操作指令,停机指令,关中断指令</li>
+<li class="lvl-4">零地址的运算类指令仅用在堆栈计算机中</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>一地址指令:只有目的操作数的单操作数指令/隐含约定目的地址的双操作数指令</p>
+<ul class="lvl-2">
+<li class="lvl-4">只有目的操作数的单操作指令:按A1地址读取操作数,进行op操作后,结果存回原地址$op(A1) \rightarrow A1$,如操作码是&quot;加一&quot;,“减一”,“求反”,&quot;求补&quot;等</li>
+<li class="lvl-4">隐含约定目的地址的双操作数指令:另一个操作数由ACC(累加器)提供,运算结果也将存放在ACC中$(ACC)op(A1) \rightarrow ACC$
+<ul class="lvl-4">
+<li class="lvl-6">若指令字长32位,操作码占8位,1个地址码字段占24位,则指令操作数的直接寻址范围为$2^{12}=16$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>二地址指令:一般给出目的操作数地址和源操作数地址,其中目的操作数地址还用于保存本次的运算结果</p>
+<ul class="lvl-2">
+<li class="lvl-4">若指令字长为32为,操作码占8位,两个地址码字段各占12位,则操作数的直接寻址范围为$2^{12}=4k$</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>三地址指令:$(A1)op(A2) \rightarrow A3$</p>
+<ul class="lvl-2">
+<li class="lvl-4">若指令字长为32位,操作码占8位,3个地址码字段各占8位,则指令操作数的直接寻址范围为$2^{8}=256$</li>
+<li class="lvl-4">若地址字段均为主存地址,则完成一条三地址需要4次访问存储器(取指令1次,取两个操作数2次,存放结果1次 )</li>
+</ul>
+</li>
+</ul>
+<p>4.指令寻址的方式:是指寻找指令或者操作数有效地址的方式 #即确定本条指令的数据地址和下一条待执行指令的地址的方法</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>指令寻址:寻找下一条要执行的指令地址为<code>指令地址</code></p>
+</li>
+<li class="lvl-2">
+<p>数据寻址:寻找操作数的地址成为<code>数据寻址</code></p>
+</li>
+</ul>
+<p>有效地址(EA)</p>
+<p>有效地址=寄存器内容+指令形式地址</p>
+<p>(A)表示地址A的数值,$EA=(A)$意思是有效地址是地址A中的数值</p>
+<pre class="line-numbers language-none"><code class="language-none">	+----------+
+	|----------|
+ A  |    B     |
+	|----------|
+	|----------|
+	|----------|
+	+----------+
+# EA &#x3D; (A) &#x3D; B<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>指令寻址的方式$\left { \begin{array}{l}顺序寻址:通过程序计数器(PC)加1(1个指令字长,也不一定是1)自动形成下一条指令的地址 \ 跳跃寻址:通过转移类指令实现,不由程序计数器(PC)给出,由本条指令给出下条指令地址的计算方式 \end{array} \right.$</p>
+<p>数据寻址的方式(操作数寻址的方式)$\left { \begin{array} {l} 隐含寻址:累加器(ACC)对单地址指令格式来说是隐含寻址{ \begin{array} {l}优点:有利于缩短指令字长 \缺点:需增加存储操作数或隐含地址的硬件 \end{array}  \立即(数)寻址:此指令的地址字段指出的不是操作数的地址,而是操作数本身,又称立即数,数据采用补码形式存放, #号表示立即寻址特征 { \begin{array} {l} 优点:指令执行阶段不访问主存,指令执行时间最短 \ 缺点:A的位数限制了立即数的范围 \end{array} \ 直接寻址:指令字中的形式地址A是操作数的真实地址EA,即EA=A { \begin{array} {l} 优点:指令在执行过程中只访问一次主存,不需要专门计算操作数的地址 \ 缺点:A的位数决定了该指令操作数的寻址范围,操作数的地址不易修改 \end{array} \间接寻址:类似于指针,访问主存次数=寻址次数+1 { \begin{array} {l} 优点:可扩大寻址范围,便于编制程序 \ 缺点:指令在执行阶段要多次访存,速度过慢 \end{array} \ 寄存器寻址:在指令字中直接给出操作数所在的寄存器编号,即EA=R,其操作数在由R所指的寄存器内 { \begin{array} {l} 优点: 不访问主存,只访问寄存器,因寄存器数量少,对应地址码长度较小,所以执行速度快,支持向量,矩阵运算\ 缺点:寄存器价格昂贵,计算机中寄存器个数有限 \end{array} \ 寄存器间接寻址:与一般间接寻址相比速度更快,但指令的执行阶段需要访问主存(因为操作数在主存中) \ 相对寻址: 操作数的地址不是固定的,它随PC值的变化而变化,且与指令地址之间总是相差一个固定值,因此便于程序浮动.相对寻址广泛应用于转移指令  \ 基址寻址:指将CPU中基址寄存器(BR)的内容加上指令格式中的形式地址A而形成操作数的有效地址即EA=(BR) +A.基址寄存器是面向操作系统的,在程序执行过程中,基址寄存器的内容不变,形式地址可变(作为偏移量).优点:扩大寻址范围,有利于多道程序的设计 \ 变址寻址:EA=(IX)+A,IX为变址寻址器专用,也可用通用寄存器做变址寄存器.优点:扩大寻址范围.在数组处理过程中,可以设定A为数组的首地址,不断改变IX的内容,便可很容易形成数组中任意数据的地址,特别适合编制循环程序\end{array} \right .$</p>
+<p>5.CISC主要特点:</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>指令系统复杂庞大, 指令条目一般200条以上</p>
+</li>
+<li class="lvl-2">
+<p>指令的长度不固定,指令格式多,寻址方式多</p>
+</li>
+<li class="lvl-2">
+<p>可以访存的指令不受限制</p>
+</li>
+<li class="lvl-2">
+<p>各种指令使用频度相差很大</p>
+</li>
+<li class="lvl-2">
+<p>各种指令执行时间相差很大,大多数指令需要多个时钟周期才能完成</p>
+</li>
+<li class="lvl-2">
+<p>控制器大多数采用微程序控制,有些指令非常复杂,以至于无法采用硬连线控制</p>
+</li>
+<li class="lvl-2">
+<p>难以用优化编译生成高效的目标代码程序</p>
+</li>
+</ul>
+<p>6.RISC主要特点:</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>选取使用频率最高的一些简单指令,复杂指令的功能由简单指令的组合来实现</p>
+</li>
+<li class="lvl-2">
+<p>指令长度固定,指令格式种类少,寻址方式种类少</p>
+</li>
+<li class="lvl-2">
+<p>只有Load/Store(取数/存数)指令访存,其余指令的操作都在寄存器之间进行</p>
+</li>
+<li class="lvl-2">
+<p>CPU中通用寄存器的数量相当多</p>
+</li>
+<li class="lvl-2">
+<p>RISC一定采用指令流水线技术,大部分指令在一个时钟周期内完成</p>
+</li>
+<li class="lvl-2">
+<p>以硬布线控制为主,不用或少用微程序控制</p>
+</li>
+<li class="lvl-2">
+<p>特别重视编译优化工作,以减少程序执行时间</p>
+</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/63943df3b1fccdcd3681e794.jpg" alt></p>
+<p>7.单地址指令:</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>隐含约定目的地的双操作数</p>
+</li>
+<li class="lvl-2">
+<p>目的操作数的单操作数</p>
+</li>
+</ul>
+<p>8.零地址</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>不用操作数的指令</p>
+</li>
+<li class="lvl-2">
+<p>OP指令(隐含约定寄存器)</p>
+</li>
+<li class="lvl-2">
+<p>栈顶单元部分操作</p>
+</li>
+</ul>
+<p>9.$2^{10}=1K \ 2^{20}=1M$</p>
+<h3><span id="中央处理器">中央处理器</span></h3>
+<p>1.指令周期:CPU从主存中取出并执行一条指令的时间为指令周期,不同指令的指令周期可能不同</p>
+<p>2.数据流是根据指令要求依次访问的数据序列</p>
+<p>3.取值周期的数据流向:</p>
+<p>PC-&gt;MAR-&gt;地址总线-&gt;主存</p>
+<p>CU发出控制信号-&gt;控制总线-&gt;主存</p>
+<p>主存-&gt;数据总线-&gt;MDR-&gt;IR(存放指令)</p>
+<p>CU发出读指令-&gt;PC内容+1</p>
+<p>注:该大纲并不完善,具体请还是根据老师的重点复习,如果是详细学习计组这就更不行了,应付考试还可以</p>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left "
+    
+      href="/2022/12/26/DASCTFxGFCTF2022-RSA/"
+      title="DASCTFxGFCTF2022 RSA"
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+      
+        DASCTFxGFCTF2022 RSA
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2022/12/04/For-Final-Exam-Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E6%95%B4%E7%90%86/"
+      title="(For Final Exam)Linux操作系统期末整理"
+     >
+
+    <p class="title-text">
+      
+        (For Final Exam)Linux操作系统期末整理
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2024 Your Name<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>

@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="false" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>REVERSE入门 | Silence to hear.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="关于REVERSE 写在前面   Hi，这里是关于REVERSE（逆向）的入门。关于逆向，有些话想说。逆向的学习需要理论，也需要实践。广义上，逆向不仅仅是调试二进制可执行格式，反汇编，破解；逆向是心理模型的建立过程，以及模型实现的底层细节的定位过程。从理论上，为了理解一个程序，系统，你读代码，无论是源码还是汇编，甚至二进制机械指令，都是一个逆向过程.  本篇将对REVERSE（逆向）一些常用工具及">
+<meta property="og:type" content="article">
+<meta property="og:title" content="REVERSE入门">
+<meta property="og:url" content="http://mykonos-x.github.io/2021/06/29/REVERSE%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="Silence to hear.">
+<meta property="og:description" content="关于REVERSE 写在前面   Hi，这里是关于REVERSE（逆向）的入门。关于逆向，有些话想说。逆向的学习需要理论，也需要实践。广义上，逆向不仅仅是调试二进制可执行格式，反汇编，破解；逆向是心理模型的建立过程，以及模型实现的底层细节的定位过程。从理论上，为了理解一个程序，系统，你读代码，无论是源码还是汇编，甚至二进制机械指令，都是一个逆向过程.  本篇将对REVERSE（逆向）一些常用工具及">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210422190509122.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01pc2NlZGVuY2VfXw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210423211945410.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01pc2NlZGVuY2VfXw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/202104232031123.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01pc2NlZGVuY2VfXw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/41e0362e013669c8226e90f85a207bdf.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/85a67190782eda098151a0f3200da736.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/a776a2777962b836a2e0ae41cab8b645.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/37d08ac658e3a03b1537413643d22f11.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/5fae76d7d06e0de230b8a3e1ddb8150d.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/ae2e56d7943c7c463e5c359f5685c0ba.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/1555e21896fbe2a2892fadf81d2a2edc.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/1cde8d03f8b2c75b4105fcd90fbe206c.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/24a6e140ff980ed7bf7c6c4669b9d73b.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/dd830164e3215f641adb52bb06d512a0.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/f76d428b8157e5a754fece97edb5034d.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/1f3086b40a026196f4e9df91f46d486b.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/b39a2aeabb199d351002c6fe30e07218.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/5e431eacc6568f2b424989351fa180f6.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/9424c4b4c1348dcb5672df23aab64c8d.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/fd619049aa6895b70f30f61132118113.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/d9a5414f9fd32f3a91a6860f96033de1.png#pic_center">
+<meta property="og:image" content="https://i.loli.net/2021/04/24/BKDTykuxbq7PXlR.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/24/eyw1b8Hq4lUvsTp.gif">
+<meta property="og:image" content="https://i.loli.net/2021/04/24/ZkM5zeluxOJsbKv.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/24/rqnDgbC98teYK1o.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/275058e15aaffbab75479d286089b3e4.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/92ab7c6f53ed788ca0985ffe7b2342b3.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/518e601c872d8fda6746311a72562218.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/ccfbc493217077df45bd0d3a40856b91.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/fc8729e556a229bdf0d4ace7aaa49349.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/2d81bead98a9fe56f4f383a732f6468d.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/2ce2d2b0d8065eeeb6f4812c235b4cc1.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/230473c525f3e723579d624f62f55864.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/65b1818817fc4bdfe867327ca94ec906.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/91f0cc17998d2f8e1d7657f540e10225.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/6d183cd071a0a7c134b2cd0e0551a6fc.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/b4d851c730af83348fcc5e5f35b6c934.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/2b50e652f97b8d93c186c31c383f8c20.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/6b278bfa58afd2cba6121fafe38f6b6a.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/659596acd36e0997dda4efb4542e4f09.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/efd9d5ddd2e52931bfe886bf5adb4b07.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/d99dab7035850e82c38f2c5497c6590c.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/bd98f65754ab9d31f21b06dcef9253ec.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/56d6b9f65fd64d86fa180d17468d6a99.png">
+<meta property="article:published_time" content="2021-06-29T14:38:00.000Z">
+<meta property="article:modified_time" content="2023-09-05T17:47:21.294Z">
+<meta property="article:author" content="ymepetb">
+<meta property="article:tag" content="reverse">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210422190509122.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01pc2NlZGVuY2VfXw==,size_16,color_FFFFFF,t_70#pic_center">
+  
+    <link rel="alternate" href="/atom.xml" title="Silence to hear." type="application/atom+xml">
+  
+  
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>Silence to hear. </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS Feed">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS Feed">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">Your Name </div>
+      <div class="dot"></div>
+      <div class="subtitle">This is the subtitle </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://twitter.com" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://store.steampowered.com" title="Steam"><i class="fa-brands fa-steam"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Categories</h3>
+      <div class="category-box">
+            <a class="category-link" href="/categories/tips/">
+                tips
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/basic/">
+                basic
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/CTF-Challenges-Replicated/">
+                CTF Challenges Replicated
+                <div class="category-count">2</div>
+            </a>
+        </div>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Tags</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Gin/" rel="tag">Gin</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Solutions/" rel="tag">Solutions</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/android-development/" rel="tag">android development</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/crypto/" rel="tag">crypto</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/dsa/" rel="tag">dsa</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/exam/" rel="tag">exam</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/kernel/" rel="tag">kernel</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/misc/" rel="tag">misc</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/openEuler/" rel="tag">openEuler</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/reverse/" rel="tag">reverse</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/rsa/" rel="tag">rsa</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/scripts/" rel="tag">scripts</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/solutions/" rel="tag">solutions</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-REVERSE入门" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        REVERSE入门
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2021-06-29T14:38:00.000Z" itemprop="datePublished">2021-06-29</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+             words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reverse/" rel="tag">reverse</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h1><span id="关于reverse">关于REVERSE</span></h1>
+<h1><span id="写在前面">写在前面</span></h1>
+<p>  Hi，这里是关于REVERSE（逆向）的入门。关于逆向，有些话想说。逆向的学习需要理论，也需要实践。广义上，逆向不仅仅是调试二进制可执行格式，反汇编，破解；逆向是心理模型的建立过程，以及模型实现的底层细节的定位过程。从理论上，为了理解一个程序，系统，你读代码，无论是源码还是汇编，甚至二进制机械指令，都是一个逆向过程.<br>  本篇将对REVERSE（逆向）一些常用工具及使用方法进行介绍。逆向所需具备的知识技能很多很杂，要学好逆向和熟练掌握反汇编，编程是必须会的，再接着就是必须熟练密码学，往更高处走，格局放大点，到软件逆向，就需要熟悉软件工程，因为都是会工程化的。如果热爱逆向并且想走这条路，CTF只是开始。</p>
+<h1><span id="常用的软件分析工具">常用的软件分析工具</span></h1>
+<h2><span id="查壳工具">查壳工具</span></h2>
+<h3><span id="什么是壳">什么是壳</span></h3>
+<p>在了解查壳工具之前，让我们了解了解壳的概念，这个“壳”是指的什么，为什么会有壳？</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>所谓“壳”，就是专门压缩的工具。这里的压缩并不是我们平时使用的RAR，ZIP这些工具的压缩，而是针对exe、com和dll等程序文件进行压缩，在程序中加入一段如同保护层的代码，加密，使原程序文件代码失去本来面目。其作用是什么呢，是保护程序不被非法修改和反编译，这段如同保护层的代码，与自然界动植物的壳在功能上有很多相似的地方，所以我们就形象地称之为程序的壳。</p>
+</li>
+<li class="lvl-2">
+<p>除了保护程序不被非法修改和反编译，壳还能对程序专门进行压缩，以减小文件大小，方便传播和储存。经过壳压缩后的exe、com和dll等程序文件可以跟正常的程序一样运行。</p>
+</li>
+<li class="lvl-2">
+<p>软件的壳分为：加密壳、压缩壳、伪装壳、多层壳等类，目的都是为了隐藏程序真正的OEP（入口点，防止被破解）。</p>
+</li>
+</ul>
+<p>下面列出的是常用的功能较强大的查壳工具：</p>
+<h3><span id="exeinfope">EXEInfoPE</span></h3>
+<p><img src="https://img-blog.csdnimg.cn/20210422190509122.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01pc2NlZGVuY2VfXw==,size_16,color_FFFFFF,t_70#pic_center" alt="NSS"></p>
+<p>将文件拖入查壳软件即可：</p>
+<p><img src="https://img-blog.csdnimg.cn/20210423211945410.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01pc2NlZGVuY2VfXw==,size_16,color_FFFFFF,t_70#pic_center" alt="NSS"></p>
+<p>EXEInfoPE会显示文件的信息</p>
+<h3><span id="peid">PEID</span></h3>
+<p><img src="https://img-blog.csdnimg.cn/202104232031123.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01pc2NlZGVuY2VfXw==,size_16,color_FFFFFF,t_70#pic_center" alt="NSS"></p>
+<p>PEID同理</p>
+<h2><span id="去壳工具">去壳工具</span></h2>
+<p>去壳：顾名思义，就是对软件加壳的逆操作，把软件上存在的壳去掉。在一些计算机软件里也有一段专门负责保护软件不被非法修改或反编译的程序。以下是常用的一些去壳工具</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/41e0362e013669c8226e90f85a207bdf.png#pic_center" alt="在这里插入图片描述"></p>
+<p>通过一个题目让我们简单了解下去壳工具的使用：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/85a67190782eda098151a0f3200da736.png#pic_center" alt="NSS"></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/a776a2777962b836a2e0ae41cab8b645.png#pic_center" alt="NSS"></p>
+<p>先拖进EXEInfoPE去查询信息</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/37d08ac658e3a03b1537413643d22f11.png#pic_center" alt="NSS"></p>
+<p>发现其不是windows的可执行文件（windows下的文件是PE文件，Linux/Unix下的文件是ELF文件）并且是upx的壳</p>
+<p>于是<img src="https://img-blog.csdnimg.cn/img_convert/5fae76d7d06e0de230b8a3e1ddb8150d.png" alt="NSS">对其进行脱壳–unpacked 1 file–脱壳成功</p>
+<p>接下来我们把文件拖进IDA进行静态分析<br>
+<img src="https://img-blog.csdnimg.cn/img_convert/ae2e56d7943c7c463e5c359f5685c0ba.png#pic_center" alt="NSS"></p>
+<p>从main函数开始分析，Get flag.</p>
+<h2><span id="静态分析工具">静态分析工具</span></h2>
+<h3><span id="ida-prointeractive-disassembler-professional">IDA Pro(Interactive Disassembler Professional)</span></h3>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/1555e21896fbe2a2892fadf81d2a2edc.png" alt="NSS"></p>
+<blockquote>
+<p>IDA（Interactive Disassembler，交互式反汇编器）是业界一个功能十分强大的反汇编工具，是安全渗透人员进行逆向安全测试的必备工具，其强大的静态反汇编和逆向调试功能能够帮助安全测试人员发现代码级别的高危致命安全漏洞。IDA支持多种不同的处理器架构（包括IA-32、IA-64、AMD64等），还支持不同格式的可执行文件，如PE（Portable Executable，Windows系统中使用）、ELF（Executable and Linking Format，在Linux/Unix系统中使用），苹果公司的Mac机的可执行文件、PDA/手持设备/手机中的ARM可执行文件等。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/1cde8d03f8b2c75b4105fcd90fbe206c.png#pic_center" alt="NSS"></p>
+<p>打开之后，IDA会提供3种不同的打开方式；New（新建），Go（运行），Previous（上一个）。当我们初次打开的时候选择GO就可以了。进入之后，选择左上角的file中的open打开文件,或者可以直接把文件拖进IDA。</p>
+<p>Hex View 十六进制窗口<br>
+Imports 导入函数窗口<br>
+Struceures 结构体窗口<br>
+Exports 导出函数窗口<br>
+Enums 枚举窗口<br>
+Strings 字符串窗口</p>
+<p>资料转移指令：<br>
+MOV 移动<br>
+MOVC 程式记忆体移动<br>
+MOVX 外部RAM和扩展I/O口与累加器A的数据传送指令<br>
+PUSH 放入堆叠<br>
+POP 由堆叠取回<br>
+XCH 8位元交换<br>
+XCHD 低4位元交换<br>
+SWAP 高低4位元交换</p>
+<p>算术指令：<br>
+ADD 两数相加<br>
+ADDC 两数相加再加C<br>
+SUBB 两数相减再减C<br>
+INC 加一指令<br>
+DEC 减一指令<br>
+MUL （MUL AB乘法指令仅此一条）相乘指令，所得的16位二进制数低8位存累加器A高8位存B<br>
+DIV （DIV AB 除法指令仅此一条）相除指令，所得商存A，余数存B<br>
+DA (DA A 只此一条指令)调整为十进数</p>
+<p>逻辑指令：<br>
+ANL做AND（逻辑与）运算<br>
+ORL做OR（逻辑或）运算<br>
+XRL 做（逻辑异或）运算<br>
+CLR 清除为0<br>
+CPL 取反指令<br>
+RL 不带进位左环移<br>
+RLC 带进位左环移<br>
+RR 不带进位右环移<br>
+RRC 带进位右环移</p>
+<p>控制转移类指令：<br>
+JNC C=0时跳<br>
+JC C=1时跳<br>
+JNB 位元=0时跳<br>
+JB 位元=1时跳<br>
+JBC 位元=1时跳且清除此位元<br>
+LCALL 长调用子程序<br>
+ACALL 绝对调用子程序<br>
+RET 由副程式返回<br>
+RETI 由中断副程式返回<br>
+AJMP 绝对转移<br>
+SJMP 相对转移<br>
+JMP @A+DPTR 散转，相对DPTR的间接转移<br>
+JZ A=0时跳<br>
+JNZA 0时跳<br>
+CJNE 二数比较,不相等时跳<br>
+DJNZ 减一,不等於0时跳<br>
+NOP 空操作</p>
+<p>常用功能及快捷键：<br>
+Space(空格)：切换文本视图与图标视图<br>
+ESC：返回上一个操作地址<br>
+G:搜索地址和符号<br>
+N:对符号进行重命名<br>
+:（冒号）：常规注释<br>
+;（分号）：可重复注释<br>
+Alt + M：添加标签<br>
+Ctrl + S：查看段的信息代码数据切换 C-&gt;代码；D-&gt;数据；A-&gt;ascii字符串；U-&gt;解析成未定义的内容<br>
+X：查看交叉应用<br>
+F5：查看伪代码<br>
+Alt + T：搜索文本<br>
+Alt + B：搜索十六进制下面通过一道例题来熟悉IDA的使用</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/24a6e140ff980ed7bf7c6c4669b9d73b.png#pic_center" alt="NSS"></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/dd830164e3215f641adb52bb06d512a0.png#pic_center" alt="NSS"><br>
+先将文件拖进EXEInfoPE进行分析<img src="https://img-blog.csdnimg.cn/img_convert/f76d428b8157e5a754fece97edb5034d.png#pic_center" alt="NSS"><br>
+是用C++写的文件并且没有壳</p>
+<p>我们直接拖进IDA进行静态分析：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/1f3086b40a026196f4e9df91f46d486b.png#pic_center" alt="NSS"><br>
+然后，查找主函数main,可以看到右侧的是反汇编的汇编代码，这时候，我们可以直接分析汇编语言，但是，汇编语言看起来太多，费劲。这个时候就可以是有IDA是最强大的功能F5了，它能够直接将汇编代码生成C语言代码，虽然和这个程序的源码不完全一样，但是逻辑关系是一样的。</p>
+<p>F5查看伪代码</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/b39a2aeabb199d351002c6fe30e07218.png#pic_center" alt="NSS"><br>
+可以看到一个关键的字符串，print(aFlag)，那么证明这就是输入正确flag，然后，会输出aFlag证明你的flag正确，然后，继续往上分析，可以看到v3的值，是由strcmp()决定的，比较v5和输入的字符串，如果一样就会进入后面的if判断，所以,我们继续往上分析，看看哪里又涉及v5，可以看到开头的_mm_storeu_si128(），对其进行分析发现它类似于memset(),将xmmword_413E34的值赋值给v5，所以，我们可以得到正确的flag应该在xmmword_413E34中，然后，我们双击413E34进行跟进</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/5e431eacc6568f2b424989351fa180f6.png#pic_center" alt="NSS"><br>
+可以看到一堆十六进制的数</p>
+<p>这时，我们使用IDA的另一个功能 R ，能够将十进制的数转换为字符串。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/9424c4b4c1348dcb5672df23aab64c8d.png#pic_center" alt="NSS"></p>
+<p>于是我们便得到了flag</p>
+<h3><span id="c32asm">C32asm</span></h3>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/fd619049aa6895b70f30f61132118113.png#pic_center" alt="NSS"></p>
+<blockquote>
+<p>c32asm 是款非常好用的反汇编程序，具有反汇编模式和十六进制编辑模式，能跟踪exe文件的断点，也可直接修改软件内部代码 ，提供输入表、输出表、参考字符、跳转、调用、PE文件分析结果等显示 ，提供汇编语句逐字节分析功能，有助于分析花指令等干扰代码。</p>
+</blockquote>
+<p>什么时候需要？<br>
+1.当你遇到一个可疑程序，而不想让它运行起来，又想迅速获得其PE头结构，内部字符串信息的时候。<br>
+2.当你想Dump一个运行起来的程序的时候。<br>
+3.当你需要手工修改目标程序的时候<br>
+4.写日志，写笔记也可以使用它</p>
+<h3><span id="win32dasm">Win32Dasm</span></h3>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/d9a5414f9fd32f3a91a6860f96033de1.png#pic_center" alt="NSS"></p>
+<h3><span id="vb-decomplier-pro">VB Decomplier pro</span></h3>
+<blockquote>
+<p>VB Decompiler pro是一个用来反编译VB编写的程序的工具。VB Decompiler反编译成功后，能够修改VB窗体的属性，查看函数过程等 ，VB Decompiler Pro 能反编译Visual Basic 5.0/6.0的p－code形式的EXE, DLL 或 OCX文件。对native code形式的EXE, DLL或OCX文件，VB Decompiler Pro 也能给出反编译线索。</p>
+</blockquote>
+<h2><span id="动态分析工具">动态分析工具</span></h2>
+<h3><span id="ollydbg">Ollydbg</span></h3>
+<p><img src="https://i.loli.net/2021/04/24/BKDTykuxbq7PXlR.png" alt="NSS"></p>
+<blockquote>
+<p>Ollydbg 通常称作OD，是反汇编工作的常用工具，OD内置了强大的反汇编器，且该反汇编器具有强大的代码分析能力，可以识别循环、switch控制块以及其它主要的代码结构。</p>
+</blockquote>
+<p><img src="https://i.loli.net/2021/04/24/eyw1b8Hq4lUvsTp.gif" alt="NSS"></p>
+<p>反汇编窗口：显示被调试程序的反汇编代码，标题栏上的地址、HEX 数据、反汇编、注释可以通过在窗口中右击出现的菜单 界面选项-&gt;隐藏标题 或 显示标题 来进行切换是否显示。用鼠标左键点击注释标签可以切换注释显示的方式。</p>
+<p>寄存器窗口：显示当前所选线程的 CPU 寄存器内容。同样点击标签 寄存器 (FPU) 可以切换显示寄存器的方式。</p>
+<p>信息窗口：显示反汇编窗口中选中的第一个命令的参数及一些跳转目标地址、字串等。</p>
+<p>数据窗口：显示内存或文件的内容。右键菜单可用于切换显示方式。</p>
+<p>堆栈窗口：显示当前线程的堆栈。</p>
+<p>F2：设置断点，只要在光标定位的位置（上图中灰色条）按F2键即可，再按一次F2键则会删除断点。<br>
+F8：单步步过。每按一次这个键执行一条反汇编窗口中的一条指令，遇到 CALL 等子程序不进入其代码。<br>
+F7：单步步入。功能同单步步过(F8)类似，区别是遇到 CALL 等子程序时会进入其中，进入后首先会停留在子程序的第一条指令上。<br>
+F4：运行到选定位置。作用就是直接运行到光标所在位置处暂停。<br>
+F9：运行。按下这个键如果没有设置相应断点的话，被调试的程序将直接开始运行。<br>
+CTR+F9：执行到返回。此命令在执行到一个 ret (返回指令)指令时暂停，常用于从系统领空返回到我们调试的程序领空。<br>
+ALT+F9：执行到用户代码。可用于从系统领空快速返回到我们调试的程序领空。</p>
+<p>查看文件信息<img src="https://i.loli.net/2021/04/24/ZkM5zeluxOJsbKv.png" alt="NSS"><br>
+发现有Aspack壳</p>
+<p>用脱壳软件进行脱壳处理</p>
+<p><img src="https://i.loli.net/2021/04/24/rqnDgbC98teYK1o.png" alt="NSS"></p>
+<p>我们试着运行下这个文件</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/275058e15aaffbab75479d286089b3e4.png" alt="NSS"></p>
+<p>这个时候我们使用Ollydbg进行断点分析，随意输入后到达登录失败弹出窗附近</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/92ab7c6f53ed788ca0985ffe7b2342b3.png#pic_center" alt="NSS"></p>
+<p>通过分析附近的汇编可以发现两个值不相等时始终跳转至004012A1</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/518e601c872d8fda6746311a72562218.png#pic_center" alt="NSS"></p>
+<p>数了一下有十六个，大致估计可能正确格式是输入16个字符，在004012A4 下断点重新启动程序输入16个字符，开始分析：</p>
+<p>Pass[0]==B，该字符直接与0x42比较，0x42转换成ASCII再转换成字符为B</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/ccfbc493217077df45bd0d3a40856b91.png" alt="NSS"></p>
+<p>Pass[15]==Y 可以看出将字符存到eax寄存器，然后加上0x42等于0x57，计算和转换后的值为Y</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/fc8729e556a229bdf0d4ace7aaa49349.png" alt="NSS"></p>
+<p>Pass[1]==Z 这次将值存放到ecx中，然后用lea命令，意思是将ecx中的值减3存到eax中，用0x57减3转换后为Z，后面大致相同的计算方式，注意排序方式为从ebp-0x240到ebp-0x231为pass[0]到pass[15]</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/2d81bead98a9fe56f4f383a732f6468d.png" alt="NSS"></p>
+<p>Pass[14]==A</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/2ce2d2b0d8065eeeb6f4812c235b4cc1.png#pic_center" alt="NSS"></p>
+<p>Pass[2]==9</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/230473c525f3e723579d624f62f55864.png" alt="NSS"></p>
+<p>Pass[13]==b</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/65b1818817fc4bdfe867327ca94ec906.png" alt="NSS"></p>
+<p>Pass[3]==d</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/91f0cc17998d2f8e1d7657f540e10225.png" alt="NSS"></p>
+<p>Pass[12]==7</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/6d183cd071a0a7c134b2cd0e0551a6fc.png" alt="NSS"></p>
+<p>Pass[4]==m</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/b4d851c730af83348fcc5e5f35b6c934.png" alt="NSS"></p>
+<p>Pass[11]==G<br>
+<img src="https://img-blog.csdnimg.cn/img_convert/2b50e652f97b8d93c186c31c383f8c20.png#pic_center" alt="NSS"></p>
+<p>Pass[5]==q</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/6b278bfa58afd2cba6121fafe38f6b6a.png" alt="NSS"></p>
+<p>Pass[10]==9<br>
+<img src="https://img-blog.csdnimg.cn/img_convert/659596acd36e0997dda4efb4542e4f09.png#pic_center" alt="NSS"></p>
+<p>Pass[6]==4</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/efd9d5ddd2e52931bfe886bf5adb4b07.png" alt="NSS"></p>
+<p>Pass[9]==g</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/d99dab7035850e82c38f2c5497c6590c.png" alt="NSS"></p>
+<p>Pass[7]==c</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/bd98f65754ab9d31f21b06dcef9253ec.png" alt="NSS"></p>
+<p>Pass[8]==8</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/56d6b9f65fd64d86fa180d17468d6a99.png" alt="NSS"></p>
+<p>排序后得出所需字符串为 BZ9dmq4c8g9G7bAY</p>
+<p>得到flag{ BZ9dmq4c8g9G7bAY }</p>
+<h3><span id="windbg">Windbg</span></h3>
+<blockquote>
+<p>Windbg是在windows平台下强大的用户态和内核态调试工具。虽然windbg也提供图形界面操作，但它最强大的地方还是有着强大的调试命令，一般情况会结合GUI和命令行进行操作。它的反汇编能力有限，但在操作系统集成性方面，远远超过OllyDbg。WinDbg有强大的扩展性，可以提供大量有关各种内部系统的数据结构信息。</p>
+</blockquote>
+<h1><span id="最后">最后</span></h1>
+<p>以上便是REVERSE(逆向)的简单的入门，学习的路很长，虽然兴趣是最好的老师，但难免孤独与迷茫，觉得自己坚持不住的时候，咬咬牙，挺过去，你的这些努力都会成为耀眼的地方。</p>
+<p><kbd>虽然辛苦，我还是会选择那种滚烫的人生。–北野武</kbd></p>
+<p>//转自我的CSDNblog</p>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left "
+    
+      href="/2021/06/29/Hola-openEuler-%EF%BC%88openEuler%E5%AE%89%E8%A3%85%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%EF%BC%89/"
+      title="Hola,openEuler!（openEuler安装图形界面）"
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+      
+        Hola,openEuler!（openEuler安装图形界面）
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right  disabled "
+     >
+
+    <p class="title-text">
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2024 Your Name<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>
