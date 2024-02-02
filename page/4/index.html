@@ -183,6 +183,107 @@
    
 
 
+<article id="post-长城杯2022-known-phi" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2022/08/28/%E9%95%BF%E5%9F%8E%E6%9D%AF2022-known-phi/">长城杯2022 known_phi</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2022-08-27T16:35:00.000Z" itemprop="datePublished">2022-08-28</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+             words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/crypto/" rel="tag">crypto</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dsa/" rel="tag">dsa</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rsa/" rel="tag">rsa</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              Involved Knowledge
+
+
+已知phi,n 分解n
+
+
+DSA K共享攻击
+
+
+Description
+from Crypto.Util.number import getPrime, bytes_to_long, inverse, long_to_bytes
+from Crypto.PublicKey import DSA
+from hashlib import sha256
+import random
+from secret import flag
+
+def gen(a):
+    p = getPrime(a) 
+    q = getPrime(a)
+    r = getPrime(a)
+    x = getPrime(a)
+    n = p*q*r*x
+    phi = (p-1)*(q-1)*(r-1)*(x-1)
+
+    return n, phi, [p, q, r, x]
+
+def sign(m, k, x, p, q, g):
+    hm = bytes_to_long(sha256(m).digest())
+    r = pow(...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2022/08/28/%E9%95%BF%E5%9F%8E%E6%9D%AF2022-known-phi/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
 <article id="post-BJDCTF2020-EasyRSA" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
@@ -1039,103 +1140,6 @@ exp
     <a class="right-panel  non-pic  "
       
       href="/2022/05/30/BJDCTF2020-Cookie-is-so-subtle/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-   
-
-
-<article id="post-HGAME-2022-week1-enter-the-pwn-land" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/2022/05/10/HGAME-2022-week1-enter-the-pwn-land/">HGAME 2022 week1 enter the pwn land</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2022-05-10T14:35:00.000Z" itemprop="datePublished">2022-05-10</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-    Uncategorized 
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-             words 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              
-
-一道简单的rop,就是一丢丢坑
-
-
-checksec
-Arch:     amd64-64-little
-RELRO:    Partial RELRO
-Stack:    No canary found
-NX:       NX enabled
-PIE:      No PIE (0x400000)
-main
-int __cdecl __noreturn main(int argc, const char **argv, const char **envp)
-&#123;
-  pthread_t newthread; // [rsp+8h] [rbp-8h] BYREF
-
-  init_io(argc, argv, envp);
-  while ( 1 )
-  &#123;
-    pthread_create(&amp;newthread, 0LL, test_thread, 0LL);
-    pthread_join(newthread, 0LL);
-  &#125;
-&#125;
-test_thread
-int __fastcall test_thread(void...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/2022/05/10/HGAME-2022-week1-enter-the-pwn-land/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>

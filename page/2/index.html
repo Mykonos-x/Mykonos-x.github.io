@@ -183,6 +183,105 @@
    
 
 
+<article id="post-Heap-basics" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2023/10/02/Heap-basics/">Heap basics</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2023-10-02T14:00:16.000Z" itemprop="datePublished">2023-10-02</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/basic/">basic</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+             words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              翻到以前的笔记，整理一下
+
+
+
+堆
+
+使用动态分配的内存
+多线程与Arena
+维护多个堆
+chunk的结构
+Bin的结构
+内存分配流程
+内存释放流程
+
+
+
+
+堆
+elf中的堆和算法提到的堆不是一个东西，elf中提到的堆是被分配到的一块内存区域，和栈的区别主要是在于堆内存是动态分配的。也就是说，程序可以从heap段请求一块内存，或者释放一块内存
+堆内存是全局的，即在程序的任意位置都可以访问堆，并不一定是要在malloc那个函数里访问，因为C语言使用指针指向动态分配的内存。但相比访问栈上的静态局部变量，使用指针也会带来一定的开销
+（从低地址 $$\rightarrow$$ 高地址）
+使用动态分配的内存
+GLibc采用ptmalloc2内存分配器管理堆内存，增加了对多线程的支持
+mmap
+用于创建私有的匿名映射段，主要是为了分配一块新的内存，且这块内存只有调用mmap的进程可以使用，所以为私有的，与之相反的操作是munmap()，删除一块内存区域上的映射
+多线程与Arena
+每个线程要维护一些独立的数据结构，并且对这些数据结构的访问是需要加锁的。在ptmalloc2中，每个线程拥有自己...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2023/10/02/Heap-basics/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
 <article id="post-Fake-Canary" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
@@ -1009,87 +1108,6 @@ Analyze
     <a class="right-panel  non-pic  "
       
       href="/2022/10/16/CISCN-2022-%E5%88%9D%E8%B5%9B-ez-usb/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-   
-
-
-<article id="post-Statically-Linked" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/2022/10/01/Statically-Linked/">Statically Linked</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2022-09-30T16:08:00.000Z" itemprop="datePublished">2022-10-01</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-    Uncategorized 
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-             words 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              通过file指令可以看到程序编译的链接状态，在知道程序可以通过ROP来打的情况下，根据statically linked和dynamically linked两种链接方式来构造对应的ropchain和对应不同的攻击思路
-dynamically linked
-如果程序是动态链接的话，泄露程序函数的真实地址后拿到libc基址去得到例如system和/bin/sh的地址，这里不再赘述
-statically linked
-如果程序是静态链接，相对与动态链接就没有那么麻烦了，有的程序我们可以通过ROPgadget这个工具来帮助我们构造我们的ropchain
-ROPgadget --binary 程序名 --ropchain
-Example-inndyrop
-m1nus@ubuntu:~/elf/buu/inndy_rop$ file inndy_rop 
-inndy_rop: ELF 32-bit LSB executable, Intel 80386, version 1 (GNU/Linux), statically linked, for GNU/Linux 2.6.32, Buil...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/2022/10/01/Statically-Linked/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
