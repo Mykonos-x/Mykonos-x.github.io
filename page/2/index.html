@@ -183,6 +183,96 @@
    
 
 
+<article id="post-ModuleNotFoundError-No-module-named-pip-internal" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2023/10/03/ModuleNotFoundError-No-module-named-pip-internal/">ModuleNotFoundError:No module named pip._internal</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2023-10-03T13:58:12.000Z" itemprop="datePublished">2023-10-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+             words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Solutions/" rel="tag">Solutions</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              笔者的ubuntu18.04发生这个错误是因为同时安装了两个python3（python3.6和python3.8）
+step1
+删除python3.6
+sudo apt-get remove python3.6
+sudo apt-get remove --auto-remove python3.6
+sudo apt-get purge python3.6
+step2
+删除python3-pip
+sudo apt-get remove  python3-pip
+step3
+重新安装python3-pip
+sudo apt-get install python3-pip
+此时运行pip3可能还是会报错
+mykonos@DESKTOP-H37I3CV:~/pwndbg$ pip3
+Traceback (most recent call last):
+  File "/usr/local/bin/pip3", line 7, in &lt;module>
+    from pip._internal.cli.main import main
+ModuleNotFoundError: N...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2023/10/03/ModuleNotFoundError-No-module-named-pip-internal/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
 <article id="post-Heap-basics" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
@@ -1025,89 +1115,6 @@ def gcd(a, b):
     <a class="right-panel  non-pic  "
       
       href="/2022/11/03/%E7%A5%A5%E4%BA%91%E6%9D%AF2022-tracing/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-   
-
-
-<article id="post-CISCN-2022-初赛-ez-usb" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/2022/10/16/CISCN-2022-%E5%88%9D%E8%B5%9B-ez-usb/">CISCN 2022 初赛 ez_usb</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2022-10-16T14:46:00.000Z" itemprop="datePublished">2022-10-16</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-    Uncategorized 
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-             words 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/misc/" rel="tag">misc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              前言
-这题当时国赛的时候由于没有怎么碰过MISC，到最后一步没做出来，实在是难受，今天复盘了一下
-Analyze
-拿到题目附件是一个流量包，可以看到分别有2.4.0,2.3.0,2.2.0,2.10.0,2.8.1,2.8.0这些地址的USB流量，我们可以一个一个筛选出来，然后通过导出特定分组进行保存，用UsbKeyboardDataHacker来提取其中的信息，最终会发现2.10.1和2.8.1中有有效信息
-这里展示一下2.8.1的提取过程
-# usb.src&#x3D;&#x3D;&quot;2.8.1&quot;||usb.dst&#x3D;&#x3D;&quot;2.8.1&quot;
-31	0.010805	2.8.1	host	USB	35	URB_INTERRUPT in
-32	0.010818	host	2.8.1	USB	27	URB_INTERRUPT in
-33	0.110764	2.8.1	host	USB	35	URB_INTERRUPT in
-34	0.110777	host	2.8.1	USB	27	URB_INTERRUPT in
-35	0.166...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/2022/10/16/CISCN-2022-%E5%88%9D%E8%B5%9B-ez-usb/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
