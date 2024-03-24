@@ -22,7 +22,7 @@
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="Fight for the good in your heart.">
-<meta property="og:url" content="http://mykonos-x.github.io/page/4/index.html">
+<meta property="og:url" content="http://mykonos-x.github.io/page/9/index.html">
 <meta property="og:site_name" content="Fight for the good in your heart.">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="RST">
@@ -262,7 +262,7 @@
    
 
 
-<article id="post-CISCN-2022-初赛-ez-usb" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+<article id="post-REVERSE入门" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
     <div class="article-main">
@@ -273,7 +273,7 @@
   
     
       <h1 itemprop="name">
-        <a class="p-name article-title" href="/2022/10/16/CISCN-2022-%E5%88%9D%E8%B5%9B-ez-usb/">CISCN 2022 初赛 ez_usb</a>
+        <a class="p-name article-title" href="/2021/06/29/REVERSE%E5%85%A5%E9%97%A8/">REVERSE入门</a>
       </h1>
     
   
@@ -281,7 +281,7 @@
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2022-10-16T14:46:00.000Z" itemprop="datePublished">2022-10-16</time>
+  <time class="dt-published" datetime="2021-06-29T14:38:00.000Z" itemprop="datePublished">2021-06-29</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
@@ -296,24 +296,23 @@
           </div>
         </div>
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/misc/" rel="tag">misc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reverse/" rel="tag">reverse</a></li></ul>
 
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
           <div class="truncate-text">
             
-              前言
-这题当时国赛的时候由于没有怎么碰过MISC，到最后一步没做出来，实在是难受，今天复盘了一下
-Analyze
-拿到题目附件是一个流量包，可以看到分别有2.4.0,2.3.0,2.2.0,2.10.0,2.8.1,2.8.0这些地址的USB流量，我们可以一个一个筛选出来，然后通过导出特定分组进行保存，用UsbKeyboardDataHacker来提取其中的信息，最终会发现2.10.1和2.8.1中有有效信息
-这里展示一下2.8.1的提取过程
-# usb.src&#x3D;&#x3D;&quot;2.8.1&quot;||usb.dst&#x3D;&#x3D;&quot;2.8.1&quot;
-31	0.010805	2.8.1	host	USB	35	URB_INTERRUPT in
-32	0.010818	host	2.8.1	USB	27	URB_INTERRUPT in
-33	0.110764	2.8.1	host	USB	35	URB_INTERRUPT in
-34	0.110777	host	2.8.1	USB	27	URB_INTERRUPT in
-35	0.166...
+              关于REVERSE
+写在前面
+  Hi，这里是关于REVERSE（逆向）的入门。关于逆向，有些话想说。逆向的学习需要理论，也需要实践。广义上，逆向不仅仅是调试二进制可执行格式，反汇编，破解；逆向是心理模型的建立过程，以及模型实现的底层细节的定位过程。从理论上，为了理解一个程序，系统，你读代码，无论是源码还是汇编，甚至二进制机械指令，都是一个逆向过程.  本篇将对REVERSE（逆向）一些常用工具及使用方法进行介绍。逆向所需具备的知识技能很多很杂，要学好逆向和熟练掌握反汇编，编程是必须会的，再接着就是必须熟练密码学，往更高处走，格局放大点，到软件逆向，就需要熟悉软件工程，因为都是会工程化的。如果热爱逆向并且想走这条路，CTF只是开始。
+常用的软件分析工具
+查壳工具
+什么是壳
+在了解查壳工具之前，让我们了解了解壳的概念，这个“壳”是指的什么，为什么会有壳？
+
+
+所谓“壳”，就是专门压缩的工具。这里的压缩并不是我们平时使用的RAR，ZIP这些工具的压缩，而是针对exe、com和dll等程序文件进行压缩，在程序中加入一段如同保护层的代码，加密，使原程序文件代码失去本来面目。其作用是什么呢...
             
           </div>
         
@@ -325,550 +324,7 @@ Analyze
      
     <a class="right-panel  non-pic  "
       
-      href="/2022/10/16/CISCN-2022-%E5%88%9D%E8%B5%9B-ez-usb/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-   
-
-
-<article id="post-Statically-Linked" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/2022/10/01/Statically-Linked/">Statically Linked</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2022-09-30T16:08:00.000Z" itemprop="datePublished">2022-10-01</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-    Uncategorized 
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-             words 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              通过file指令可以看到程序编译的链接状态，在知道程序可以通过ROP来打的情况下，根据statically linked和dynamically linked两种链接方式来构造对应的ropchain和对应不同的攻击思路
-dynamically linked
-如果程序是动态链接的话，泄露程序函数的真实地址后拿到libc基址去得到例如system和/bin/sh的地址，这里不再赘述
-statically linked
-如果程序是静态链接，相对与动态链接就没有那么麻烦了，有的程序我们可以通过ROPgadget这个工具来帮助我们构造我们的ropchain
-ROPgadget --binary 程序名 --ropchain
-Example-inndyrop
-m1nus@ubuntu:~/elf/buu/inndy_rop$ file inndy_rop 
-inndy_rop: ELF 32-bit LSB executable, Intel 80386, version 1 (GNU/Linux), statically linked, for GNU/Linux 2.6.32, Buil...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/2022/10/01/Statically-Linked/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-   
-
-
-<article id="post-Stack-Pivoting" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/2022/09/28/Stack-Pivoting/">Stack Pivoting</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2022-09-28T11:34:00.000Z" itemprop="datePublished">2022-09-28</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-    Uncategorized 
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-             words 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              为什么需要stack pivoting
-
-当stack overflow的空间不足时
-
-怎么实现stack pivoting
-通过将ebp覆盖成构造的fake_ebp，然后利用leave_ret这个gadget将esp劫持到fake_ebp的地址上，从而实现栈的迁移
-为什么是leave ret
-
-
-leave:
-
-mov esp , ebp;
-pop ebp;
-
-
-
-ret:
-
-pop eip
-
-
-
-实现过程
-首先程序有stack overflow漏洞，我们将栈覆盖成下面的样子
-
-执行完mov esp , ebp后
-
-接着就是pop ebp，执行完后如图
-
-由于esp是栈顶指针，当pop ebp后，栈顶的元素被弹给了ebp，所以esp应当向下移4个字节，也就是一个单位
-下一步通过read()函数的ret来把内容输入到fake_ebp1地址上，这里主要是要将fake_ebp2的地址给到fake_ebp1的地址上
-
-下一步就来到了leave_ret，也就是重复上方的mov esp,ebp pop ebp和pop eip
-mov esp,ebp 后
-
-接着pop ebp，由于fake_...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/2022/09/28/Stack-Pivoting/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-   
-
-
-<article id="post-Stack-Smashing" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/2022/09/27/Stack-Smashing/">Stack Smashing</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2022-09-26T17:26:00.000Z" itemprop="datePublished">2022-09-27</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-    Uncategorized 
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-             words 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              Stack Smashing
-当canary被覆盖后，会call到__stack_chk_fail打印argv[0]这个指针指向的字符串，默认是程序的名字，如果我们把它覆盖为其他的地址时，它就会把其他内存地址的信息给打印出来
-Example:wdb2018_guess
-Analyze
-Arch:     amd64-64-little
-RELRO:    Partial RELRO
-Stack:    Canary found
-NX:       NX enabled
-PIE:      No PIE (0x400000)
-This is GUESS FLAG CHALLENGE!
-Please type your guessing flag
-123
-You should take more effort to get six sence, and one more challenge!!
-Please type your guessing flag
-以上是程序开启的一些保护和大概的流程
-main
-__int64 __fastcall main(__int64 a1, char ...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/2022/09/27/Stack-Smashing/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-   
-
-
-<article id="post-axb-2019-fmt32" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/2022/09/26/axb-2019-fmt32/">axb_2019_fmt32</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2022-09-26T07:19:00.000Z" itemprop="datePublished">2022-09-26</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-    Uncategorized 
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-             words 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              axb_2019_fmt32
-Involved Knowledge
-
-
-format string
-
-
-Checksec
-Arch:     i386-32-little
-RELRO:    Partial RELRO
-Stack:    No canary found
-NX:       NX enabled
-PIE:      No PIE (0x8048000)
-Program
-Hello,I am a computer Repeater updated.
-After a lot of machine learning,I know that the essence of man is a reread machine!
-So I'll answer whatever you say!
-Please tell me:123
-Repeater:123
-Analyze
-main
-int __cdecl __noreturn main(int argc, const char **argv, const char **envp)
-&#123;
-  char s[257]; // ...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/2022/09/26/axb-2019-fmt32/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-   
-
-
-<article id="post-RSA-with-modulus-n-p²q" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/2022/09/09/RSA-with-modulus-n-p%C2%B2q/">RSA with modulus n=p²q</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2022-09-08T16:47:00.000Z" itemprop="datePublished">2022-09-09</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-    Uncategorized 
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-             words 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/crypto/" rel="tag">crypto</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rsa/" rel="tag">rsa</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              Description
-今天做题的时候遇到一个$n = p^2*q$这么一个情况的题，记录一下
-
-Attack
-简而言之，我们只需要注意是针对$n = p^2q$的情况，$\phi_n=p(p-1)*(q-1)$就行了其他的攻击步骤照常
-
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/2022/09/09/RSA-with-modulus-n-p%C2%B2q/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-   
-
-
-<article id="post-可怜的RSA-AFCTF2018" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/2022/09/02/%E5%8F%AF%E6%80%9C%E7%9A%84RSA-AFCTF2018/">可怜的RSA AFCTF2018</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2022-09-01T16:05:00.000Z" itemprop="datePublished">2022-09-02</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-    Uncategorized 
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-             words 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/crypto/" rel="tag">crypto</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rsa/" rel="tag">rsa</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              这道题记录一个疑问
-Involved Knowledge
-
-
-RSA
-
-
-Private key decryption
-
-
-Topic
-public.key
------BEGIN PUBLIC KEY-----
-MIIBJDANBgkqhkiG9w0BAQEFAAOCAREAMIIBDAKCAQMlsYv184kJfRcjeGa7Uc&#x2F;4
-3pIkU3SevEA7CZXJfA44bUbBYcrf93xphg2uR5HCFM+Eh6qqnybpIKl3g0kGA4rv
-tcMIJ9&#x2F;PP8npdpVE+U4Hzf4IcgOaOmJiEWZ4smH7LWudMlOekqFTs2dWKbqzlC59
-NeMPfu9avxxQ15fQzIjhvcz9GhLqb373XDcn298ueA80KK6Pek+3qJ8YSjZQMrFT
-+EJehFdQ6yt6vALcFc4CB1B6qVCGO7hICngCjdYpeZRNbGM&#x2F;r6ED5Nsozof1oMbt
-Si8mZEJ&#x2F;Vlx3gathkUVtlxx&#x2F;+jlScjdM7AFV5fkRi...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/2022/09/02/%E5%8F%AF%E6%80%9C%E7%9A%84RSA-AFCTF2018/" 
+      href="/2021/06/29/REVERSE%E5%85%A5%E9%97%A8/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
@@ -888,13 +344,13 @@ Si8mZEJ&#x2F;Vlx3gathkUVtlxx&#x2F;+jlScjdM7AFV5fkRi...
 
   <nav id="page-nav">
     <!-- 在第二页时 page.prev_link 不知为何无法返回正确的链接 -->
-    <a id="prev-btn" class="page-nav-btn " href=" /page/3/  ">
+    <a id="prev-btn" class="page-nav-btn " href=" /page/8/  ">
       <i class="fa-solid fa-angle-left"></i>
     </a>
     <div id="num-bar">
-      <a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a>  
+      <a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span>  
     </div>
-    <a id="next-btn" class="page-nav-btn " href="/page/5/">
+    <a id="next-btn" class="page-nav-btn disabled" href="/">
       <i class="fa-solid fa-angle-right"></i>
     </a>
   </nav>
