@@ -44,7 +44,7 @@
   
     
 <div id="banner" class=" is_home ">
-  <img src="/bg.png" itemprop="image">
+  <img src="/background.jpg" itemprop="image">
   <div id="banner-dim"></div>
 </div>
  
@@ -116,7 +116,7 @@
   <div class="info-card">
     <div class="avatar">
       
-        <image src=/avatar_.jpg></image>
+        <image src=/avatar.png></image>
       
       <div class="img-dim"></div>
     </div>
@@ -180,6 +180,96 @@
     </div>
     <div id="content-body">
       
+   
+
+
+<article id="post-Environment-variable-path-rewrite-script-环境变量path重写脚本" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2022/02/28/Environment-variable-path-rewrite-script-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fpath%E9%87%8D%E5%86%99%E8%84%9A%E6%9C%AC/">Environment variable path rewrite script(环境变量path重写脚本)</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2022-02-28T14:42:00.000Z" itemprop="datePublished">2022-02-28</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+             words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scripts/" rel="tag">scripts</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              朋友估计是装Android Studio把环境变量搞没了，找了个重写环境变量的shell脚本，这里记录一下，万一哪天自己手滑
+I guessed that my friend installed Android Studio to get rid of the environment variables. I found a shell script that rewrites the environment variables. Record it here, In case I slip by myself someday
+脚本
+@echo off
+REM 声明采用UTF-8编码
+chcp 65001&amp;cls
+
+REM 备份当前环境变量
+echo 当前环境变量：
+echo %Path%
+
+echo 永久设置Hadoop、scala、Java、 go、spark、zookeeper环境变量
+
+SETX /M GO_ROOT "C:\Go"
+
+SETX /M JAVA_HOME "C:\Program Files\Java\jdk1.8.0_191"
+
+SETX /M H...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2022/02/28/Environment-variable-path-rewrite-script-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fpath%E9%87%8D%E5%86%99%E8%84%9A%E6%9C%AC/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
    
 
 
