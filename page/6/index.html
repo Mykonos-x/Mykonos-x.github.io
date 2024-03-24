@@ -262,7 +262,7 @@
    
 
 
-<article id="post-get-started-3dsctf-2016" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+<article id="post-Environment-variable-path-rewrite-script-环境变量path重写脚本" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
     <div class="article-main">
@@ -273,7 +273,7 @@
   
     
       <h1 itemprop="name">
-        <a class="p-name article-title" href="/2022/07/28/get-started-3dsctf-2016/">get_started_3dsctf_2016</a>
+        <a class="p-name article-title" href="/2022/02/28/Environment-variable-path-rewrite-script-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fpath%E9%87%8D%E5%86%99%E8%84%9A%E6%9C%AC/">Environment variable path rewrite script(环境变量path重写脚本)</a>
       </h1>
     
   
@@ -281,7 +281,7 @@
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2022-07-28T13:12:00.000Z" itemprop="datePublished">2022-07-28</time>
+  <time class="dt-published" datetime="2022-02-28T14:42:00.000Z" itemprop="datePublished">2022-02-28</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
@@ -296,30 +296,31 @@
           </div>
         </div>
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scripts/" rel="tag">scripts</a></li></ul>
 
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
           <div class="truncate-text">
             
-              这道题是一道很老的题了，很遗憾现在才做到，不是简简单单的stackoverflow，是有灵魂的
-Checksec
-Arch:     i386-32-little
-RELRO:    Partial RELRO
-Stack:    No canary found
-NX:       NX enabled
-PIE:      No PIE (0x8048000)
-32位程序，开启了NX，RELRO
-File
-get_started_3dsctf_2016: ELF 32-bit LSB executable, Intel 80386, version 1 (GNU/Linux), statically linked, for GNU/Linux 2.6.32, not stripped
-静态链接尝试ROPgadget直接生成ropchain，菜未通
-Run the program
-Qual a palavrinha magica?
-接着是等待用户的输入，然后程序结束
-Analyse
-function - main
-int __cdecl main(int argc, const c...
+              朋友估计是装Android Studio把环境变量搞没了，找了个重写环境变量的shell脚本，这里记录一下，万一哪天自己手滑
+I guessed that my friend installed Android Studio to get rid of the environment variables. I found a shell script that rewrites the environment variables. Record it here, In case I slip by myself someday
+脚本
+@echo off
+REM 声明采用UTF-8编码
+chcp 65001&amp;cls
+
+REM 备份当前环境变量
+echo 当前环境变量：
+echo %Path%
+
+echo 永久设置Hadoop、scala、Java、 go、spark、zookeeper环境变量
+
+SETX /M GO_ROOT "C:\Go"
+
+SETX /M JAVA_HOME "C:\Program Files\Java\jdk1.8.0_191"
+
+SETX /M H...
             
           </div>
         
@@ -331,7 +332,7 @@ int __cdecl main(int argc, const c...
      
     <a class="right-panel  non-pic  "
       
-      href="/2022/07/28/get-started-3dsctf-2016/" 
+      href="/2022/02/28/Environment-variable-path-rewrite-script-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fpath%E9%87%8D%E5%86%99%E8%84%9A%E6%9C%AC/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
@@ -351,7 +352,7 @@ int __cdecl main(int argc, const c...
    
 
 
-<article id="post-DASCTF2022七月赋能赛-MyCanary2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+<article id="post-ROPgadget安装及报错解决" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
     <div class="article-main">
@@ -362,7 +363,7 @@ int __cdecl main(int argc, const c...
   
     
       <h1 itemprop="name">
-        <a class="p-name article-title" href="/2022/07/28/DASCTF2022%E4%B8%83%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9B-MyCanary2/">DASCTF2022七月赋能赛 MyCanary2</a>
+        <a class="p-name article-title" href="/2022/02/06/ROPgadget%E5%AE%89%E8%A3%85%E5%8F%8A%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/">ROPgadget安装及报错解决</a>
       </h1>
     
   
@@ -370,7 +371,7 @@ int __cdecl main(int argc, const c...
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2022-07-27T17:20:00.000Z" itemprop="datePublished">2022-07-28</time>
+  <time class="dt-published" datetime="2022-02-05T17:33:00.000Z" itemprop="datePublished">2022-02-06</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
@@ -385,44 +386,31 @@ int __cdecl main(int argc, const c...
           </div>
         </div>
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solutions/" rel="tag">solutions</a></li></ul>
 
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
           <div class="truncate-text">
             
-              Analyse
+              安装
+sudo apt-get install python-capstone
+ 
+git clone https://github.com/JonathanSalwan/ROPgadget.git
+ 
+cd ROPgadget
+ 
+sudo python setup.py install
 
-sub_4012B6()
-
-unsigned int sub_4012B6()
-&#123;
-  int v0; // eax
-  int fd; // [rsp+Ch] [rbp-4h]
-
-  setbuf(stdin, 0LL);
-  setbuf(stdout, 0LL);
-  setbuf(stderr, 0LL);
-  fd = open("/dev/urandom", 0);
-  if ( fd == -1 )
-  &#123;
-    printf("can't open /dev/urandom");
-    exit(-1);
-  &#125;
-  read(fd, &amp;qword_4040D0, 8uLL);
-  close(fd);
-  v0 = time(0LL);
-  srand(v0 ^ qword_4040D0);
-  return alarm(0x14u);
-&#125;
-这里通过time()时间戳和qword_4040D0作为seed，进行一个随机数的生成
-
-
-sub_4013EC()
-
-
-__int64 sub_4013...
+运行
+m1sceden4@DESKTOP-H37I3CV:~/ROPgadget$ ROPgadget
+报错
+运行之后可能会发现报错
+Traceback (most recent call last):
+  File "/usr/local/bin/ROPgadget", line 4, in &lt;module>
+    __import__('pkg_resources').run_script('ROPGadget==6.6', 'ROPgadget')
+  File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 658, in run_script
+    self.require(requires...
             
           </div>
         
@@ -434,7 +422,7 @@ __int64 sub_4013...
      
     <a class="right-panel  non-pic  "
       
-      href="/2022/07/28/DASCTF2022%E4%B8%83%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9B-MyCanary2/" 
+      href="/2022/02/06/ROPgadget%E5%AE%89%E8%A3%85%E5%8F%8A%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
@@ -454,7 +442,7 @@ __int64 sub_4013...
    
 
 
-<article id="post-DASCTF2022七月赋能赛-eyfor" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+<article id="post-关于python出现-RequestsDependencyWarning-异常" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
     <div class="article-main">
@@ -465,7 +453,7 @@ __int64 sub_4013...
   
     
       <h1 itemprop="name">
-        <a class="p-name article-title" href="/2022/07/26/DASCTF2022%E4%B8%83%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9B-eyfor/">DASCTF2022七月赋能赛 eyfor</a>
+        <a class="p-name article-title" href="/2022/02/06/%E5%85%B3%E4%BA%8Epython%E5%87%BA%E7%8E%B0-RequestsDependencyWarning-%E5%BC%82%E5%B8%B8/">关于python出现&#39;RequestsDependencyWarning&#39;异常</a>
       </h1>
     
   
@@ -473,7 +461,7 @@ __int64 sub_4013...
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2022-07-26T04:47:00.000Z" itemprop="datePublished">2022-07-26</time>
+  <time class="dt-published" datetime="2022-02-05T16:34:00.000Z" itemprop="datePublished">2022-02-06</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
@@ -488,36 +476,23 @@ __int64 sub_4013...
           </div>
         </div>
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solutions/" rel="tag">solutions</a></li></ul>
 
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
           <div class="truncate-text">
             
-              checksec
-Arch:     amd64-64-little
-RELRO:    Partial RELRO
-Stack:    No canary found
-NX:       NX enabled
-PIE:      No PIE (0x400000)
-File
-pwn4: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=1133aeb41afd0e7b11659d5a27e062c4b34b1474, not stripped
-Analyse
+              原因是:requests本身自带urllib3这个库的副本，在这个库的子目录下解决方案
 
+可以是更新库
+也可以强制安装当前库
 
-run thr program
+sudo pip install --upgrade urllib3
 
+sudo pip install --upgrade requests
+问题解决
 
-
-
-
-function-main
-
-
-int __cdecl main(int argc, const char **argv, const char **envp)
-&#123;
-  __int64 v4; // [rsp+8h] [rb...
             
           </div>
         
@@ -529,7 +504,7 @@ int __cdecl main(int argc, const char **argv, const char **envp)
      
     <a class="right-panel  non-pic  "
       
-      href="/2022/07/26/DASCTF2022%E4%B8%83%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9B-eyfor/" 
+      href="/2022/02/06/%E5%85%B3%E4%BA%8Epython%E5%87%BA%E7%8E%B0-RequestsDependencyWarning-%E5%BC%82%E5%B8%B8/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
@@ -549,7 +524,7 @@ int __cdecl main(int argc, const char **argv, const char **envp)
    
 
 
-<article id="post-SDCTF-2022-Oil-Spill" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+<article id="post-For-Final-Exam-计算机网络期末复习大纲" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
     <div class="article-main">
@@ -560,7 +535,7 @@ int __cdecl main(int argc, const char **argv, const char **envp)
   
     
       <h1 itemprop="name">
-        <a class="p-name article-title" href="/2022/07/05/SDCTF-2022-Oil-Spill/">SDCTF 2022 Oil Spill</a>
+        <a class="p-name article-title" href="/2022/01/08/For-Final-Exam-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E5%A4%A7%E7%BA%B2/">(For Final Exam)计算机网络期末复习大纲</a>
       </h1>
     
   
@@ -568,94 +543,7 @@ int __cdecl main(int argc, const char **argv, const char **envp)
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2022-07-04T16:54:00.000Z" itemprop="datePublished">2022-07-05</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-    Uncategorized 
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-             words 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              checksec
-Arch:     amd64-64-little
-RELRO:    No RELRO
-Stack:    Canary found
-NX:       NX enabled
-PIE:      No PIE (0x400000)
-开启了Canary和堆栈不可执行
-main
-                push    rbp
-.text:000000000040068B                 mov     rbp, rsp
-.text:000000000040068E                 sub     rsp, 150h
-.text:0000000000400695                 mov     [rbp+var_144], edi
-.text:000000000040069B                 mov     [rbp+var_150], rsi
-.text:00000000004006A2                 mov     rax, fs:28h
-.text:00000000004...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/2022/07/05/SDCTF-2022-Oil-Spill/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-   
-
-
-<article id="post-For-Final-Exam-JavaScript：web前端部分知识总结" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/2022/06/22/For-Final-Exam-JavaScript%EF%BC%9Aweb%E5%89%8D%E7%AB%AF%E9%83%A8%E5%88%86%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">(For Final Exam)JavaScript：web前端部分知识总结</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2022-06-22T07:56:00.000Z" itemprop="datePublished">2022-06-22</time>
+  <time class="dt-published" datetime="2022-01-08T06:29:00.000Z" itemprop="datePublished">2022-01-08</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
@@ -677,45 +565,41 @@ main
         
           <div class="truncate-text">
             
-              HTML&amp;CSS
+              计算机网络
+第一章 概述
+什么是计算机网络
 
-
-web应用程序出现之前，客户机/服务器(C/S)是应用程序的主流框架
-
-
-客户机主要任务：
-
-1.建立和断开于服务器端的连接
-2.提交数据访问请求
-3.等待服务通告，接收请求结果或错误
-4.处理数据库访问结果或错误，包括重发请求和终止请求
-提供友好的应用程序用户界面
-数据输入/输出及验证
+计算机网络是指将地理位置不同的具有独立功能的多台计算机及其外部设备，通过通信线路连接起来，在网络操作系统，网络管理软件及网络通信协议的管理和协调下，实现资源共享和信息传递的计算机系统
 
 
 
-服务器端任务：
+计算机网络通信的一个显著特点就是
 
-为多用户管理一个独立的数据库
-管理和处理接收到的数据访问请求，包括管理请求队列，管理缓存，响应服务，管理结果和通知服务的完成
-管理用户账号，控制数据库访问权限和其他安全性
-维护数据库，包括数据库备份和恢复等
-保证数据库数据的完整或为用户提供完整性控制手段
+间歇性
+突发性
 
 
 
-
-
-如果用户请求执行的是ASP或者PHP脚本，则web服务器应用程序将解析并执行脚本，最后将结果转换成HTML格式，，并返回到客户端
-
-
-br标签是HTML中的换行符,一般结束标签放在开始标签中,即&lt;br/&gt;
-
-
-pre标签用于定义预格式化的文本,其中的文本会以等宽字体显示,并保留空格和换行符.&lt;pre&gt;标签通常可以用来显示源代码
-
-
-li标签用于定义列表项目,...
+网络的类型
+graph TD;
+计算机网络的类型 --> 按照拓扑分类;
+计算机网络的类型 --> 按照范围分类;
+计算机网络的类型 --> 按照传输方式分类;
+按照拓扑分类--> 星型结构;
+按照拓扑分类--> 树形结构;
+按照拓扑分类--> 环形结构;
+按照拓扑分类--> 总线型结构;
+按照拓扑分类--> 网状结构;
+按照范围分类 --> 局域网LAN;
+按照范围分类 --> 城域网MAN;
+按照范围分类 --> 广域网WAN;
+按照范围分类 --> 个人区域网PAN;
+按照范围分类 --> 互联网Internet;
+按照传输方式分类 --> 有线网络;
+有线网络 --> IEEE802.3;
+按照传输方式分类 --> 无线网络;
+无线网络 --> IEEE802.11;
+无线网络 --...
             
           </div>
         
@@ -727,7 +611,7 @@ li标签用于定义列表项目,...
      
     <a class="right-panel  non-pic  "
       
-      href="/2022/06/22/For-Final-Exam-JavaScript%EF%BC%9Aweb%E5%89%8D%E7%AB%AF%E9%83%A8%E5%88%86%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" 
+      href="/2022/01/08/For-Final-Exam-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E5%A4%A7%E7%BA%B2/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
@@ -747,7 +631,7 @@ li标签用于定义列表项目,...
    
 
 
-<article id="post-OGeek2019-babyrop" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+<article id="post-For-Final-Exam-java-期末复习总结" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
     <div class="article-main">
@@ -758,7 +642,7 @@ li标签用于定义列表项目,...
   
     
       <h1 itemprop="name">
-        <a class="p-name article-title" href="/2022/06/04/OGeek2019-babyrop/">OGeek2019 babyrop</a>
+        <a class="p-name article-title" href="/2021/12/19/For-Final-Exam-java-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%80%BB%E7%BB%93/">(For Final Exam)java 期末复习总结</a>
       </h1>
     
   
@@ -766,7 +650,7 @@ li标签用于定义列表项目,...
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2022-06-04T09:34:00.000Z" itemprop="datePublished">2022-06-04</time>
+  <time class="dt-published" datetime="2021-12-19T15:10:00.000Z" itemprop="datePublished">2021-12-19</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
@@ -781,41 +665,58 @@ li标签用于定义列表项目,...
           </div>
         </div>
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/exam/" rel="tag">exam</a></li></ul>
 
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
           <div class="truncate-text">
             
-              checksec
-Arch:     i386-32-little
-RELRO:    Full RELRO
-Stack:    No canary found
-NX:       NX enabled
-PIE:      No PIE (0x8048000)
-main
-int __cdecl main()
-&#123;
-  int buf; // [esp+4h] [ebp-14h] BYREF
-  char v2; // [esp+Bh] [ebp-Dh]
-  int fd; // [esp+Ch] [ebp-Ch]
+              Unicode编码
 
-  sub_80486BB();
-  fd = open("/dev/urandom", 0);
-  if ( fd > 0 )
-    read(fd, &amp;buf, 4u);
-  v2 = sub_804871F(buf); 
-  sub_80487D0(v2); 
-  return 0;
+Unicode 统一码，万国码
+目标是支持世界上所有的字符
+表示：在值前面加上前缀/u
+
+耦合
+
+
+耦合也叫块间联系，指软件系统结构中各模块之间相互联系紧密程度的一种度量，模块之间联系越紧密，其耦合性就越强，模块之间越独立，耦合性就越差
+
+
+package
+
+
+同一个包中类的名字是不同的，不同的包中类的名字可以相同，当同时调用两个不同包中相同类名的类时，应该加上包名加以区别，因此，包可以避免名字冲突
+
+
+包也限定了访问权限，拥有包访问权限的类才能访问其中某个包的类
+
+
+继承
+
+
+继承就是子类继承父类的特征和行为，使得子类对象(实例)具有父类的实例和方法；或子类从父类继承方法，使得子类具有父类相同的行为
+
+
+一个Java类只能有一个父类
+
+
+继承关键字：extends和implements和final
+
+
+class father&#123;
+	
+&#125;
+class children extends father&#123;
+
 &#125;
 
 
-/dev/urandom : Unix系统中的特殊设备文件,可用作随机数发生器或者伪随机数发生器
+java不支持多继承，但是支持多重继承(java中类只允许单一继承)，但可以通过接口实现多继承
 
 
-sub_804871F
-int __cde...
+继承后，子...
             
           </div>
         
@@ -827,7 +728,7 @@ int __cde...
      
     <a class="right-panel  non-pic  "
       
-      href="/2022/06/04/OGeek2019-babyrop/" 
+      href="/2021/12/19/For-Final-Exam-java-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%80%BB%E7%BB%93/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
@@ -847,7 +748,7 @@ int __cde...
    
 
 
-<article id="post-BJDCTF2020-Cookie-is-so-subtle" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+<article id="post-Hola-openEuler-（openEuler安装图形界面）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
     <div class="article-main">
@@ -858,7 +759,7 @@ int __cde...
   
     
       <h1 itemprop="name">
-        <a class="p-name article-title" href="/2022/05/30/BJDCTF2020-Cookie-is-so-subtle/">BJDCTF2020 Cookie is so subtle</a>
+        <a class="p-name article-title" href="/2021/06/29/Hola-openEuler-%EF%BC%88openEuler%E5%AE%89%E8%A3%85%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%EF%BC%89/">Hola,openEuler!（openEuler安装图形界面）</a>
       </h1>
     
   
@@ -866,7 +767,7 @@ int __cde...
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2022-05-30T11:12:00.000Z" itemprop="datePublished">2022-05-30</time>
+  <time class="dt-published" datetime="2021-06-29T14:41:00.000Z" itemprop="datePublished">2021-06-29</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
@@ -881,40 +782,42 @@ int __cde...
           </div>
         </div>
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openEuler/" rel="tag">openEuler</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solutions/" rel="tag">solutions</a></li></ul>
 
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
           <div class="truncate-text">
             
-              知识点
+              什么是openEuler
+openEuler是一个开源免费的Linux发行版系统，通过开放的社区形式与全球的开发者共同构建一个开放、多元和架构包容的软件生态体系，openEuler同时是一个创新的系统，倡导客户在系统上提出创新想法、开拓新思路、实践新方案。
+下载镜像
+https://openeuler.org/zh/download/
+这里我下载的是openEuler 20.03 LTS SP1
 
-SSTI模板注入 Cookie注入
+里的openEuler-20.03-LTS-SP1-x86_64-dvd.iso
+新建虚拟机
+VMware新建虚拟机，选择openEuler镜像我比较懒所以用的典型类型的配置客户机操作系统：Linux
+版本：其他Linux 5.x及更高版本内核64位新建好虚拟机后就可以安装了
+#安装
+STEP1------选择中文
+
+STEP2------有三个地方需要设置
+
+1.安装位置
+2.网络和主机名
+3.Root密码然后点击开始安装就好了
 
 
-index.php
+然而还没有结束
 
+openEuler是默认的文本界面，没有图形界面
 
+多少还是有点不习惯的
 
-
-hint.php
-
-
-
-我们在hint.php中看到Why not take a closer look at cookies?,加上题目名字我们可以猜测这道题的漏洞点在cookie上面
-我们通过burpsuite抓下包看一下cookie
-
-页面提交后,cookie这里多了一个user=(msg you input),那么是不是可以命令执行呢
-经过多次尝试,发现这是一个SSTI.即服务器端模板注入,什么是SSTI呢
-SSTI
-是什么 : Server-Side Template Injection
-是什么引发 : render_template渲染函数 , 该函数在渲染时, 对用户输入的变量不做渲染 , &#123;&#123;&#125;&#125;在jinja2中作为变量包裹标识符,即jinja2中,会把&#123;&#123;&#125;&#125;包裹的内容当作变量解析替换,比如4会被解析成4,这样就像sql一样存在注入漏洞
-判断SSTI类型
-
-网上扒拉了一张图
-exp
-那么我们经过测试之后,大...
+于是乎
+安装图形界面
+(这里不仅总结了安装图形界面的过程以...
             
           </div>
         
@@ -926,7 +829,89 @@ exp
      
     <a class="right-panel  non-pic  "
       
-      href="/2022/05/30/BJDCTF2020-Cookie-is-so-subtle/" 
+      href="/2021/06/29/Hola-openEuler-%EF%BC%88openEuler%E5%AE%89%E8%A3%85%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%EF%BC%89/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="post-REVERSE入门" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2021/06/29/REVERSE%E5%85%A5%E9%97%A8/">REVERSE入门</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2021-06-29T14:38:00.000Z" itemprop="datePublished">2021-06-29</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+             words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reverse/" rel="tag">reverse</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              关于REVERSE
+写在前面
+  Hi，这里是关于REVERSE（逆向）的入门。关于逆向，有些话想说。逆向的学习需要理论，也需要实践。广义上，逆向不仅仅是调试二进制可执行格式，反汇编，破解；逆向是心理模型的建立过程，以及模型实现的底层细节的定位过程。从理论上，为了理解一个程序，系统，你读代码，无论是源码还是汇编，甚至二进制机械指令，都是一个逆向过程.  本篇将对REVERSE（逆向）一些常用工具及使用方法进行介绍。逆向所需具备的知识技能很多很杂，要学好逆向和熟练掌握反汇编，编程是必须会的，再接着就是必须熟练密码学，往更高处走，格局放大点，到软件逆向，就需要熟悉软件工程，因为都是会工程化的。如果热爱逆向并且想走这条路，CTF只是开始。
+常用的软件分析工具
+查壳工具
+什么是壳
+在了解查壳工具之前，让我们了解了解壳的概念，这个“壳”是指的什么，为什么会有壳？
+
+
+所谓“壳”，就是专门压缩的工具。这里的压缩并不是我们平时使用的RAR，ZIP这些工具的压缩，而是针对exe、com和dll等程序文件进行压缩，在程序中加入一段如同保护层的代码，加密，使原程序文件代码失去本来面目。其作用是什么呢...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2021/06/29/REVERSE%E5%85%A5%E9%97%A8/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
@@ -950,9 +935,9 @@ exp
       <i class="fa-solid fa-angle-left"></i>
     </a>
     <div id="num-bar">
-      <a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a>  
+      <a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>  
     </div>
-    <a id="next-btn" class="page-nav-btn " href="/page/7/">
+    <a id="next-btn" class="page-nav-btn disabled" href="/">
       <i class="fa-solid fa-angle-right"></i>
     </a>
   </nav>
