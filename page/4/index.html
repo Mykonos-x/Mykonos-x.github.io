@@ -154,6 +154,11 @@
       <h3 class="widget-title">Archives</h3>
       
       
+        <a class="archive-link" href="/archives/2024/06 ">
+          June 2024 
+          <div class="archive-count">1 </div>
+        </a>
+      
         <a class="archive-link" href="/archives/2024/04 ">
           April 2024 
           <div class="archive-count">1 </div>
@@ -264,6 +269,97 @@
     </div>
     <div id="content-body">
       
+   
+
+
+<article id="post-祥云杯2022-little-little-fermat" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2022/11/03/%E7%A5%A5%E4%BA%91%E6%9D%AF2022-little-little-fermat/">祥云杯2022 little little fermat</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2022-11-03T02:37:00.000Z" itemprop="datePublished">2022-11-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            2.9k words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/crypto/" rel="tag">crypto</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              Description
+题目描述：忘了
+附件内容：
+from Crypto.Util.number import *
+from random import *
+from libnum import *
+import gmpy2
+from secret import x
+
+flag = b'?????????'
+m = bytes_to_long(flag)
+def obfuscate(p, k):
+    nbit = p.bit_length()
+    while True:
+        l1 = [getRandomRange(-1, 1) for _ in '_' * k]
+        l2 = [getRandomRange(100, nbit) for _ in '_' * k]
+        l3 = [getRandomRange(10, nbit//4) for _ in '_' * k]
+        l4 = [getRandomRange(2, 6) for _ in '_' *k]
+        A = sum([l1[_] * 2 ** ...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2022/11/03/%E7%A5%A5%E4%BA%91%E6%9D%AF2022-little-little-fermat/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
    
 
 
@@ -802,84 +898,6 @@ int __cdecl __noreturn main(int argc, const char **argv, const char **envp)
     <a class="right-panel  non-pic  "
       
       href="/2022/09/26/axb-2019-fmt32/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-   
-
-
-<article id="post-RSA-with-modulus-n-p²q" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/2022/09/09/RSA-with-modulus-n-p%C2%B2q/">RSA with modulus n=p²q</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2022-09-08T16:47:00.000Z" itemprop="datePublished">2022-09-09</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-    Uncategorized 
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            110 words 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/crypto/" rel="tag">crypto</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rsa/" rel="tag">rsa</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              Description
-今天做题的时候遇到一个$n = p^2*q$这么一个情况的题，记录一下
-
-Attack
-简而言之，我们只需要注意是针对$n = p^2q$的情况，$\phi_n=p(p-1)*(q-1)$就行了其他的攻击步骤照常
-
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/2022/09/09/RSA-with-modulus-n-p%C2%B2q/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
