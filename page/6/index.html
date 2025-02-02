@@ -154,6 +154,11 @@
       <h3 class="widget-title">Archives</h3>
       
       
+        <a class="archive-link" href="/archives/2025/02 ">
+          February 2025 
+          <div class="archive-count">1 </div>
+        </a>
+      
         <a class="archive-link" href="/archives/2025/01 ">
           January 2025 
           <div class="archive-count">1 </div>
@@ -279,6 +284,102 @@
     </div>
     <div id="content-body">
       
+   
+
+
+<article id="post-jarvisoj-level3-x64" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2022/08/29/jarvisoj-level3-x64/">jarvisoj_level3_x64</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2022-08-29T07:13:00.000Z" itemprop="datePublished">2022-08-29</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            2.1k words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              Involved Knowledge
+
+retlibc
+The leak of the write function
+
+checksec
+Arch:     amd64-64-little
+RELRO:    No RELRO
+Stack:    No canary found
+NX:       NX enabled
+PIE:      No PIE (0x400000)
+开启了NX，不能写入shellcode，一般这种情况下我们就往ROP上面考虑了
+Running Program
+Input:
+123(用户输入)
+Hello, World!
+Analyze
+main
+int __cdecl main(int argc, const char **argv, const char **envp)
+&#123;
+  vulnerable_function(argc, argv, envp);
+  return write(1, "Hello, World!\n", 0xEuLL);
+&#125;
+执行vulnerable_function函数，然后输出Hello World! 我...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2022/08/29/jarvisoj-level3-x64/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
    
 
 
@@ -845,101 +946,6 @@ __int64 sub_4013...
     <a class="right-panel  non-pic  "
       
       href="/2022/07/28/DASCTF2022%E4%B8%83%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9B-MyCanary2/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-   
-
-
-<article id="post-DASCTF2022七月赋能赛-eyfor" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/2022/07/26/DASCTF2022%E4%B8%83%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9B-eyfor/">DASCTF2022七月赋能赛 eyfor</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2022-07-26T04:47:00.000Z" itemprop="datePublished">2022-07-26</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-    Uncategorized 
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            2.1k words 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              checksec
-Arch:     amd64-64-little
-RELRO:    Partial RELRO
-Stack:    No canary found
-NX:       NX enabled
-PIE:      No PIE (0x400000)
-File
-pwn4: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=1133aeb41afd0e7b11659d5a27e062c4b34b1474, not stripped
-Analyse
-
-
-run thr program
-
-
-
-
-
-function-main
-
-
-int __cdecl main(int argc, const char **argv, const char **envp)
-&#123;
-  __int64 v4; // [rsp+8h] [rb...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/2022/07/26/DASCTF2022%E4%B8%83%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9B-eyfor/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
