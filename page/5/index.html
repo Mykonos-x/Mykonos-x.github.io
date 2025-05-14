@@ -154,6 +154,11 @@
       <h3 class="widget-title">Archives</h3>
       
       
+        <a class="archive-link" href="/archives/2025/05 ">
+          May 2025 
+          <div class="archive-count">1 </div>
+        </a>
+      
         <a class="archive-link" href="/archives/2025/02 ">
           February 2025 
           <div class="archive-count">1 </div>
@@ -284,6 +289,87 @@
     </div>
     <div id="content-body">
       
+   
+
+
+<article id="post-Statically-Linked" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2022/10/01/Statically-Linked/">Statically Linked</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2022-09-30T16:08:00.000Z" itemprop="datePublished">2022-10-01</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            13k words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              通过file指令可以看到程序编译的链接状态，在知道程序可以通过ROP来打的情况下，根据statically linked和dynamically linked两种链接方式来构造对应的ropchain和对应不同的攻击思路
+dynamically linked
+如果程序是动态链接的话，泄露程序函数的真实地址后拿到libc基址去得到例如system和/bin/sh的地址，这里不再赘述
+statically linked
+如果程序是静态链接，相对与动态链接就没有那么麻烦了，有的程序我们可以通过ROPgadget这个工具来帮助我们构造我们的ropchain
+ROPgadget --binary 程序名 --ropchain
+Example-inndyrop
+m1nus@ubuntu:~/elf/buu/inndy_rop$ file inndy_rop 
+inndy_rop: ELF 32-bit LSB executable, Intel 80386, version 1 (GNU/Linux), statically linked, for GNU/Linux 2.6.32, Buil...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2022/10/01/Statically-Linked/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
    
 
 
@@ -816,114 +902,6 @@ Jc7WLEbPD&#x2F;OnlHMDLArNUYMyB9t0CdLNZZCHE6pbiMaNGS+rwGcqxHbWC...
     <a class="right-panel  non-pic  "
       
       href="/2022/08/30/OneSecretTwoEncryption-ACTF2018/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-   
-
-
-<article id="post-babyRSA-GWCTF-2019" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/2022/08/30/babyRSA-GWCTF-2019/">babyRSA GWCTF 2019</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2022-08-29T17:49:00.000Z" itemprop="datePublished">2022-08-30</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-    Uncategorized 
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            1.4k words 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/crypto/" rel="tag">crypto</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rsa/" rel="tag">rsa</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/write-up/" rel="tag">write-up</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              Involved Knowledge
-
-RSA
-Adjacent Element
-
-Description
-
-import hashlib
-import sympy
-from Crypto.Util.number import *
-
-flag = 'GWHT&#123;******&#125;'
-secret = '******'
-
-assert(len(flag) == 38)
-
-half = len(flag) / 2
-
-flag1 = flag[:half]
-flag2 = flag[half:]
-
-secret_num = getPrime(1024) * bytes_to_long(secret)
-
-p = sympy.nextprime(secret_num)
-q = sympy.nextprime(p)
-
-N = p * q
-
-e = 0x10001
-
-F1 = bytes_to_long(flag1)
-F2 = bytes_to_long(flag2)
-
-c1 = F1 + F2
-c2 = pow(F1, 3) + pow(F2, 3)
-assert(c2 &lt...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/2022/08/30/babyRSA-GWCTF-2019/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
